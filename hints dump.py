@@ -1,5 +1,5 @@
 
-from os import listdir
+from os import listdir, getcwd
 from json import load
 
 from os import abort
@@ -156,17 +156,21 @@ def create_checkbox(label: str, frame: Frame):
 def remove_braces(text: str) -> str:
     return text[1:-1]
 
+
+# DRY: Concat a string together into a path
+def make_path(start_folder: str, new_folder: str) -> str:
+    return '/'.join([start_folder, new_folder])
+
 # =============================================================================
 
 # Get Hints ===================================================================
 
 # Grab the spoiler log path and location
-spoiler_log_folder = ("L:/EmuDepot/trackers/Pixie's TPR Tracker/"
-                    "Pixie's TPR Tracker_Data/SpoilerLog")
+spoiler_log_folder = make_path(getcwd(), 'SpoilerLog')
 
 spoiler_log = listdir(spoiler_log_folder)[0]
 
-spoiler_log_path = '/'.join([spoiler_log_folder, spoiler_log])
+spoiler_log_path = make_path(spoiler_log_folder, spoiler_log)
 
 # Grab the data
 with open(spoiler_log_path, 'r') as f:
