@@ -77,9 +77,7 @@ def item_collection(checkboxes: list,
             collected_items.append(item_being_checked)
 
             # Disable the checkbox.
-            checkbox_group[0].config(state = 'disabled',
-                                     relief = 'ridge',
-                                     bg = '#f0f0f0')
+            checkbox_group[0].config(state = 'disabled')
 
             # Update the collected counters
             match person:
@@ -151,8 +149,7 @@ def create_checkbox(label: str, frame: Frame):
     # Create the checkbox itself
     new_check = Checkbutton(frame, text=label, variable=new_var)
     new_check.config(bg = default_notebook_bg,
-                     activebackground = default_notebook_bg,
-                     disabledforeground = '#aa6a62')
+                     activebackground = default_notebook_bg)
     new_check.pack(padx=5, anchor='w')
 
     # Return both the intvar, and the checkbox.
