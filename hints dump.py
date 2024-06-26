@@ -7,9 +7,14 @@ from os import abort
 from tkinter import Tk, Checkbutton, Frame, IntVar, Label
 from tkinter.ttk import Notebook
 
-# Constants ===================================================================
+# Globals =====================================================================
 
 default_notebook_bg = '#f9f9f9'
+
+# Hacky Collection Tally Pool
+agitha_collected = 0
+jovani_collected = 0
+collected_items = []
 
 # =============================================================================
 
@@ -48,34 +53,48 @@ def item_collection(checkboxes: list,
                     base_frame: Frame,
                     person: str):
     global default_notebook_bg
+    global agitha_collected
+    global jovani_collected
+    global collected_items
 
-    # We will return how many are collected,
-    # for future use and reducing the loop.
-    collected = 0
+    # The test for if everything is collected for this person
+    all_collected = False
 
     # Find the one that's set
-    for checkbox_group in checkboxes:
+    for index, checkbox_group in [*enumerate(checkboxes)]:
         # Grab the state of the checkbox
         check_state = checkbox_group[1].get()
 
+        # Grab the item this goes with
+        item_being_checked = base_checklist[index]
+
         # If it is 1, then that is the one we need to update
-        if check_state == 1:
-            # Set the state to 2 to indicate that it's set,
-            # and will not be unset.
-            checkbox_group[1].set(2)
+        # if it is not already marked as collected
+        if ((check_state == 1) and
+            (not (item_being_checked in collected_items))):
+
+            # Store the item
+            collected_items.append(item_being_checked)
 
             # Disable the checkbox.
             checkbox_group[0].config(state = 'disabled',
                                      relief = 'ridge',
                                      bg = '#f0f0f0')
 
-            # And add that to the collected check
-            collected += 1
-        # Count all of the collected items
-        elif check_state == 2:
-            collected += 1
+            # Update the collected counters
+            match person:
+                case 'Agitha':
+                    agitha_collected += 1
+                    all_collected = (agitha_collected == len(checkboxes))
+                case 'Jovani':
+                    jovani_collected += 1
+                    all_collected = (jovani_collected == len(checkboxes))
 
-    if collected == len(checkboxes):
+            # No longer need to continue the loop
+            break
+
+    # Update the box if all is collected
+    if all_collected:
         # Empty the frame
         for widget in base_frame.winfo_children():
             widget.destroy()
