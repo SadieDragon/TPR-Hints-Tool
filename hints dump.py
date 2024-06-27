@@ -8,7 +8,7 @@ from os import abort
 from tkinter import Tk, Checkbutton, Frame, IntVar, Label
 from tkinter.ttk import Notebook
 
-from re import findall
+from re import findall, sub
 
 # Globals =====================================================================
 
@@ -211,6 +211,9 @@ for sign, hints_data in [*hints.items()]:
         # Replace ♂ and ♀ so Python doesn't freak out when displaying
         hint_text = hint_text.replace('â™‚', 'male')
         hint_text = hint_text.replace('â™€', 'female')
+
+        # Clean up any excess spaces
+        hint_text = sub(' +', ' ', hint_text)
 
         # Special handling for Agitha
         if sign == 'Agithas_Castle_Sign':
