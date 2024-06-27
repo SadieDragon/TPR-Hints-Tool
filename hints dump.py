@@ -10,8 +10,9 @@ from tkinter.ttk import Notebook
 
 from re import findall, sub
 
-# Globals =====================================================================
+# Global Variables ============================================================
 
+# The default notebook color
 default_notebook_bg = '#f9f9f9'
 
 # Hacky Collection Tally Pool
@@ -23,23 +24,38 @@ collected_items = []
 
 # Function Land ===============================================================
 
-# An error case.
-def case_not_expected():
+# An error case. (I like adding things and forgetting that I did.)
+def case_not_expected() -> None:
+    '''An error handling for debug purposes.'''
     print('I did not expect this option, dear dev.')
     abort()
 
 
-# DRY: Make label text for post completion.
-def create_text_checklist(start_str: str, checklist: list):
-    # Append the starting string to the checklist
-    textlist = [start_str] + checklist
-
-    # And then button it together.
-    return '\n- '.join(textlist)
+# DRY
+def findall_to_list(regex: str, to_parse: str) -> list:
+    '''Returns the findall result as a list instead of tuple.'''
+    return [*findall(regex, to_parse)[0]]
 
 
-# DRY: Create a label with the text for post complete.
-def completion_label(frame: Frame, completion_text: str):
+# DRY
+def create_notebook_tab() -> Frame:
+    '''Turn a frame into a notebook tab.'''
+    global root, notebook, default_notebook_bg, current_category
+
+    new_frame = Frame(notebook,
+                      width = 450,
+                      height = 450,
+                      bg = default_notebook_bg)
+    new_frame.pack(padx=5, expand=True)
+    notebook.add(new_frame, text=current_category)
+
+    # This will be used to pack things into
+    return new_frame
+
+
+# DRY
+def completion_label(frame: Frame, completion_text: str) -> None:
+    '''Create a label with the supplied text for when the checklist is done.'''
     new_label = Label(frame,
                       text = completion_text,
                       bg = default_notebook_bg,
@@ -48,13 +64,61 @@ def completion_label(frame: Frame, completion_text: str):
     new_label.pack(anchor='nw', padx=5, pady=5)
 
 
-# DRY: The item completion and collection framework is the
-# same for both Jovani and Agitha, so I'm just going to make the
-# framework.
+# DRY
+def create_checkbox(label: str, frame: Frame) -> list:
+    '''Create the shopping lists.'''
+    global default_notebook_bg, current_category
+
+    # Create the variable to store the state
+    new_var = IntVar()
+
+    # Create the checkbox itself
+    new_check = Checkbutton(frame, text=label, variable=new_var)
+    new_check.config(bg = default_notebook_bg,
+                     activebackground = default_notebook_bg)
+    new_check.pack(padx=5, anchor='w')
+
+    # Return both the intvar, and the checkbox.
+    output = [new_check, new_var]
+
+    # Set the command
+    match current_category:
+        case "Agitha's Castle":
+            new_check.config(command = agitha_item_get)
+        case "Jovani's Poes":
+            new_check.config(command = jovani_item_get)
+        case _:
+            case_not_expected()
+
+    # Used later
+    return output
+
+
+def agitha_item_get() -> None:
+    '''Passes item_collection() the information for Agitha'''
+    global agitha_checks, agitha_checklist, agitha_frame
+
+    item_collection(agitha_checks,
+                    agitha_checklist,
+                    agitha_frame,
+                    'Agitha')
+
+
+def jovani_item_get() -> None:
+    '''Passes item_collection() the information for Agitha.'''
+    global jovani_checks, jovani_reward_checklist, jovani_frame
+
+    item_collection(jovani_checks,
+                    jovani_reward_checklist,
+                    jovani_frame,
+                    'Jovani')
+
+
 def item_collection(checkboxes: list,
                     base_checklist: list,
                     base_frame: Frame,
-                    person: str):
+                    person: str) -> None:
+    '''The item completion and collection framework for the shopping lists.'''
     global default_notebook_bg
     global agitha_collected
     global jovani_collected
@@ -110,70 +174,14 @@ def item_collection(checkboxes: list,
         completion_label(base_frame, new_text)
 
 
-# Pass forward the information for Agitha's tab when an item is clicked
-def agitha_item_get():
-    global agitha_checks, agitha_checklist, agitha_frame
+# DRY
+def create_text_checklist(start_str: str, checklist: list) -> str:
+    '''Make label text for post completion.'''
+    # Append the starting string to the checklist
+    textlist = [start_str] + checklist
 
-    item_collection(agitha_checks,
-                    agitha_checklist,
-                    agitha_frame,
-                    'Agitha')
-
-
-# Pass forward the information for Jovani's tab when an item is clicked
-def jovani_item_get():
-    global jovani_checks, jovani_reward_checklist, jovani_frame
-
-    item_collection(jovani_checks,
-                    jovani_reward_checklist,
-                    jovani_frame,
-                    'Jovani')
-
-
-# DRY- create a notebook tab
-def create_notebook_tab():
-    global root, notebook, default_notebook_bg, current_category
-
-    new_frame = Frame(notebook, width=450, height=450, bg=default_notebook_bg)
-    new_frame.pack(padx=5, expand=True)
-    notebook.add(new_frame, text=current_category)
-
-    # This will be used to pack things into
-    return new_frame
-
-
-# DRY- create the checklist widgets
-def create_checkbox(label: str, frame: Frame):
-    global default_notebook_bg, current_category
-
-    # Create the variable to store the state
-    new_var = IntVar()
-
-    # Create the checkbox itself
-    new_check = Checkbutton(frame, text=label, variable=new_var)
-    new_check.config(bg = default_notebook_bg,
-                     activebackground = default_notebook_bg)
-    new_check.pack(padx=5, anchor='w')
-
-    # Return both the intvar, and the checkbox.
-    output = [new_check, new_var]
-
-    # Set the command
-    match current_category:
-        case "Agitha's Castle":
-            new_check.config(command = agitha_item_get)
-        case "Jovani's Poes":
-            new_check.config(command = jovani_item_get)
-        case _:
-            case_not_expected()
-
-    # Used later
-    return output
-
-
-# DRY: Returns the findall result as a list instead of tuple
-def findall_to_list(regex: str, to_parse: str) -> list:
-    return [*findall(regex, to_parse)[0]]
+    # And then button it together.
+    return '\n- '.join(textlist)
 
 # =============================================================================
 
