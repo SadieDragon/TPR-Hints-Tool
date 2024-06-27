@@ -47,14 +47,10 @@ def create_text_checklist(start_str: str, checklist: list) -> str:
 # GUI Functions ===============================================================
 
 # DRY
-def create_notebook_tab() -> Frame:
+def create_notebook_tab(notebook: Notebook, current_category: str) -> Frame:
     '''Turn a frame into a notebook tab.'''
-    global root, notebook, default_notebook_bg, current_category
 
-    new_frame = Frame(notebook,
-                      width = 450,
-                      height = 450,
-                      bg = default_notebook_bg)
+    new_frame = Frame(notebook, width=450, height=450, bg=default_notebook_bg)
     new_frame.pack(padx=5, expand=True)
     notebook.add(new_frame, text=current_category)
 
@@ -74,9 +70,8 @@ def completion_label(frame: Frame, completion_text: str) -> None:
 
 
 # DRY
-def create_checkbox(label: str, frame: Frame) -> list:
+def create_checkbox(label: str, frame: Frame, command=None) -> tuple:
     '''Create the shopping lists.'''
-    global default_notebook_bg, current_category
 
     # Create the variable to store the state
     new_var = IntVar()
@@ -87,21 +82,13 @@ def create_checkbox(label: str, frame: Frame) -> list:
                      activebackground = default_notebook_bg)
     new_check.pack(padx=5, anchor='w')
 
+    if command:
+        new_check.config(command=command)
+
     # Return both the intvar, and the checkbox.
-    output = [new_check, new_var]
+    return [new_check, new_var]
 
-    # Set the command
-    match current_category:
-        case "Agitha's Castle":
-            new_check.config(command = agitha_item_get)
-        case "Jovani's Poes":
-            new_check.config(command = jovani_item_get)
-        case _:
-            case_not_expected()
-
-    # Used later
-    return output
-
+# =============================================================================
 
 def agitha_item_get() -> None:
     '''Passes item_collection() the information for Agitha'''
@@ -265,7 +252,7 @@ notebook.pack(padx=5, pady=5, expand=False, anchor='nw')
 current_category = "Agitha's Castle"
 
 # Create the tab for Agitha's Castle
-agitha_frame = create_notebook_tab()
+agitha_frame = create_notebook_tab(notebook, current_category)
 
 agitha_checks = []
 # Should Jovani have nothing, inform the player.
@@ -278,7 +265,9 @@ if not agitha_checklist:
 else:
     # Create the checklist
     for agitha_item in agitha_checklist:
-        agitha_checks.append(create_checkbox(agitha_item, agitha_frame))
+        agitha_checks.append(create_checkbox(agitha_item,
+                                             agitha_frame,
+                                             agitha_item_get))
 
 # =============================================================================
 
@@ -288,7 +277,7 @@ else:
 current_category = "Jovani's Poes"
 
 # Create the tab for Jovani
-jovani_frame = create_notebook_tab()
+jovani_frame = create_notebook_tab(notebook, current_category)
 
 # Go through and parse the rewards that jovani gives
 bad_jovani_rewards = []
@@ -311,7 +300,9 @@ for threshold, reward_quality in [*jovani_rewards.items()]:
 jovani_checks = []
 if len(jovani_reward_checklist) != 0:
     for reward in jovani_reward_checklist:
-        jovani_checks.append(create_checkbox(reward, jovani_frame))
+        jovani_checks.append(create_checkbox(reward,
+                                             jovani_frame,
+                                             jovani_item_get))
 # Otherwise, inform the player.
 else:
     # Create the text for the label
