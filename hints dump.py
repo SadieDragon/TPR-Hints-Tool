@@ -171,11 +171,6 @@ def create_checkbox(label: str, frame: Frame):
     return output
 
 
-# DRY: Remove the {} from the important texts of Jovani and Agitha.
-def remove_braces(text: str) -> str:
-    return text[1:-1]
-
-
 # DRY: Returns the findall result as a list instead of tuple
 def findall_to_list(regex: str, to_parse: str) -> list:
     return [*findall(regex, to_parse)[0]]
