@@ -194,19 +194,18 @@ if __name__ == '__main__':
     hints = spoiler_log_data['hints']
 
     # Nab the hint texts
-    hint_texts = []
     agitha_checklist = ''
     jovani_rewards = {}
-    for sign, hints_data in [*hints.items()]:
+    hint_texts = []
+    for sign, hints_data in hints.items():
         # Cycle through the hints
         for hint_data in hints_data:
             # Grab the hint text itself.
             hint_text = hint_data['text']
 
-            # Replace ♂ and ♀ so Python doesn't freak out when displaying
+            # Replace ♂ and ♀ (special characters)
             hint_text = hint_text.replace('â™‚', 'male')
             hint_text = hint_text.replace('â™€', 'female')
-
             # Clean up any excess spaces
             hint_text = sub(r' +', ' ', hint_text)
 
@@ -216,6 +215,7 @@ if __name__ == '__main__':
                 rewards = hint_text.split(': ')[1]
                 # Remove the braces, and split into a list
                 agitha_checklist = rewards[1:-1].split(', ')
+
             # Special handling for Jovani
             elif sign == 'Jovani_House_Sign':
                 # Split the text into the two lines (Thx jaq for this regex)
@@ -232,6 +232,7 @@ if __name__ == '__main__':
 
                     # Then store the rewards for later handling
                     jovani_rewards[threshold] = item_quality
+
             # Normal hints
             elif 'They say that ' in hint_text:
                 hint_texts.append(hint_text.replace('They say that ', ''))
