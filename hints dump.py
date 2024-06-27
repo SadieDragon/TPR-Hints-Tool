@@ -13,11 +13,6 @@ from tkinter.ttk import Notebook
 # The default notebook color
 default_notebook_bg = '#f9f9f9'
 
-# Hacky Collection Tally Pool
-agitha_collected = 0
-jovani_collected = 0
-collected_items = []
-
 # =============================================================================
 
 # Utility Functions ===========================================================
@@ -49,7 +44,9 @@ def create_text_checklist(start_str: str, checklist: list) -> str:
 # GUI Functions ===============================================================
 
 # DRY
-def create_notebook_tab(notebook: Notebook, current_category: str) -> Frame:
+def create_notebook_tab(notebook: Notebook,
+                        current_category: str,
+                        make_label = True) -> list:
     '''Turn a frame into a notebook tab.'''
 
     # Grab a list of the previous frames
@@ -61,12 +58,19 @@ def create_notebook_tab(notebook: Notebook, current_category: str) -> Frame:
         for child in previous_frames[1:]:
             child.destroy()
 
+    # The new frame
     new_frame = Frame(notebook, width=450, height=450, bg=default_notebook_bg)
     new_frame.pack(padx=5, expand=True)
     notebook.add(new_frame, text=current_category)
 
+    new_label = ''
+    if make_label:
+        # And pack a Label into there for later adjusting
+        new_label = Label(new_frame, bg=default_notebook_bg)
+        new_label.pack(padx=5, pady=5, anchor='nw')
+
     # This will be used to pack things into
-    return new_frame
+    return [new_label, new_frame]
 
 
 # DRY
@@ -96,8 +100,8 @@ def create_checkbox(label: str, frame: Frame, command=None) -> tuple:
     if command:
         new_check.config(command=command)
 
-    # Return both the intvar, and the checkbox.
-    return [new_check, new_var]
+    # Return the intvar for later parsing
+    return new_var
 
 # =============================================================================
 
@@ -183,36 +187,45 @@ def parse_hints(spoiler_log_data):
 
 # Populate Agitha's Castle tab
 def agithas_castle(agitha_list: list):
-    global agitha_checks, agitha_checklist, agitha_frame
+    global agitha_checks, agitha_frame, agitha_text
 
     # Make the input list a global var
     agitha_checklist = agitha_list
 
     # Create the tab for Agitha's Castle
-    agitha_frame = create_notebook_tab(notebook, "Agitha's Castle")
+    # (grabbing the label to update the text later)
+    agitha_label, agitha_frame = create_notebook_tab(notebook,
+                                                     "Agitha's Castle")
 
-    agitha_checks = []
+    # The text to be set later
+    agitha_text = StringVar()
     # Should Agitha have nothing, inform the player.
+    agitha_checks = {}
     if not agitha_checklist:
         # Create the text for the label
         blank_text = 'Agitha gives you GREAT... sadness...'
 
         # And then create the label.
         completion_label(agitha_frame, blank_text)
+
+    # Otherwise, inform the player.
     else:
         # Create the checklist
         for agitha_item in agitha_checklist:
-            agitha_checks.append(create_checkbox(agitha_item,
-                                                agitha_frame,
-                                                command=agitha_item_get))
+            # PEP 8 character limit compliance
+            checkbox_var = create_checkbox(agitha_item,
+                                           agitha_frame,
+                                           command = agitha_item_get)
+            # Store the item and the intvar for later parsing
+            agitha_checks[agitha_item] = checkbox_var
+
+    # Configure the label to use the new textvar
+    agitha_label.config(textvariable=agitha_text)
 
 
 # Populate Jovani's Redemption tab
 def jovanis_redemption(jovani_rewards: dict):
-    global jovani_checks, jovani_checklist, jovani_frame
-
-    # Create the tab for Jovani
-    jovani_frame = create_notebook_tab(notebook, "Jovani's Poes")
+    global jovani_checks, jovani_frame, jovani_text
 
     # Go through and parse the rewards that jovani gives
     bad_jovani_rewards = []
@@ -231,13 +244,23 @@ def jovanis_redemption(jovani_rewards: dict):
         elif quality in ['good', 'required']:
             jovani_checklist.append(threshold_reward)
 
+    # Create the tab for Jovani (grabbing the label to update the text later)
+    jovani_label, jovani_frame = create_notebook_tab(notebook, "Jovani's Poes")
+
+    # Text to be set later
+    jovani_text = StringVar()
     # If there are at least 1, then make the checklist.
-    jovani_checks = []
+    jovani_checks = {}
     if len(jovani_checklist) != 0:
         for reward in jovani_checklist:
-            jovani_checks.append(create_checkbox(reward,
-                                                jovani_frame,
-                                                jovani_item_get))
+            # PEP 8 character limit compliance
+            checkbox_var = create_checkbox(reward,
+                                           jovani_frame,
+                                           command = jovani_item_get)
+
+            # Store the item and the intvar for later parsing
+            agitha_checks[reward] = checkbox_var
+
     # Otherwise, inform the player.
     else:
         # Create the text for the label
@@ -248,81 +271,53 @@ def jovanis_redemption(jovani_rewards: dict):
         # And then create the label.
         completion_label(jovani_frame, blank_text)
 
+    # Configure the label to use the new textvar
+    jovani_label.config(textvariable=jovani_text)
+
 
 # Populate the last tab [FUTURE]
 def normal_hints_tab(hints: list):
-    print('hints')
+    print('hints -i am debug!-')
 
 # =============================================================================
 
 # Item Collection Logic =======================================================
 
-def item_collection(checkboxes: list,
-                    base_checklist: list,
+def item_collection(checkboxes: dict,
                     base_frame: Frame,
-                    person: str) -> None:
+                    person: str,
+                    label_var: StringVar) -> None:
     '''The item completion and collection framework for the shopping lists.'''
-    global agitha_collected, jovani_collected, collected_items
 
-    # The test for if everything is collected for this person
-    all_collected = False
+    # Go through and parse the intvars without resetting
+    # the base checklist, for easier parsing.
+    checked = []
+    for int_var in checkboxes.values():
+        checked.append(int_var.get())
 
-    # Find the one that's set
-    for index, (checkbox, var) in enumerate(checkboxes):
-        # Grab the state of the checkbox
-        check_state = var.get()
+    # And then if all are true, update the label text
+    if all(checked):
+        # Could be 1 line but it's a bit easier to understand split up
+        label_text = ('Congratulations!'
+                      ' There is nothing left to collect here.\n'
+                      f'You have collected the following from {person}:\n')
+        label_var.set(label_text)
 
-        # Grab the item this goes with
-        item_being_checked = base_checklist[index]
-
-        # If it is 1, then that is the one we need to update
-        # if it is not already marked as collected
-        if ((check_state == 1) and
-            (item_being_checked not in collected_items)):
-            # Store the item
-            collected_items.append(item_being_checked)
-
-            # Disable the checkbox.
-            checkbox.config(state='disabled')
-
-            if person == 'Agitha':
-                agitha_collected += 1
-                all_collected = (agitha_collected == len(checkboxes))
-            elif person == 'Jovani':
-                jovani_collected += 1
-                all_collected = (jovani_collected == len(checkboxes))
-
-            # No longer need to continue the loop
-            break
-
-    # Update the box if all is collected
-    if all_collected:
-        # Empty the frame
-        for widget in base_frame.winfo_children():
-            widget.destroy()
-
-        # Create the text we're gonna be displaying
-        new_text = ('Congratulations! There is nothing left to collect here.\n'
-                    f'You have collected the following from {person}:\n')
-
-        new_text = create_text_checklist(new_text, base_checklist)
-
-        # And create the label.
-        completion_label(base_frame, new_text)
+    print(base_frame.winfo_children())
 
 
 def agitha_item_get() -> None:
     '''Passes item_collection() the information for Agitha'''
-    global agitha_checks, agitha_checklist, agitha_frame
+    global agitha_checks, agitha_frame, agitha_text
 
-    item_collection(agitha_checks, agitha_checklist, agitha_frame, 'Agitha')
+    item_collection(agitha_checks, agitha_frame, 'Agitha', agitha_text)
 
 
 def jovani_item_get() -> None:
     '''Passes item_collection() the information for Jovani.'''
-    global jovani_checks, jovani_checklist, jovani_frame
+    global jovani_checks, jovani_frame, jovani_text
 
-    item_collection(jovani_checks, jovani_checklist, jovani_frame, 'Jovani')
+    item_collection(jovani_checks, jovani_frame, 'Jovani', jovani_text)
 
 # =============================================================================
 
@@ -359,7 +354,7 @@ if __name__ == '__main__':
     # Intro Page ------------------------------------------------------
     # DRY / easy change in the future
     current_category = "Main Page"
-    main_page_frame = create_notebook_tab(notebook, current_category)
+    main_page_frame = create_notebook_tab(notebook, current_category, False)[1]
     # -----------------------------------------------------------------
 
     # Pick a spoiler log ------------------------------------------------------
