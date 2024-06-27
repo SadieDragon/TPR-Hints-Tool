@@ -1,14 +1,10 @@
 
-from pathlib import Path
-from os import listdir, getcwd
 from json import load
-
-from os import abort
-
+from os import listdir, getcwd, abort
+from pathlib import Path
+from re import findall, sub
 from tkinter import Tk, Checkbutton, Frame, IntVar, Label
 from tkinter.ttk import Notebook
-
-from re import findall, sub
 
 # Global Variables ============================================================
 
@@ -22,7 +18,13 @@ collected_items = []
 
 # =============================================================================
 
-# Function Land ===============================================================
+# Utility Functions ===========================================================
+
+# DRY
+def findall_to_list(regex: str, to_parse: str) -> list:
+    '''Returns the findall result as a list instead of tuple.'''
+    return [*findall(regex, to_parse)[0]]
+
 
 # An error case. (I like adding things and forgetting that I did.)
 def case_not_expected() -> None:
@@ -32,10 +34,17 @@ def case_not_expected() -> None:
 
 
 # DRY
-def findall_to_list(regex: str, to_parse: str) -> list:
-    '''Returns the findall result as a list instead of tuple.'''
-    return [*findall(regex, to_parse)[0]]
+def create_text_checklist(start_str: str, checklist: list) -> str:
+    '''Make label text for post completion.'''
+    # Append the starting string to the checklist
+    textlist = [start_str] + checklist
 
+    # And then button it together.
+    return '\n- '.join(textlist)
+
+# =============================================================================
+
+# GUI Functions ===============================================================
 
 # DRY
 def create_notebook_tab() -> Frame:
@@ -172,16 +181,6 @@ def item_collection(checkboxes: list,
 
         # And create the label.
         completion_label(base_frame, new_text)
-
-
-# DRY
-def create_text_checklist(start_str: str, checklist: list) -> str:
-    '''Make label text for post completion.'''
-    # Append the starting string to the checklist
-    textlist = [start_str] + checklist
-
-    # And then button it together.
-    return '\n- '.join(textlist)
 
 # =============================================================================
 
