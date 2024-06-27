@@ -90,43 +90,22 @@ def create_checkbox(label: str, frame: Frame, command=None) -> tuple:
 
 # =============================================================================
 
-def agitha_item_get() -> None:
-    '''Passes item_collection() the information for Agitha'''
-    global agitha_checks, agitha_checklist, agitha_frame
-
-    item_collection(agitha_checks,
-                    agitha_checklist,
-                    agitha_frame,
-                    'Agitha')
-
-
-def jovani_item_get() -> None:
-    '''Passes item_collection() the information for Agitha.'''
-    global jovani_checks, jovani_reward_checklist, jovani_frame
-
-    item_collection(jovani_checks,
-                    jovani_reward_checklist,
-                    jovani_frame,
-                    'Jovani')
-
+# Item Collection Logic =======================================================
 
 def item_collection(checkboxes: list,
                     base_checklist: list,
                     base_frame: Frame,
                     person: str) -> None:
     '''The item completion and collection framework for the shopping lists.'''
-    global default_notebook_bg
-    global agitha_collected
-    global jovani_collected
-    global collected_items
+    global agitha_collected, jovani_collected, collected_items
 
     # The test for if everything is collected for this person
     all_collected = False
 
     # Find the one that's set
-    for index, checkbox_group in [*enumerate(checkboxes)]:
+    for index, (checkbox, var) in enumerate(checkboxes):
         # Grab the state of the checkbox
-        check_state = checkbox_group[1].get()
+        check_state = var.get()
 
         # Grab the item this goes with
         item_being_checked = base_checklist[index]
@@ -134,22 +113,19 @@ def item_collection(checkboxes: list,
         # If it is 1, then that is the one we need to update
         # if it is not already marked as collected
         if ((check_state == 1) and
-            (not (item_being_checked in collected_items))):
-
+            (item_being_checked not in collected_items)):
             # Store the item
             collected_items.append(item_being_checked)
 
             # Disable the checkbox.
-            checkbox_group[0].config(state = 'disabled')
+            checkbox.config(state='disabled')
 
-            # Update the collected counters
-            match person:
-                case 'Agitha':
-                    agitha_collected += 1
-                    all_collected = (agitha_collected == len(checkboxes))
-                case 'Jovani':
-                    jovani_collected += 1
-                    all_collected = (jovani_collected == len(checkboxes))
+            if person == 'Agitha':
+                agitha_collected += 1
+                all_collected = (agitha_collected == len(checkboxes))
+            elif person == 'Jovani':
+                jovani_collected += 1
+                all_collected = (jovani_collected == len(checkboxes))
 
             # No longer need to continue the loop
             break
@@ -168,6 +144,20 @@ def item_collection(checkboxes: list,
 
         # And create the label.
         completion_label(base_frame, new_text)
+
+
+def agitha_item_get() -> None:
+    '''Passes item_collection() the information for Agitha'''
+    global agitha_checks, agitha_checklist, agitha_frame
+
+    item_collection(agitha_checks, agitha_checklist, agitha_frame, 'Agitha')
+
+
+def jovani_item_get() -> None:
+    '''Passes item_collection() the information for Jovani.'''
+    global jovani_checks, jovani_checklist, jovani_frame
+
+    item_collection(jovani_checks, jovani_checklist, jovani_frame, 'Jovani')
 
 # =============================================================================
 
@@ -267,7 +257,7 @@ else:
     for agitha_item in agitha_checklist:
         agitha_checks.append(create_checkbox(agitha_item,
                                              agitha_frame,
-                                             agitha_item_get))
+                                             command=agitha_item_get))
 
 # =============================================================================
 
@@ -281,7 +271,7 @@ jovani_frame = create_notebook_tab(notebook, current_category)
 
 # Go through and parse the rewards that jovani gives
 bad_jovani_rewards = []
-jovani_reward_checklist = []
+jovani_checklist = []
 for threshold, reward_quality in [*jovani_rewards.items()]:
     # Unpack the rewards and quality
     reward, quality = reward_quality
@@ -294,12 +284,12 @@ for threshold, reward_quality in [*jovani_rewards.items()]:
         bad_jovani_rewards.append(threshold_reward)
     # These rewards ARE needed
     elif quality in ['good', 'required']:
-        jovani_reward_checklist.append(threshold_reward)
+        jovani_checklist.append(threshold_reward)
 
 # If there are at least 1, then make the checklist.
 jovani_checks = []
-if len(jovani_reward_checklist) != 0:
-    for reward in jovani_reward_checklist:
+if len(jovani_checklist) != 0:
+    for reward in jovani_checklist:
         jovani_checks.append(create_checkbox(reward,
                                              jovani_frame,
                                              jovani_item_get))
