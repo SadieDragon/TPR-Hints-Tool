@@ -1,4 +1,5 @@
 
+from pathlib import Path
 from os import listdir, getcwd
 from json import load
 
@@ -175,11 +176,6 @@ def remove_braces(text: str) -> str:
     return text[1:-1]
 
 
-# DRY: Concat a string together into a path
-def make_path(start_folder: str, new_folder: str) -> str:
-    return '/'.join([start_folder, new_folder])
-
-
 # DRY: Returns the findall result as a list instead of tuple
 def findall_to_list(regex: str, to_parse: str) -> list:
     return [*findall(regex, to_parse)[0]]
@@ -189,11 +185,11 @@ def findall_to_list(regex: str, to_parse: str) -> list:
 # Get Hints ===================================================================
 
 # Grab the spoiler log path and location
-spoiler_log_folder = make_path(getcwd(), 'SpoilerLog')
+spoiler_log_folder = Path(getcwd()) / 'SpoilerLog'
 
 spoiler_log = listdir(spoiler_log_folder)[0]
 
-spoiler_log_path = make_path(spoiler_log_folder, spoiler_log)
+spoiler_log_path = spoiler_log_folder / spoiler_log
 
 # Grab the data
 with open(spoiler_log_path, 'r') as f:
