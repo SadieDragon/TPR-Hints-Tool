@@ -211,8 +211,8 @@ for sign, hints_data in [*hints.items()]:
         default_starter = 'They say that '
         if default_starter in hint_text:
             hint = hint_text.replace(default_starter, '')
-        # Agitha Checklist
-        elif "Agitha's Castle" in hint_text:
+        # Agitha Checklist *Make sure she even has items*
+        elif ("Agitha's Castle" in hint_text) and (':' in hint_text):
             agitha_checklist = hint_text.split(':  ')[1]
         # Jovani Checklist
         elif 'souls reward' in hint_text:
@@ -246,15 +246,23 @@ current_category = "Agitha's Castle"
 # Create the tab for Agitha's Castle
 agitha_frame = create_notebook_tab()
 
-# Let's get the curly braces off.
-agitha_checklist = remove_braces(agitha_checklist)
-# Then get specifically the list of things she has for us.
-agitha_checklist = agitha_checklist.split(', ')
-
-# Create the checklist
 agitha_checks = []
-for agitha_item in agitha_checklist:
-    agitha_checks.append(create_checkbox(agitha_item, agitha_frame))
+# Should Jovani have nothing, inform the player.
+if not agitha_checklist:
+    # Create the text for the label
+    blank_text = 'Agitha gives you sadness and nothingness.'
+
+    # And then create the label.
+    completion_label(agitha_frame, blank_text)
+else:
+    # Let's get the curly braces off.
+    agitha_checklist = remove_braces(agitha_checklist)
+    # Then get specifically the list of things she has for us.
+    agitha_checklist = agitha_checklist.split(', ')
+
+    # Create the checklist
+    for agitha_item in agitha_checklist:
+        agitha_checks.append(create_checkbox(agitha_item, agitha_frame))
 
 # =============================================================================
 
