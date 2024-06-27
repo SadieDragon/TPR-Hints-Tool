@@ -288,47 +288,34 @@ current_category = "Jovani's Poes"
 # Create the tab for Jovani
 jovani_frame = create_notebook_tab()
 
-# Store the rewards for use in "woops there was nothing"
-jovani_rewards = []
-jovani_reward_checklist = []  # Used for the text if there is
-# And create the checklist.
+# Go through and parse the rewards that jovani gives
+bad_jovani_rewards = []
+jovani_reward_checklist = []
+for threshold, reward_quality in [*jovani_rewards.items()]:
+    # Unpack the rewards and quality
+    reward, quality = reward_quality
+
+    # Put the threshold with the reward
+    threshold_reward = ': '.join([threshold, reward])
+
+    # These rewards are NOT needed
+    if ('not' in quality) or (quality == 'bad'):
+        bad_jovani_rewards.append(threshold_reward)
+    # These rewards ARE needed
+    elif quality in ['good', 'required']:
+        jovani_reward_checklist.append(threshold_reward)
+
+# If there are at least 1, then make the checklist.
 jovani_checks = []
-for jovani_item in jovani_checklist:
-    # Grab the turn in threshold and reward
-    threshold, reward = jovani_item.split(': ')
-
-    # Hacky way to fix the split:
-    reward = reward.replace('} (', '}-(')
-
-    # And further split the reward into the reward, and
-    # whether or not it's required.
-    reward, required = reward.split('-')
-
-    # Remove the braces off of them.
-    reward = remove_braces(reward)
-    required = remove_braces(required)
-
-    # Grab the number off the threshold ('souls reward' is redundant)
-    threshold = threshold[0:2]
-
-    # Rejoin the reward and the threshold
-    reward = ': '.join([threshold, reward])
-
-    # Store the reward for later use.
-    jovani_rewards.append(reward)
-
-    # Now. If it is not required, we're not gonna make a checklist.
-    if not ('not' in required):
-        # Create the checklist
+if len(jovani_reward_checklist) != 0:
+    for reward in jovani_reward_checklist:
         jovani_checks.append(create_checkbox(reward, jovani_frame))
-        jovani_reward_checklist.append(reward)
-
-# Should Jovani have nothing, inform the player.
-if not jovani_checks:
+# Otherwise, inform the player.
+else:
     # Create the text for the label
     blank_text = 'Jovani remains greedy, and does not pay you well.'
 
-    blank_text = create_text_checklist(blank_text, jovani_rewards)
+    blank_text = create_text_checklist(blank_text, bad_jovani_rewards)
 
     # And then create the label.
     completion_label(jovani_frame, blank_text)
