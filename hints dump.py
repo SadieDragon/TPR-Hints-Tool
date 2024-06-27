@@ -52,6 +52,15 @@ def create_text_checklist(start_str: str, checklist: list) -> str:
 def create_notebook_tab(notebook: Notebook, current_category: str) -> Frame:
     '''Turn a frame into a notebook tab.'''
 
+    # Grab a list of the previous frames
+    previous_frames = notebook.winfo_children()
+
+    # Refresh the frames
+    if (len(previous_frames) > 1) and (current_category == "Agitha's Castle"):
+        # Remove everything that isn't the main frame
+        for child in previous_frames[1:]:
+            child.destroy()
+
     new_frame = Frame(notebook, width=450, height=450, bg=default_notebook_bg)
     new_frame.pack(padx=5, expand=True)
     notebook.add(new_frame, text=current_category)
@@ -242,7 +251,7 @@ def jovanis_redemption(jovani_rewards: dict):
 
 # Populate the last tab [FUTURE]
 def normal_hints_tab(hints: list):
-    print(hints)
+    print('hints')
 
 # =============================================================================
 
