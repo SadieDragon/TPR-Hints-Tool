@@ -264,7 +264,7 @@ agitha_checks = []
 # Should Jovani have nothing, inform the player.
 if not agitha_checklist:
     # Create the text for the label
-    blank_text = 'Agitha gives you sadness and nothingness.'
+    blank_text = 'Agitha gives you GREAT... sadness...'
 
     # And then create the label.
     completion_label(agitha_frame, blank_text)
