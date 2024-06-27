@@ -7,6 +7,8 @@ from os import abort
 from tkinter import Tk, Checkbutton, Frame, IntVar, Label
 from tkinter.ttk import Notebook
 
+from re import findall
+
 # Globals =====================================================================
 
 default_notebook_bg = '#f9f9f9'
@@ -177,6 +179,11 @@ def remove_braces(text: str) -> str:
 def make_path(start_folder: str, new_folder: str) -> str:
     return '/'.join([start_folder, new_folder])
 
+
+# DRY: Returns the findall result as a list instead of tuple
+def findall_to_list(regex: str, to_parse: str) -> list:
+    return [*findall(regex, to_parse)[0]]
+
 # =============================================================================
 
 # Get Hints ===================================================================
@@ -198,29 +205,36 @@ hints = spoiler_log_data['hints']
 # Nab the hint texts
 hint_texts = []
 agitha_checklist = ''
-jovani_checklist = []
+jovani_rewards = {}
 for sign, hints_data in [*hints.items()]:
+    # Cycle through the hints
     for hint_data in hints_data:
         # Grab the hint text itself.
         hint_text = hint_data['text']
 
-        # Grab the hint
-        hint = ''
-
-        # Normal hints
-        default_starter = 'They say that '
-        if default_starter in hint_text:
-            hint = hint_text.replace(default_starter, '')
-        # Agitha Checklist *Make sure she even has items*
-        elif ("Agitha's Castle" in hint_text) and (':' in hint_text):
+        # Special handling for Agitha
+        if sign == 'Agithas_Castle_Sign':
+            # TODO: agitha is currently broken again
             agitha_checklist = hint_text.split(':  ')[1]
-        # Jovani Checklist
-        elif 'souls reward' in hint_text:
-            jovani_checklist = hint_text.split('  ')
+        # Special handling for Jovani
+        elif sign == 'Jovani_House_Sign':
+            # Split the text into the two lines (Thx jaq for this regex)
+            rewards = findall_to_list('^(.*\)) +(\d+ .*)$', hint_text)
 
-        # Store the hints now.
-        if hint:
-            hint_texts.append(hint)
+            for line in rewards:
+                # Split the turn in threshold off of the reward
+                # (with attached quality)
+                threshold, item_quality = line.split(': ')
+
+                # Remove the {} and (), and split into an array.
+                item_quality = findall_to_list('\{(.*?)\} \((.*?)\)',
+                                               item_quality)
+
+                # Then store the rewards for later handling
+                jovani_rewards[threshold] = item_quality
+        # Normal hints
+        elif 'They say that ' in hint_text:
+            hint_texts.append(hint_text.replace('They say that ', ''))
 
 # =============================================================================
 
