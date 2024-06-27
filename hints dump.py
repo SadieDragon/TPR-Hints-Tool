@@ -208,7 +208,7 @@ for sign, hints_data in [*hints.items()]:
         hint_text = hint_text.replace('â™€', 'female')
 
         # Clean up any excess spaces
-        hint_text = sub(' +', ' ', hint_text)
+        hint_text = sub(r' +', ' ', hint_text)
 
         # Special handling for Agitha - only if she shares happiness
         if (sign == 'Agithas_Castle_Sign') and (':' in hint_text):
@@ -219,7 +219,7 @@ for sign, hints_data in [*hints.items()]:
         # Special handling for Jovani
         elif sign == 'Jovani_House_Sign':
             # Split the text into the two lines (Thx jaq for this regex)
-            rewards = findall_to_list('^(.*\)) +(\d+ .*)$', hint_text)
+            rewards = findall_to_list(r'^(.*\)) +(\d+ .*)$', hint_text)
 
             for line in rewards:
                 # Split the turn in threshold off of the reward
@@ -227,7 +227,7 @@ for sign, hints_data in [*hints.items()]:
                 threshold, item_quality = line.split(': ')
 
                 # Remove the {} and (), and split into an array.
-                item_quality = findall_to_list('\{(.*?)\} \((.*?)\)',
+                item_quality = findall_to_list(r'\{(.*?)\} \((.*?)\)',
                                                item_quality)
 
                 # Then store the rewards for later handling
