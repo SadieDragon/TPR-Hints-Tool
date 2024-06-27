@@ -215,11 +215,12 @@ for sign, hints_data in [*hints.items()]:
         # Clean up any excess spaces
         hint_text = sub(' +', ' ', hint_text)
 
-        # Special handling for Agitha
-        if sign == 'Agithas_Castle_Sign':
-            # TODO: agitha is currently broken again
-            # agitha_checklist = hint_text.split(':  ')[1]
-            agitha_checklist = hint_text
+        # Special handling for Agitha - only if she shares happiness
+        if (sign == 'Agithas_Castle_Sign') and (':' in hint_text):
+            # Grab the rewards for agitha's castle
+            rewards = hint_text.split(': ')[1]
+            # Remove the braces, and split into a list
+            agitha_checklist = rewards[1:-1].split(', ')
         # Special handling for Jovani
         elif sign == 'Jovani_House_Sign':
             # Split the text into the two lines (Thx jaq for this regex)
@@ -273,11 +274,6 @@ if not agitha_checklist:
     # And then create the label.
     completion_label(agitha_frame, blank_text)
 else:
-    # Let's get the curly braces off.
-    agitha_checklist = remove_braces(agitha_checklist)
-    # Then get specifically the list of things she has for us.
-    agitha_checklist = agitha_checklist.split(', ')
-
     # Create the checklist
     for agitha_item in agitha_checklist:
         agitha_checks.append(create_checkbox(agitha_item, agitha_frame))
