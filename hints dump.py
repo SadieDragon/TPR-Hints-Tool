@@ -208,10 +208,15 @@ for sign, hints_data in [*hints.items()]:
         # Grab the hint text itself.
         hint_text = hint_data['text']
 
+        # Replace ♂ and ♀ so Python doesn't freak out when displaying
+        hint_text = hint_text.replace('â™‚', 'male')
+        hint_text = hint_text.replace('â™€', 'female')
+
         # Special handling for Agitha
         if sign == 'Agithas_Castle_Sign':
             # TODO: agitha is currently broken again
-            agitha_checklist = hint_text.split(':  ')[1]
+            # agitha_checklist = hint_text.split(':  ')[1]
+            agitha_checklist = hint_text
         # Special handling for Jovani
         elif sign == 'Jovani_House_Sign':
             # Split the text into the two lines (Thx jaq for this regex)
