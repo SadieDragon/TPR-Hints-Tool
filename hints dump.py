@@ -259,7 +259,7 @@ def jovanis_redemption(jovani_rewards: dict):
                                            command = jovani_item_get)
 
             # Store the item and the intvar for later parsing
-            agitha_checks[reward] = checkbox_var
+            jovani_checks[reward] = checkbox_var
 
     # Otherwise, inform the player.
     else:
