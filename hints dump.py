@@ -214,7 +214,7 @@ class ShoppingListTab():
 
     # create_checkbox was only really used for this,
     # and can be even more DRY across the two.
-    def create_checklist(self):
+    def create_checklist(self, bad=False):
         # Go through the item list
         for reward in self.rewards:
             # Create the IntVar for the state
@@ -227,6 +227,13 @@ class ShoppingListTab():
                                    bg = default_notebook_bg,
                                    activebackground = default_notebook_bg,
                                    command = self.collect_item)
+
+            # If this is a bad jovani item, disable it
+            if bad:
+                checkbox.config(state='disabled')
+                checkbox_var.set(1)
+
+            # Store it
             self.textbox.window_create('end', window=checkbox)
             self.textbox.insert('end', '\n')
 
@@ -319,13 +326,11 @@ class JovaniTab(ShoppingListTab):
         # If he has bad rewards, make a text checklist,
         # and make a new label.
         if bad_rewards:
-            for reward in bad_rewards:
-                new_label = Label(self.frame,
-                                  text = reward,
-                                  bg = default_notebook_bg,
-                                  justify = 'left')
-                self.textbox.window_create('end', window=new_label)
-                self.textbox.insert('end', '\n')
+            # Update rewards, because I don't think it matters?
+            self.rewards = bad_rewards
+
+            # And checklist but diff
+            self.create_checklist(True)
 
         # And disable the box *now*
         self.textbox['state'] = 'disabled'
