@@ -38,9 +38,7 @@ def create_text_checklist(start_str: str, checklist: list) -> str:
 # GUI Functions ===============================================================
 
 # DRY
-def create_notebook_tab(notebook: Notebook,
-                        current_category: str,
-                        make_label = True) -> list:
+def create_notebook_tab(notebook: Notebook, current_category: str) -> Frame:
     '''Turn a frame into a notebook tab.'''
 
     # Grab a list of the previous frames
@@ -57,14 +55,8 @@ def create_notebook_tab(notebook: Notebook,
     new_frame.pack(padx=5, expand=True)
     notebook.add(new_frame, text=current_category)
 
-    new_label = ''
-    if make_label:
-        # And pack a Label into there for later adjusting
-        new_label = Label(new_frame, bg=default_notebook_bg)
-        new_label.pack(padx=5, pady=5, anchor='nw')
-
     # This will be used to pack things into
-    return [new_label, new_frame]
+    return new_frame
 
 
 # DRY
@@ -355,7 +347,7 @@ if __name__ == '__main__':
     # Intro Page ------------------------------------------------------
     # DRY / easy change in the future
     current_category = "Main Page"
-    main_page_frame = create_notebook_tab(notebook, current_category, False)[1]
+    main_page_frame = create_notebook_tab(notebook, current_category)
     # -----------------------------------------------------------------
 
     # Pick a spoiler log ------------------------------------------------------
