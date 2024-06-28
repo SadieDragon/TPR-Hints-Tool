@@ -14,6 +14,10 @@ from tkinter.ttk import Notebook, OptionMenu
 # The default notebook color
 default_notebook_bg = '#f9f9f9'
 
+# This will be updated and set later on,
+# and used in many places
+seed_name = 'Please pick a seed.'
+
 # =============================================================================
 
 # Utility Functions ===========================================================
@@ -89,12 +93,19 @@ def spoiler_pop_up(files: list):
 # Run when the spoiler log is picked.
 def dump_spoiler_log(spoiler_log: StringVar):
     global spoiler_log_folder
+    global seed_name
 
     # Let go of the window
     pop_up.destroy()
 
     # Figure out which log was chosen
     chosen_log = spoiler_log.get()
+
+    # Set the seed name, which is encased in -- --
+    seed_name = findall(r'\-\-(.*?)\-\-', chosen_log)[0]
+
+    # Set the title of the window
+    root.title(f'Hint Tracker Tool: {seed_name}')
 
     # Get the path
     spoiler_log_path = spoiler_log_folder / chosen_log
@@ -371,8 +382,8 @@ class JovaniTab(ShoppingListTab):
 if __name__ == '__main__':
     # Set up the window -------------
     root = Tk()
+    root.title(seed_name)
     root.geometry('500x500')
-    root.title('Hint Tracker Tool')
     root.config(bg='#2f3136')
     # -------------------------------
 
