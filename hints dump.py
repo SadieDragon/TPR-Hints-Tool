@@ -6,6 +6,7 @@ from re import findall, sub
 from tkinter import Tk
 from tkinter import IntVar, StringVar
 from tkinter import Checkbutton, Frame, Label, OptionMenu, Button
+from tkinter.scrolledtext import ScrolledText
 from tkinter.ttk import Notebook
 
 # Global Variables ============================================================
@@ -127,6 +128,9 @@ class ShoppingListTab():
         self.label = None
         self.label_var = StringVar()
 
+        # Also the textbox for the checkbox to go into
+        self.textbox = None
+
         # Specifically holds the default txts
         self.default_text = ''
         self.good = ''
@@ -164,6 +168,11 @@ class ShoppingListTab():
                            justify = 'left')
         self.label.pack(padx=5, pady=5, anchor='nw')
 
+        # Set up the textbox for scrollableness
+        self.textbox = ScrolledText(self.frame,
+                                    bg = default_notebook_bg)
+        self.textbox.pack()
+
     # create_checkbox was only really used for this,
     # and can be even more DRY across the two.
     def create_checklist(self):
@@ -173,13 +182,14 @@ class ShoppingListTab():
             checkbox_var = IntVar()
 
             # Create the checkbox itself
-            checkbox = Checkbutton(self.frame,
+            checkbox = Checkbutton(self.textbox,
                                    text = reward,
                                    variable = checkbox_var,
                                    bg = default_notebook_bg,
                                    activebackground = default_notebook_bg,
                                    command = self.collect_item)
-            checkbox.pack(padx=5, anchor='w')
+            self.textbox.window_create('end', window=checkbox)
+            self.textbox.insert('end', '\n')
 
             # And store the reward and new intvar
             self.checkboxes[reward] = checkbox_var
