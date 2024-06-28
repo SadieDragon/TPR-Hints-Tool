@@ -3,7 +3,7 @@ from json import load
 from os import listdir, getcwd, abort
 from pathlib import Path
 from re import findall, sub
-from tkinter import Tk
+from tkinter import Tk, Toplevel
 from tkinter import IntVar, StringVar
 from tkinter import Checkbutton, Frame, Label, OptionMenu, Button
 from tkinter.scrolledtext import ScrolledText
@@ -49,6 +49,34 @@ def create_notebook_tab(notebook: Notebook, current_category: str) -> Frame:
     # This will be used to pack things into
     return new_frame
 
+
+# Create the pop up for picking the spoiler log
+def spoiler_pop_up(files: list):
+    global pop_up
+
+    # The pop up window specifically
+    pop_up = Toplevel(root, bg=default_notebook_bg)
+    pop_up.title('Pick a spoiler log')
+    pop_up.geometry('500x150')
+
+    # The var that will hold the spoiler log choice
+    spoiler_log = StringVar()
+    # Default to the first one in the list
+    spoiler_log.set(files[0])
+
+    # The drop down to actually pick the spoiler log
+    spoiler_log_dropdown = OptionMenu(pop_up,
+                                      spoiler_log,
+                                      *spoiler_logs)
+    spoiler_log_dropdown.pack(padx=5, pady=5)
+
+    # PEP8 compliant command
+    c = lambda: dump_spoiler_log(spoiler_log)
+    # Confirmation button
+    confirm_spoiler_log = Button(pop_up,
+                                 text = 'Confirm',
+                                 command = c)
+    confirm_spoiler_log.pack(padx=5, pady=5)
 # =============================================================================
 
 # Hint Parsing ================================================================
@@ -56,6 +84,9 @@ def create_notebook_tab(notebook: Notebook, current_category: str) -> Frame:
 # Run when the spoiler log is picked.
 def dump_spoiler_log(spoiler_log: StringVar):
     global spoiler_log_folder
+
+    # Let go of the window
+    pop_up.destroy()
 
     # Figure out which log was chosen
     chosen_log = spoiler_log.get()
@@ -360,25 +391,10 @@ if __name__ == '__main__':
     # -----------------------------------------------------------------
 
     # Pick a spoiler log ------------------------------------------------------
-    # The frame for this so I can grid it in
-    spoiler_log_frame = Frame(main_page_frame, bg=default_notebook_bg)
-    spoiler_log_frame.grid(row=0, column=0, padx=5, pady=5)
-
-    # The variable that will hold the spoiler log choice
-    spoiler_log = StringVar()
-    spoiler_log.set(spoiler_logs[0])
-
-    # The drop down to actually pick the spoiler log
-    spoiler_log_dropdown = OptionMenu(spoiler_log_frame,
-                                      spoiler_log,
-                                      *spoiler_logs)
-    spoiler_log_dropdown.pack(padx=5, pady=5)
-
-    # Confirmation button
-    confirm_spoiler_log = Button(spoiler_log_frame,
-                                 text='Confirm',
-                                 command=lambda: dump_spoiler_log(spoiler_log))
-    confirm_spoiler_log.pack(padx=5, pady=5)
+    spoiler_button = Button(main_page_frame,
+                            text = 'Pick Spoiler Log',
+                            command = lambda: spoiler_pop_up(spoiler_logs))
+    spoiler_button.pack(padx=5, pady=5)
     # -------------------------------------------------------------------------
 
     # And run the window plz.
