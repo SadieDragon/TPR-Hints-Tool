@@ -17,12 +17,6 @@ default_notebook_bg = '#f9f9f9'
 
 # Utility Functions ===========================================================
 
-# DRY
-def findall_to_list(regex: str, to_parse: str) -> list:
-    '''Returns the findall result as a list instead of tuple.'''
-    return [*findall(regex, to_parse)[0]]
-
-
 # An error case. (I like adding things and forgetting that I did.)
 def case_not_expected() -> None:
     '''An error handling for debug purposes.'''
@@ -83,26 +77,6 @@ def completion_label(frame: Frame, completion_text: str) -> None:
 
     new_label.pack(anchor='nw', padx=5, pady=5)
 
-
-# DRY
-def create_checkbox(label: str, frame: Frame, command=None) -> tuple:
-    '''Create the shopping lists.'''
-
-    # Create the variable to store the state
-    new_var = IntVar()
-
-    # Create the checkbox itself
-    new_check = Checkbutton(frame, text=label, variable=new_var)
-    new_check.config(bg = default_notebook_bg,
-                     activebackground = default_notebook_bg)
-    new_check.pack(padx=5, anchor='w')
-
-    if command:
-        new_check.config(command=command)
-
-    # Return the intvar for later parsing
-    return new_var
-
 # =============================================================================
 
 # Hint Parsing ================================================================
@@ -131,8 +105,6 @@ def parse_hints(spoiler_log_data):
     hints = spoiler_log_data['hints']
 
     # Nab the hint texts
-
-    jovani_rewards = {}
     hint_texts = []
     for sign, hints_data in hints.items():
         # Cycle through the hints
@@ -148,35 +120,10 @@ def parse_hints(spoiler_log_data):
 
             # Special handling for Agitha
             if (sign == 'Agithas_Castle_Sign'):
-                agitha_checklist = []
-                # If she shares happiness, populate the checklist
-                if (':' in hint_text):
-                    # Grab the rewards for agitha's castle
-                    rewards = hint_text.split(': ')[1]
-                    # Remove the braces, and split into a list
-                    agitha_checklist = rewards[1:-1].split(', ')
-
-                agithas_castle(agitha_checklist)
-
+                AgithaTab(notebook, hint_text)
             # Special handling for Jovani
             elif sign == 'Jovani_House_Sign':
-                # Split the text into the two lines (Thx jaq for this regex)
-                rewards = findall_to_list(r'^(.*\)) +(\d+ .*)$', hint_text)
-
-                for line in rewards:
-                    # Split the turn in threshold off of the reward
-                    # (with attached quality)
-                    threshold, item_quality = line.split(': ')
-
-                    # Remove the {} and (), and split into an array.
-                    item_quality = findall_to_list(r'\{(.*?)\} \((.*?)\)',
-                                                item_quality)
-
-                    # Then store the rewards for later handling
-                    jovani_rewards[threshold] = item_quality
-
-                # And populate the page.
-                jovanis_redemption(jovani_rewards)
+                JovaniTab(notebook, hint_text)
 
             # Normal hints
             elif 'They say that ' in hint_text:
@@ -185,139 +132,193 @@ def parse_hints(spoiler_log_data):
     normal_hints_tab(hint_texts)
 
 
-# Populate Agitha's Castle tab
-def agithas_castle(agitha_list: list):
-    global agitha_checks, agitha_frame, agitha_text
-
-    # Make the input list a global var
-    agitha_checklist = agitha_list
-
-    # Create the tab for Agitha's Castle
-    # (grabbing the label to update the text later)
-    agitha_label, agitha_frame = create_notebook_tab(notebook,
-                                                     "Agitha's Castle")
-
-    # The text to be set later
-    agitha_text = StringVar()
-    # Should Agitha have nothing, inform the player.
-    agitha_checks = {}
-    if not agitha_checklist:
-        # Create the text for the label
-        blank_text = 'Agitha gives you GREAT... sadness...'
-
-        # And then create the label.
-        completion_label(agitha_frame, blank_text)
-
-    # Otherwise, inform the player.
-    else:
-        # Create the checklist
-        for agitha_item in agitha_checklist:
-            # PEP 8 character limit compliance
-            checkbox_var = create_checkbox(agitha_item,
-                                           agitha_frame,
-                                           command = agitha_item_get)
-            # Store the item and the intvar for later parsing
-            agitha_checks[agitha_item] = checkbox_var
-
-    # Configure the label to use the new textvar
-    agitha_label.config(textvariable=agitha_text)
-
-
-# Populate Jovani's Redemption tab
-def jovanis_redemption(jovani_rewards: dict):
-    global jovani_checks, jovani_frame, jovani_text
-
-    # Go through and parse the rewards that jovani gives
-    bad_jovani_rewards = []
-    jovani_checklist = []
-    for threshold, reward_quality in [*jovani_rewards.items()]:
-        # Unpack the rewards and quality
-        reward, quality = reward_quality
-
-        # Put the threshold with the reward
-        threshold_reward = ': '.join([threshold, reward])
-
-        # These rewards are NOT needed
-        if ('not' in quality) or (quality == 'bad'):
-            bad_jovani_rewards.append(threshold_reward)
-        # These rewards ARE needed
-        elif quality in ['good', 'required']:
-            jovani_checklist.append(threshold_reward)
-
-    # Create the tab for Jovani (grabbing the label to update the text later)
-    jovani_label, jovani_frame = create_notebook_tab(notebook, "Jovani's Poes")
-
-    # Text to be set later
-    jovani_text = StringVar()
-    # If there are at least 1, then make the checklist.
-    jovani_checks = {}
-    if len(jovani_checklist) != 0:
-        for reward in jovani_checklist:
-            # PEP 8 character limit compliance
-            checkbox_var = create_checkbox(reward,
-                                           jovani_frame,
-                                           command = jovani_item_get)
-
-            # Store the item and the intvar for later parsing
-            jovani_checks[reward] = checkbox_var
-
-    # Otherwise, inform the player.
-    else:
-        # Create the text for the label
-        blank_text = 'Jovani remains greedy, and does not pay you well.'
-
-        blank_text = create_text_checklist(blank_text, bad_jovani_rewards)
-
-        # And then create the label.
-        completion_label(jovani_frame, blank_text)
-
-    # Configure the label to use the new textvar
-    jovani_label.config(textvariable=jovani_text)
-
-
 # Populate the last tab [FUTURE]
 def normal_hints_tab(hints: list):
     print('hints -i am debug!-')
 
 # =============================================================================
 
-# Item Collection Logic =======================================================
+# Item Collection: Shopping Class =============================================
 
-def item_collection(checkboxes: dict,
-                    base_frame: Frame,
-                    person: str,
-                    label_var: StringVar) -> None:
-    '''The item completion and collection framework for the shopping lists.'''
+# The parent class for Agitha and Jovani
+class ShoppingListTab():
+    # Initializing
+    def __init__(self, notebook, name):
+        # Set the local constants of notebook and name
+        self.notebook = notebook
+        self.name = name
 
-    # Go through and parse the intvars without resetting
-    # the base checklist, for easier parsing.
-    checked = []
-    for int_var in checkboxes.values():
-        checked.append(int_var.get())
+        # Create the dict to be populated {reward: IntVar}
+        self.checkboxes = {}
 
-    # And then if all are true, update the label text
-    if all(checked):
-        # Could be 1 line but it's a bit easier to understand split up
-        label_text = ('Congratulations!'
-                      ' There is nothing left to collect here.\n'
-                      f'You have collected the following from {person}:\n')
-        label_var.set(label_text)
+        # And prepare the Frame and Label to be populated
+        self.frame = None
+        self.label = None
+        self.label_var = StringVar()
 
-    print(base_frame.winfo_children())
+    # A modification of create_notebook_tab, unique to these
+    def create_tab(self):
+        # Create the notebook tab
+        self.frame = create_notebook_tab(self.notebook, self.name)
+
+        # Create the new label in that tab, with the var
+        self.label = Label(self.frame,
+                           bg = default_notebook_bg,
+                           textvariable = self.label_var,
+                           justify = 'left')
+        self.label.pack(padx=5, pady=5, anchor='nw')
+
+    # create_checkbox was only really used for this,
+    # and can be even more DRY across the two.
+    def create_checklist(self, rewards):
+        # Go through the item list
+        for reward in rewards:
+            # Create the IntVar for the state
+            checkbox_var = IntVar()
+
+            # Create the checkbox itself
+            checkbox = Checkbutton(self.frame,
+                                   text = reward,
+                                   variable = checkbox_var,
+                                   bg = default_notebook_bg,
+                                   activebackground = default_notebook_bg,
+                                   command = self.collect_item)
+            checkbox.pack(padx=5, anchor='w')
+
+            # And store the reward and new intvar
+            self.checkboxes[reward] = checkbox_var
+
+    # And collect_item, which was unique to them
+    def collect_item(self):
+        # Go through and check the states of the checkboxes
+        checked = []
+        for int_var in self.checkboxes.values():
+            checked.append(int_var.get())
+
+        # If all are true, update the text
+        if all(checked):
+            # (which is so long I create a new var)
+            new_text = ('Congratulatins!'
+                        ' There is nothing left to collect here.\n'
+                        'You have collected the following items from'
+                        f' {self.name}:n')
+            self.label_var.set(new_text)
 
 
-def agitha_item_get() -> None:
-    '''Passes item_collection() the information for Agitha'''
-    global agitha_checks, agitha_frame, agitha_text
+# Agitha's subclass
+class AgithaTab(ShoppingListTab):
+    # Inherit the overall init, with the added param of
+    # the hint sign text
+    def __init__(self, notebook, sign_text):
+        super().__init__(notebook, "Agitha's Castle")
 
-    item_collection(agitha_checks, agitha_frame, 'Agitha', agitha_text)
+        # Create the tab
+        self.create_tab()
 
+        # The default text for Agitha's Castle is
+        self.label_var.set('Agitha gives you GREAT... sadness...')
 
-def jovani_item_get() -> None:
-    '''Passes item_collection() the information for Jovani.'''
-    global jovani_checks, jovani_frame, jovani_text
+        # And then set up the list to begin populating the tab
+        rewards = self.parse_sign(sign_text)
+        # If there is a list of rewards, make a checklist
+        if rewards:
+            # Then create the checklist
+            self.create_checklist(rewards)
 
-    item_collection(jovani_checks, jovani_frame, 'Jovani', jovani_text)
+            # TODO: put a better label text here
+            self.label_var.set('Agitha gives you GREAT HAPPINESS:')
+
+    # Take the sign text and parse it down into a list
+    # of the rewards
+    def parse_sign(sign_text: str):
+        rewards_list = []
+        if ':' in sign_text:
+            # Grab the rewards off of the intro
+            rewards = sign_text.split(': ')[1]
+
+            # Remove the braces and split into a list
+            rewards_list = rewards[1:-1].split(', ')
+
+        return rewards_list
+
+# Jovani's subclass
+class JovaniTab(ShoppingListTab):
+    def __init__(self, notebook, sign_text):
+        # Inherit the overall init, with the added param of
+        # the hint sign text
+        super().__init__(notebook, "Jovani's Poes")
+
+        # Create the tab
+        self.create_tab()
+
+        # And set up to begin populating the tab
+        rewards = self.parse_sign(sign_text)
+
+        # Parse the rewards that jovani gives
+        bad_rewards = []
+        good_rewards = []
+        for threshold, reward_quality in [*rewards.items()]:
+            # Unpack the rewards and quality
+            reward, quality = reward_quality
+
+            # Put the threshold with the reward
+            threshold_reward = ': '.join([threshold, reward])
+
+            # These rewards are NOT needed
+            if ('not' in quality) or (quality == 'bad'):
+                bad_rewards.append(threshold_reward)
+            # These rewards ARE needed
+            elif quality in ['good', 'required']:
+                good_rewards.append(threshold_reward)
+
+        # By default his text is
+        self.label_var.set('Jovani remains greedy, and does not pay you well.')
+
+        # If he actually has something good..
+        if good_rewards:
+            # Make the checklist
+            self.create_checklist(good_rewards)
+
+            # TODO: put a better label text here
+            self.label_var.set(('Jovani has learned,'
+                               'and rewards you with the following:'))
+
+        # If he has bad rewards, make a text checklist,
+        # and make a new label.
+        if bad_rewards:
+            for reward in bad_rewards:
+                new_label = Label(self.frame,
+                                  text = reward,
+                                  bg = default_notebook_bg,
+                                  justify = 'left')
+                new_label.pack(anchor='nw', padx=5, pady=5)
+
+    # Take the sign text and parse it into a dict
+    # representing the thresholds and rewards
+    def parse_sign(self, sign_text):
+        # Split the text into the two lines (Thx jaq for this regex)
+        rewards = self.findall_to_list(r'^(.*\)) +(\d+ .*)$', sign_text)
+
+        # Get the dict itself
+        jovani_rewards = {}
+        for line in rewards:
+            # Split the turn in threshold off of the reward
+            # (with attached quality)
+            threshold, item_quality = line.split(': ')
+
+            # Remove the {} and (), and split into an array.
+            item_quality = self.findall_to_list(r'\{(.*?)\} \((.*?)\)',
+                                                item_quality)
+
+            # Then store the rewards for later handling
+            jovani_rewards[threshold] = item_quality
+
+        # Spit back the rewards
+        return jovani_rewards
+
+    def findall_to_list(regex: str, to_parse: str) -> list:
+        '''Returns the findall result as a list instead of tuple.'''
+        return [*findall(regex, to_parse)[0]]
 
 # =============================================================================
 
