@@ -57,18 +57,24 @@ def spoiler_pop_up(files: list):
     # The pop up window specifically
     pop_up = Toplevel(root, bg=default_notebook_bg)
     pop_up.title('Pick a spoiler log')
-    pop_up.geometry('500x150')
+    pop_up.geometry('500x90')
 
     # The var that will hold the spoiler log choice
     spoiler_log = StringVar()
     # Default to the first one in the list
     spoiler_log.set(files[0])
 
+    # Grab the longest file name
+    longest_spoiler_name = max(files)
+    # And then the length of it, +5 for a buffer
+    longest = len(longest_spoiler_name) + 5
+
     # The drop down to actually pick the spoiler log
     spoiler_log_dropdown = OptionMenu(pop_up,
                                       spoiler_log,
                                       *spoiler_logs)
-    spoiler_log_dropdown.pack(padx=5, pady=5)
+    spoiler_log_dropdown.config(width=longest)
+    spoiler_log_dropdown.pack(padx=5, pady=10)
 
     # PEP8 compliant command
     c = lambda: dump_spoiler_log(spoiler_log)
