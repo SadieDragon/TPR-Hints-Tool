@@ -23,16 +23,6 @@ def case_not_expected() -> None:
     print('I did not expect this option, dear dev.')
     abort()
 
-
-# DRY
-def create_text_checklist(start_str: str, checklist: list) -> str:
-    '''Make label text for post completion.'''
-    # Append the starting string to the checklist
-    textlist = [start_str] + checklist
-
-    # And then button it together.
-    return '\n- '.join(textlist)
-
 # =============================================================================
 
 # GUI Functions ===============================================================
@@ -57,17 +47,6 @@ def create_notebook_tab(notebook: Notebook, current_category: str) -> Frame:
 
     # This will be used to pack things into
     return new_frame
-
-
-# DRY
-def completion_label(frame: Frame, completion_text: str) -> None:
-    '''Create a label with the supplied text for when the checklist is done.'''
-    new_label = Label(frame,
-                      text = completion_text,
-                      bg = default_notebook_bg,
-                      justify = 'left')
-
-    new_label.pack(anchor='nw', padx=5, pady=5)
 
 # =============================================================================
 
