@@ -36,8 +36,11 @@ def reset_tracker(notebook: Notebook) -> None:
 
     # If there's only 1 tab, we do not need to reset
     if len(current_tabs) > 1:
-        # Remove all but the first tab
-        [widget.destroy() for widget in current_tabs[1:]]
+        print(current_tabs[1].winfo_children())
+        # Remove all but the first tab's contents
+        for widget in current_tabs[1:]:
+            for child in widget.winfo_children():
+                child.destroy()
 
 
 # Verify Reset
@@ -52,14 +55,10 @@ def verify_reset(notebook: Notebook):
 # GUI Functions ===============================================================
 
 # DRY
-def create_notebook_tab(notebook: Notebook, current_category: str) -> Frame:
+def create_notebook_tab(master: Notebook, current_category: str) -> Frame:
     '''Turn a frame into a notebook tab.'''
-    # Refresh the frames
-    if (current_category == "Agitha's Castle"):
-        reset_tracker(notebook)
-
     # The new frame
-    new_frame = Frame(notebook, width=450, height=450, bg=default_notebook_bg)
+    new_frame = new_frame = Frame(master, width=450, height=450, bg=default_notebook_bg)
     new_frame.pack(padx=5, expand=True)
     notebook.add(new_frame, text=current_category)
 
@@ -68,7 +67,7 @@ def create_notebook_tab(notebook: Notebook, current_category: str) -> Frame:
 
 
 # Create the pop up for picking the spoiler log
-def spoiler_pop_up(files: list):
+def spoiler_pop_up(files: list, notebook: Notebook):
     global pop_up
 
     # The pop up window specifically
@@ -93,7 +92,7 @@ def spoiler_pop_up(files: list):
     spoiler_log_dropdown.pack(padx=5, pady=10)
 
     # PEP8 compliant command
-    c = lambda: dump_spoiler_log(spoiler_log)
+    c = lambda: dump_spoiler_log(spoiler_log, notebook)
     # Confirmation button
     confirm_spoiler_log = Button(pop_up,
                                  text = 'Confirm',
@@ -109,17 +108,21 @@ def main_page_button(notebook: Notebook,
     row, column = row_column
     new_button = Button(notebook, text=text, command=command)
     new_button.grid(padx=5, pady=5, row=row, column=column)
+
 # =============================================================================
 
 # Hint Parsing ================================================================
 
 # Run when the spoiler log is picked.
-def dump_spoiler_log(spoiler_log: StringVar):
+def dump_spoiler_log(spoiler_log: StringVar, notebook: Notebook):
     global spoiler_log_folder
     global seed_name
 
     # Let go of the window
     pop_up.destroy()
+
+    # Reset the tracker
+    reset_tracker(notebook)
 
     # Figure out which log was chosen
     chosen_log = spoiler_log.get()
@@ -143,6 +146,7 @@ def dump_spoiler_log(spoiler_log: StringVar):
 
 # Run after log data is dumped
 def parse_hints(spoiler_log_data):
+    global agitha, jovani
     # Grab the hints specifically out of the spoiler log
     hints = spoiler_log_data['hints']
 
@@ -162,10 +166,10 @@ def parse_hints(spoiler_log_data):
 
             # Special handling for Agitha
             if (sign == 'Agithas_Castle_Sign'):
-                AgithaTab(notebook, hint_text)
+                agitha.auto_fill(hint_text)
             # Special handling for Jovani
             elif sign == 'Jovani_House_Sign':
-                JovaniTab(notebook, hint_text)
+                jovani.auto_fill(hint_text)
 
             # Normal hints
             elif 'They say that ' in hint_text:
@@ -190,8 +194,11 @@ class ShoppingListTab():
         self.notebook = notebook
         self.name = name
 
-        # Create the dict to be populated {reward: IntVar}
+        # Create the dict to be populated (the IntVar states)
         self.checkboxes = []
+
+        # The notebook frame
+        self.notebook_tab = None
 
         # And prepare the Frame and Label to be populated
         self.frame = None
@@ -209,11 +216,26 @@ class ShoppingListTab():
         # And holds the rewards
         self.rewards = []
 
+        # Create the tab
+        self.create_tab()
+
     # Same across both: Setting the default text and populating
     # the tab with the rewards possible
     def populate_tab(self):
-        # Create the tab
-        self.create_tab()
+        # Create the new label in that tab, with the var
+        self.label = Label(self.notebook_tab,
+                           bg = default_notebook_bg,
+                           textvariable = self.label_var,
+                           justify = 'left')
+        self.label.pack(padx=5, pady=5, anchor='nw')
+
+        # Set up the textbox for scrollableness
+        self.textbox = ScrolledText(self.notebook_tab,
+                                    bg = default_notebook_bg,
+                                    relief = 'flat',
+                                    selectbackground = default_notebook_bg,
+                                    cursor = 'arrow')
+        self.textbox.pack()
 
         # Set the default to bad
         self.default_text = self.bad
@@ -229,22 +251,7 @@ class ShoppingListTab():
     # A modification of create_notebook_tab, unique to these
     def create_tab(self):
         # Create the notebook tab
-        self.frame = create_notebook_tab(self.notebook, self.name)
-
-        # Create the new label in that tab, with the var
-        self.label = Label(self.frame,
-                           bg = default_notebook_bg,
-                           textvariable = self.label_var,
-                           justify = 'left')
-        self.label.pack(padx=5, pady=5, anchor='nw')
-
-        # Set up the textbox for scrollableness
-        self.textbox = ScrolledText(self.frame,
-                                    bg = default_notebook_bg,
-                                    relief = 'flat',
-                                    selectbackground = default_notebook_bg,
-                                    cursor = 'arrow')
-        self.textbox.pack()
+        self.notebook_tab = create_notebook_tab(self.notebook, self.name)
 
     # create_checkbox was only really used for this,
     # and can be even more DRY across the two.
@@ -298,9 +305,10 @@ class ShoppingListTab():
 class AgithaTab(ShoppingListTab):
     # Inherit the overall init, with the added param of
     # the hint sign text
-    def __init__(self, notebook, sign_text):
+    def __init__(self, notebook):
         super().__init__(notebook, "Agitha's Castle")
 
+    def auto_fill(self, sign_text):
         # And then set up the list to begin populating the tab
         self.parse_sign(sign_text)
 
@@ -326,11 +334,12 @@ class AgithaTab(ShoppingListTab):
 
 # Jovani's subclass
 class JovaniTab(ShoppingListTab):
-    def __init__(self, notebook, sign_text):
+    def __init__(self, notebook):
         # Inherit the overall init, with the added param of
         # the hint sign text
         super().__init__(notebook, "Jovani's Poes")
 
+    def auto_fill(self, sign_text):
         # And set up to begin populating the tab
         raw_rewards = self.parse_sign(sign_text)
 
@@ -436,10 +445,14 @@ if __name__ == '__main__':
 
     # Pick a spoiler log ---------------------------------------------------
     # PEP8 compliance and readability
-    command = lambda: spoiler_pop_up(spoiler_logs)
+    command = lambda: spoiler_pop_up(spoiler_logs, notebook)
     # Create the button
     main_page_button(main_page_frame, 'Pick Spoiler Log', [0, 0], command)
     # ----------------------------------------------------------------------
+
+    # Make Agitha and Jovani ------------------------
+    agitha = AgithaTab(notebook)
+    jovani = JovaniTab(notebook)
 
     # Reset Button ------------------------------------------------------
     # PEP8 compliance and readability
