@@ -5,9 +5,9 @@ from pathlib import Path
 from re import findall, sub
 from tkinter import Tk, Toplevel
 from tkinter import IntVar, StringVar
-from tkinter import Checkbutton, Frame, Label, OptionMenu, Button
+from tkinter import Checkbutton, Frame, Label, Button
 from tkinter.scrolledtext import ScrolledText
-from tkinter.ttk import Notebook
+from tkinter.ttk import Notebook, OptionMenu
 
 # Global Variables ============================================================
 
@@ -61,8 +61,6 @@ def spoiler_pop_up(files: list):
 
     # The var that will hold the spoiler log choice
     spoiler_log = StringVar()
-    # Default to the first one in the list
-    spoiler_log.set(files[0])
 
     # Grab the longest file name
     longest_spoiler_name = max(files)
@@ -72,6 +70,7 @@ def spoiler_pop_up(files: list):
     # The drop down to actually pick the spoiler log
     spoiler_log_dropdown = OptionMenu(pop_up,
                                       spoiler_log,
+                                      files[0],
                                       *spoiler_logs)
     spoiler_log_dropdown.config(width=longest)
     spoiler_log_dropdown.pack(padx=5, pady=10)
