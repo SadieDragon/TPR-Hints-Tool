@@ -3,7 +3,7 @@ from json import load
 from os import listdir, getcwd, abort
 from pathlib import Path
 from re import findall, sub
-from tkinter import Tk, Toplevel
+from tkinter import Tk, Toplevel, messagebox
 from tkinter import IntVar, StringVar
 from tkinter import Checkbutton, Frame, Label, Button
 from tkinter.scrolledtext import ScrolledText
@@ -28,6 +28,25 @@ def case_not_expected() -> None:
     print('I did not expect this option, dear dev.')
     abort()
 
+
+# DRY: Reset the tool.
+def reset_tracker(notebook: Notebook) -> None:
+    # Get the widgets.
+    current_tabs = notebook.winfo_children()
+
+    # If there's only 1 tab, we do not need to reset
+    if len(current_tabs) > 1:
+        # Remove all but the first tab
+        [widget.destroy() for widget in current_tabs[1:]]
+
+
+# Verify Reset
+def verify_reset(notebook: Notebook):
+    # A warning of "are you sure, mate?" PEP8 compliance
+    warning = 'Are you sure? This will wipe everything.'
+    if messagebox.askokcancel('Verify Reset', warning):
+        reset_tracker(notebook)
+
 # =============================================================================
 
 # GUI Functions ===============================================================
@@ -35,15 +54,9 @@ def case_not_expected() -> None:
 # DRY
 def create_notebook_tab(notebook: Notebook, current_category: str) -> Frame:
     '''Turn a frame into a notebook tab.'''
-
-    # Grab a list of the previous frames
-    previous_frames = notebook.winfo_children()
-
     # Refresh the frames
-    if (len(previous_frames) > 1) and (current_category == "Agitha's Castle"):
-        # Remove everything that isn't the main frame
-        for child in previous_frames[1:]:
-            child.destroy()
+    if (current_category == "Agitha's Castle"):
+        reset_tracker(notebook)
 
     # The new frame
     new_frame = Frame(notebook, width=450, height=450, bg=default_notebook_bg)
@@ -86,6 +99,16 @@ def spoiler_pop_up(files: list):
                                  text = 'Confirm',
                                  command = c)
     confirm_spoiler_log.pack(padx=5, pady=5)
+
+
+# DRY: set up buttons on the main page
+def main_page_button(notebook: Notebook,
+                     text: str,
+                     row_column: list,
+                     command=None) -> None:
+    row, column = row_column
+    new_button = Button(notebook, text=text, command=command)
+    new_button.grid(padx=5, pady=5, row=row, column=column)
 # =============================================================================
 
 # Hint Parsing ================================================================
@@ -411,12 +434,18 @@ if __name__ == '__main__':
     main_page_frame = create_notebook_tab(notebook, current_category)
     # -----------------------------------------------------------------
 
-    # Pick a spoiler log ------------------------------------------------------
-    spoiler_button = Button(main_page_frame,
-                            text = 'Pick Spoiler Log',
-                            command = lambda: spoiler_pop_up(spoiler_logs))
-    spoiler_button.pack(padx=5, pady=5)
-    # -------------------------------------------------------------------------
+    # Pick a spoiler log ---------------------------------------------------
+    # PEP8 compliance and readability
+    command = lambda: spoiler_pop_up(spoiler_logs)
+    # Create the button
+    main_page_button(main_page_frame, 'Pick Spoiler Log', [0, 0], command)
+    # ----------------------------------------------------------------------
+
+    # Reset Button ------------------------------------------------------
+    # PEP8 compliance and readability
+    command = lambda: verify_reset(notebook)
+    main_page_button(main_page_frame, 'Reset Tracker', [0, 1], command)
+    # -------------------------------------------------------------------
 
     # And run the window plz.
     root.mainloop()
