@@ -147,8 +147,31 @@ class ShoppingListTab():
         self.frame = None
         self.label = None
         self.label_var = StringVar()
-        # Holds the default text for the var, specifically
+
+        # Specifically holds the default txts
         self.default_text = ''
+        self.good = ''
+        self.bad = ''
+
+        # And holds the rewards
+        self.rewards = []
+
+    # Same across both: Setting the default text and populating
+    # the tab with the rewards possible
+    def populate_tab(self):
+        # Create the tab
+        self.create_tab()
+
+        # Set the default to bad
+        self.default_text = self.bad
+        # Update if good
+        if self.rewards:
+            self.create_checklist()
+
+            self.default_text = self.good
+
+        # And update the label_var
+        self.label_var.set(self.default_text)
 
     # A modification of create_notebook_tab, unique to these
     def create_tab(self):
@@ -164,9 +187,9 @@ class ShoppingListTab():
 
     # create_checkbox was only really used for this,
     # and can be even more DRY across the two.
-    def create_checklist(self, rewards):
+    def create_checklist(self):
         # Go through the item list
-        for reward in rewards:
+        for reward in self.rewards:
             # Create the IntVar for the state
             checkbox_var = IntVar()
 
@@ -209,36 +232,25 @@ class AgithaTab(ShoppingListTab):
     def __init__(self, notebook, sign_text):
         super().__init__(notebook, "Agitha's Castle")
 
-        # Create the tab
-        self.create_tab()
-
-        # The default text for Agitha's Castle is
-        self.default_text = 'Agitha gives you GREAT... sadness...'
-
         # And then set up the list to begin populating the tab
-        rewards = self.parse_sign(sign_text)
-        # If there is a list of rewards, make a checklist
-        if rewards:
-            # Then create the checklist
-            self.create_checklist(rewards)
+        self.parse_sign(sign_text)
 
-            # TODO: put a better label text here
-            self.default_text = 'Agitha gives you GREAT HAPPINESS:'
+        # The default texts for Agitha's Castle
+        self.bad= 'Agitha gives you GREAT... sadness...'
+        self.good = 'Agitha gives you GREAT HAPPINESS:'
 
-        self.label_var.set(self.default_text)
+        # Populate the tab
+        self.populate_tab()
 
     # Take the sign text and parse it down into a list
     # of the rewards
     def parse_sign(self, sign_text: str):
-        rewards_list = []
         if ':' in sign_text:
             # Grab the rewards off of the intro
-            rewards = sign_text.split(': ')[1]
+            raw_rewards = sign_text.split(': ')[1]
 
             # Remove the braces and split into a list
-            rewards_list = rewards[1:-1].split(', ')
-
-        return rewards_list
+            self.rewards = raw_rewards[1:-1].split(', ')
 
 # Jovani's subclass
 class JovaniTab(ShoppingListTab):
@@ -247,16 +259,12 @@ class JovaniTab(ShoppingListTab):
         # the hint sign text
         super().__init__(notebook, "Jovani's Poes")
 
-        # Create the tab
-        self.create_tab()
-
         # And set up to begin populating the tab
-        rewards = self.parse_sign(sign_text)
+        raw_rewards = self.parse_sign(sign_text)
 
         # Parse the rewards that jovani gives
         bad_rewards = []
-        good_rewards = []
-        for threshold, reward_quality in [*rewards.items()]:
+        for threshold, reward_quality in [*raw_rewards.items()]:
             # Unpack the rewards and quality
             reward, quality = reward_quality
 
@@ -268,21 +276,14 @@ class JovaniTab(ShoppingListTab):
                 bad_rewards.append(threshold_reward)
             # These rewards ARE needed
             elif quality in ['good', 'required']:
-                good_rewards.append(threshold_reward)
+                self.rewards.append(threshold_reward)
 
-        # By default his text is
-        self.default_text = 'Jovani remains greedy, and does not pay you well.'
+        # The default texts for Jovani's Redemption
+        bad_text = 'Jovani remains greedy, and does not pay you well.'
+        good_text = 'Jovani has learned, and rewards you with the following:'
 
-        # If he actually has something good..
-        if good_rewards:
-            # Make the checklist
-            self.create_checklist(good_rewards)
-
-            # TODO: put a better label text here
-            self.default_text = ('Jovani has learned, '
-                                 'and rewards you with the following:')
-
-        self.label_var.set(self.default_text)
+        # Populate the tab
+        self.populate_tab()
 
         # If he has bad rewards, make a text checklist,
         # and make a new label.
