@@ -193,7 +193,7 @@ class ShoppingListTab():
             new_text = ('Congratulatins!'
                         ' There is nothing left to collect here.\n'
                         'You have collected the following items from'
-                        f' {self.name}:n')
+                        f' {self.name}:')
             self.label_var.set(new_text)
 
 
