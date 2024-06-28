@@ -279,8 +279,8 @@ class JovaniTab(ShoppingListTab):
                 self.rewards.append(threshold_reward)
 
         # The default texts for Jovani's Redemption
-        bad_text = 'Jovani remains greedy, and does not pay you well.'
-        good_text = 'Jovani has learned, and rewards you with the following:'
+        self.bad = 'Jovani remains greedy, and does not pay you well.'
+        self.good = 'Jovani has learned, and rewards you with the following:'
 
         # Populate the tab
         self.populate_tab()
