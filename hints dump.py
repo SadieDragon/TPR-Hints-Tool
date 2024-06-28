@@ -170,7 +170,10 @@ class ShoppingListTab():
 
         # Set up the textbox for scrollableness
         self.textbox = ScrolledText(self.frame,
-                                    bg = default_notebook_bg)
+                                    bg = default_notebook_bg,
+                                    relief = 'flat',
+                                    selectbackground = default_notebook_bg,
+                                    cursor = 'arrow')
         self.textbox.pack()
 
     # create_checkbox was only really used for this,
@@ -231,6 +234,9 @@ class AgithaTab(ShoppingListTab):
         # Populate the tab
         self.populate_tab()
 
+        # And disable the box *now*
+        self.textbox['state'] = 'disabled'
+
     # Take the sign text and parse it down into a list
     # of the rewards
     def parse_sign(self, sign_text: str):
@@ -284,6 +290,9 @@ class JovaniTab(ShoppingListTab):
                                   justify = 'left')
                 self.textbox.window_create('end', window=new_label)
                 self.textbox.insert('end', '\n')
+
+        # And disable the box *now*
+        self.textbox['state'] = 'disabled'
 
     # Take the sign text and parse it into a dict
     # representing the thresholds and rewards
