@@ -282,7 +282,8 @@ class JovaniTab(ShoppingListTab):
                                   text = reward,
                                   bg = default_notebook_bg,
                                   justify = 'left')
-                new_label.pack(anchor='nw', padx=5, pady=5)
+                self.textbox.window_create('end', window=new_label)
+                self.textbox.insert('end', '\n')
 
     # Take the sign text and parse it into a dict
     # representing the thresholds and rewards
