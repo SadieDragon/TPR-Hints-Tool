@@ -147,6 +147,8 @@ class ShoppingListTab():
         self.frame = None
         self.label = None
         self.label_var = StringVar()
+        # Holds the default text for the var, specifically
+        self.default_text = ''
 
     # A modification of create_notebook_tab, unique to these
     def create_tab(self):
@@ -195,6 +197,9 @@ class ShoppingListTab():
                         'You have collected the following items from'
                         f' {self.name}:')
             self.label_var.set(new_text)
+        # Set it to the default text, to be safe
+        else:
+            self.label_var.set(self.default_text)
 
 
 # Agitha's subclass
@@ -208,7 +213,7 @@ class AgithaTab(ShoppingListTab):
         self.create_tab()
 
         # The default text for Agitha's Castle is
-        self.label_var.set('Agitha gives you GREAT... sadness...')
+        self.default_text = 'Agitha gives you GREAT... sadness...'
 
         # And then set up the list to begin populating the tab
         rewards = self.parse_sign(sign_text)
@@ -218,7 +223,9 @@ class AgithaTab(ShoppingListTab):
             self.create_checklist(rewards)
 
             # TODO: put a better label text here
-            self.label_var.set('Agitha gives you GREAT HAPPINESS:')
+            self.default_text = 'Agitha gives you GREAT HAPPINESS:'
+
+        self.label_var.set(self.default_text)
 
     # Take the sign text and parse it down into a list
     # of the rewards
@@ -264,7 +271,7 @@ class JovaniTab(ShoppingListTab):
                 good_rewards.append(threshold_reward)
 
         # By default his text is
-        self.label_var.set('Jovani remains greedy, and does not pay you well.')
+        self.default_text = 'Jovani remains greedy, and does not pay you well.'
 
         # If he actually has something good..
         if good_rewards:
@@ -272,8 +279,10 @@ class JovaniTab(ShoppingListTab):
             self.create_checklist(good_rewards)
 
             # TODO: put a better label text here
-            self.label_var.set(('Jovani has learned,'
-                               'and rewards you with the following:'))
+            self.default_text = ('Jovani has learned, '
+                                 'and rewards you with the following:')
+
+        self.label_var.set(self.default_text)
 
         # If he has bad rewards, make a text checklist,
         # and make a new label.
