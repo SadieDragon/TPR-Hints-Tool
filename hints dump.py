@@ -191,7 +191,7 @@ class ShoppingListTab():
         self.name = name
 
         # Create the dict to be populated {reward: IntVar}
-        self.checkboxes = {}
+        self.checkboxes = []
 
         # And prepare the Frame and Label to be populated
         self.frame = None
@@ -272,19 +272,19 @@ class ShoppingListTab():
             self.textbox.insert('end', '\n')
 
             # And store the reward and new intvar
-            self.checkboxes[reward] = checkbox_var
+            self.checkboxes.append(checkbox_var)
 
     # And collect_item, which was unique to them
     def collect_item(self):
         # Go through and check the states of the checkboxes
         checked = []
-        for int_var in self.checkboxes.values():
+        for int_var in self.checkboxes:
             checked.append(int_var.get())
 
         # If all are true, update the text
         if all(checked):
             # (which is so long I create a new var)
-            new_text = ('Congratulatins!'
+            new_text = ('Congratulations!'
                         ' There is nothing left to collect here.\n'
                         'You have collected the following items from'
                         f' {self.name}:')
