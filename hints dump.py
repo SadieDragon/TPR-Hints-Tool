@@ -222,7 +222,7 @@ class AgithaTab(ShoppingListTab):
 
     # Take the sign text and parse it down into a list
     # of the rewards
-    def parse_sign(sign_text: str):
+    def parse_sign(self, sign_text: str):
         rewards_list = []
         if ':' in sign_text:
             # Grab the rewards off of the intro
@@ -308,7 +308,7 @@ class JovaniTab(ShoppingListTab):
         # Spit back the rewards
         return jovani_rewards
 
-    def findall_to_list(regex: str, to_parse: str) -> list:
+    def findall_to_list(self, regex: str, to_parse: str) -> list:
         '''Returns the findall result as a list instead of tuple.'''
         return [*findall(regex, to_parse)[0]]
 
