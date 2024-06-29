@@ -60,7 +60,7 @@ def create_notebook_tab(master: Notebook, current_category: str) -> Frame:
     # The new frame
     new_frame = new_frame = Frame(master, width=450, height=450, bg=default_notebook_bg)
     new_frame.pack(padx=5, expand=True)
-    notebook.add(new_frame, text=current_category)
+    master.add(new_frame, text=current_category)
 
     # This will be used to pack things into
     return new_frame
@@ -438,9 +438,7 @@ if __name__ == '__main__':
     # --------------------------------------------------
 
     # Intro Page ------------------------------------------------------
-    # DRY / easy change in the future
-    current_category = "Main Page"
-    main_page_frame = create_notebook_tab(notebook, current_category)
+    main_page_frame = create_notebook_tab(notebook, "Main Page")
     # -----------------------------------------------------------------
 
     # Pick a spoiler log ---------------------------------------------------
