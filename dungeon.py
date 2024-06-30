@@ -1,4 +1,7 @@
 
+from json import load
+from os import getcwd, listdir
+from pathlib import Path
 from tkinter import Tk
 from tkinter import Frame, Label
 from tkinter.scrolledtext import ScrolledText
@@ -27,13 +30,13 @@ def create_scroll_window(master: Notebook):
                                relief = 'flat',
                                selectbackground = default_notebook_bg,
                                cursor = 'arrow')
-    new_textbox.pack()
+    new_textbox.pack(expand=True, fill='y', anchor='e')
 
     return new_textbox
 
 
 # Create the dungeons tab and populate it with default
-def create_dungeon_tab(master: Notebook):
+def create_dungeon_tab(master: Notebook, list_of_checks: list):
     # Create the tab
     dungeon_tab = create_notebook_tab(master, 'Dungeons')
 
@@ -54,22 +57,61 @@ def create_dungeon_tab(master: Notebook):
     }
 
     # Go through and create the individual dungeon frames
-    for index, (dungeon, color) in enumerate(dungeons_and_colors.items()):
-        dungeon_frame = Frame(dungeon_textbox,
-                              width = 25,
-                              height = 25,
-                              bg = color)
-        dungeon_frame.grid(row=index, column=0)
+    for dungeon, color in dungeons_and_colors.items():
+        # Create the frame for all the dungeon things.
+        sub_dungeon_frame = Frame(dungeon_textbox)
+        sub_dungeon_frame.pack(padx = 5,
+                               pady = 5,
+                               expand = True,
+                               fill = 'both',
+                               anchor = 'n')
+        dungeon_textbox.window_create('end', window=sub_dungeon_frame)
 
+        if dungeon != 'Hyrule Castle':
+            dungeon_textbox.insert('end', '\n')
 
+        # Create the label on the left side
+        dungeon_label = Label(sub_dungeon_frame,
+                              background = color,
+                              text = dungeon,
+                              width = 15,
+                              height = 10)
+        dungeon_label.grid(row=0, column=0)
+
+        # Drop down frame for bk (because.. GM.)
+        bk_frame = Frame(sub_dungeon_frame)
+        bk_frame.pack(padx=5, pady=5, expand=True, fill='both', anchor='n')
+
+        # The amount of times we'll do this next step
+        big_keys = 1
+        if dungeon == 'Goron Mines':
+            big_keys = 3
+
+        # -WORK PAUSED HERE BECAUSE I'VE GONE TO FIX UNREADABLE-
+
+    # Make it so the user can't mess with this textbox in any way
+    dungeon_textbox['state'] = 'disabled'
+
+# This is mimicking the main file ====================================
 root = Tk()
 root.geometry('500x500')
+# I have found this to be the best minimum.
+root.minsize(300, 300)
 
 notebook = Notebook(root)
 notebook.pack(padx=5, pady=5, expand=True, fill='both', anchor='nw')
 
+spoiler_log_folder = Path(getcwd()) / 'SpoilerLog'
+# ==================================================================
+
+spoiler_log = spoiler_log_folder / listdir(spoiler_log_folder)[0]
+with open(spoiler_log, 'r') as f:
+    spoiler_log_data = load(f)
+
+check_names = [*spoiler_log_data['itemPlacements'].keys()]
+
 main_page_frame = create_notebook_tab(notebook, "Main Page")
 
-create_dungeon_tab(notebook)
+create_dungeon_tab(notebook, check_names)
 
 root.mainloop()

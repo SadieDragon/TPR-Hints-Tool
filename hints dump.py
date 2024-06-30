@@ -79,7 +79,7 @@ def spoiler_pop_up(files: list, notebook: Notebook):
     spoiler_log = StringVar()
 
     # Grab the longest file name
-    longest_spoiler_name = max(files)
+    longest_spoiler_name = max(files, key=len)
     # And then the length of it, +5 for a buffer
     longest = len(longest_spoiler_name) + 5
 
