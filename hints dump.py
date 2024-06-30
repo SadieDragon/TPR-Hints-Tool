@@ -22,13 +22,6 @@ seed_name = 'Please pick a seed.'
 
 # Utility Functions ===========================================================
 
-# An error case. (I like adding things and forgetting that I did.)
-def case_not_expected() -> None:
-    '''An error handling for debug purposes.'''
-    print('I did not expect this option, dear dev.')
-    abort()
-
-
 # DRY: Reset the tool.
 def reset_tracker(notebook: Notebook) -> None:
     # Get the widgets.
