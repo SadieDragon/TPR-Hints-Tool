@@ -8,12 +8,12 @@ from os import abort  # DEBUG
 # The default notebook color
 default_notebook_bg = '#f9f9f9'
 
-# DRY *already exists)
+# DRY *already exists*
 def create_notebook_tab(master: Notebook, current_category: str) -> Frame:
     '''Turn a frame into a notebook tab.'''
     # The new frame
-    new_frame = new_frame = Frame(master, width=450, height=450, bg=default_notebook_bg)
-    new_frame.pack(padx=5, expand=True)
+    new_frame = new_frame = Frame(master, bg=default_notebook_bg)
+    new_frame.pack(padx=5, expand=True, fill='both')
     master.add(new_frame, text=current_category)
 
     # This will be used to pack things into
@@ -63,9 +63,10 @@ def create_dungeon_tab(master: Notebook):
 
 
 root = Tk()
+root.geometry('500x500')
 
-notebook = Notebook(root, width=495, height=475)
-notebook.pack(padx=5, pady=5, expand=False, anchor='nw')
+notebook = Notebook(root)
+notebook.pack(padx=5, pady=5, expand=True, fill='both', anchor='nw')
 
 main_page_frame = create_notebook_tab(notebook, "Main Page")
 
