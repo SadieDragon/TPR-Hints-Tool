@@ -2,14 +2,14 @@
 from json import load
 from re import findall, sub
 from tkinter import Tk, Toplevel, messagebox
-from tkinter import IntVar, StringVar
-from tkinter import Checkbutton, Frame, Label, Button
-from tkinter.scrolledtext import ScrolledText
+from tkinter import StringVar
+from tkinter import Button
 from tkinter.ttk import Notebook, OptionMenu
 
 from hints.Globals import return_logs_list, return_spoiler_folder
 from hints.gui.Globals import return_default_bg
 from hints.gui.Utils import create_notebook_tab
+from hints.gui.shopping.Parent import ShoppingListTab
 
 # Global Variables ============================================================
 
@@ -170,121 +170,6 @@ def normal_hints_tab(hints: list):
 # =============================================================================
 
 # Item Collection: Shopping Class =============================================
-
-# The parent class for Agitha and Jovani
-class ShoppingListTab():
-    # Initializing
-    def __init__(self, notebook, name):
-        # Set the local constants of notebook and name
-        self.notebook = notebook
-        self.name = name
-
-        # Create the dict to be populated (the IntVar states)
-        self.checkboxes = []
-
-        # The notebook frame
-        self.notebook_tab = None
-
-        # And prepare the Frame and Label to be populated
-        self.frame = None
-        self.label = None
-        self.label_var = StringVar()
-
-        # Also the textbox for the checkbox to go into
-        self.textbox = None
-
-        # Specifically holds the default txts
-        self.default_text = ''
-        self.good = ''
-        self.bad = ''
-
-        # And holds the rewards
-        self.rewards = []
-
-        # Create the tab
-        self.create_tab()
-
-    # Same across both: Setting the default text and populating
-    # the tab with the rewards possible
-    def populate_tab(self):
-        # Create the new label in that tab, with the var
-        self.label = Label(self.notebook_tab,
-                           bg = default_notebook_bg,
-                           textvariable = self.label_var,
-                           justify = 'left')
-        self.label.pack(padx=5, pady=5, anchor='nw')
-
-        # Set up the textbox for scrollableness
-        self.textbox = ScrolledText(self.notebook_tab,
-                                    bg = default_notebook_bg,
-                                    relief = 'flat',
-                                    selectbackground = default_notebook_bg,
-                                    cursor = 'arrow')
-        self.textbox.pack()
-
-        # Set the default to bad
-        self.default_text = self.bad
-        # Update if good
-        if self.rewards:
-            self.create_checklist()
-
-            self.default_text = self.good
-
-        # And update the label_var
-        self.label_var.set(self.default_text)
-
-    # A modification of create_notebook_tab, unique to these
-    def create_tab(self):
-        # Create the notebook tab
-        self.notebook_tab = create_notebook_tab(self.notebook, self.name)
-
-    # create_checkbox was only really used for this,
-    # and can be even more DRY across the two.
-    def create_checklist(self, bad=False):
-        # Go through the item list
-        for reward in self.rewards:
-            # Create the IntVar for the state
-            checkbox_var = IntVar()
-
-            # Create the checkbox itself
-            checkbox = Checkbutton(self.textbox,
-                                   text = reward,
-                                   variable = checkbox_var,
-                                   bg = default_notebook_bg,
-                                   activebackground = default_notebook_bg,
-                                   command = self.collect_item)
-
-            # If this is a bad jovani item, disable it
-            if bad:
-                checkbox.config(state='disabled')
-                checkbox_var.set(1)
-
-            # Store it
-            self.textbox.window_create('end', window=checkbox)
-            self.textbox.insert('end', '\n')
-
-            # And store the reward and new intvar
-            self.checkboxes.append(checkbox_var)
-
-    # And collect_item, which was unique to them
-    def collect_item(self):
-        # Go through and check the states of the checkboxes
-        checked = []
-        for int_var in self.checkboxes:
-            checked.append(int_var.get())
-
-        # If all are true, update the text
-        if all(checked):
-            # (which is so long I create a new var)
-            new_text = ('Congratulations!'
-                        ' There is nothing left to collect here.\n'
-                        'You have collected the following items from'
-                        f' {self.name}:')
-            self.label_var.set(new_text)
-        # Set it to the default text, to be safe
-        else:
-            self.label_var.set(self.default_text)
-
 
 # Agitha's subclass
 class AgithaTab(ShoppingListTab):
