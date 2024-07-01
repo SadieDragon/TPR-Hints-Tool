@@ -8,6 +8,7 @@ from tkinter.ttk import Notebook, OptionMenu
 
 from hints.Globals import return_logs_list, return_spoiler_folder
 from hints.gui.Globals import return_default_bg
+from hints.gui.MainPage import main_page_button
 from hints.gui.Utils import create_notebook_tab
 from hints.gui.shopping.Agitha import AgithaTab
 from hints.gui.shopping.Jovani import JovaniTab
@@ -84,16 +85,6 @@ def spoiler_pop_up(files: list, notebook: Notebook):
                                  text = 'Confirm',
                                  command = c)
     confirm_spoiler_log.pack(padx=5, pady=5)
-
-
-# DRY: set up buttons on the main page
-def main_page_button(notebook: Notebook,
-                     text: str,
-                     row_column: list,
-                     command=None) -> None:
-    row, column = row_column
-    new_button = Button(notebook, text=text, command=command)
-    new_button.grid(padx=5, pady=5, row=row, column=column)
 
 # =============================================================================
 
