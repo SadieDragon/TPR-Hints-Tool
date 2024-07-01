@@ -4,7 +4,7 @@
 from hints.gui.Globals import return_default_bg
 from hints.gui.ResetTracker import reset_tracker
 from hints.gui.Utils import create_notebook_tab
-from tkinter import Checkbutton, IntVar, Label, StringVar
+from tkinter import Checkbutton, Frame, IntVar, Label, StringVar
 from tkinter.scrolledtext import ScrolledText
 from tkinter.ttk import Notebook
 
@@ -27,6 +27,7 @@ class ShoppingListTab():
 
         # And prepare the widgets to be populated
         self.textbox = None
+        self.frame = None
         self.label = None
 
         # Set the local vars which hold the label texts
@@ -58,6 +59,13 @@ class ShoppingListTab():
                                     state = 'disabled')
         self.textbox.pack()
 
+        # Create the checklist frame itself
+        self.frame = Frame(self.textbox,
+                           bg = self.default_bg)
+
+        # Store the frame in the scrollable textbox
+        self.textbox.window_create('end', window=self.frame)
+
         # Set the default to the bad text
         self.default_text = self.bad
         # Rewards handling
@@ -78,7 +86,7 @@ class ShoppingListTab():
             checkbox_var = IntVar()
 
             # Create the checkbox itself
-            checkbox = Checkbutton(self.textbox,
+            checkbox = Checkbutton(self.frame,
                                    activebackground = self.default_bg,
                                    bg = self.default_bg,
                                    command = self.collect_item,
@@ -90,9 +98,8 @@ class ShoppingListTab():
                 checkbox.config(state='disabled')
                 checkbox_var.set(1)
 
-            # Store the checkbox in the scrollable textbox
-            self.textbox.window_create('end', window=checkbox)
-            self.textbox.insert('end', '\n')
+            # Pack the checkbox
+            checkbox.pack(anchor='w')
 
             # Store the IntVar representing the state
             self.checkboxes.append(checkbox_var)
