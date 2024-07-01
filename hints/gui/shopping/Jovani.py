@@ -8,6 +8,8 @@ from tkinter.ttk import Notebook
 # BUG: https://github.com/SadieDragon/TPR-Hints-Tool/issues/50
 # BUG: https://github.com/SadieDragon/TPR-Hints-Tool/issues/44
 
+# BUG / TODO: https://github.com/SadieDragon/TPR-Hints-Tool/issues/51
+
 # TODO: https://github.com/SadieDragon/TPR-Hints-Tool/issues/32
 # TODO: https://github.com/SadieDragon/TPR-Hints-Tool/issues/29
 
@@ -19,63 +21,54 @@ class JovaniTab(ShoppingListTab):
 
     def auto_fill(self, sign_text: str) -> None:
         '''Autofill the tab based on the provided hints.'''
-        # And set up to begin populating the tab
+        # Parse the sign text into a dict
         raw_rewards = self.parse_sign(sign_text)
 
-        # Parse the rewards that jovani gives
-        bad_rewards = []
-        for threshold, reward_quality in [*raw_rewards.items()]:
-            # Unpack the rewards and quality
-            reward, quality = reward_quality
-
-            # Put the threshold with the reward
-            threshold_reward = ': '.join([threshold, reward])
-
-            # These rewards are NOT needed
-            if ('not' in quality) or (quality == 'bad'):
-                bad_rewards.append(threshold_reward)
-            # These rewards ARE needed
-            elif quality in ['good', 'required']:
+        # Parse the rewards in the dict
+        bad_rewards = []  # Temp holding var
+        for threshold_reward, quality in [*raw_rewards.items()]:
+            # Store the required and thus good rewards for initial autofill
+            if quality in ['good', 'required']:
                 self.rewards.append(threshold_reward)
+            # Rewards which are not needed get put into the temp var
+            elif ('not' in quality) or (quality == 'bad'):
+                bad_rewards.append(threshold_reward)
 
         # The default texts for Jovani's Redemption
         self.bad = 'Jovani remains greedy, and does not pay you well.'
         self.good = 'Jovani has learned, and rewards you with the following:'
 
-        # Populate the tab
+        # Populate the tab with the good rewards first
         self.populate_tab()
 
-        # If he has bad rewards, make a text checklist,
-        # and make a new label.
+        # Populate the tab with the bad rewards next
         if bad_rewards:
-            # Update rewards, because I don't think it matters?
             self.rewards = bad_rewards
 
-            # And checklist but diff
             self.create_checklist(True)
 
-    # Take the sign text and parse it into a dict
-    # representing the thresholds and rewards
     def parse_sign(self, sign_text: str) -> dict:
         '''Parse the provided hint sign text into a dict.'''
         # Split the text into the two lines (Thx jaq for this regex)
         rewards = self.findall_to_list(r'^(.*\)) +(\d+ .*)$', sign_text)
 
-        # Get the dict itself
+        # Parse the individual lines
         jovani_rewards = {}
         for line in rewards:
             # Split the turn in threshold off of the reward
             # (with attached quality)
             threshold, item_quality = line.split(': ')
 
-            # Remove the {} and (), and split into an array.
-            item_quality = self.findall_to_list(r'\{(.*?)\} \((.*?)\)',
-                                                item_quality)
+            # Remove the {} and (), and split into reward and quality
+            reward, quality = self.findall_to_list(r'\{(.*?)\} \((.*?)\)',
+                                                   item_quality)
+
+            # Combine the reward with the threshold
+            threshold_reward = ': '.join([threshold, reward])
 
             # Then store the rewards for later handling
-            jovani_rewards[threshold] = item_quality
+            jovani_rewards[threshold_reward] = quality
 
-        # Spit back the rewards
         return jovani_rewards
 
     def findall_to_list(self, regex: str, to_parse: str) -> list:
