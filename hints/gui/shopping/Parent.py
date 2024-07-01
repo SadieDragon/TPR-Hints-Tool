@@ -1,7 +1,9 @@
 
+# Home to the parent class of the shopping list tabs
+
 from hints.gui.Globals import return_default_bg
 from hints.gui.Utils import create_notebook_tab
-from tkinter import Checkbutton, Label, IntVar, StringVar
+from tkinter import Checkbutton, IntVar, Label, StringVar
 from tkinter.scrolledtext import ScrolledText
 from tkinter.ttk import Notebook
 

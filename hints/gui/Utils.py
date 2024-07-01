@@ -1,5 +1,5 @@
 
-# Home to the "basic" utility function of the GUI components
+# Home to the "basic" utility functions of the GUI components
 
 from hints.gui.Globals import return_default_bg
 from tkinter import Frame
