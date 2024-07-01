@@ -50,7 +50,8 @@ class ShoppingListTab():
                                     bg = self.default_bg,
                                     cursor = 'arrow',
                                     relief = 'flat',
-                                    selectbackground = self.default_bg)
+                                    selectbackground = self.default_bg,
+                                    state = 'disabled')
         self.textbox.pack()
 
         # Set the default to the bad text

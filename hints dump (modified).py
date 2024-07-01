@@ -215,9 +215,6 @@ class JovaniTab(ShoppingListTab):
             # And checklist but diff
             self.create_checklist(True)
 
-        # And disable the box *now*
-        self.textbox['state'] = 'disabled'
-
     # Take the sign text and parse it into a dict
     # representing the thresholds and rewards
     def parse_sign(self, sign_text):
