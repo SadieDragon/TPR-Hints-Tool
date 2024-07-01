@@ -1,82 +1,24 @@
 
 
-from tkinter import Tk, Toplevel
-from tkinter import StringVar
-from tkinter import Button
-from tkinter.ttk import Notebook, OptionMenu
+from tkinter import Tk
+from tkinter.ttk import Notebook
 
 from hints.Globals import return_logs_list
 from hints.gui.Globals import return_default_bg
 from hints.gui.MainPage import create_main_reset_button, main_page_button
+from hints.gui.PickSpoiler import spoiler_pop_up
 from hints.gui.Utils import create_notebook_tab
 from hints.gui.shopping.Agitha import AgithaTab
 from hints.gui.shopping.Jovani import JovaniTab
-from hints.parse.SpoilerLog import dump_spoiler_log
-
-# Global Variables ============================================================
-
-# The default notebook color
-default_notebook_bg = return_default_bg()
-
-# This will be updated and set later on,
-# and used in many places
-seed_name = 'Please pick a seed.'
-
-# =============================================================================
-
-# GUI Functions ===============================================================
-
-# Create the pop up for picking the spoiler log
-def spoiler_pop_up(files: list,
-                   notebook: Notebook,
-                   agitha: AgithaTab,
-                   jovani: JovaniTab,
-                   seed_name: str,
-                   root: Tk):
-    # The pop up window specifically
-    pop_up = Toplevel(root, bg=default_notebook_bg)
-    pop_up.title('Pick a spoiler log')
-    pop_up.geometry('500x90')
-
-    # The var that will hold the spoiler log choice
-    spoiler_log = StringVar()
-
-    # Grab the longest file name
-    longest_spoiler_name = max(files, key=len)
-    # And then the length of it, +5 for a buffer
-    longest = len(longest_spoiler_name) + 5
-
-    spoiler_logs = return_logs_list()
-
-    # The drop down to actually pick the spoiler log
-    spoiler_log_dropdown = OptionMenu(pop_up,
-                                      spoiler_log,
-                                      files[0],
-                                      *spoiler_logs)
-    spoiler_log_dropdown.config(width=longest)
-    spoiler_log_dropdown.pack(padx=5, pady=10)
-
-    # PEP8 compliant command
-    c = lambda: dump_spoiler_log(spoiler_log,
-                                 notebook,
-                                 pop_up,
-                                 agitha,
-                                 jovani,
-                                 seed_name,
-                                 root)
-    # Confirmation button
-    confirm_spoiler_log = Button(pop_up,
-                                 text = 'Confirm',
-                                 command = c)
-    confirm_spoiler_log.pack(padx=5, pady=5)
-
-# =============================================================================
 
 # Script Execution ============================================================
 
 # There should always be a main guard for things that are
 # not run locally by me, because things could be different.
 if __name__ == '__main__':
+    # This will be updated and set later on
+    seed_name = 'Please pick a seed.'
+
     # Set up the window -------------
     root = Tk()
     root.title(seed_name)
