@@ -25,7 +25,8 @@ class JovaniTab(ShoppingListTab):
         raw_rewards = self.parse_sign(sign_text)
 
         # Parse the rewards in the dict
-        bad_rewards = []  # Temp holding var
+        self.rewards = []  # Ensure the list is clean?
+        bad_rewards = []   # Temp holding var
         for threshold_reward, quality in [*raw_rewards.items()]:
             # Store the required and thus good rewards for initial autofill
             if quality in ['good', 'required']:
@@ -44,7 +45,6 @@ class JovaniTab(ShoppingListTab):
         # Populate the tab with the bad rewards next
         if bad_rewards:
             self.rewards = bad_rewards
-
             self.create_checklist(True)
 
     def parse_sign(self, sign_text: str) -> dict:
