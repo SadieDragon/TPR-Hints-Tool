@@ -3,9 +3,7 @@
 from tkinter import Tk
 from tkinter.ttk import Notebook
 
-from hints.Globals import return_logs_list
-from hints.gui.MainPage import create_main_reset_button, main_page_button
-from hints.gui.PickSpoiler import spoiler_pop_up
+from hints.gui.MainPage import create_main_reset_button, create_choose_button
 from hints.gui.Utils import create_notebook_tab
 from hints.gui.shopping.Agitha import AgithaTab
 from hints.gui.shopping.Jovani import JovaniTab
@@ -35,12 +33,9 @@ if __name__ == '__main__':
     main_page_frame = create_notebook_tab(notebook, "Main Page")
     # -----------------------------------------------------------------
 
-    # Pick a spoiler log ---------------------------------------------------
-    # PEP8 compliance and readability
-    command = lambda: spoiler_pop_up(notebook)
-    # Create the button
-    main_page_button(main_page_frame, 'Pick Spoiler Log', [0, 0], command)
-    # ----------------------------------------------------------------------
+    # Pick a spoiler log ----------------------------
+    create_choose_button(notebook, main_page_frame)
+    # -----------------------------------------------
 
     # Reset Button --------------------------------------
     create_main_reset_button(notebook, main_page_frame)
