@@ -10,7 +10,7 @@ from hints.Globals import return_logs_list, return_spoiler_folder
 from hints.gui.Globals import return_default_bg
 from hints.gui.Utils import create_notebook_tab
 from hints.gui.shopping.Agitha import AgithaTab
-from hints.gui.shopping.Parent import ShoppingListTab
+from hints.gui.shopping.Jovani import JovaniTab
 
 # Global Variables ============================================================
 
@@ -167,80 +167,6 @@ def parse_hints(spoiler_log_data):
 # Populate the last tab [FUTURE]
 def normal_hints_tab(hints: list):
     print('hints -i am debug!-')
-
-# =============================================================================
-
-# Item Collection: Shopping Class =============================================
-
-# Jovani's subclass
-class JovaniTab(ShoppingListTab):
-    def __init__(self, notebook):
-        # Inherit the overall init, with the added param of
-        # the hint sign text
-        super().__init__(notebook, "Jovani's Poes")
-
-    def auto_fill(self, sign_text):
-        # And set up to begin populating the tab
-        raw_rewards = self.parse_sign(sign_text)
-
-        # Parse the rewards that jovani gives
-        bad_rewards = []
-        for threshold, reward_quality in [*raw_rewards.items()]:
-            # Unpack the rewards and quality
-            reward, quality = reward_quality
-
-            # Put the threshold with the reward
-            threshold_reward = ': '.join([threshold, reward])
-
-            # These rewards are NOT needed
-            if ('not' in quality) or (quality == 'bad'):
-                bad_rewards.append(threshold_reward)
-            # These rewards ARE needed
-            elif quality in ['good', 'required']:
-                self.rewards.append(threshold_reward)
-
-        # The default texts for Jovani's Redemption
-        self.bad = 'Jovani remains greedy, and does not pay you well.'
-        self.good = 'Jovani has learned, and rewards you with the following:'
-
-        # Populate the tab
-        self.populate_tab()
-
-        # If he has bad rewards, make a text checklist,
-        # and make a new label.
-        if bad_rewards:
-            # Update rewards, because I don't think it matters?
-            self.rewards = bad_rewards
-
-            # And checklist but diff
-            self.create_checklist(True)
-
-    # Take the sign text and parse it into a dict
-    # representing the thresholds and rewards
-    def parse_sign(self, sign_text):
-        # Split the text into the two lines (Thx jaq for this regex)
-        rewards = self.findall_to_list(r'^(.*\)) +(\d+ .*)$', sign_text)
-
-        # Get the dict itself
-        jovani_rewards = {}
-        for line in rewards:
-            # Split the turn in threshold off of the reward
-            # (with attached quality)
-            threshold, item_quality = line.split(': ')
-
-            # Remove the {} and (), and split into an array.
-            item_quality = self.findall_to_list(r'\{(.*?)\} \((.*?)\)',
-                                                item_quality)
-
-            # Then store the rewards for later handling
-            jovani_rewards[threshold] = item_quality
-
-        # Spit back the rewards
-        return jovani_rewards
-
-    def findall_to_list(self, regex: str, to_parse: str) -> list:
-        '''Returns the findall result as a list instead of tuple.'''
-        return [*findall(regex, to_parse)[0]]
 
 # =============================================================================
 
