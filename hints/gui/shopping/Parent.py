@@ -9,37 +9,30 @@ class ShoppingListTab():
     '''The parent class for Agitha and Jovani's tabs.'''
     def __init__(self, notebook: Notebook, name: str) -> None:
         '''Initialize all local vars, then create the tab.'''
-        # Set the local constants of notebook and name
+        # Set the default background color
+        self.default_bg = return_default_bg()
+
+        # Set the local constants that were provided
         self.notebook = notebook
         self.name = name
 
-        # The default background color
-        self.default_bg = return_default_bg()
+        # Create the tab for the subclass
+        self.notebook_tab = create_notebook_tab(self.notebook, self.name)
 
-        # Create the dict to be populated (the IntVar states)
-        self.checkboxes = []
-
-        # The notebook frame
-        self.notebook_tab = None
-
-        # And prepare the Frame and Label to be populated
+        # And prepare the widgets to be populated
+        self.textbox = None
         self.frame = None
         self.label = None
+
+        # Set the local vars which hold the label texts
         self.label_var = StringVar()
-
-        # Also the textbox for the checkbox to go into
-        self.textbox = None
-
-        # Specifically holds the default txts
         self.default_text = ''
         self.good = ''
         self.bad = ''
 
-        # And holds the rewards
-        self.rewards = []
-
-        # Create the tab
-        self.create_tab()
+        # Set the local list vars to be populated
+        self.rewards = []     # The reward lists provided by the subclasses
+        self.checkboxes = []  # The IntVars which are the states of the checks
 
     def populate_tab(self) -> None:
         '''Populate the tab with provided information.'''
@@ -68,11 +61,6 @@ class ShoppingListTab():
 
         # And update the label_var
         self.label_var.set(self.default_text)
-
-    def create_tab(self) -> None:
-        '''Sets the local notebook tab.'''
-        # Create the notebook tab
-        self.notebook_tab = create_notebook_tab(self.notebook, self.name)
 
     def create_checklist(self, bad=False) -> None:
         '''Create the checklist of items provided.'''
