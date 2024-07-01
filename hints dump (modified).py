@@ -1,7 +1,5 @@
 
 from json import load
-from os import listdir, getcwd, abort
-from pathlib import Path
 from re import findall, sub
 from tkinter import Tk, Toplevel, messagebox
 from tkinter import IntVar, StringVar
@@ -9,8 +7,8 @@ from tkinter import Checkbutton, Frame, Label, Button
 from tkinter.scrolledtext import ScrolledText
 from tkinter.ttk import Notebook, OptionMenu
 
-from hints.Globals_Hints import return_logs_list, return_spoiler_folder
-from hints.gui.Globals_GUI import return_default_bg
+from hints.Globals import return_logs_list, return_spoiler_folder
+from hints.gui.Globals import return_default_bg
 
 # Global Variables ============================================================
 
