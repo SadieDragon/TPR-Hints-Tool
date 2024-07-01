@@ -1,4 +1,7 @@
 
+import sys
+
+sys.dont_write_bytecode = True
 
 from tkinter import Tk
 from tkinter.ttk import Notebook
