@@ -110,4 +110,4 @@ class ShoppingListTab():
             self.label_var.set(new_text)
         # Set it to the default text (safety measure)
         else:
-            self.label_var.set(self.default_text)
+            self.label_var.set(self.default_text)\
