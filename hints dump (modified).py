@@ -9,6 +9,7 @@ from tkinter.ttk import Notebook, OptionMenu
 
 from hints.Globals import return_logs_list, return_spoiler_folder
 from hints.gui.Globals import return_default_bg
+from hints.gui.Utils import create_notebook_tab
 
 # Global Variables ============================================================
 
@@ -47,18 +48,6 @@ def verify_reset(notebook: Notebook):
 # =============================================================================
 
 # GUI Functions ===============================================================
-
-# DRY
-def create_notebook_tab(master: Notebook, current_category: str) -> Frame:
-    '''Turn a frame into a notebook tab.'''
-    # The new frame
-    new_frame = new_frame = Frame(master, width=450, height=450, bg=default_notebook_bg)
-    new_frame.pack(padx=5, expand=True)
-    master.add(new_frame, text=current_category)
-
-    # This will be used to pack things into
-    return new_frame
-
 
 # Create the pop up for picking the spoiler log
 def spoiler_pop_up(files: list, notebook: Notebook):
