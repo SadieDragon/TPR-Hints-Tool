@@ -12,13 +12,16 @@ from tkinter.ttk import Notebook, OptionMenu
 
 # NOTE: https://github.com/SadieDragon/TPR-Hints-Tool/issues/52
 
-def spoiler_pop_up(files: list,
-                   notebook: Notebook,
+def spoiler_pop_up(notebook: Notebook,
                    agitha: AgithaTab,
                    jovani: JovaniTab,
                    seed_name: str,
                    root: Tk) -> None:
     '''Creates the popup for the user to pick a spoiler log from.'''
+
+    # Grab the list of available files
+    files = return_logs_list()
+
     # The pop up window specifically
     pop_up = Toplevel(root, bg=return_default_bg())
     pop_up.title('Pick a spoiler log')

@@ -37,7 +37,7 @@ if __name__ == '__main__':
 
     # Pick a spoiler log ---------------------------------------------------
     # PEP8 compliance and readability
-    command = lambda: spoiler_pop_up(return_logs_list(), notebook)
+    command = lambda: spoiler_pop_up(notebook)
     # Create the button
     main_page_button(main_page_frame, 'Pick Spoiler Log', [0, 0], command)
     # ----------------------------------------------------------------------
