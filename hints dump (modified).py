@@ -31,14 +31,19 @@ if __name__ == '__main__':
     main_page_frame = create_notebook_tab(notebook, "Main Page")
     # -----------------------------------------------------------------
 
-    # Make the spoiler and reset buttons -------------
-    create_pop_up_buttons(notebook, main_page_frame)
-    # ------------------------------------------------
-
     # Make Agitha and Jovani -----
     agitha = AgithaTab(notebook)
     jovani = JovaniTab(notebook)
     # ----------------------------
+
+    # Make the spoiler and reset buttons -------------
+    create_pop_up_buttons(notebook,
+                          main_page_frame,
+                          agitha,
+                          jovani,
+                          seed_name,
+                          root)
+    # ------------------------------------------------
 
     # And run the window plz.
     root.mainloop()
