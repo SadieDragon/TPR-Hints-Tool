@@ -4,9 +4,10 @@
 from hints.gui.shopping.Parent import ShoppingListTab
 from tkinter.ttk import Notebook
 
-# TODO: Add custom text for the happiness,
-# based on how many rewards she provides.
-# https://github.com/SadieDragon/TPR-Hints-Tool/issues/29
+# BUG: https://github.com/SadieDragon/TPR-Hints-Tool/issues/50
+
+# TODO: https://github.com/SadieDragon/TPR-Hints-Tool/issues/29
+# TODO: https://github.com/SadieDragon/TPR-Hints-Tool/issues/23
 
 class AgithaTab(ShoppingListTab):
     '''The subclass for Agitha's tab.'''
