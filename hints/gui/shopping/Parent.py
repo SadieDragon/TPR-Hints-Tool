@@ -21,7 +21,6 @@ class ShoppingListTab():
 
         # And prepare the widgets to be populated
         self.textbox = None
-        self.frame = None
         self.label = None
 
         # Set the local vars which hold the label texts
@@ -36,57 +35,59 @@ class ShoppingListTab():
 
     def populate_tab(self) -> None:
         '''Populate the tab with provided information.'''
-        # Create the new label in that tab, with the var
+        # Create the new label in the tab
         self.label = Label(self.notebook_tab,
                            bg = self.default_bg,
-                           textvariable = self.label_var,
-                           justify = 'left')
+                           justify = 'left',
+                           textvariable = self.label_var)
         self.label.pack(padx=5, pady=5, anchor='nw')
 
-        # Set up the textbox for scrollableness
+        # Set up the scrollbar
+        # (a textbox because not all widgets can have ScrollBar)
         self.textbox = ScrolledText(self.notebook_tab,
                                     bg = self.default_bg,
+                                    cursor = 'arrow',
                                     relief = 'flat',
-                                    selectbackground = self.default_bg,
-                                    cursor = 'arrow')
+                                    selectbackground = self.default_bg)
         self.textbox.pack()
 
-        # Set the default to bad
+        # Set the default to the bad text
         self.default_text = self.bad
-        # Update if good
+        # Rewards handling
         if self.rewards:
+            # Create the checklist
             self.create_checklist()
 
+            # And update the default text to the good
             self.default_text = self.good
 
-        # And update the label_var
+        # Update the label var
         self.label_var.set(self.default_text)
 
     def create_checklist(self, bad=False) -> None:
         '''Create the checklist of items provided.'''
-        # Go through the item list
         for reward in self.rewards:
             # Create the IntVar for the state
             checkbox_var = IntVar()
 
             # Create the checkbox itself
             checkbox = Checkbutton(self.textbox,
-                                   text = reward,
-                                   variable = checkbox_var,
-                                   bg = self.default_bg,
                                    activebackground = self.default_bg,
-                                   command = self.collect_item)
+                                   bg = self.default_bg,
+                                   command = self.collect_item,
+                                   text = reward,
+                                   variable = checkbox_var)
 
-            # If this is a bad jovani item, disable it
+            # If this is a bad Jovani item, disable it
             if bad:
                 checkbox.config(state='disabled')
                 checkbox_var.set(1)
 
-            # Store it
+            # Store the checkbox in the scrollable textbox
             self.textbox.window_create('end', window=checkbox)
             self.textbox.insert('end', '\n')
 
-            # And store the reward and new intvar
+            # Store the IntVar representing the state
             self.checkboxes.append(checkbox_var)
 
     def collect_item(self) -> None:
@@ -98,12 +99,12 @@ class ShoppingListTab():
 
         # If all are true, update the text
         if all(checked):
-            # (which is so long I create a new var)
+            # PEP8 compliant and readable text
             new_text = ('Congratulations!'
                         ' There is nothing left to collect here.\n'
                         'You have collected the following items from'
                         f' {self.name}:')
             self.label_var.set(new_text)
-        # Set it to the default text, to be safe
+        # Set it to the default text (safety measure)
         else:
             self.label_var.set(self.default_text)
