@@ -8,7 +8,8 @@ from tkinter.ttk import Notebook, OptionMenu
 
 from hints.Globals import return_logs_list, return_spoiler_folder
 from hints.gui.Globals import return_default_bg
-from hints.gui.MainPage import main_page_button
+from hints.gui.MainPage import create_main_reset_button, main_page_button
+from hints.gui.ResetTracker import reset_tracker
 from hints.gui.Utils import create_notebook_tab
 from hints.gui.shopping.Agitha import AgithaTab
 from hints.gui.shopping.Jovani import JovaniTab
@@ -21,31 +22,6 @@ default_notebook_bg = return_default_bg()
 # This will be updated and set later on,
 # and used in many places
 seed_name = 'Please pick a seed.'
-
-# =============================================================================
-
-# Utility Functions ===========================================================
-
-# DRY: Reset the tool.
-def reset_tracker(notebook: Notebook) -> None:
-    # Get the widgets.
-    current_tabs = notebook.winfo_children()
-
-    # If there's only 1 tab, we do not need to reset
-    if len(current_tabs) > 1:
-        print(current_tabs[1].winfo_children())
-        # Remove all but the first tab's contents
-        for widget in current_tabs[1:]:
-            for child in widget.winfo_children():
-                child.destroy()
-
-
-# Verify Reset
-def verify_reset(notebook: Notebook):
-    # A warning of "are you sure, mate?" PEP8 compliance
-    warning = 'Are you sure? This will wipe everything.'
-    if messagebox.askokcancel('Verify Reset', warning):
-        reset_tracker(notebook)
 
 # =============================================================================
 
@@ -195,9 +171,7 @@ if __name__ == '__main__':
     # ----------------------------
 
     # Reset Button ------------------------------------------------------
-    # PEP8 compliance and readability
-    command = lambda: verify_reset(notebook)
-    main_page_button(main_page_frame, 'Reset Tracker', [0, 1], command)
+    create_main_reset_button(notebook, main_page_frame)
     # -------------------------------------------------------------------
 
     # And run the window plz.

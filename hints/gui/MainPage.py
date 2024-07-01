@@ -1,8 +1,15 @@
 
 # Home to the base functions based on the main page.
 
+from hints.gui.ResetTracker import verify_reset
+from tkinter import Button, Frame
 from tkinter.ttk import Notebook
-from tkinter import Button
+
+def create_main_reset_button(notebook: Notebook, main_page: Frame) -> None:
+    '''Creates the main page reset button.'''
+    command = lambda: verify_reset(notebook)
+    main_page_button(main_page, 'Reset Tracker', [0, 1], command)
+
 
 def main_page_button(notebook: Notebook,
                      text: str,
