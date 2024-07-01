@@ -9,6 +9,7 @@ from tkinter.ttk import Notebook, OptionMenu
 from hints.Globals import return_logs_list, return_spoiler_folder
 from hints.gui.Globals import return_default_bg
 from hints.gui.Utils import create_notebook_tab
+from hints.gui.shopping.Agitha import AgithaTab
 from hints.gui.shopping.Parent import ShoppingListTab
 
 # Global Variables ============================================================
@@ -170,37 +171,6 @@ def normal_hints_tab(hints: list):
 # =============================================================================
 
 # Item Collection: Shopping Class =============================================
-
-# Agitha's subclass
-class AgithaTab(ShoppingListTab):
-    # Inherit the overall init, with the added param of
-    # the hint sign text
-    def __init__(self, notebook):
-        super().__init__(notebook, "Agitha's Castle")
-
-    def auto_fill(self, sign_text):
-        # And then set up the list to begin populating the tab
-        self.parse_sign(sign_text)
-
-        # The default texts for Agitha's Castle
-        self.bad= 'Agitha gives you GREAT... sadness...'
-        self.good = 'Agitha gives you GREAT HAPPINESS:'
-
-        # Populate the tab
-        self.populate_tab()
-
-        # And disable the box *now*
-        self.textbox['state'] = 'disabled'
-
-    # Take the sign text and parse it down into a list
-    # of the rewards
-    def parse_sign(self, sign_text: str):
-        if ':' in sign_text:
-            # Grab the rewards off of the intro
-            raw_rewards = sign_text.split(': ')[1]
-
-            # Remove the braces and split into a list
-            self.rewards = raw_rewards[1:-1].split(', ')
 
 # Jovani's subclass
 class JovaniTab(ShoppingListTab):
