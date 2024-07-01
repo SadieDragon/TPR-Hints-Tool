@@ -2,6 +2,7 @@
 # Home to the parent class of the shopping list tabs
 
 from hints.gui.Globals import return_default_bg
+from hints.gui.ResetTracker import reset_tracker
 from hints.gui.Utils import create_notebook_tab
 from tkinter import Checkbutton, IntVar, Label, StringVar
 from tkinter.scrolledtext import ScrolledText
@@ -17,6 +18,9 @@ class ShoppingListTab():
         # Set the local constants that were provided
         self.notebook = notebook
         self.name = name
+
+        # Reset the tracker.
+        reset_tracker(self.notebook)
 
         # Create the tab for the subclass
         self.notebook_tab = create_notebook_tab(self.notebook, self.name)
