@@ -6,23 +6,23 @@ from hints.gui.ResetTracker import verify_reset
 from tkinter import Button, Frame
 from tkinter.ttk import Notebook
 
-def create_main_reset_button(notebook: Notebook, main_page: Frame) -> None:
-    '''Creates the main page reset button.'''
-    command = lambda: verify_reset(notebook)
-    main_page_button(main_page, 'Reset Tracker', [0, 1], command)
+def create_pop_up_buttons(notebook: Notebook, main_page: Frame) -> None:
+    '''Creates the buttons responsible for the different pop ups.'''
+    # Where I want things placed
+    button_placement = {
+        'Pick Spoiler Log': 0,
+        'Reset Tracker': 1
+    }
 
+    for text, column in button_placement.items():
+        # Pick the pop up based on the button being created
+        command = None
+        match text:
+            case 'Pick Spoiler Log':
+                command = lambda: spoiler_pop_up(notebook)
+            case 'Reset Tracker':
+                command = lambda: verify_reset(notebook)
 
-def create_choose_button(notebook: Notebook, main_page: Frame) -> None:
-    '''Creates the button that allows the user to pick a spoiler.'''
-    command = lambda: spoiler_pop_up(notebook)
-    main_page_button(main_page, 'Pick Spoiler Log', [0, 0], command)
-
-
-def main_page_button(notebook: Notebook,
-                     text: str,
-                     row_column: list,
-                     command=None) -> None:
-    '''Create a button on the main page.'''
-    row, column = row_column
-    new_button = Button(notebook, text=text, command=command)
-    new_button.grid(padx=5, pady=5, row=row, column=column)
+        # Create then place the new button
+        new_button = Button(main_page, text=text, command=command)
+        new_button.grid(padx=5, pady=5, row=0, column=column)

@@ -3,7 +3,7 @@
 from tkinter import Tk
 from tkinter.ttk import Notebook
 
-from hints.gui.MainPage import create_main_reset_button, create_choose_button
+from hints.gui.MainPage import create_pop_up_buttons
 from hints.gui.Utils import create_notebook_tab
 from hints.gui.shopping.Agitha import AgithaTab
 from hints.gui.shopping.Jovani import JovaniTab
@@ -33,13 +33,9 @@ if __name__ == '__main__':
     main_page_frame = create_notebook_tab(notebook, "Main Page")
     # -----------------------------------------------------------------
 
-    # Pick a spoiler log ----------------------------
-    create_choose_button(notebook, main_page_frame)
-    # -----------------------------------------------
-
-    # Reset Button --------------------------------------
-    create_main_reset_button(notebook, main_page_frame)
-    # ---------------------------------------------------
+    # Make the spoiler and reset buttons -------------
+    create_pop_up_buttons(notebook, main_page_frame)
+    # ------------------------------------------------
 
     # And run the window plz.
     root.mainloop()
