@@ -1,19 +1,17 @@
 
-from json import load
-from re import findall
+
 from tkinter import Tk, Toplevel
 from tkinter import StringVar
 from tkinter import Button
 from tkinter.ttk import Notebook, OptionMenu
 
-from hints.Globals import return_logs_list, return_spoiler_folder
+from hints.Globals import return_logs_list
 from hints.gui.Globals import return_default_bg
 from hints.gui.MainPage import create_main_reset_button, main_page_button
-from hints.gui.ResetTracker import reset_tracker
 from hints.gui.Utils import create_notebook_tab
 from hints.gui.shopping.Agitha import AgithaTab
 from hints.gui.shopping.Jovani import JovaniTab
-from hints.parse.Hints import parse_hints
+from hints.parse.SpoilerLog import dump_spoiler_log
 
 # Global Variables ============================================================
 
@@ -29,9 +27,12 @@ seed_name = 'Please pick a seed.'
 # GUI Functions ===============================================================
 
 # Create the pop up for picking the spoiler log
-def spoiler_pop_up(files: list, notebook: Notebook):
-    global pop_up
-
+def spoiler_pop_up(files: list,
+                   notebook: Notebook,
+                   agitha: AgithaTab,
+                   jovani: JovaniTab,
+                   seed_name: str,
+                   root: Tk):
     # The pop up window specifically
     pop_up = Toplevel(root, bg=default_notebook_bg)
     pop_up.title('Pick a spoiler log')
@@ -56,46 +57,18 @@ def spoiler_pop_up(files: list, notebook: Notebook):
     spoiler_log_dropdown.pack(padx=5, pady=10)
 
     # PEP8 compliant command
-    c = lambda: dump_spoiler_log(spoiler_log, notebook)
+    c = lambda: dump_spoiler_log(spoiler_log,
+                                 notebook,
+                                 pop_up,
+                                 agitha,
+                                 jovani,
+                                 seed_name,
+                                 root)
     # Confirmation button
     confirm_spoiler_log = Button(pop_up,
                                  text = 'Confirm',
                                  command = c)
     confirm_spoiler_log.pack(padx=5, pady=5)
-
-# =============================================================================
-
-# Hint Parsing ================================================================
-
-# Run when the spoiler log is picked.
-def dump_spoiler_log(spoiler_log: StringVar, notebook: Notebook):
-    global seed_name, agitha, jovani
-
-    # Let go of the window
-    pop_up.destroy()
-
-    # Reset the tracker
-    reset_tracker(notebook)
-
-    # Figure out which log was chosen
-    chosen_log = spoiler_log.get()
-
-    # Set the seed name, which is encased in -- --
-    seed_name = findall(r'\-\-(.*?)\-\-', chosen_log)[0]
-
-    # Set the title of the window
-    root.title(f'Hint Tracker Tool: {seed_name}')
-
-    # Get the path
-    spoiler_log_folder = return_spoiler_folder()
-    spoiler_log_path = spoiler_log_folder / chosen_log
-
-    # Dump the data
-    with open(spoiler_log_path, 'r') as f:
-        spoiler_log_data = load(f)
-
-    # Move on to parse the hints
-    parse_hints(spoiler_log_data, agitha, jovani)
 
 # =============================================================================
 
