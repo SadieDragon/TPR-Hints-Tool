@@ -1,7 +1,7 @@
 
 from json import load
-from re import findall, sub
-from tkinter import Tk, Toplevel, messagebox
+from re import findall
+from tkinter import Tk, Toplevel
 from tkinter import StringVar
 from tkinter import Button
 from tkinter.ttk import Notebook, OptionMenu
@@ -13,6 +13,7 @@ from hints.gui.ResetTracker import reset_tracker
 from hints.gui.Utils import create_notebook_tab
 from hints.gui.shopping.Agitha import AgithaTab
 from hints.gui.shopping.Jovani import JovaniTab
+from hints.parse.Hints import parse_hints
 
 # Global Variables ============================================================
 
@@ -68,7 +69,7 @@ def spoiler_pop_up(files: list, notebook: Notebook):
 
 # Run when the spoiler log is picked.
 def dump_spoiler_log(spoiler_log: StringVar, notebook: Notebook):
-    global seed_name
+    global seed_name, agitha, jovani
 
     # Let go of the window
     pop_up.destroy()
@@ -94,46 +95,7 @@ def dump_spoiler_log(spoiler_log: StringVar, notebook: Notebook):
         spoiler_log_data = load(f)
 
     # Move on to parse the hints
-    parse_hints(spoiler_log_data)
-
-
-# Run after log data is dumped
-def parse_hints(spoiler_log_data):
-    global agitha, jovani
-    # Grab the hints specifically out of the spoiler log
-    hints = spoiler_log_data['hints']
-
-    # Nab the hint texts
-    hint_texts = []
-    for sign, hints_data in hints.items():
-        # Cycle through the hints
-        for hint_data in hints_data:
-            # Grab the hint text itself.
-            hint_text = hint_data['text']
-
-            # Replace ♂ and ♀ (special characters)
-            hint_text = hint_text.replace('â™‚', 'male')
-            hint_text = hint_text.replace('â™€', 'female')
-            # Clean up any excess spaces
-            hint_text = sub(r' +', ' ', hint_text)
-
-            # Special handling for Agitha
-            if (sign == 'Agithas_Castle_Sign'):
-                agitha.auto_fill(hint_text)
-            # Special handling for Jovani
-            elif sign == 'Jovani_House_Sign':
-                jovani.auto_fill(hint_text)
-
-            # Normal hints
-            elif 'They say that ' in hint_text:
-                hint_texts.append(hint_text.replace('They say that ', ''))
-
-    normal_hints_tab(hint_texts)
-
-
-# Populate the last tab [FUTURE]
-def normal_hints_tab(hints: list):
-    print('hints -i am debug!-')
+    parse_hints(spoiler_log_data, agitha, jovani)
 
 # =============================================================================
 
