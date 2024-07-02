@@ -3,7 +3,7 @@
 
 from hints.gui.Globals import return_default_bg
 from hints.gui.ResetTracker import reset_tracker
-from hints.gui.Utils import create_notebook_tab
+from hints.gui.Utils import create_notebook_tab, create_scrollable
 from tkinter import Checkbutton, Frame, IntVar, Label, StringVar
 from tkinter.scrolledtext import ScrolledText
 from tkinter.ttk import Notebook
@@ -25,7 +25,7 @@ class ShoppingListTab():
         # Create the tab for the subclass
         self.notebook_tab = create_notebook_tab(self.notebook, self.name)
 
-        # And prepare the widgets to be populated
+        # Prepare the other widgets to be populated
         self.textbox = None
         self.frame = None
         self.label = None
@@ -51,13 +51,8 @@ class ShoppingListTab():
 
         # Set up the scrollbar
         # (a textbox because not all widgets can have ScrollBar)
-        self.textbox = ScrolledText(self.notebook_tab,
-                                    bg = self.default_bg,
-                                    cursor = 'arrow',
-                                    relief = 'flat',
-                                    selectbackground = self.default_bg,
-                                    state = 'disabled')
-        self.textbox.pack()
+        self.textbox = create_scrollable(self.notebook_tab)
+        self.textbox.config(cursor='arrow', relief='flat', state='disabled')
 
         # Create the checklist frame itself
         self.frame = Frame(self.textbox,
