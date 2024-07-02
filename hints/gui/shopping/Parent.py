@@ -66,21 +66,14 @@ class ShoppingListTab():
         # Store the frame in the scrollable textbox
         self.textbox.window_create('end', window=self.frame)
 
-        # Set the default to the bad text
-        self.default_text = self.bad
         # Rewards handling
         if self.rewards:
             # Create the checklist
             self.create_checklist(jovani)
 
-            # And update the default text to the good
-            self.default_text = self.good
-
-        # Update the label var
-        self.label_var.set(self.default_text)
-
     def create_checklist(self, jovani=False) -> None:
         '''Create the checklist of items provided.'''
+        was_disabled = []  # Temp var storing the flags
         for reward in self.rewards:
             # Figure out if need to disable
             to_disable = False
@@ -109,6 +102,18 @@ class ShoppingListTab():
 
             # Store the IntVar representing the state
             self.checkboxes.append(checkbox_var)
+
+            # Store whether we disabled the checklist
+            was_disabled.append(to_disable)
+
+        # If all of the checks were disabled, then bad
+        self.default_text = self.bad
+        # If any of the checks were not disabled, good text
+        if not all(was_disabled):
+            self.default_text = self.good
+
+        # Update the label var
+        self.label_var.set(self.default_text)
 
     def collect_item(self) -> None:
         '''Update the labels if all items are collected.'''
