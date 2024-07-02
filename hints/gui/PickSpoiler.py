@@ -10,8 +10,6 @@ from hints.parse.SpoilerLog import dump_spoiler_log
 from tkinter import Button, StringVar, Tk, Toplevel
 from tkinter.ttk import Notebook, OptionMenu
 
-# NOTE: https://github.com/SadieDragon/TPR-Hints-Tool/issues/52
-
 def spoiler_pop_up(notebook: Notebook,
                    agitha: AgithaTab,
                    jovani: JovaniTab,

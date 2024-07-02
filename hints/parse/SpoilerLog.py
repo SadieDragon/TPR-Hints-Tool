@@ -12,8 +12,6 @@ from re import findall
 from tkinter import StringVar, Tk, Toplevel
 from tkinter.ttk import Notebook
 
-# NOTE: https://github.com/SadieDragon/TPR-Hints-Tool/issues/52
-
 # TODO: https://github.com/SadieDragon/TPR-Hints-Tool/issues/53
 
 # Run when the spoiler log is picked.
