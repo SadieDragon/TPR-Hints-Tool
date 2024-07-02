@@ -3,6 +3,7 @@
 
 import sys
 
+# Don't write __pycache__
 sys.dont_write_bytecode = True
 
 from hints.gui.MainPage import create_pop_up_buttons

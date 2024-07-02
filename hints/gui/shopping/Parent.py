@@ -2,10 +2,9 @@
 # Home to the parent class of the shopping list tabs
 
 from hints.gui.Globals import return_default_bg
-from hints.gui.ResetTracker import reset_tracker
+from hints.gui.ResetTracker import reset
 from hints.gui.Utils import create_notebook_tab, create_scrollable
 from tkinter import Checkbutton, Frame, IntVar, Label, StringVar
-from tkinter.scrolledtext import ScrolledText
 from tkinter.ttk import Notebook
 
 class ShoppingListTab():
@@ -18,9 +17,6 @@ class ShoppingListTab():
         # Set the local constants that were provided
         self.notebook = notebook
         self.name = name
-
-        # Reset the tracker.
-        reset_tracker(self.notebook)
 
         # Create the tab for the subclass
         self.notebook_tab = create_notebook_tab(self.notebook, self.name)
@@ -42,6 +38,10 @@ class ShoppingListTab():
 
     def populate_tab(self, jovani=False) -> None:
         '''Populate the tab with provided information.'''
+        # Reset the frame.
+        if not jovani:
+            reset(self.notebook)
+
         # Create the new label in the tab
         self.label = Label(self.notebook_tab,
                            bg = self.default_bg,

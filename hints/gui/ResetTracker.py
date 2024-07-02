@@ -1,20 +1,24 @@
 
 # Houses all functions related to the resetting of the tracker.
 
-from tkinter import messagebox
+from tkinter import messagebox, Frame
 from tkinter.ttk import Notebook
 
-def reset_tracker(notebook: Notebook) -> None:
-    '''Reset the tracker.'''
-    # Get the widgets.
-    current_tabs = notebook.winfo_children()
+def reset(master: Notebook | Frame) -> None:
+    '''Reset the target.'''
+    print(master)
+    # Get the widgets of the target master
+    children = master.winfo_children()
 
-    # If there's only 1 tab, we do not need to reset
-    if len(current_tabs) > 1:
-        # Remove all but the first tab's contents
-        for widget in current_tabs[1:]:
-            for child in widget.winfo_children():
-                child.destroy()
+    # If this is passed a Notebook, it's the tracker,
+    # so we need to remove the first tab from the list
+    if type(master) == Notebook:
+        del children[0]
+
+    print(children)
+
+    # Remove the widgets.
+    [child.destroy() for child in children]
 
 
 def verify_reset(notebook: Notebook) -> None:
@@ -22,4 +26,4 @@ def verify_reset(notebook: Notebook) -> None:
     # A warning of "are you sure, mate?" PEP8 compliance
     warning = 'Are you sure? This will wipe everything.'
     if messagebox.askokcancel('Verify Reset', warning):
-        reset_tracker(notebook)
+        reset(notebook)

@@ -2,7 +2,7 @@
 # Hosts the base spoiler log parsing
 
 from hints.Globals import return_spoiler_folder
-from hints.gui.ResetTracker import reset_tracker
+from hints.gui.ResetTracker import reset
 from hints.parse.Hints import parse_hints
 from hints.gui.shopping.Agitha import AgithaTab
 from hints.gui.shopping.Jovani import JovaniTab
@@ -27,7 +27,7 @@ def dump_spoiler_log(spoiler_log: StringVar,
     pop_up.destroy()
 
     # Reset the tracker
-    reset_tracker(notebook)
+    reset(notebook)
 
     # Figure out which log was chosen
     chosen_log = spoiler_log.get()
