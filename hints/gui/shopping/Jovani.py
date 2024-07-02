@@ -18,39 +18,13 @@ class JovaniTab(ShoppingListTab):
 
     def auto_fill(self, sign_text: str) -> None:
         '''Autofill the tab based on the provided hints.'''
-        # Parse the sign text into a dict
-        raw_rewards = self.parse_sign(sign_text)
+        # Ensure that rewards is made
+        self.rewards = []
 
-        # Parse the rewards in the dict
-        self.rewards = []  # Ensure the list is clean?
-        bad_rewards = []   # Temp holding var
-        for threshold_reward, quality in [*raw_rewards.items()]:
-            # Store the required and thus good rewards for initial autofill
-            if quality in ['good', 'required']:
-                self.rewards.append(threshold_reward)
-            # Rewards which are not needed get put into the temp var
-            elif ('not' in quality) or (quality == 'bad'):
-                bad_rewards.append(threshold_reward)
-
-        # The default texts for Jovani's Redemption
-        self.bad = 'Jovani remains greedy, and does not pay you well.'
-        self.good = 'Jovani has learned, and rewards you with the following:'
-
-        # Populate the tab with the good rewards first
-        self.populate_tab()
-
-        # Populate the tab with the bad rewards next
-        if bad_rewards:
-            self.rewards = bad_rewards
-            self.create_checklist(True)
-
-    def parse_sign(self, sign_text: str) -> dict:
-        '''Parse the provided hint sign text into a dict.'''
         # Split the text into the two lines (Thx jaq for this regex)
         rewards = self.findall_to_list(r'^(.*\)) +(\d+ .*)$', sign_text)
 
         # Parse the individual lines
-        jovani_rewards = {}
         for line in rewards:
             # Split the turn in threshold off of the reward
             # (with attached quality)
@@ -63,10 +37,22 @@ class JovaniTab(ShoppingListTab):
             # Combine the reward with the threshold
             threshold_reward = ': '.join([threshold, reward])
 
-            # Then store the rewards for later handling
-            jovani_rewards[threshold_reward] = quality
+            # The holding var to append (reward : to_disable)
+            to_append = [threshold_reward, False]
 
-        return jovani_rewards
+            # Rewards which are not needed get the flag to disable
+            if ('not' in quality) or (quality == 'bad'):
+                to_append[1] = True
+
+            # Append the list to the rewards array
+            self.rewards.append(to_append)
+
+        # The default texts for Jovani's Redemption
+        self.bad = 'Jovani remains greedy, and does not pay you well.'
+        self.good = 'Jovani has learned, and rewards you with the following:'
+
+        # Populate the tab
+        self.populate_tab(True)
 
     def findall_to_list(self, regex: str, to_parse: str) -> list:
         '''Returns the findall result as a list instead of tuple.'''

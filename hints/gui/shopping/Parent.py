@@ -40,7 +40,7 @@ class ShoppingListTab():
         self.rewards = []     # The reward lists provided by the subclasses
         self.checkboxes = []  # The IntVars which are the states of the checks
 
-    def populate_tab(self) -> None:
+    def populate_tab(self, jovani=False) -> None:
         '''Populate the tab with provided information.'''
         # Create the new label in the tab
         self.label = Label(self.notebook_tab,
@@ -71,7 +71,7 @@ class ShoppingListTab():
         # Rewards handling
         if self.rewards:
             # Create the checklist
-            self.create_checklist()
+            self.create_checklist(jovani)
 
             # And update the default text to the good
             self.default_text = self.good
@@ -79,9 +79,15 @@ class ShoppingListTab():
         # Update the label var
         self.label_var.set(self.default_text)
 
-    def create_checklist(self, bad=False) -> None:
+    def create_checklist(self, jovani=False) -> None:
         '''Create the checklist of items provided.'''
         for reward in self.rewards:
+            # Figure out if need to disable
+            to_disable = False
+            if jovani:
+                # Unpack the list provided
+                reward, to_disable = reward
+
             # Create the IntVar for the state
             checkbox_var = IntVar()
 
@@ -94,7 +100,7 @@ class ShoppingListTab():
                                    variable = checkbox_var)
 
             # If this is a bad Jovani item, disable it
-            if bad:
+            if to_disable:
                 checkbox.config(state='disabled')
                 checkbox_var.set(1)
 
