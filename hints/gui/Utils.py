@@ -11,7 +11,7 @@ def create_notebook_tab(master: Notebook, current_category: str) -> Frame:
                                   width = 450,
                                   height = 450,
                                   bg = return_default_bg())
-    new_frame.pack(padx=5, expand=True)
+    new_frame.pack(padx=5, expand=True, fill='both')
     master.add(new_frame, text=current_category)
 
     return new_frame

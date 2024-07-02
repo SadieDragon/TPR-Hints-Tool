@@ -23,10 +23,10 @@ if __name__ == '__main__':
     root.config(bg='#2f3136')
     # -------------------------
 
-    # Set up the notebook ------------------------------------
+    # Set up the notebook ------------------------------------------------
     notebook = Notebook(root, width=495, height=475)
-    notebook.pack(padx=5, pady=5, expand=False, anchor='nw')
-    # --------------------------------------------------------
+    notebook.pack(padx=5, pady=5, expand=True, fill='both', anchor='nw')
+    # --------------------------------------------------------------------
 
     # Intro Page ------------------------------------------------------
     main_page_frame = create_notebook_tab(notebook, "Main Page")
