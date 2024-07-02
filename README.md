@@ -23,3 +23,7 @@ __How to use this program:__
 
 One glance at the rest of the repo, and you can tell that there's much more planned. I do apologize for the slight delay.
 If you want to play around with the in-progress code before release, follow the above steps for the ``hint-tool-(not-mvc)`` branch. Be warned that that is live and being updated regularly, so code *might* be broken if I've pushed an update to update an issue.
+
+Find bugs? Message me on twitch (and don't expect a response), or dm me on discord (much preferred). I can be found relatively easily in the TPR discord as DraconusLupa, or my discord tag is ``sadie_dragon``
+
+(Issues would be a way, but I might miss new issues in the mix of me fixing things)
