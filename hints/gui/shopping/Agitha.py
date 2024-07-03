@@ -29,7 +29,7 @@ class AgithaTab(ShoppingListTab):
             self.rewards = raw_rewards[1:-1].split(', ')
 
         # The default texts for Agitha's Castle
-        self.bad= 'Agitha gives you GREAT... sadness...'
+        self.bad = 'Agitha gives you GREAT... sadness...'
         self.good = 'Agitha gives you GREAT HAPPINESS:'
 
         # Populate the tab with the parsed information
