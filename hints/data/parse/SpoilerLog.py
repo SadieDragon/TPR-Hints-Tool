@@ -4,7 +4,6 @@
 from hints.data.Globals import return_spoiler_folder
 from hints.gui.ResetTracker import reset
 from hints.data.parse.Hints import parse_hints
-from hints.gui.shopping.CreateTabs import create_shopping_tabs
 
 from json import load
 from re import findall
