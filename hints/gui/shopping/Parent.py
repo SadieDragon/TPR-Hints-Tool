@@ -38,9 +38,14 @@ class ShoppingListTab():
 
     def populate_tab(self, jovani=False) -> None:
         '''Populate the tab with provided information.'''
+        # Ensure that the tab exists (strange that it goes missing)
+        if not self.notebook_tab.winfo_exists():
+            print("Notebook tab does not exist!")  # DEBUG
+            self.notebook_tab = create_notebook_tab(self.notebook, self.name)
         # Reset the frame.
-        if not jovani:
-            reset(self.notebook)
+        else:
+            print("Notebook tab exists!")  # DEBUG
+            reset(self.notebook_tab)
 
         # Create the new label in the tab
         self.label = Label(self.notebook_tab,
@@ -127,4 +132,4 @@ class ShoppingListTab():
             self.label_var.set(new_text)
         # Set it to the default text (safety measure)
         else:
-            self.label_var.set(self.default_text)\
+            self.label_var.set(self.default_text)

@@ -1,21 +1,25 @@
 
 # Houses all functions related to the resetting of the tracker.
 
+from os import abort
 from tkinter import messagebox, Frame
 from tkinter.ttk import Notebook
 
 def reset(master: Notebook | Frame) -> None:
     '''Reset the target.'''
-    print(master)
+    # Stramge errors are afoot: DEBUG
+    if not master.winfo_exists():
+        print("Master does not exist!")
+        print("Reset called on:", master)
+        abort()
+
     # Get the widgets of the target master
     children = master.winfo_children()
 
     # If this is passed a Notebook, it's the tracker,
     # so we need to remove the first tab from the list
-    if type(master) == Notebook:
+    if isinstance(master, Notebook) and children:
         del children[0]
-
-    print(children)
 
     # Remove the widgets.
     [child.destroy() for child in children]
