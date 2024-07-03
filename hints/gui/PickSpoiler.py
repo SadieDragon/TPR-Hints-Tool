@@ -2,7 +2,7 @@
 # Hosts the creation function for the spoiler log pop up
 
 from hints.data.Globals import return_logs_list
-from hints.data.parse.SpoilerLog import dump_spoiler_log
+from hints.data.parse.SpoilerLog import dump_and_autofill
 from hints.gui.Globals import return_default_bg
 from hints.gui.shopping.Agitha import AgithaTab
 from hints.gui.shopping.Jovani import JovaniTab
@@ -44,13 +44,13 @@ def spoiler_pop_up(notebook: Notebook,
     spoiler_log_dropdown.pack(padx=5, pady=10)
 
     # PEP8 compliant command
-    c = lambda: dump_spoiler_log(spoiler_log,
-                                 notebook,
-                                 pop_up,
-                                 agitha,
-                                 jovani,
-                                 seed_name,
-                                 root)
+    c = lambda: dump_and_autofill(spoiler_log,
+                                  notebook,
+                                  pop_up,
+                                  agitha,
+                                  jovani,
+                                  seed_name,
+                                  root)
     # Confirmation button
     confirm_spoiler_log = Button(pop_up,
                                  text = 'Confirm',

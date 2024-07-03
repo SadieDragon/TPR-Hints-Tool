@@ -14,29 +14,38 @@ from tkinter.ttk import Notebook
 
 # TODO: https://github.com/SadieDragon/TPR-Hints-Tool/issues/53
 
-# Run when the spoiler log is picked.
-def dump_spoiler_log(spoiler_log: StringVar,
-                     notebook: Notebook,
-                     pop_up: Toplevel,
-                     agitha: AgithaTab,
-                     jovani: JovaniTab,
-                     seed_name: str,
-                     root: Tk) -> None:
-    '''Dumps the information from the chosen spoiler log.'''
+def dump_and_autofill(spoiler_log: StringVar,
+                      notebook: Notebook,
+                      pop_up: Toplevel,
+                      agitha: AgithaTab,
+                      jovani: JovaniTab,
+                      seed_name: str,
+                      root: Tk) -> None:
+    '''Button press: Dump the spoiler and then autofill tabs.'''
     # Let go of the window
     pop_up.destroy()
 
     # Reset the tracker
     reset(notebook)
 
-    # Figure out which log was chosen
-    chosen_log = spoiler_log.get()
-
     # Set the seed name, which is encased in -- --
-    seed_name = findall(r'\-\-(.*?)\-\-', chosen_log)[0]
+    seed_name = findall(r'\-\-(.*?)\-\-', spoiler_log.get())[0]
 
     # Set the title of the window
     root.title(f'Hint Tracker Tool: {seed_name}')
+
+    # Run the dump_spoiler_log
+    data = dump_spoiler_log(spoiler_log)
+
+    # And parse the hints
+    parse_hints(data, agitha, jovani)
+
+
+# Run when the spoiler log is picked.
+def dump_spoiler_log(spoiler_log: StringVar) -> dict:
+    '''Dumps the information from the chosen spoiler log.'''
+    # Figure out which log was chosen
+    chosen_log = spoiler_log.get()
 
     # Get the path
     spoiler_log_folder = return_spoiler_folder()
@@ -44,7 +53,4 @@ def dump_spoiler_log(spoiler_log: StringVar,
 
     # Dump the data
     with open(spoiler_log_path, 'r') as f:
-        spoiler_log_data = load(f)
-
-    # Move on to parse the hints
-    parse_hints(spoiler_log_data, agitha, jovani)
+        return load(f)

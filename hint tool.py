@@ -29,23 +29,23 @@ if __name__ == '__main__':
     notebook.pack(padx=5, pady=5, expand=True, fill='both', anchor='nw')
     # --------------------------------------------------------------------
 
-    # Intro Page ------------------------------------------------------
+    # Intro Page -------------------------------------------------
     main_page_frame = create_notebook_tab(notebook, "Main Page")
-    # -----------------------------------------------------------------
+    # ------------------------------------------------------------
 
     # Make Agitha and Jovani -----
     agitha = AgithaTab(notebook)
     jovani = JovaniTab(notebook)
     # ----------------------------
 
-    # Make the spoiler and reset buttons -------------
+    # Make the spoiler and reset buttons ---
     create_pop_up_buttons(notebook,
                           main_page_frame,
                           agitha,
                           jovani,
                           seed_name,
                           root)
-    # ------------------------------------------------
+    # --------------------------------------
 
     # And run the window plz.
     root.mainloop()
