@@ -2,7 +2,6 @@
 # Home to the parent class of the shopping list tabs
 
 from hints.gui.Globals import return_default_bg
-from hints.gui.ResetTracker import reset
 from hints.gui.Utils import create_notebook_tab, create_scrollable
 from tkinter import Checkbutton, Frame, IntVar, Label, StringVar
 from tkinter.ttk import Notebook
@@ -38,15 +37,6 @@ class ShoppingListTab():
 
     def populate_tab(self, jovani=False) -> None:
         '''Populate the tab with provided information.'''
-        # Ensure that the tab exists (strange that it goes missing)
-        if not self.notebook_tab.winfo_exists():
-            print("Notebook tab does not exist!")  # DEBUG
-            self.notebook_tab = create_notebook_tab(self.notebook, self.name)
-        # Reset the frame.
-        else:
-            print("Notebook tab exists!")  # DEBUG
-            reset(self.notebook_tab)
-
         # Create the new label in the tab
         self.label = Label(self.notebook_tab,
                            bg = self.default_bg,
