@@ -29,7 +29,7 @@ def spoiler_pop_up(notebook: Notebook, root: Tk) -> None:
     # The drop down to actually pick the spoiler log
     spoiler_log_dropdown = OptionMenu(pop_up,
                                       spoiler_log,
-                                      files[0],
+                                      spoiler_logs[0],
                                       *spoiler_logs)
     spoiler_log_dropdown.config(width=longest)
     spoiler_log_dropdown.pack(padx=5, pady=10)
