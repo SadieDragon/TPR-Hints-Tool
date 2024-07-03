@@ -14,12 +14,6 @@ def return_logs_list() -> list:
     # Get the list of logs within that folder
     spoiler_logs = listdir(spoiler_log_folder)
 
-    # If there are no logs and this was called, report error
-    if not spoiler_logs:
-        print('Please supply at least one spoiler log in the folder below:')
-        print(spoiler_log_folder)
-        abort()
-
     return spoiler_logs
 
 

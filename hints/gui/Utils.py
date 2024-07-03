@@ -2,7 +2,7 @@
 # Home to the "basic" utility functions of the GUI components
 
 from hints.gui.Globals import return_default_bg
-from tkinter import Frame
+from tkinter import Frame, Toplevel
 from tkinter.scrolledtext import ScrolledText
 from tkinter.ttk import Notebook
 
