@@ -3,15 +3,11 @@
 
 from hints.gui.PickSpoiler import spoiler_pop_up
 from hints.gui.ResetTracker import verify_reset
-from hints.gui.shopping.Agitha import AgithaTab
-from hints.gui.shopping.Jovani import JovaniTab
 from tkinter import Button, Frame, Tk
 from tkinter.ttk import Notebook
 
 def create_pop_up_buttons(notebook: Notebook,
                           main_page: Frame,
-                          agitha: AgithaTab,
-                          jovani: JovaniTab,
                           seed_name: str,
                           root: Tk) -> None:
     '''Creates the buttons responsible for the different pop ups.'''
@@ -26,11 +22,7 @@ def create_pop_up_buttons(notebook: Notebook,
         command = None
         match text:
             case 'Pick Spoiler Log':
-                command = lambda: spoiler_pop_up(notebook,
-                                                 agitha,
-                                                 jovani,
-                                                 seed_name,
-                                                 root)
+                command = lambda: spoiler_pop_up(notebook, seed_name, root)
             case 'Reset Tracker':
                 command = lambda: verify_reset(notebook)
 

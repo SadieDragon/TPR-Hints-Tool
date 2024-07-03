@@ -11,8 +11,6 @@ from tkinter import Button, StringVar, Tk, Toplevel
 from tkinter.ttk import Notebook, OptionMenu
 
 def spoiler_pop_up(notebook: Notebook,
-                   agitha: AgithaTab,
-                   jovani: JovaniTab,
                    seed_name: str,
                    root: Tk) -> None:
     '''Creates the popup for the user to pick a spoiler log from.'''
@@ -47,8 +45,6 @@ def spoiler_pop_up(notebook: Notebook,
     c = lambda: dump_and_autofill(spoiler_log,
                                   notebook,
                                   pop_up,
-                                  agitha,
-                                  jovani,
                                   seed_name,
                                   root)
     # Confirmation button

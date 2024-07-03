@@ -4,21 +4,16 @@
 from hints.data.Globals import return_spoiler_folder
 from hints.gui.ResetTracker import reset
 from hints.data.parse.Hints import parse_hints
-from hints.gui.shopping.Agitha import AgithaTab
-from hints.gui.shopping.Jovani import JovaniTab
+from hints.gui.shopping.CreateTabs import create_shopping_tabs
 
 from json import load
 from re import findall
 from tkinter import StringVar, Tk, Toplevel
 from tkinter.ttk import Notebook
 
-# TODO: https://github.com/SadieDragon/TPR-Hints-Tool/issues/53
-
 def dump_and_autofill(spoiler_log: StringVar,
                       notebook: Notebook,
                       pop_up: Toplevel,
-                      agitha: AgithaTab,
-                      jovani: JovaniTab,
                       seed_name: str,
                       root: Tk) -> None:
     '''Button press: Dump the spoiler and then autofill tabs.'''
@@ -27,6 +22,9 @@ def dump_and_autofill(spoiler_log: StringVar,
 
     # Reset the tracker
     reset(notebook)
+
+    # Recreate agitha and jovani, because they get deleted
+    agitha, jovani = create_shopping_tabs(notebook)
 
     # Set the seed name, which is encased in -- --
     seed_name = findall(r'\-\-(.*?)\-\-', spoiler_log.get())[0]

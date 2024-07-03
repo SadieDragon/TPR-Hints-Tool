@@ -8,8 +8,7 @@ sys.dont_write_bytecode = True
 
 from hints.gui.MainPage import create_pop_up_buttons
 from hints.gui.Utils import create_notebook_tab
-from hints.gui.shopping.Agitha import AgithaTab
-from hints.gui.shopping.Jovani import JovaniTab
+from hints.gui.shopping.CreateTabs import create_shopping_tabs
 from tkinter import Tk
 from tkinter.ttk import Notebook
 
@@ -34,15 +33,12 @@ if __name__ == '__main__':
     # ------------------------------------------------------------
 
     # Make Agitha and Jovani -----
-    agitha = AgithaTab(notebook)
-    jovani = JovaniTab(notebook)
+    agitha, jovani = create_shopping_tabs(notebook)
     # ----------------------------
 
     # Make the spoiler and reset buttons ---
     create_pop_up_buttons(notebook,
                           main_page_frame,
-                          agitha,
-                          jovani,
                           seed_name,
                           root)
     # --------------------------------------
