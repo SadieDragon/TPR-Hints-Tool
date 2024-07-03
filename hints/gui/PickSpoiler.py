@@ -11,7 +11,7 @@ from tkinter.ttk import Notebook, OptionMenu
 def spoiler_pop_up(notebook: Notebook, root: Tk) -> None:
     '''Creates the popup for the user to pick a spoiler log from.'''
     # Grab the list of available files
-    files = return_logs_list()
+    spoiler_logs = return_logs_list()
 
     # The pop up window specifically
     pop_up = Toplevel(root, bg=return_default_bg())
@@ -22,11 +22,9 @@ def spoiler_pop_up(notebook: Notebook, root: Tk) -> None:
     spoiler_log = StringVar()
 
     # Grab the longest file name
-    longest_spoiler_name = max(files, key=len)
+    longest_spoiler_name = max(spoiler_logs, key=len)
     # And then the length of it, +5 for a buffer
     longest = len(longest_spoiler_name) + 5
-
-    spoiler_logs = return_logs_list()
 
     # The drop down to actually pick the spoiler log
     spoiler_log_dropdown = OptionMenu(pop_up,
