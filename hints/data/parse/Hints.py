@@ -1,7 +1,8 @@
 
 # Contains the base parsing for the hints
 
-from hints.gui.shopping.CreateTabs import create_shopping_tabs
+from hints.gui.shopping.Agitha import AgithaTab
+from hints.gui.shopping.Jovani import JovaniTab
 from re import sub
 from tkinter.ttk import Notebook
 
@@ -12,9 +13,6 @@ from tkinter.ttk import Notebook
 
 def parse_hints(spoiler_log_data: dict, notebook: Notebook) -> None:
     '''Parse the hints if a spoiler log is provided.'''
-    # Recreate agitha and jovani, because they get deleted
-    agitha, jovani = create_shopping_tabs(notebook)
-
     # Grab the hints specifically out of the spoiler log
     hints = spoiler_log_data['hints']
 
@@ -34,10 +32,10 @@ def parse_hints(spoiler_log_data: dict, notebook: Notebook) -> None:
 
             # Special handling for Agitha
             if (sign == 'Agithas_Castle_Sign'):
-                agitha.auto_fill(hint_text)
+                AgithaTab(notebook, hint_text)
             # Special handling for Jovani
             elif sign == 'Jovani_House_Sign':
-                jovani.auto_fill(hint_text)
+                JovaniTab(notebook, hint_text)
 
             # Normal hints
             # elif 'They say that ' in hint_text:

@@ -10,9 +10,14 @@ from tkinter.ttk import Notebook
 
 class JovaniTab(ShoppingListTab):
     '''The subclass for Jovani's tab.'''
-    def __init__(self, notebook: Notebook):
+    def __init__(self, notebook: Notebook, sign_text=''):
         '''Initialize the tab.'''
         super().__init__(notebook, "Jovani's Poes")
+
+        # If text was passed, then autofill
+        # Else, load default page.
+        if sign_text:
+            self.auto_fill(sign_text)
 
     def auto_fill(self, sign_text: str) -> None:
         '''Autofill the tab based on the provided hints.'''
