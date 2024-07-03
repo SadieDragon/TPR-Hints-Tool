@@ -1,7 +1,7 @@
 
 # Hosts the base spoiler log parsing
 
-from hints.Globals import return_spoiler_folder
+from hints.data.Globals import return_spoiler_folder
 from hints.gui.ResetTracker import reset
 from hints.parse.Hints import parse_hints
 from hints.gui.shopping.Agitha import AgithaTab

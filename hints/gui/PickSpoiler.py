@@ -1,11 +1,11 @@
 
 # Hosts the creation function for the spoiler log pop up
 
-from hints.Globals import return_logs_list
+from hints.data.Globals import return_logs_list
+from hints.data.parse.SpoilerLog import dump_spoiler_log
 from hints.gui.Globals import return_default_bg
 from hints.gui.shopping.Agitha import AgithaTab
 from hints.gui.shopping.Jovani import JovaniTab
-from hints.parse.SpoilerLog import dump_spoiler_log
 
 from tkinter import Button, StringVar, Tk, Toplevel
 from tkinter.ttk import Notebook, OptionMenu
