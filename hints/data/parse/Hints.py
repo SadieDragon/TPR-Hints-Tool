@@ -1,19 +1,20 @@
 
 # Contains the base parsing for the hints
 
-from hints.gui.shopping.Agitha import AgithaTab
-from hints.gui.shopping.Jovani import JovaniTab
+from hints.gui.shopping.CreateTabs import create_shopping_tabs
 from re import sub
+from tkinter.ttk import Notebook
 
 # TODO: https://github.com/SadieDragon/TPR-Hints-Tool/issues/43
 # TODO: https://github.com/SadieDragon/TPR-Hints-Tool/issues/34
 # TODO: https://github.com/SadieDragon/TPR-Hints-Tool/issues/33
 # TODO: https://github.com/SadieDragon/TPR-Hints-Tool/issues/31
 
-def parse_hints(spoiler_log_data: dict,
-                agitha: AgithaTab,
-                jovani: JovaniTab) -> None:
+def parse_hints(spoiler_log_data: dict, notebook: Notebook) -> None:
     '''Parse the hints if a spoiler log is provided.'''
+    # Recreate agitha and jovani, because they get deleted
+    agitha, jovani = create_shopping_tabs(notebook)
+
     # Grab the hints specifically out of the spoiler log
     hints = spoiler_log_data['hints']
 

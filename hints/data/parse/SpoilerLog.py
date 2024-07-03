@@ -22,9 +22,6 @@ def dump_and_autofill(spoiler_log: StringVar,
     # Reset the tracker
     reset(notebook)
 
-    # Recreate agitha and jovani, because they get deleted
-    agitha, jovani = create_shopping_tabs(notebook)
-
     # Set the seed name, which is encased in -- --
     seed_name = findall(r'\-\-(.*?)\-\-', spoiler_log.get())[0]
 
@@ -35,7 +32,7 @@ def dump_and_autofill(spoiler_log: StringVar,
     data = dump_spoiler_log(spoiler_log)
 
     # And parse the hints
-    parse_hints(data, agitha, jovani)
+    parse_hints(data, notebook)
 
 
 # Run when the spoiler log is picked.
