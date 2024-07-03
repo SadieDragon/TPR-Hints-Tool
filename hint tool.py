@@ -13,12 +13,9 @@ from tkinter import Tk
 from tkinter.ttk import Notebook
 
 if __name__ == '__main__':
-    # This will be updated and set later on
-    seed_name = 'Please pick a seed.'
-
     # Set up the window -------
     root = Tk()
-    root.title(seed_name)
+    root.title('Please pick a seed.')
     root.geometry('500x500')
     root.config(bg='#2f3136')
     # -------------------------
@@ -33,15 +30,12 @@ if __name__ == '__main__':
     # ------------------------------------------------------------
 
     # Make Agitha and Jovani -----
-    agitha, jovani = create_shopping_tabs(notebook)
+    create_shopping_tabs(notebook)
     # ----------------------------
 
-    # Make the spoiler and reset buttons ---
-    create_pop_up_buttons(notebook,
-                          main_page_frame,
-                          seed_name,
-                          root)
-    # --------------------------------------
+    # Make the spoiler and reset buttons -------------------
+    create_pop_up_buttons(notebook, main_page_frame, root)
+    # ------------------------------------------------------
 
     # And run the window plz.
     root.mainloop()

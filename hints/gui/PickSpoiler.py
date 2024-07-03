@@ -4,17 +4,12 @@
 from hints.data.Globals import return_logs_list
 from hints.data.parse.SpoilerLog import dump_and_autofill
 from hints.gui.Globals import return_default_bg
-from hints.gui.shopping.Agitha import AgithaTab
-from hints.gui.shopping.Jovani import JovaniTab
 
 from tkinter import Button, StringVar, Tk, Toplevel
 from tkinter.ttk import Notebook, OptionMenu
 
-def spoiler_pop_up(notebook: Notebook,
-                   seed_name: str,
-                   root: Tk) -> None:
+def spoiler_pop_up(notebook: Notebook, root: Tk) -> None:
     '''Creates the popup for the user to pick a spoiler log from.'''
-
     # Grab the list of available files
     files = return_logs_list()
 
@@ -45,7 +40,6 @@ def spoiler_pop_up(notebook: Notebook,
     c = lambda: dump_and_autofill(spoiler_log,
                                   notebook,
                                   pop_up,
-                                  seed_name,
                                   root)
     # Confirmation button
     confirm_spoiler_log = Button(pop_up,

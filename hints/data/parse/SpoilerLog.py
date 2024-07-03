@@ -14,7 +14,6 @@ from tkinter.ttk import Notebook
 def dump_and_autofill(spoiler_log: StringVar,
                       notebook: Notebook,
                       pop_up: Toplevel,
-                      seed_name: str,
                       root: Tk) -> None:
     '''Button press: Dump the spoiler and then autofill tabs.'''
     # Let go of the window
