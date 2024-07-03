@@ -5,8 +5,6 @@ from hints.gui.shopping.Parent import ShoppingListTab
 from re import findall
 from tkinter.ttk import Notebook
 
-# BUG / TODO: https://github.com/SadieDragon/TPR-Hints-Tool/issues/51
-
 # TODO: https://github.com/SadieDragon/TPR-Hints-Tool/issues/32
 # TODO: https://github.com/SadieDragon/TPR-Hints-Tool/issues/29
 
