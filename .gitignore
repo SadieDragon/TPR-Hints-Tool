@@ -1,8 +1,11 @@
+# Don't wanna reset -everytime i load it-
 Output
-test.py
+
+# I don't want to clutter the repo
 SpoilerLog
-Other Spoilers
 
+# DEBUG files, never functioning code
+test.py
 error.txt
-
 refactor.py
+default-hint.py
