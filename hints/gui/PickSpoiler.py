@@ -1,10 +1,10 @@
 
 # Hosts the creation function for the spoiler log pop up
 
-from hints.data.Globals import return_logs_list, return_spoiler_folder
+from hints.data.Globals import (return_default_bg,
+                                return_logs_list,
+                                return_spoiler_folder)
 from hints.data.parse.SpoilerLog import dump_and_autofill
-from hints.gui.Globals import return_default_bg
-
 from tkinter import Button, Label, StringVar, Tk, Toplevel
 from tkinter.ttk import Notebook, OptionMenu
 

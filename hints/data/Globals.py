@@ -1,8 +1,13 @@
 
-# Home to the global variables of all components.
+# Home to the global variables and functions of all components.
 
 from os import getcwd, listdir
 from pathlib import Path
+
+def return_default_bg() -> str:
+    '''Returns the default notebook background.'''
+    return '#f9f9f9'
+
 
 def return_logs_list() -> list:
     '''Returns a list of spoiler logs.'''
