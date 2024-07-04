@@ -4,7 +4,6 @@
 from hints.data.Globals import return_spoiler_folder
 from hints.gui.ResetTracker import reset
 from hints.data.parse.Hints import parse_hints
-
 from json import load
 from re import findall
 from tkinter import StringVar, Tk, Toplevel

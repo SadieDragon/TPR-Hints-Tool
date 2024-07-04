@@ -1,10 +1,8 @@
 
 # Home to the global variables of all components.
 
-from os import abort, getcwd, listdir
+from os import getcwd, listdir
 from pathlib import Path
-
-# TODO: https://github.com/SadieDragon/TPR-Hints-Tool/issues/48
 
 def return_logs_list() -> list:
     '''Returns a list of spoiler logs.'''
