@@ -55,7 +55,7 @@ class JovaniTab(ShoppingListTab):
         self.good = 'Jovani has learned, and rewards you with the following:'
 
         # Populate the tab
-        self.populate_tab(True)
+        self.create_checklist(True)
 
     def findall_to_list(self, regex: str, to_parse: str) -> list:
         '''Returns the findall result as a list instead of tuple.'''

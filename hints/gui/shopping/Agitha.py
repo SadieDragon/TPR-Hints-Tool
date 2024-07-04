@@ -32,5 +32,12 @@ class AgithaTab(ShoppingListTab):
         self.bad = 'Agitha gives you GREAT... sadness...'
         self.good = 'Agitha gives you GREAT HAPPINESS:'
 
-        # Populate the tab with the parsed information
-        self.populate_tab()
+        # If there are rewards
+        if self.rewards:
+            # Populate the tab with the parsed information
+            self.create_checklist()
+        else:
+            # Set the text to bad
+            self.label_var.set(self.bad)
+            # And populate the tab
+            self.populate_tab()

@@ -35,7 +35,7 @@ class ShoppingListTab():
         self.rewards = []     # The reward lists provided by the subclasses
         self.checkboxes = []  # The IntVars which are the states of the checks
 
-    def populate_tab(self, jovani=False) -> None:
+    def populate_tab(self) -> None:
         '''Populate the tab with provided information.'''
         # Create the new label in the tab
         self.label = Label(self.notebook_tab,
@@ -47,6 +47,7 @@ class ShoppingListTab():
         # Set up the scrollbar
         # (a textbox because not all widgets can have ScrollBar)
         self.textbox = create_scrollable(self.notebook_tab)
+        # And disable it, so the user can't mess it up
         self.textbox.config(cursor='arrow', relief='flat', state='disabled')
 
         # Create the checklist frame itself
@@ -56,13 +57,11 @@ class ShoppingListTab():
         # Store the frame in the scrollable textbox
         self.textbox.window_create('end', window=self.frame)
 
-        # Rewards handling
-        if self.rewards:
-            # Create the checklist
-            self.create_checklist(jovani)
-
     def create_checklist(self, jovani=False) -> None:
         '''Create the checklist of items provided.'''
+        # Populate the tab first
+        self.populate_tab()
+
         was_disabled = []  # Temp var storing the flags
         for reward in self.rewards:
             # Figure out if need to disable
