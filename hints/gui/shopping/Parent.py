@@ -20,8 +20,10 @@ class ShoppingListTab():
         # Create the tab for the subclass
         self.notebook_tab = create_notebook_tab(self.notebook, self.name)
 
+        # Create the textbox
+        self.textbox = create_scrollable(self.notebook_tab, True)
+
         # Prepare the other widgets to be populated
-        self.textbox = None
         self.frame = None
         self.label = None
 
@@ -42,11 +44,8 @@ class ShoppingListTab():
                            bg = self.default_bg,
                            justify = 'left',
                            textvariable = self.label_var)
-        self.label.pack(padx=5, pady=5, anchor='nw')
+        self.label.grid(row=0, column=0, padx=5, pady=5, sticky='nw')
 
-        # Set up the scrollbar
-        # (a textbox because not all widgets can have ScrollBar)
-        self.textbox = create_scrollable(self.notebook_tab)
         # And disable it, so the user can't mess it up
         self.textbox.config(cursor='arrow', relief='flat', state='disabled')
 

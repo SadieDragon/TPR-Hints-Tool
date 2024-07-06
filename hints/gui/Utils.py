@@ -18,13 +18,16 @@ def create_notebook_tab(master: Notebook, current_category: str) -> Frame:
     return new_frame
 
 
-def create_scrollable(master: Frame) -> ScrolledText:
+def create_scrollable(master: Frame, shopping=False) -> ScrolledText:
     '''Creates the scrollable textbox, by default one you can edit.'''
     default_bg = return_default_bg()
     new_textbox = ScrolledText(master,
                                bg = default_bg,
                                font = 37,
                                selectbackground = default_bg)
-    new_textbox.pack(padx=5, pady=5, expand=True, fill='both')
+    if shopping:
+        new_textbox.grid(row=1, column=0, padx=5, pady=5)
+    else:
+        new_textbox.pack(padx=5, pady=5, expand=True, fill='both')
 
     return new_textbox
