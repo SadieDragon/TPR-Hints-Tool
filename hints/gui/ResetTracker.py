@@ -17,9 +17,10 @@ def reset(master: Notebook | Frame) -> None:
     children = master.winfo_children()
 
     # If this is passed a Notebook, it's the tracker,
-    # so we need to remove the first tab from the list
+    # so we need to remove the first 2 tabs from the list
     if isinstance(master, Notebook) and children:
-        del children[0]
+        for _ in range(2):
+            del children[0]
 
     # Remove the widgets.
     [child.destroy() for child in children]
