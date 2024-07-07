@@ -24,7 +24,8 @@ def create_scrollable(master: Frame, shopping=False) -> ScrolledText:
     new_textbox = ScrolledText(master,
                                bg = default_bg,
                                font = 37,
-                               selectbackground = default_bg)
+                               selectbackground = 'light gray',
+                               selectforeground='black')
     if shopping:
         new_textbox.grid(row=1, column=0, padx=5, pady=5)
     else:
