@@ -7,7 +7,7 @@ from os import abort
 from tkinter import messagebox, Frame
 from tkinter.ttk import Notebook
 
-def reset(master: Notebook | Frame) -> None:
+def reset(master: Notebook | Frame, clear_all=False) -> None:
     '''Reset the target.'''
     # Stramge errors are afoot: DEBUG
     if not master.winfo_exists():
@@ -25,9 +25,10 @@ def reset(master: Notebook | Frame) -> None:
         for _ in range(2):
             del children[0]
 
-        # Recreate the agitha and jovani tabs
-        AgithaTab(master)
-        JovaniTab(master)
+        if not clear_all:
+            # Recreate the agitha and jovani tabs
+            AgithaTab(master)
+            JovaniTab(master)
 
     # Remove the widgets.
     [child.destroy() for child in children]

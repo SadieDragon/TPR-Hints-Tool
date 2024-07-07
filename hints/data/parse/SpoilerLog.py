@@ -18,7 +18,7 @@ def dump_and_autofill(spoiler_log: StringVar,
     pop_up.destroy()
 
     # Reset the tracker
-    reset(notebook)
+    reset(notebook, True)
 
     # Set the seed name, which is encased in -- --
     seed_name = findall(r'\-\-(.*?)\-\-', spoiler_log.get())[0]
