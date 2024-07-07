@@ -22,11 +22,5 @@ def return_logs_list() -> list:
 
 def return_spoiler_folder() -> Path:
     '''Returns the spoiler log folder path.'''
-    # Get the root folder
-    root_folder = Path(getcwd())
-
-    # Get the data folder's path
-    data_folder = root_folder / 'hints/data'
-
     # Get the path of the logs, and return it
-    return data_folder / 'SpoilerLog'
+    return Path(getcwd()) / 'SpoilerLog'
