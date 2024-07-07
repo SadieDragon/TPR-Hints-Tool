@@ -1,6 +1,4 @@
-If you see this, I did not finish my lofty goals by July 6, 2024, and released a basic program. Therefore, it ain't packaged yet. Sorry.
-
-(Or I made the repo public prior and thus have this on main so no one comes by and is confused.)
+If you see this, it ain't packaged yet. Sorry.
 
 __Contact me if you find bugs:__
 - I would like to keep issues for things I have posted myself, given I have a lot of irons in the fire and have made a mess of them. There's a discussion page for bug reports, though, and this would be the preferred location for them.
@@ -24,31 +22,32 @@ __To 'install' this program (Windows):__
     - Do not close File Explorer, it will help in the ``how to run``
 
 __To run this program:__
-- Windows (10), copy the path from the FileExplorer window
-    - You see that bar above ``Name``, ``Date Modified``, etc? Click, then ctrl+C
-    - open command prompt
-        - click the search icon on your task bar and type in "command", it should pop up
+- Move your downloaded seed's spoiler log to the folder named SpoilerLog
+    - Remove spoiler logs as you complete them.
+- Open command prompt
+    - click the search icon on your task bar and type in "command", it should pop up
+    - Windows (10), copy the path from the FileExplorer window
+        - You see that bar above ``Name``, ``Date Modified``, etc? Click, then ctrl+C
 - Nav to the directory the folder is in
     - Windows, type in ``cd`` then press ctrl+v to paste the path.
-- ``python3 hintstool.py`` - tab complete will be your friend
+- ``python3 hint tool.py`` - tab complete will be your friend
 
 __How to use this program:__
-- This version is a glorified notepad. I have no real tips for how to use this.
-- If you want tips, there's an extra tab for Agitha, because of the fact that she has a checklist of sorts, so you can keep her checklist separate and easier to read in your notes.
-- Also, **DO NOT** click load, if you already have text in the boxes! Unless you want the scattered notes from previous saves to clutter!
-- Save will save your notes, but I did not set a default output. Again, basic, not fighting with the cross-platform, just getting it out there.
+- lazy dragon mode- I will update later.
 
 __To-Do:__
-- Agitha (and the other shopping lists) designed as a checkbox system
+In no particular order:
+- Improvizations to the shopping list tabs
+  - Improve handling for the varying hint strengths - if you use anything but strong, feel free to dm me any issues that arise!
+  - Combine jovani with the other minor shopping lists (Fishing Hole Bottle, COO, maybe etc?)
+  - Improve the default pages for them to be a dropdown based checklist instead of a notepad
+- Fix the reset button (it is admittedly broken)
+- Saving
 - A key tool that helps you figure out what an unrequired key makes barren
 - A tool to help you mark down where the big key is for a dungeon, if your hint signs include it, and any small keys that you get hints for.
-- Autofill based on the spoiler logs for the different shopping tabs that are not notepads
-    - I would like some help understanding the different hint strengths, this expects balanced or strong hints
 - Dark mode!
-- Reset the tracker so you don't need to relaunch it every time you reset a seed for whatever reason
 - Pre-package this into a .exe file
     - I do not know how to do this, currently.
 
-If you want to play with those changes, a good majority of them are already implemented in the ``hint-tool-(not-mvc)`` branch, so you can follow the instructions to get that running.
-
-Be warned: That is a live dev branch, and things may or may not be fully functional- if I have pushed changes to update or add issues, it's often with not currently working code.
+Next planned release as of writing: July 27 at the latest for release 0.2
+Betas / alphas might pop up beforehand for major bugfixes and improvements that were meant to be in this release.
