@@ -39,19 +39,17 @@ class ShoppingListTab():
 
     def populate_tab(self) -> None:
         '''Populate the tab with provided information.'''
-        # Create the new label in the tab
-        self.label = Label(self.notebook_tab,
-                           bg = self.default_bg,
-                           justify = 'left',
-                           textvariable = self.label_var)
-        self.label.grid(row=0, column=0, padx=5, pady=5, sticky='nw')
+        # Create the dropdown list in the tab
+        self.dropdown_var = StringVar(self.notebook_tab)
+        self.dropdown = OptionMenu(self.notebook_tab, self.dropdown_var, "")
+        self.dropdown.config(bg=self.default_bg)
+        self.dropdown.grid(row=0, column=0, padx=5, pady=5, sticky='nw')
 
-        # And disable it, so the user can't mess it up
+        # Configure and disable the textbox
         self.textbox.config(cursor='arrow', relief='flat', state='disabled')
 
         # Create the checklist frame itself
-        self.frame = Frame(self.textbox,
-                           bg = self.default_bg)
+        self.frame = Frame(self.textbox, bg=self.default_bg)
 
         # Store the frame in the scrollable textbox
         self.textbox.window_create('end', window=self.frame)
@@ -61,46 +59,39 @@ class ShoppingListTab():
         # Populate the tab first
         self.populate_tab()
 
-        was_disabled = []  # Temp var storing the flags
-        for reward in self.rewards:
-            # Figure out if need to disable
-            to_disable = False
-            if jovani:
-                # Unpack the list provided
-                reward, to_disable = reward
+        # Define the items and constraints
+        items = ["Fishing hole bottle", "COO", "Jovani", "Shadow Crystal", "Clawshot", "Spinner", "B&C", "DDR", "Double Claw", "First Sword"]
+        constraints = {
+            "Fishing hole bottle": ["coral earring"],
+            "COO": ["Shadow Crystal", "Clawshot", "Spinner"],
+            "Jovani": ["Shadow Crystal"],
+            "COO Floor 33": ["B&C", "DDR"],
+            "COO Floor 44": ["B&C", "DDR", "Double Claw"],
+            "GF": ["Double Claw"]
+        }
 
-            # Create the IntVar for the state
-            checkbox_var = IntVar()
+        # Filter items based on constraints
+        filtered_items = []
+        for item in items:
+            if jovani and item in constraints.get("Jovani", []):
+                continue
+            if "COO" in item and any(disallowed in item for disallowed in constraints.get("COO", [])):
+                continue
+            if "COO Floor 33" in item and any(disallowed in item for disallowed in constraints.get("COO Floor 33", [])):
+                continue
+            if "COO Floor 44" in item and any(disallowed in item for disallowed in constraints.get("COO Floor 44", [])):
+                continue
+            if "GF" in item and any(disallowed in item for disallowed in constraints.get("GF", [])):
+                continue
+            filtered_items.append(item)
 
-            # Create the checkbox itself
-            checkbox = Checkbutton(self.frame,
-                                   activebackground = self.default_bg,
-                                   bg = self.default_bg,
-                                   command = self.collect_item,
-                                   text = reward,
-                                   variable = checkbox_var)
+        # Populate the dropdown list with filtered items
+        self.dropdown_var.set("Select an item")
+        self.dropdown['menu'].delete(0, 'end')
+        for item in filtered_items:
+            self.dropdown['menu'].add_command(label=item, command=lambda value=item: self.dropdown_var.set(value))
 
-            # If this is a bad Jovani item, disable it
-            if to_disable:
-                checkbox.config(state='disabled')
-                checkbox_var.set(1)
-
-            # Pack the checkbox
-            checkbox.pack(anchor='w')
-
-            # Store the IntVar representing the state
-            self.checkboxes.append(checkbox_var)
-
-            # Store whether we disabled the checklist
-            was_disabled.append(to_disable)
-
-        # If all of the checks were disabled, then bad
-        self.default_text = self.bad
-        # If any of the checks were not disabled, good text
-        if not all(was_disabled):
-            self.default_text = self.good
-
-        # Update the label var
+        # Update the label
         self.label_var.set(self.default_text)
 
     def collect_item(self) -> None:
