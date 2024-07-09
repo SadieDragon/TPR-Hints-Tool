@@ -2,6 +2,7 @@
 # Home to the parent class of the shopping list tabs
 
 from hints.data.Globals import return_default_bg
+from hints.data.Utils import remove_braces
 from hints.gui.Utils import create_notebook_tab, create_scrollable
 from tkinter import Checkbutton, Frame, IntVar, Label, StringVar
 from tkinter.ttk import Notebook
@@ -62,6 +63,9 @@ class ShoppingListTab():
         self.populate_tab()
 
         for reward in self.rewards:
+            # Clean up the reward string
+            reward = remove_braces(reward)
+
             # Create the IntVar for the state
             checkbox_var = IntVar()
 
