@@ -30,12 +30,12 @@ class ShoppingListTab():
         # Set the local vars which hold the label texts
         self.label_var = StringVar()
         self.default_text = ''
-        self.good = ''
-        self.bad = ''
+        self.text = ''
 
         # Set the local list vars to be populated
-        self.rewards = []     # The reward lists provided by the subclasses
-        self.checkboxes = []  # The IntVars which are the states of the checks
+        self.rewards = []        # The reward lists provided by the subclasses
+        self.checkboxes = []     # The actual checkboxes
+        self.checkbox_vars = []  # The checkbox states
 
     def populate_tab(self) -> None:
         '''Populate the tab with provided information.'''
@@ -56,19 +56,12 @@ class ShoppingListTab():
         # Store the frame in the scrollable textbox
         self.textbox.window_create('end', window=self.frame)
 
-    def create_checklist(self, jovani=False) -> None:
+    def create_checklist(self) -> None:
         '''Create the checklist of items provided.'''
         # Populate the tab first
         self.populate_tab()
 
-        was_disabled = []  # Temp var storing the flags
         for reward in self.rewards:
-            # Figure out if need to disable
-            to_disable = False
-            if jovani:
-                # Unpack the list provided
-                reward, to_disable = reward
-
             # Create the IntVar for the state
             checkbox_var = IntVar()
 
@@ -79,35 +72,24 @@ class ShoppingListTab():
                                    command = self.collect_item,
                                    text = reward,
                                    variable = checkbox_var)
-
-            # If this is a bad Jovani item, disable it
-            if to_disable:
-                checkbox.config(state='disabled')
-                checkbox_var.set(1)
-
-            # Pack the checkbox
             checkbox.pack(anchor='w')
 
+            # Store the checkbox for later config
+            self.checkboxes.append(checkbox)
+
             # Store the IntVar representing the state
-            self.checkboxes.append(checkbox_var)
+            self.checkbox_vars.append(checkbox_var)
 
-            # Store whether we disabled the checklist
-            was_disabled.append(to_disable)
-
-        # If all of the checks were disabled, then bad
-        self.default_text = self.bad
-        # If any of the checks were not disabled, good text
-        if not all(was_disabled):
-            self.default_text = self.good
-
-        # Update the label var
-        self.label_var.set(self.default_text)
+    def set_default_label_text(self) -> None:
+        '''Set the default text and the label text.'''
+        self.default_text = self.text
+        self.label_var.set(self.text)
 
     def collect_item(self) -> None:
         '''Update the labels if all items are collected.'''
         # Go through and check the states of the checkboxes
         checked = []
-        for int_var in self.checkboxes:
+        for int_var in self.checkbox_vars:
             checked.append(int_var.get())
 
         # If all are true, update the text
