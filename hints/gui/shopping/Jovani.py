@@ -5,7 +5,7 @@ from hints.gui.shopping.Parent import ShoppingListTab
 from re import findall
 from tkinter.ttk import Notebook
 
-# TODO: https://github.com/SadieDragon/TPR-Hints-Tool/issues/32
+# TODO: https://github.com/SadieDragon/TPR-Hints-Tool/issues/54
 # TODO: https://github.com/SadieDragon/TPR-Hints-Tool/issues/29
 
 class JovaniTab(ShoppingListTab):
