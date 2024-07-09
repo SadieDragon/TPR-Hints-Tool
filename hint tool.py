@@ -6,7 +6,7 @@ import sys
 # Don't write __pycache__
 sys.dont_write_bytecode = True
 
-from hints.gui.MainPage import create_pop_up_buttons
+from hints.gui.MainPage import create_default_notebook, create_pop_up_buttons
 from hints.gui.Utils import create_notebook_tab, create_scrollable
 from hints.gui.shopping.Agitha import AgithaTab
 from hints.gui.shopping.Jovani import JovaniTab
@@ -32,9 +32,7 @@ if __name__ == '__main__':
     # ------------------------------------------------------------
 
     # Make the default notebook page ----------------------
-    default_page = create_notebook_tab(notebook, 'Notes')
-
-    default_textbox = create_scrollable(default_page)
+    create_default_notebook(notebook)
     # -----------------------------------------------------
 
     # Make Agitha and Jovani -----

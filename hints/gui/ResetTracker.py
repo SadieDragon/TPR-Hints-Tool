@@ -21,9 +21,12 @@ def reset(master: Notebook | Frame, clear_all=False) -> None:
     # If this is passed a Notebook, it's the tracker,
     # so we need to remove the first 2 tabs from the list
     if isinstance(master, Notebook) and children:
-        # Remove the first 2 tabs from the to-delete
-        for _ in range(2):
-            del children[0]
+        # Remove the first tab from the to-delete
+        del children[0]
+
+        # Recreate the default notebook tab
+        from hints.gui.MainPage import create_default_notebook
+        create_default_notebook(master)
 
         if not clear_all:
             # Recreate the agitha and jovani tabs
@@ -32,7 +35,6 @@ def reset(master: Notebook | Frame, clear_all=False) -> None:
 
     # Remove the widgets.
     [child.destroy() for child in children]
-
 
 def verify_reset(notebook: Notebook) -> None:
     '''Have the user verify they want to reset.'''
