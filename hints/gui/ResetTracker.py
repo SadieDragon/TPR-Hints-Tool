@@ -1,11 +1,13 @@
 
 # Houses all functions related to the resetting of the tracker.
 
+from hints.gui.shopping.Agitha import AgithaTab
+from hints.gui.shopping.Jovani import JovaniTab
 from os import abort
 from tkinter import messagebox, Frame
 from tkinter.ttk import Notebook
 
-def reset(master: Notebook | Frame) -> None:
+def reset(master: Notebook | Frame, clear_all=False) -> None:
     '''Reset the target.'''
     # Stramge errors are afoot: DEBUG
     if not master.winfo_exists():
@@ -19,8 +21,14 @@ def reset(master: Notebook | Frame) -> None:
     # If this is passed a Notebook, it's the tracker,
     # so we need to remove the first 2 tabs from the list
     if isinstance(master, Notebook) and children:
+        # Remove the first 2 tabs from the to-delete
         for _ in range(2):
             del children[0]
+
+        if not clear_all:
+            # Recreate the agitha and jovani tabs
+            AgithaTab(master)
+            JovaniTab(master)
 
     # Remove the widgets.
     [child.destroy() for child in children]

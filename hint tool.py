@@ -19,6 +19,7 @@ if __name__ == '__main__':
     root.title('Please pick a seed.')
     root.geometry('500x500')
     root.config(bg='#2f3136')
+    root.minsize(350, 350)
     # -------------------------
 
     # Set up the notebook ------------------------------------------------

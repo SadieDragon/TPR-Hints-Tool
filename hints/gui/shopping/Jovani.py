@@ -24,38 +24,39 @@ class JovaniTab(ShoppingListTab):
         # Ensure that rewards is made
         self.rewards = []
 
-        # Split the text into the two lines (Thx jaq for this regex)
-        rewards = self.findall_to_list(r'^(.*\)) +(\d+ .*)$', sign_text)
+        # Grab the threshold(s) and rewards(s) off of the sign text
+        # Looking for 'xx souls reward: {[reward]}'
+        self.rewards = findall(r'(\d+ souls reward: \{.*?\})', sign_text)
 
-        # Parse the individual lines
-        for line in rewards:
-            # Split the turn in threshold off of the reward
-            # (with attached quality)
-            threshold, item_quality = line.split(': ')
+        # Create the checklist
+        self.create_checklist()
 
-            # Remove the {} and (), and split into reward and quality
-            reward, quality = self.findall_to_list(r'\{(.*?)\} \((.*?)\)',
-                                                   item_quality)
+        # Grab specificall the reward(s) values
+        reward_qaulities = findall(r'\((.*?)\)', sign_text)
 
-            # Combine the reward with the threshold
-            threshold_reward = ': '.join([threshold, reward])
+        # Assume a neutral status
+        self.text = 'Jovani has these items for you:'
+        # If we have rewards to parse, determine if the text should
+        # be good or bad, and disable checkboxes as needed
+        if reward_qaulities:
+            qualities = []
+            for index, quality in [*enumerate(reward_qaulities)]:
+                if ('not' in quality) or (quality == 'bad'):
+                    # Disable the checkbox
+                    self.checkboxes[index].config(state='disabled')
+                    self.checkbox_vars[index].set(1)
+                    # Store this was a bad apple
+                    qualities.append(0)
 
-            # The holding var to append (reward : to_disable)
-            to_append = [threshold_reward, False]
+            # Assume bad text (it's usually bad)
+            self.text = 'Jovani remains greedy, and does not pay you well.'
+            # If all of the checkboxes were allowed to pass, good text
+            if all(qualities):
+                self.text = ('Jovani has learned,'
+                        ' and rewards you with the following:')
 
-            # Rewards which are not needed get the flag to disable
-            if ('not' in quality) or (quality == 'bad'):
-                to_append[1] = True
-
-            # Append the list to the rewards array
-            self.rewards.append(to_append)
-
-        # The default texts for Jovani's Redemption
-        self.bad = 'Jovani remains greedy, and does not pay you well.'
-        self.good = 'Jovani has learned, and rewards you with the following:'
-
-        # Populate the tab
-        self.create_checklist(True)
+        # Set the label text
+        self.set_default_label_text()
 
     def findall_to_list(self, regex: str, to_parse: str) -> list:
         '''Returns the findall result as a list instead of tuple.'''

@@ -28,16 +28,13 @@ class AgithaTab(ShoppingListTab):
             # Remove the braces and split into a list
             self.rewards = raw_rewards[1:-1].split(', ')
 
-        # The default texts for Agitha's Castle
-        self.bad = 'Agitha gives you GREAT... sadness...'
-        self.good = 'Agitha gives you GREAT HAPPINESS:'
-
+        # Assume a bad state
+        self.text = 'Agitha gives you GREAT... sadness...'
         # If there are rewards
         if self.rewards:
             # Populate the tab with the parsed information
             self.create_checklist()
-        else:
-            # Set the text to bad
-            self.label_var.set(self.bad)
-            # And populate the tab
-            self.populate_tab()
+            self.text = 'Agitha gives you GREAT HAPPINESS:'
+
+        # Set the label text
+        self.set_default_label_text()

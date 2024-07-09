@@ -13,6 +13,12 @@ def spoiler_pop_up(notebook: Notebook, root: Tk) -> None:
     # Grab the list of available files
     spoiler_logs = return_logs_list()
 
+    # Validate which files can actually be used
+    valid_spoilers = []
+    for spoiler_log_file in spoiler_logs:
+        if spoiler_log_file.endswith('.json'):
+            valid_spoilers.append(spoiler_log_file)
+
     # The default background color
     default_bg = return_default_bg()
 
@@ -22,9 +28,9 @@ def spoiler_pop_up(notebook: Notebook, root: Tk) -> None:
     pop_up.geometry('500x90')
 
     # If there are spoiler logs, let them pick one
-    if spoiler_logs:
+    if valid_spoilers:
         # Grab the longest file name
-        longest_spoiler_name = max(spoiler_logs, key=len)
+        longest_spoiler_name = max(valid_spoilers, key=len)
         # And then the length of it, +5 for a buffer
         longest = len(longest_spoiler_name) + 5
 
@@ -34,8 +40,8 @@ def spoiler_pop_up(notebook: Notebook, root: Tk) -> None:
         # The drop down to actually pick the spoiler log
         spoiler_log_dropdown = OptionMenu(pop_up,
                                           spoiler_log,
-                                          spoiler_logs[0],
-                                          *spoiler_logs)
+                                          valid_spoilers[0],
+                                          *valid_spoilers)
         spoiler_log_dropdown.config(width=longest)
         spoiler_log_dropdown.pack(padx=5, pady=10)
 
