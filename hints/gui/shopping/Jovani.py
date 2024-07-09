@@ -57,7 +57,3 @@ class JovaniTab(ShoppingListTab):
 
         # Set the label text
         self.set_default_label_text()
-
-    def findall_to_list(self, regex: str, to_parse: str) -> list:
-        '''Returns the findall result as a list instead of tuple.'''
-        return [*findall(regex, to_parse)[0]]
