@@ -7,6 +7,7 @@ from os import abort
 from tkinter import messagebox, Frame
 from tkinter.ttk import Notebook
 
+
 def reset(master: Notebook | Frame, clear_all=False) -> None:
     '''Reset the target.'''
     # Stramge errors are afoot: DEBUG
@@ -35,6 +36,7 @@ def reset(master: Notebook | Frame, clear_all=False) -> None:
 
     # Remove the widgets.
     [child.destroy() for child in children]
+
 
 def verify_reset(notebook: Notebook) -> None:
     '''Have the user verify they want to reset.'''

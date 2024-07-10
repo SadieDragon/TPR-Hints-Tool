@@ -7,6 +7,7 @@ from tkinter.ttk import Notebook
 # TODO: https://github.com/SadieDragon/TPR-Hints-Tool/issues/29
 # TODO: https://github.com/SadieDragon/TPR-Hints-Tool/issues/23
 
+
 class AgithaTab(ShoppingListTab):
     '''The subclass for Agitha's tab.'''
     def __init__(self, notebook: Notebook, sign_text='') -> None:
