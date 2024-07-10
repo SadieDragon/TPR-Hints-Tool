@@ -9,6 +9,7 @@ from re import findall
 from tkinter import StringVar, Tk, Toplevel
 from tkinter.ttk import Notebook
 
+
 def dump_and_autofill(spoiler_log: StringVar,
                       notebook: Notebook,
                       pop_up: Toplevel,
