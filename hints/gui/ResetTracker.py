@@ -2,7 +2,7 @@
 # Houses all functions related to the resetting of the tracker.
 
 from hints.gui.shopping.agitha import AgithaTab
-from hints.gui.shopping.Jovani import JovaniTab
+from hints.gui.shopping.jovani import JovaniTab
 from os import abort
 from tkinter import messagebox, Frame
 from tkinter.ttk import Notebook
