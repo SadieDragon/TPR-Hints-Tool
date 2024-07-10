@@ -8,7 +8,7 @@ sys.dont_write_bytecode = True
 
 from hints.gui.MainPage import create_default_notebook, create_pop_up_buttons
 from hints.gui.Utils import create_notebook_tab, create_scrollable
-from hints.gui.shopping.Agitha import AgithaTab
+from hints.gui.shopping.agitha import AgithaTab
 from hints.gui.shopping.Jovani import JovaniTab
 from tkinter import Tk
 from tkinter.ttk import Notebook
