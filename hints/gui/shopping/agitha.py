@@ -1,7 +1,7 @@
 
 # Home to the class which handles the logic for Agitha's shopping tab
 
-from hints.gui.shopping.Parent import ShoppingListTab
+from hints.gui.shopping.parent import ShoppingListTab
 from tkinter.ttk import Notebook
 
 # TODO: https://github.com/SadieDragon/TPR-Hints-Tool/issues/29

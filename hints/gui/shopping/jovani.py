@@ -1,7 +1,7 @@
 
 # Home to the class which handles the logic for Jovani's shopping tab
 
-from hints.gui.shopping.Parent import ShoppingListTab
+from hints.gui.shopping.parent import ShoppingListTab
 from re import findall
 from tkinter.ttk import Notebook
 
