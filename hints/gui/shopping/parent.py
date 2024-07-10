@@ -7,6 +7,7 @@ from hints.gui.utils import create_notebook_tab, create_scrollable
 from tkinter import Checkbutton, Frame, IntVar, Label, StringVar
 from tkinter.ttk import Notebook
 
+
 class ShoppingListTab():
     '''The parent class for Agitha and Jovani's tabs.'''
     def __init__(self, notebook: Notebook, name: str) -> None:
@@ -42,17 +43,16 @@ class ShoppingListTab():
         '''Populate the tab with provided information.'''
         # Create the new label in the tab
         self.label = Label(self.notebook_tab,
-                           bg = self.default_bg,
-                           justify = 'left',
-                           textvariable = self.label_var)
+                           bg=self.default_bg,
+                           justify='left',
+                           textvariable=self.label_var)
         self.label.grid(row=0, column=0, padx=5, pady=5, sticky='nw')
 
         # And disable it, so the user can't mess it up
         self.textbox.config(cursor='arrow', relief='flat', state='disabled')
 
         # Create the checklist frame itself
-        self.frame = Frame(self.textbox,
-                           bg = self.default_bg)
+        self.frame = Frame(self.textbox, bg=self.default_bg)
 
         # Store the frame in the scrollable textbox
         self.textbox.window_create('end', window=self.frame)
@@ -71,11 +71,11 @@ class ShoppingListTab():
 
             # Create the checkbox itself
             checkbox = Checkbutton(self.frame,
-                                   activebackground = self.default_bg,
-                                   bg = self.default_bg,
-                                   command = self.collect_item,
-                                   text = reward,
-                                   variable = checkbox_var)
+                                   activebackground=self.default_bg,
+                                   bg=self.default_bg,
+                                   command=self.collect_item,
+                                   text=reward,
+                                   variable=checkbox_var)
             checkbox.pack(anchor='w')
 
             # Store the checkbox for later config
