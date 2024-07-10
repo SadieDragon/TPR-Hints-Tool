@@ -1,7 +1,7 @@
 
 # Hosts the creation function for the spoiler log pop up
 
-from hints.data.Globals import (return_default_bg,
+from hints.data.globals import (return_default_bg,
                                 return_logs_list,
                                 return_spoiler_folder)
 from hints.data.parse.spoiler_log import dump_and_autofill
