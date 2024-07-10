@@ -27,10 +27,10 @@ def create_pop_up_buttons(notebook: Notebook, main_page: Frame, root: Tk) -> Non
             case 'Pick Spoiler Log':
                 command = lambda: spoiler_pop_up(notebook, root)
             case 'Reset Tracker':
-                from hints.gui.ResetTracker import verify_reset
+                from hints.gui.reset_tracker import verify_reset
                 command = lambda: verify_reset(notebook)
             case 'Race Mode':
-                from hints.gui.ResetTracker import reset
+                from hints.gui.reset_tracker import reset
                 command = lambda: reset(notebook, True)
 
         # Create then place the new button

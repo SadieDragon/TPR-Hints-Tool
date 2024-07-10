@@ -2,7 +2,7 @@
 # Hosts the base spoiler log parsing
 
 from hints.data.globals import return_spoiler_folder
-from hints.gui.ResetTracker import reset
+from hints.gui.reset_tracker import reset
 from hints.data.parse.hints import parse_hints
 from json import load
 from re import findall
