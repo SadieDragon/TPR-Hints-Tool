@@ -1,8 +1,8 @@
 
 # Contains the base parsing for the hints
 
-from hints.gui.shopping.Agitha import AgithaTab
-from hints.gui.shopping.Jovani import JovaniTab
+from hints.gui.shopping.agitha import AgithaTab
+from hints.gui.shopping.jovani import JovaniTab
 from re import sub
 from tkinter.ttk import Notebook
 
