@@ -1,6 +1,7 @@
 
 # Home to the base functions based on the main page.
 
+from hints.data.read_root import read_root
 from hints.gui.pick_spoiler import spoiler_pop_up
 from hints.gui.utils import create_notebook_tab, create_scrollable
 from tkinter import Button, Frame, Tk
@@ -21,7 +22,8 @@ def create_pop_up_buttons(notebook: Notebook,
     button_placement = {
         'Pick Spoiler Log': [0, 0],
         'Reset Tracker': [0, 1],
-        'Race Mode': [1, 0]
+        'Race Mode': [1, 0],
+        'Test': [2, 0]
     }
 
     for text, (row, column) in button_placement.items():
@@ -37,6 +39,8 @@ def create_pop_up_buttons(notebook: Notebook,
                 set_race_command(new_button, notebook)
             case 'Reset Tracker':
                 set_reset_command(new_button, notebook)
+            case 'Test':
+                set_test_command(new_button, root)
 
 
 # PEP8 Compliancy- ... don't use lambdas like that?
@@ -62,3 +66,8 @@ def set_spoiler_command(button: Button,
                         root: Tk) -> None:
     '''PEP8 compliant: set the command for the spoiler log button.'''
     button.config(command=lambda: spoiler_pop_up(notebook, root))
+
+
+def set_test_command(button: Button, root: Tk) -> None:
+    '''PEP8 compliant: set the command for the test button.'''
+    button.config(command=lambda: read_root(root))
