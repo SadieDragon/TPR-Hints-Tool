@@ -6,10 +6,8 @@ from hints.gui.shopping.jovani import JovaniTab
 from re import sub
 from tkinter.ttk import Notebook
 
-# TODO: https://github.com/SadieDragon/TPR-Hints-Tool/issues/43
 # TODO: https://github.com/SadieDragon/TPR-Hints-Tool/issues/34
 # TODO: https://github.com/SadieDragon/TPR-Hints-Tool/issues/33
-# TODO: https://github.com/SadieDragon/TPR-Hints-Tool/issues/31
 
 def parse_hints(spoiler_log_data: dict, notebook: Notebook) -> None:
     '''Parse the hints if a spoiler log is provided.'''
