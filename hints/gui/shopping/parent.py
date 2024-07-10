@@ -3,7 +3,7 @@
 
 from hints.data.globals import return_default_bg
 from hints.data.utils import remove_braces
-from hints.gui.Utils import create_notebook_tab, create_scrollable
+from hints.gui.utils import create_notebook_tab, create_scrollable
 from tkinter import Checkbutton, Frame, IntVar, Label, StringVar
 from tkinter.ttk import Notebook
 

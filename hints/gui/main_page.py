@@ -2,7 +2,7 @@
 # Home to the base functions based on the main page.
 
 from hints.gui.pick_spoiler import spoiler_pop_up
-from hints.gui.Utils import create_notebook_tab, create_scrollable
+from hints.gui.utils import create_notebook_tab, create_scrollable
 from tkinter import Button, Frame, Tk
 from tkinter.ttk import Notebook
 
