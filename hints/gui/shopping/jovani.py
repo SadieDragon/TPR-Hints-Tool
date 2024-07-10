@@ -9,6 +9,9 @@ from tkinter.ttk import Notebook
 # TODO: https://github.com/SadieDragon/TPR-Hints-Tool/issues/29
 
 
+# BUG: he's broken again, figure out how and why and post issue
+
+
 class JovaniTab(ShoppingListTab):
     '''The subclass for Jovani's tab.'''
     def __init__(self, notebook: Notebook, sign_text=''):
