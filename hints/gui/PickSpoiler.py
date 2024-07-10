@@ -4,7 +4,7 @@
 from hints.data.Globals import (return_default_bg,
                                 return_logs_list,
                                 return_spoiler_folder)
-from hints.data.parse.SpoilerLog import dump_and_autofill
+from hints.data.parse.spoiler_log import dump_and_autofill
 from tkinter import Button, Label, StringVar, Tk, Toplevel
 from tkinter.ttk import Notebook, OptionMenu
 
