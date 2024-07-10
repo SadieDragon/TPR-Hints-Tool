@@ -8,6 +8,7 @@ from tkinter.ttk import Notebook
 # TODO: https://github.com/SadieDragon/TPR-Hints-Tool/issues/54
 # TODO: https://github.com/SadieDragon/TPR-Hints-Tool/issues/29
 
+
 class JovaniTab(ShoppingListTab):
     '''The subclass for Jovani's tab.'''
     def __init__(self, notebook: Notebook, sign_text=''):
@@ -53,7 +54,7 @@ class JovaniTab(ShoppingListTab):
             # If all of the checkboxes were allowed to pass, good text
             if all(qualities):
                 self.text = ('Jovani has learned,'
-                        ' and rewards you with the following:')
+                             ' and rewards you with the following:')
 
         # Set the label text
         self.set_default_label_text()
