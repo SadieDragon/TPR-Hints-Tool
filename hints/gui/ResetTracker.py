@@ -25,7 +25,7 @@ def reset(master: Notebook | Frame, clear_all=False) -> None:
         del children[0]
 
         # Recreate the default notebook tab
-        from hints.gui.MainPage import create_default_notebook
+        from hints.gui.main_page import create_default_notebook
         create_default_notebook(master)
 
         if not clear_all:
