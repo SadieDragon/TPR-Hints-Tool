@@ -39,7 +39,8 @@ class JovaniTab(ShoppingListTab):
 
         # Grab specifically the reward(s) values
         # [a-z] is enforcing that it grabs the quality, not quantity
-        reward_qaulities = findall(r'\(([a-z].*?)\)', sign_text)
+        # (thank you jaq for the updated version)
+        reward_qaulities = findall(r'\(([ a-z]+)\)', sign_text)
 
         # Assume a neutral status
         self.text = 'Jovani has these items for you:'
