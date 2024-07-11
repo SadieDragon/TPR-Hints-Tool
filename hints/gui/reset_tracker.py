@@ -5,8 +5,7 @@ from hints.data.read_root import get_main_notebook, get_main_tabs
 from hints.gui.shopping.agitha import AgithaTab
 from hints.gui.shopping.jovani import JovaniTab
 from os import abort
-from tkinter import messagebox, Frame, Tk
-from tkinter.ttk import Notebook
+from tkinter import messagebox, Tk
 
 
 def empty_main_tabs(root: Tk, clear_tabs=False) -> None:
