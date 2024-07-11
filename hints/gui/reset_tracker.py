@@ -28,9 +28,6 @@ def empty_main_tabs(root: Tk, clear_tabs=False) -> None:
         else:
             [widget.destroy() for widget in tab.winfo_children()]
 
-    # Refill the tabs
-    refill_main_tabs(root, clear_tabs)
-
 
 def refill_main_tabs(root: Tk, clear_tabs: bool) -> None:
     '''Refill the main tabs after emptying them.'''
@@ -59,9 +56,18 @@ def refill_main_tabs(root: Tk, clear_tabs: bool) -> None:
         JovaniTab(notebook, tab=jovani)
 
 
+def reset(root: Tk, clear_tabs=False) -> None:
+    '''A compiled method that does the resetting.'''
+    # Completely empty out the tabs
+    empty_main_tabs(root, clear_tabs)
+
+    # Refill the tabs
+    refill_main_tabs(root, clear_tabs)
+
+
 def verify_reset(root: Tk) -> None:
     '''Have the user verify they want to reset.'''
     # A warning of "are you sure, mate?" PEP8 compliance
     warning = 'Are you sure? This will wipe everything.'
     if messagebox.askokcancel('Verify Reset', warning):
-        empty_main_tabs(root)
+        reset(root)

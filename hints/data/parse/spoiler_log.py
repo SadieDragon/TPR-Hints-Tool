@@ -2,7 +2,7 @@
 # Hosts the base spoiler log parsing
 
 from hints.data.globals import return_spoiler_folder
-from hints.gui.reset_tracker import empty_main_tabs
+from hints.gui.reset_tracker import reset
 from hints.data.parse.hints import parse_hints
 from json import load
 from re import findall
@@ -19,7 +19,7 @@ def dump_and_autofill(spoiler_log: StringVar,
     pop_up.destroy()
 
     # Reset the tracker
-    empty_main_tabs(root, True)
+    reset(root, True)
 
     # Set the seed name, which is encased in -- --
     seed_name = findall(r'\-\-(.*?)\-\-', spoiler_log.get())[0]

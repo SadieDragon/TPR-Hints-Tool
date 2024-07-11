@@ -42,8 +42,8 @@ def create_pop_up_buttons(notebook: Notebook,
             new_button.config(command=lambda: spoiler_pop_up(notebook, root))
         elif text == 'Race Mode':
             # Avoid a circular import by importing here.
-            from hints.gui.reset_tracker import empty_main_tabs
-            new_button.config(command=lambda: empty_main_tabs(root, True))
+            from hints.gui.reset_tracker import reset
+            new_button.config(command=lambda: reset(root, True))
         elif text == 'Reset Tracker':
             from hints.gui.reset_tracker import verify_reset
             new_button.config(command=lambda: verify_reset(root))
