@@ -10,7 +10,7 @@ from tkinter.ttk import Notebook
 
 class ShoppingListTab():
     '''The parent class for Agitha and Jovani's tabs.'''
-    def __init__(self, notebook: Notebook, name: str) -> None:
+    def __init__(self, notebook: Notebook, name='', tab=None) -> None:
         '''Initialize all local vars, then create the tab.'''
         # Set the default background color
         self.default_bg = return_default_bg()
@@ -19,8 +19,10 @@ class ShoppingListTab():
         self.notebook = notebook
         self.name = name
 
-        # Create the tab for the subclass
-        self.notebook_tab = create_notebook_tab(self.notebook, self.name)
+        # Create the tab for the subclass, if it does not exist
+        self.notebook_tab = tab
+        if not self.notebook_tab:
+            self.notebook_tab = create_notebook_tab(self.notebook, self.name)
 
         # Create the textbox
         self.textbox = create_scrollable(self.notebook_tab, True)

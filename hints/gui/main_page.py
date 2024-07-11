@@ -8,9 +8,14 @@ from tkinter import Button, Frame, Tk
 from tkinter.ttk import Notebook
 
 
-def create_default_notebook(notebook: Notebook) -> None:
+def create_default_notebook(master: Notebook | Frame) -> None:
     '''Create the default notebook tab.'''
-    default_page = create_notebook_tab(notebook, 'Notes')
+    # If we are not given a frame, make a frame
+    default_page = master
+    if not isinstance(master, Frame):
+        default_page = create_notebook_tab(master, 'Notes')
+
+    # Create a scrolled text notepad
     create_scrollable(default_page)
 
 
@@ -38,7 +43,7 @@ def create_pop_up_buttons(notebook: Notebook,
             case 'Race Mode':
                 set_race_command(new_button, notebook)
             case 'Reset Tracker':
-                set_reset_command(new_button, notebook)
+                set_reset_command(new_button, root)
             case 'Test':
                 set_test_command(new_button, root)
 
@@ -54,11 +59,11 @@ def set_race_command(button: Button, notebook: Notebook) -> None:
     button.config(command=lambda: reset(notebook, True))
 
 
-def set_reset_command(button: Button, notebook: Notebook) -> None:
+def set_reset_command(button: Button, root: Tk) -> None:
     '''PEP8 compliant: set the command for the reset button.'''
     # Avoid a circular import by importing here.
-    from hints.gui.reset_tracker import verify_reset
-    button.config(command=lambda: verify_reset(notebook))
+    from hints.gui.reset_tracker import empty_main_tabs
+    button.config(command=lambda: empty_main_tabs(root))
 
 
 def set_spoiler_command(button: Button,

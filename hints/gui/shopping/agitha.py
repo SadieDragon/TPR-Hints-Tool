@@ -10,9 +10,14 @@ from tkinter.ttk import Notebook
 
 class AgithaTab(ShoppingListTab):
     '''The subclass for Agitha's tab.'''
-    def __init__(self, notebook: Notebook, sign_text='') -> None:
+    def __init__(self, notebook: Notebook, tab=None, sign_text='') -> None:
         '''Initialize the tab.'''
-        super().__init__(notebook, "Agitha's Castle")
+        # If we were not given a tab, then create the default entirely
+        if not tab:
+            super().__init__(notebook, name="Agitha's Castle")
+        # Otherwise, just refill from the tab given
+        else:
+            super().__init__(notebook, tab=tab)
 
         # If text was passed, then autofill
         # Else, load default page.

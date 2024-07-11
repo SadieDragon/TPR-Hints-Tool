@@ -31,10 +31,10 @@ def parse_hints(spoiler_log_data: dict, notebook: Notebook) -> None:
 
             # Special handling for Agitha
             if (sign == 'Agithas_Castle_Sign'):
-                AgithaTab(notebook, hint_text)
+                AgithaTab(notebook, sign_text=hint_text)
             # Special handling for Jovani
             elif sign == 'Jovani_House_Sign':
-                JovaniTab(notebook, hint_text)
+                JovaniTab(notebook, sign_text=hint_text)
 
             # Normal hints
             # elif 'They say that ' in hint_text:

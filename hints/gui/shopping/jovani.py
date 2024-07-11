@@ -11,9 +11,14 @@ from tkinter.ttk import Notebook
 
 class JovaniTab(ShoppingListTab):
     '''The subclass for Jovani's tab.'''
-    def __init__(self, notebook: Notebook, sign_text=''):
+    def __init__(self, notebook: Notebook, tab=None, sign_text=''):
         '''Initialize the tab.'''
-        super().__init__(notebook, "Jovani's Poes")
+        # If we were not given a tab, then create the default entirely
+        if not tab:
+            super().__init__(notebook, name="Jovani's Poes")
+        # Otherwise, just refill from the tab given
+        else:
+            super().__init__(notebook, tab=tab)
 
         # If text was passed, then autofill
         # Else, load default page.
