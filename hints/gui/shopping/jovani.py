@@ -37,8 +37,9 @@ class JovaniTab(ShoppingListTab):
         # Create the checklist
         self.create_checklist()
 
-        # Grab specificall the reward(s) values
-        reward_qaulities = findall(r'\((.*?)\)', sign_text)
+        # Grab specificall the reward(s) values 
+        # (thx jaq for this regex)
+        reward_qaulities = findall(r'.*\((.*?)\).*', sign_text)
 
         # Assume a neutral status
         self.text = 'Jovani has these items for you:'
@@ -47,6 +48,10 @@ class JovaniTab(ShoppingListTab):
         if reward_qaulities:
             qualities = []
             for index, quality in [*enumerate(reward_qaulities)]:
+                print(index)
+                print(quality)
+                print(self.checkboxes)
+                print(self.checkbox_vars[index])
                 if ('not' in quality) or (quality == 'bad'):
                     # Disable the checkbox
                     self.checkboxes[index].config(state='disabled')
