@@ -65,4 +65,4 @@ def verify_reset(root: Tk) -> None:
     # A warning of "are you sure, mate?" PEP8 compliance
     warning = 'Are you sure? This will wipe everything.'
     if messagebox.askokcancel('Verify Reset', warning):
-        empty_main_tabs(get_main_notebook(root))
+        empty_main_tabs(root)
