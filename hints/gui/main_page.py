@@ -39,42 +39,16 @@ def create_pop_up_buttons(notebook: Notebook,
 
         # Configure the button commands
         if text == 'Pick Spoiler Log':
-            set_spoiler_command(new_button, notebook, root)
+            new_button.config(command=lambda: spoiler_pop_up(notebook, root))
         elif text == 'Race Mode':
-            set_race_command(new_button, root)
-        elif text in ['Race Mode', 'Reset Tracker']:
-            set_reset_command(new_button, root)
+            # Avoid a circular import by importing here.
+            from hints.gui.reset_tracker import empty_main_tabs
+            new_button.config(command=lambda: empty_main_tabs(root, True))
+        elif text == 'Reset Tracker':
+            from hints.gui.reset_tracker import verify_reset
+            new_button.config(command=lambda: verify_reset(root))
         elif text == 'Test':
-            set_test_command(new_button, root)
+            new_button.config(command=lambda: read_root(root))
         else:
             print(f'There is no command for {text}, dev.')
             abort()
-
-
-# PEP8 Compliancy- ... don't use lambdas like that?
-# ... https://stackoverflow.com/a/37489941
-# This will be greatly improved once I get the
-# "hey, root, info plz" working :/
-def set_race_command(button: Button, root: Tk) -> None:
-    '''PEP8 compliant: set the command for the race button.'''
-    # Avoid a circular import by importing here.
-    from hints.gui.reset_tracker import empty_main_tabs
-    button.config(command=lambda: empty_main_tabs(root, True))
-
-
-def set_reset_command(button: Button, root: Tk) -> None:
-    '''PEP8 compliant: set the command for the reset button.'''
-    from hints.gui.reset_tracker import verify_reset
-    button.config(command=lambda: verify_reset(root))
-
-
-def set_spoiler_command(button: Button,
-                        notebook: Notebook,
-                        root: Tk) -> None:
-    '''PEP8 compliant: set the command for the spoiler log button.'''
-    button.config(command=lambda: spoiler_pop_up(notebook, root))
-
-
-def set_test_command(button: Button, root: Tk) -> None:
-    '''PEP8 compliant: set the command for the test button.'''
-    button.config(command=lambda: read_root(root))
