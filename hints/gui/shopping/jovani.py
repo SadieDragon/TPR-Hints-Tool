@@ -37,9 +37,9 @@ class JovaniTab(ShoppingListTab):
         # Create the checklist
         self.create_checklist()
 
-        # Grab specificall the reward(s) values 
-        # (thx jaq for this regex)
-        reward_qaulities = findall(r'.*\((.*?)\).*', sign_text)
+        # Grab specifically the reward(s) values
+        # [a-z] is enforcing that it grabs the quality, not quantity
+        reward_qaulities = findall(r'\(([a-z].*?)\)', sign_text)
 
         # Assume a neutral status
         self.text = 'Jovani has these items for you:'
