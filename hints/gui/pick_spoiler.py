@@ -48,13 +48,12 @@ def spoiler_pop_up(program: Program) -> None:
         spoiler_log_dropdown.pack(padx=5, pady=10)
 
         # Confirmation button
-        confirm_spoiler_log = Button(pop_up, text='Confirm')
-        confirm_spoiler_log.pack(padx=5, pady=5)
+        confirm_log = Button(pop_up, text='Confirm')
+        confirm_log.pack(padx=5, pady=5)
         # PEP8 compliant command
-        set_confirmation_command(confirm_spoiler_log,
-                                 spoiler_log,
-                                 program,
-                                 pop_up)
+        confirm_log.config(command=lambda: dump_and_autofill(spoiler_log,
+                                                             program,
+                                                             pop_up))
     # Otherwise, inform them to please put the file
     # in the folder.
     else:
