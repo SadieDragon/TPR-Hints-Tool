@@ -74,15 +74,8 @@ def spoiler_pop_up(notebook: Notebook, root: Tk) -> None:
         spoiler_confirm = Button(pop_up, text='Ok', command=pop_up.destroy)
         spoiler_confirm.pack(padx=5, pady=5)
 
-
-# See main_page.py for why this stupid area exists.
-def set_confirmation_command(button: Button,
-                             spoiler_log: StringVar,
-                             notebook: Notebook,
-                             pop_up: Toplevel,
-                             root: Tk) -> None:
-    '''PEP8 compliant: set the command for the confirmation button.'''
-    button.config(command=lambda: dump_and_autofill(spoiler_log,
-                                                    notebook,
-                                                    pop_up,
-                                                    root))
+        # Configure the button command
+        spoiler_confirm.config(command=lambda: dump_and_autofill(spoiler_log,
+                                                                 notebook,
+                                                                 pop_up,
+                                                                 root))
