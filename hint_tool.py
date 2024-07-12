@@ -11,8 +11,8 @@ sys.dont_write_bytecode = True
 # Or i could spam that across every file.
 from hints.gui.main_page import create_default_notebook, create_pop_up_buttons
 from hints.gui.utils import create_notebook_tab
-from hints.gui.shopping.agitha import AgithaTab
-from hints.gui.shopping.jovani import JovaniTab
+from hints.gui.shopping.agitha_tab import AgithaTab
+from hints.gui.shopping.jovani_tab import JovaniTab
 from tkinter import Tk
 from tkinter.ttk import Notebook
 
