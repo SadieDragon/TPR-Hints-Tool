@@ -1,7 +1,7 @@
 
 # Home to the class which handles the logic for Jovani's shopping tab
 
-from hints.gui.shopping.parent import ShoppingListTab
+from hints.gui.shopping.ShoppingListTab import ShoppingListTab
 from re import findall
 from tkinter.ttk import Notebook
 
@@ -11,22 +11,15 @@ from tkinter.ttk import Notebook
 
 class JovaniTab(ShoppingListTab):
     '''The subclass for Jovani's tab.'''
-    def __init__(self, notebook: Notebook, tab=None, sign_text=''):
+    def __init__(self, notebook: Notebook):
         '''Initialize the tab.'''
         # If we were not given a tab, then create the default entirely
-        if not tab:
-            super().__init__(notebook, name="Jovani's Poes")
-        # Otherwise, just refill from the tab given
-        else:
-            super().__init__(notebook, tab=tab)
+        super().__init__(notebook, name="Jovani's Poes")
 
-        # If text was passed, then autofill
-        # Else, load default page.
-        if sign_text:
-            self.auto_fill(sign_text)
-
-    def auto_fill(self, sign_text: str) -> None:
+    def set_spoiler_log(self, sign_text: str) -> None:
         '''Autofill the tab based on the provided hints.'''
+        self.reset()
+
         # Ensure that rewards is made
         self.rewards = []
 

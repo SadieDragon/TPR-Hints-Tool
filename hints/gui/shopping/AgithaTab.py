@@ -1,7 +1,7 @@
 
 # Home to the class which handles the logic for Agitha's shopping tab
 
-from hints.gui.shopping.parent import ShoppingListTab
+from hints.gui.shopping.ShoppingListTab import ShoppingListTab
 from tkinter.ttk import Notebook
 
 # TODO: https://github.com/SadieDragon/TPR-Hints-Tool/issues/29
@@ -10,24 +10,17 @@ from tkinter.ttk import Notebook
 
 class AgithaTab(ShoppingListTab):
     '''The subclass for Agitha's tab.'''
-    def __init__(self, notebook: Notebook, tab=None, sign_text='') -> None:
+    def __init__(self, notebook: Notebook) -> None:
         '''Initialize the tab.'''
         # If we were not given a tab, then create the default entirely
-        if not tab:
-            super().__init__(notebook, name="Agitha's Castle")
-        # Otherwise, just refill from the tab given
-        else:
-            super().__init__(notebook, tab=tab)
+        super().__init__(notebook, name="Agitha's Castle")
 
-        # If text was passed, then autofill
-        # Else, load default page.
-        if sign_text:
-            self.auto_fill(sign_text)
-
-    def auto_fill(self, sign_text: str) -> None:
+    def set_spoiler_log(self, sign_text: str) -> None:
         '''Autofill the tab based on the provided hints.'''
+        self.reset()
+
         # Parse the provided hint sign text into a list
-        if ':' in sign_text:
+        if ': ' in sign_text:
             # Grab the rewards off of the intro text
             raw_rewards = sign_text.split(': ')[1]
 

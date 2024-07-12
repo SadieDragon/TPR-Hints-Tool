@@ -1,15 +1,16 @@
-
 # Hosts the creation function for the spoiler log pop up
 
 from hints.data.globals import (return_default_bg,
                                 return_logs_list,
                                 return_spoiler_folder)
 from hints.data.parse.spoiler_log import dump_and_autofill
-from tkinter import Button, Label, StringVar, Tk, Toplevel
-from tkinter.ttk import Notebook, OptionMenu
+from tkinter import Button, Label, StringVar, Toplevel
+from tkinter.ttk import OptionMenu
+
+from hints.gui.Program import Program
 
 
-def spoiler_pop_up(notebook: Notebook, root: Tk) -> None:
+def spoiler_pop_up(program: Program) -> None:
     '''Creates the popup for the user to pick a spoiler log from.'''
     # Grab the list of available files
     spoiler_logs = return_logs_list()
@@ -24,7 +25,7 @@ def spoiler_pop_up(notebook: Notebook, root: Tk) -> None:
     default_bg = return_default_bg()
 
     # The pop up window specifically
-    pop_up = Toplevel(root, bg=default_bg)
+    pop_up = Toplevel(program.root, bg=default_bg)
     pop_up.title('Pick a spoiler log')
     pop_up.geometry('500x90')
 
@@ -52,9 +53,8 @@ def spoiler_pop_up(notebook: Notebook, root: Tk) -> None:
         # PEP8 compliant command
         set_confirmation_command(confirm_spoiler_log,
                                  spoiler_log,
-                                 notebook,
-                                 pop_up,
-                                 root)
+                                 program,
+                                 pop_up)
     # Otherwise, inform them to please put the file
     # in the folder.
     else:
@@ -78,11 +78,9 @@ def spoiler_pop_up(notebook: Notebook, root: Tk) -> None:
 # See main_page.py for why this stupid area exists.
 def set_confirmation_command(button: Button,
                              spoiler_log: StringVar,
-                             notebook: Notebook,
-                             pop_up: Toplevel,
-                             root: Tk) -> None:
+                             program: Program,
+                             pop_up: Toplevel) -> None:
     '''PEP8 compliant: set the command for the confirmation button.'''
     button.config(command=lambda: dump_and_autofill(spoiler_log,
-                                                    notebook,
-                                                    pop_up,
-                                                    root))
+                                                    program,
+                                                    pop_up))

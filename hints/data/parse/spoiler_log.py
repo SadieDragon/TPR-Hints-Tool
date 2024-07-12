@@ -1,37 +1,35 @@
-
 # Hosts the base spoiler log parsing
 
 from hints.data.globals import return_spoiler_folder
-from hints.gui.reset_tracker import reset
 from hints.data.parse.hints import parse_hints
 from json import load
 from re import findall
-from tkinter import StringVar, Tk, Toplevel
-from tkinter.ttk import Notebook
+from tkinter import StringVar, Toplevel
+
+from hints.gui.Program import Program
 
 
 def dump_and_autofill(spoiler_log: StringVar,
-                      notebook: Notebook,
-                      pop_up: Toplevel,
-                      root: Tk) -> None:
+                      program: Program,
+                      pop_up: Toplevel) -> None:
     '''Button press: Dump the spoiler and then autofill tabs.'''
     # Let go of the window
     pop_up.destroy()
 
     # Reset the tracker
-    reset(root, True)
+    program.reset()
 
     # Set the seed name, which is encased in -- --
     seed_name = findall(r'\-\-(.*?)\-\-', spoiler_log.get())[0]
 
     # Set the title of the window
-    root.title(f'Hint Tracker Tool: {seed_name}')
+    program.root.title(f'Hint Tracker Tool: {seed_name}')
 
     # Run the dump_spoiler_log
     data = dump_spoiler_log(spoiler_log)
 
     # And parse the hints
-    parse_hints(data, notebook)
+    parse_hints(data, program)
 
 
 # Run when the spoiler log is picked.
@@ -45,5 +43,5 @@ def dump_spoiler_log(spoiler_log: StringVar) -> dict:
     spoiler_log_path = spoiler_log_folder / chosen_log
 
     # Dump the data
-    with open(spoiler_log_path, 'r') as f:
+    with open(spoiler_log_path, 'r', encoding='utf-8') as f:
         return load(f)

@@ -4,47 +4,51 @@
 from hints.data.globals import return_default_bg
 from hints.data.utils import remove_braces
 from hints.gui.utils import create_notebook_tab, create_scrollable
-from tkinter import Checkbutton, Frame, IntVar, Label, StringVar
+from tkinter import Checkbutton, Frame, IntVar, Label, StringVar, END
 from tkinter.ttk import Notebook
 
 
-class ShoppingListTab():
+class ShoppingListTab:
     '''The parent class for Agitha and Jovani's tabs.'''
-    def __init__(self, notebook: Notebook, name='', tab=None) -> None:
-        '''Initialize all local vars, then create the tab.'''
-        # Set the default background color
-        self.default_bg = return_default_bg()
 
+    default_bg = return_default_bg()
+    notebook = None
+    name = None
+    tab = None
+
+    textbox = None
+
+    frame = None
+    label = None
+
+    label_var = None
+    default_text = ''
+    text = ''
+
+    rewards = []        # The reward lists provided by the subclasses
+    checkboxes = []     # The actual checkboxes
+    checkbox_vars = []  # The checkbox states
+
+    was_changed = False
+
+    def __init__(self, notebook: Notebook, name=''):
+        '''Initialize all local vars, then create the tab.'''
         # Set the local constants that were provided
         self.notebook = notebook
         self.name = name
 
         # Create the tab for the subclass, if it does not exist
-        self.notebook_tab = tab
-        if not self.notebook_tab:
-            self.notebook_tab = create_notebook_tab(self.notebook, self.name)
+        self.tab = create_notebook_tab(self.notebook, self.name)
+
+        self.label_var = StringVar()
 
         # Create the textbox
-        self.textbox = create_scrollable(self.notebook_tab, True)
-
-        # Prepare the other widgets to be populated
-        self.frame = None
-        self.label = None
-
-        # Set the local vars which hold the label texts
-        self.label_var = StringVar()
-        self.default_text = ''
-        self.text = ''
-
-        # Set the local list vars to be populated
-        self.rewards = []        # The reward lists provided by the subclasses
-        self.checkboxes = []     # The actual checkboxes
-        self.checkbox_vars = []  # The checkbox states
+        self.textbox = create_scrollable(self.tab, True)
 
     def populate_tab(self) -> None:
         '''Populate the tab with provided information.'''
         # Create the new label in the tab
-        self.label = Label(self.notebook_tab,
+        self.label = Label(self.tab,
                            bg=self.default_bg,
                            justify='left',
                            textvariable=self.label_var)
@@ -93,6 +97,7 @@ class ShoppingListTab():
 
     def collect_item(self) -> None:
         '''Update the labels if all items are collected.'''
+        self.was_changed = True
         # Go through and check the states of the checkboxes
         checked = []
         for int_var in self.checkbox_vars:
@@ -109,3 +114,27 @@ class ShoppingListTab():
         # Set it to the default text (safety measure)
         else:
             self.label_var.set(self.default_text)
+
+    def destroy(self) -> None:
+        self.tab.destroy()
+
+    def reset(self) -> None:
+        [widget.destroy() for widget in self.tab.winfo_children()]
+        # Reset whatever variables might have been changed:
+        self.frame = None
+        self.label = None
+        self.label_var = StringVar()
+        self.default_text = ''
+        self.text = ''
+        self.rewards = []        # The reward lists provided by the subclasses
+        self.checkboxes = []     # The actual checkboxes
+        self.checkbox_vars = []  # The checkbox states
+        self.was_changed = False
+        # Restore the text box:
+        self.textbox = create_scrollable(self.tab, True)
+
+    def has_unsaved_data(self) -> bool:
+        if self.label is None:
+            return bool(self.textbox.get(1.0, END).strip())
+        else:
+            return self.was_changed
