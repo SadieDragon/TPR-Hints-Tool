@@ -5,7 +5,8 @@ __Contact me if you find bugs:__
     - https://github.com/SadieDragon/TPR-Hints-Tool/discussions/categories/bug-reports
 - If you do not have a GitHub account, and would like to report a bug, the next best option is Google Forms.
     - https://forms.gle/mzShNU1twirNS79P9
-- Discord is the best not-GitHub way to get my attention more directly. ``sadie_dragon`` is my tag, or I can very easily be found in the TPR discord under the username ``DraconusLupa``.
+- Discord is the best not-GitHub way to get my attention more directly. There is a discord server for this project now.
+    - https://discord.gg/5M8VQFBYZs 
 
 __To 'install' this program (Unix/Mac):__
 - Install Python. (https://www.python.org/downloads/)
