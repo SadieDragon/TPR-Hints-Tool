@@ -16,6 +16,7 @@ from hints.gui.shopping.jovani import JovaniTab
 from tkinter import Tk
 from tkinter.ttk import Notebook
 
+
 if __name__ == '__main__':
     # Set up the window ---------------
     root = Tk()
