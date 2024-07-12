@@ -47,14 +47,13 @@ def spoiler_pop_up(notebook: Notebook, root: Tk) -> None:
         spoiler_log_dropdown.pack(padx=5, pady=10)
 
         # Confirmation button
-        confirm_spoiler_log = Button(pop_up, text='Confirm')
-        confirm_spoiler_log.pack(padx=5, pady=5)
+        confirm_log = Button(pop_up, text='Confirm')
+        confirm_log.pack(padx=5, pady=5)
         # PEP8 compliant command
-        set_confirmation_command(confirm_spoiler_log,
-                                 spoiler_log,
-                                 notebook,
-                                 pop_up,
-                                 root)
+        confirm_log.config(command=lambda: dump_and_autofill(spoiler_log,
+                                                             notebook,
+                                                             pop_up,
+                                                             root))
     # Otherwise, inform them to please put the file
     # in the folder.
     else:
@@ -73,16 +72,3 @@ def spoiler_pop_up(notebook: Notebook, root: Tk) -> None:
         # Confirmation button
         spoiler_confirm = Button(pop_up, text='Ok', command=pop_up.destroy)
         spoiler_confirm.pack(padx=5, pady=5)
-
-
-# See main_page.py for why this stupid area exists.
-def set_confirmation_command(button: Button,
-                             spoiler_log: StringVar,
-                             notebook: Notebook,
-                             pop_up: Toplevel,
-                             root: Tk) -> None:
-    '''PEP8 compliant: set the command for the confirmation button.'''
-    button.config(command=lambda: dump_and_autofill(spoiler_log,
-                                                    notebook,
-                                                    pop_up,
-                                                    root))
