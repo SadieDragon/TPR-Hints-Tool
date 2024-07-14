@@ -1,9 +1,8 @@
 
 # Home to the base functions based on the main page.
 
-from hints.data.read_root import read_root
-from hints.gui.pick_spoiler import spoiler_pop_up
-from hints.gui.utils import create_notebook_tab, create_scrollable
+from hints.gui.PickSpoiler import spoiler_pop_up
+from hints.gui.Utils import create_notebook_tab, create_scrollable
 from os import abort
 from tkinter import Button, Frame, Tk
 from tkinter.ttk import Notebook
@@ -42,13 +41,11 @@ def create_pop_up_buttons(notebook: Notebook,
             new_button.config(command=lambda: spoiler_pop_up(notebook, root))
         elif text == 'Race Mode':
             # Avoid a circular import by importing here.
-            from hints.gui.reset_tracker import reset
+            from hints.gui.ResetTracker import reset
             new_button.config(command=lambda: reset(root, True))
         elif text == 'Reset Tracker':
-            from hints.gui.reset_tracker import verify_reset
+            from hints.gui.ResetTracker import verify_reset
             new_button.config(command=lambda: verify_reset(root))
-        elif text == 'Test':
-            new_button.config(command=lambda: read_root(root))
         else:
             print(f'There is no command for {text}, dev.')
             abort()
