@@ -1,17 +1,20 @@
 
 # Home to the class which handles the logic for Agitha's shopping tab
 
-from hints.gui.shopping.Parent import ShoppingListTab
+from hints.gui.shopping.shopping_list_tab import ShoppingListTab
 from tkinter.ttk import Notebook
 
-# TODO: https://github.com/SadieDragon/TPR-Hints-Tool/issues/29
-# TODO: https://github.com/SadieDragon/TPR-Hints-Tool/issues/23
 
 class AgithaTab(ShoppingListTab):
     '''The subclass for Agitha's tab.'''
-    def __init__(self, notebook: Notebook, sign_text='') -> None:
+    def __init__(self, notebook: Notebook, tab=None, sign_text='') -> None:
         '''Initialize the tab.'''
-        super().__init__(notebook, "Agitha's Castle")
+        # If we were not given a tab, then create the default entirely
+        if not tab:
+            super().__init__(notebook, name="Agitha's Castle")
+        # Otherwise, just refill from the tab given
+        else:
+            super().__init__(notebook, tab=tab)
 
         # If text was passed, then autofill
         # Else, load default page.

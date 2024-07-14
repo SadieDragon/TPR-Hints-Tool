@@ -4,6 +4,7 @@
 from os import getcwd, listdir
 from pathlib import Path
 
+
 def return_default_bg() -> str:
     '''Returns the default notebook background.'''
     return '#f9f9f9'
