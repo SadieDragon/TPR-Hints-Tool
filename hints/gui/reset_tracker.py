@@ -27,7 +27,7 @@ def empty_main_tabs(root: Tk, clear_tabs=False) -> None:
             tab.destroy()
         # Otherwise, just empty them
         else:
-            tab.winfo_children()[0].destroy()
+            [child.destroy() for child in tab.winfo_children()]
 
     # Refill the tabs
     refill_main_tabs(root, clear_tabs)
