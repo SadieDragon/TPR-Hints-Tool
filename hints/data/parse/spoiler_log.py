@@ -45,5 +45,5 @@ def dump_spoiler_log(spoiler_log: StringVar) -> dict:
     spoiler_log_path = spoiler_log_folder / chosen_log
 
     # Dump the data
-    with open(spoiler_log_path, 'r') as f:
+    with open(spoiler_log_path, 'r', encoding='utf-8') as f:
         return load(f)

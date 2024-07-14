@@ -19,9 +19,6 @@ def parse_hints(spoiler_log_data: dict, notebook: Notebook) -> None:
             # Grab the hint text itself.
             hint_text = hint_data['text']
 
-            # Replace ♂ and ♀ (special characters)
-            hint_text = hint_text.replace('â™‚', 'male')
-            hint_text = hint_text.replace('â™€', 'female')
             # Clean up any excess spaces
             hint_text = sub(r' +', ' ', hint_text)
 
