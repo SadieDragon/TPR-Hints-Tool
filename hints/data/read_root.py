@@ -23,29 +23,3 @@ def get_main_tabs(master: Tk | Notebook) -> list:
 
     # Return the tabs
     return tabs
-
-
-def read_root(root: Tk) -> None:
-    '''Simply reading the root window.'''
-    notebook = root.winfo_children()[0]
-    # => [<tkinter.ttk.Notebook object .!notebook>]
-
-    test_reset(notebook)
-
-    # tabs = notebook.winfo_children()
-    # # => [<tkinter.Frame object .!notebook.!frame>,
-    # #     <tkinter.Frame object .!notebook.!frame2>,
-    # #     <tkinter.Frame object .!notebook.!frame3>,
-    # #     <tkinter.Frame object .!notebook.!frame4>]
-    # # (Main, Notes, Agitha, Jovani)
-
-    # for index, tab in [*enumerate(tabs)]:
-    #     if index == 1:
-    #         test_reset(tab)
-
-    # # print(notebook.winfo_children())
-
-
-def test_reset(tab) -> None:
-    '''Destroy the frame, as a test.'''
-    print(type(tab))

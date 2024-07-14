@@ -4,9 +4,6 @@
 from hints.gui.shopping.shopping_list_tab import ShoppingListTab
 from tkinter.ttk import Notebook
 
-# TODO: https://github.com/SadieDragon/TPR-Hints-Tool/issues/29
-# TODO: https://github.com/SadieDragon/TPR-Hints-Tool/issues/23
-
 
 class AgithaTab(ShoppingListTab):
     '''The subclass for Agitha's tab.'''
