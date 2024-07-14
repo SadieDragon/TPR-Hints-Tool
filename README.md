@@ -6,7 +6,7 @@ __Contact me if you find bugs:__
 - If you do not have a GitHub account, and would like to report a bug, the next best option is Google Forms.
     - https://forms.gle/mzShNU1twirNS79P9
 - Discord is the best not-GitHub way to get my attention more directly. There is a discord server for this project now.
-    - https://discord.gg/5M8VQFBYZs 
+    - https://discord.gg/5M8VQFBYZs
 
 __To 'install' this program (Unix/Mac):__
 - Install Python. (https://www.python.org/downloads/)
