@@ -45,10 +45,6 @@ class JovaniTab(ShoppingListTab):
         if reward_qaulities:
             qualities = []
             for index, quality in [*enumerate(reward_qaulities)]:
-                print(index)
-                print(quality)
-                print(self.checkboxes)
-                print(self.checkbox_vars[index])
                 if ('not' in quality) or (quality == 'bad'):
                     # Disable the checkbox
                     self.checkboxes[index].config(state='disabled')
