@@ -5,10 +5,7 @@
 import sys
 sys.dont_write_bytecode = True
 
-# PEP8 Compliant note: These all throw E402.
-# These, however, cannot be moved, as I *must* change
-# the above first, to avoid spamming __pycache__.
-# Or i could spam that across every file.
+# PEP8 Compliant note: These all throw E402, but cannot be moved.
 from hints.gui.main_page import create_default_notebook, create_pop_up_buttons
 from hints.gui.utils import create_notebook_tab
 from hints.gui.shopping.agitha_tab import AgithaTab

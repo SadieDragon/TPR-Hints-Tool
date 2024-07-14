@@ -1,13 +1,10 @@
 
 # Contains the base parsing for the hints
 
-from hints.gui.shopping.agitha import AgithaTab
-from hints.gui.shopping.jovani import JovaniTab
+from hints.gui.shopping.agitha_tab import AgithaTab
+from hints.gui.shopping.jovani_tab import JovaniTab
 from re import sub
 from tkinter.ttk import Notebook
-
-# TODO: https://github.com/SadieDragon/TPR-Hints-Tool/issues/34
-# TODO: https://github.com/SadieDragon/TPR-Hints-Tool/issues/33
 
 
 def parse_hints(spoiler_log_data: dict, notebook: Notebook) -> None:
@@ -15,7 +12,6 @@ def parse_hints(spoiler_log_data: dict, notebook: Notebook) -> None:
     # Grab the hints specifically out of the spoiler log
     hints = spoiler_log_data['hints']
 
-    # hint_texts = []  # Holding for the normal hints
     # Parse the hint sign data
     for sign, hints_data in hints.items():
         # Cycle through the hints
@@ -35,7 +31,3 @@ def parse_hints(spoiler_log_data: dict, notebook: Notebook) -> None:
             # Special handling for Jovani
             elif sign == 'Jovani_House_Sign':
                 JovaniTab(notebook, sign_text=hint_text)
-
-            # Normal hints
-            # elif 'They say that ' in hint_text:
-            #     hint_texts.append(hint_text.replace('They say that ', ''))

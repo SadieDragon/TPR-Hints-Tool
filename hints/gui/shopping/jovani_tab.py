@@ -5,9 +5,6 @@ from hints.gui.shopping.shopping_list_tab import ShoppingListTab
 from re import findall
 from tkinter.ttk import Notebook
 
-# TODO: https://github.com/SadieDragon/TPR-Hints-Tool/issues/54
-# TODO: https://github.com/SadieDragon/TPR-Hints-Tool/issues/29
-
 
 class JovaniTab(ShoppingListTab):
     '''The subclass for Jovani's tab.'''
