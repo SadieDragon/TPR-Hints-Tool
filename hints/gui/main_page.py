@@ -38,34 +38,12 @@ def create_pop_up_buttons(notebook: Notebook,
         # Configure the button commands
         match text:
             case 'Pick Spoiler Log':
-                set_spoiler_command(new_button, notebook, root)
+                new_button.config(command=lambda: spoiler_pop_up(notebook, root))
             case 'Race Mode':
-                set_race_command(new_button, notebook)
+                # Avoid a circular import by importing here.
+                from hints.gui.reset_tracker import reset
+                new_button.config(command=lambda: reset(notebook, True))
             case 'Reset Tracker':
-                set_reset_command(new_button, root)
-
-
-
-# PEP8 Compliancy- ... don't use lambdas like that?
-# ... https://stackoverflow.com/a/37489941
-# This will be greatly improved once I get the
-# "hey, root, info plz" working :/
-def set_race_command(button: Button, notebook: Notebook) -> None:
-    '''PEP8 compliant: set the command for the race mode button.'''
-    # Avoid a circular import by importing here.
-    from hints.gui.reset_tracker import reset
-    button.config(command=lambda: reset(notebook, True))
-
-
-def set_reset_command(button: Button, root: Tk) -> None:
-    '''PEP8 compliant: set the command for the reset button.'''
-    # Avoid a circular import by importing here.
-    from hints.gui.reset_tracker import empty_main_tabs
-    button.config(command=lambda: empty_main_tabs(root))
-
-
-def set_spoiler_command(button: Button,
-                        notebook: Notebook,
-                        root: Tk) -> None:
-    '''PEP8 compliant: set the command for the spoiler log button.'''
-    button.config(command=lambda: spoiler_pop_up(notebook, root))
+                # Avoid a circular import by importing here.
+                from hints.gui.reset_tracker import empty_main_tabs
+                new_button.config(command=lambda: empty_main_tabs(root))
