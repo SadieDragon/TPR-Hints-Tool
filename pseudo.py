@@ -28,11 +28,11 @@
 # =============================================================================
 
 # Notes =======================================================================
-# - A blank notepad for the user to jot down notes. Nothing fancy.
+# x A blank notepad for the user to jot down notes. Nothing fancy.
 # =============================================================================
 
 # Agitha's Castle =============================================================
-# - By default, a notepad for user to jot down notes, nothing fancy.
+# x By default, a notepad for user to jot down notes, nothing fancy.
 # - If she has items, then autofill with a checklist.
 #   - Update the text to say "Agitha gives you GREAT HAPPINESS:"
 #     - I would like to in the future update the text to be more accurate
@@ -48,7 +48,7 @@
 # =============================================================================
 
 # Jovani's Redemption =========================================================
-# - By default, a notepad for the user to jot down notes, nothing fancy.
+# x By default, a notepad for the user to jot down notes, nothing fancy.
 # - If a sign is provided, autofill with a checklist.
 #   - Disable checks which are said to be bad rewards
 #     - If all checks are bad, then his sign says "Jovani remains greedy, and
