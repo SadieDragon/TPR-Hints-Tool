@@ -59,10 +59,20 @@ class HintNotebook(Program):
         if not self.tab_exists(tab_name):
             self.notebook.add(tab_name)
 
+        self.update_data_tabs(tab_name, None)
+
+    def close_all_tabs(self) -> None:
+        '''Close all of the tabs.'''
+        self.tracker_wide_reset('close')
+
     def close_tab(self, tab_name: str) -> None:
         '''Close a tab in the notebook.'''
         if self.tab_exists(tab_name):
+            # Close the tab
             self.notebook.delete(tab_name)
+
+            # Remove the key, it no longer exists
+            del self.data_tabs[tab_name]
 
     def create_data_tabs(self) -> None:
         '''Creates the tabs that have data in their default state.'''
@@ -89,9 +99,18 @@ class HintNotebook(Program):
         # Return the notepad
         return notepad
 
+    def reset_tab(self, tab_name: str) -> None:
+        '''Reset the contents of the tab.'''
+        self.data_tabs[tab_name].destroy()
+
+        self.update_data_tabs(tab_name, None)
+
     def reset_tracker(self) -> None:
         '''Completely reset the tracker.'''
-        # Create a warning to ask them are ya sure?
+        self.tracker_wide_reset('reset')
+
+    def show_warning(self) -> bool:
+        '''Create a warning to ask them are ya sure?'''
         warning_box = CTkMessagebox(icon='warning',
                                     option_1='Cancel',
                                     option_2='Yes',
@@ -99,15 +118,11 @@ class HintNotebook(Program):
                                     message='This will reset everything.',
                                     title='Are you sure?')
 
-        # Reset all of the tabs only if they explicitly click yes.
+        to_reset = False
         if warning_box.get() == 'Yes':
-            [self.reset_tab(tab_name) for tab_name in self.data_tab_names]
+            to_reset = True
 
-    def reset_tab(self, tab_name: str) -> None:
-        '''Reset the contents of the tab.'''
-        self.data_tabs[tab_name].destroy()
-
-        self.update_data_tabs(tab_name, None)
+        return to_reset
 
     def tab_exists(self, tab_name: str) -> bool:
         '''A simple test for if the tab even exists.'''
@@ -117,6 +132,19 @@ class HintNotebook(Program):
             exists = False
 
         return exists
+
+    def tracker_wide_reset(self, type: str) -> None:
+        '''A DRY location for a tracker-wide reset- closing or resetting.'''
+        permission_granted = self.show_warning()
+
+        if permission_granted:
+            for tab_name in self.data_tab_names:
+                if type == 'close':
+                    self.close_tab(tab_name)
+                elif type == 'reset':
+                    self.reset_tab(tab_name)
+                else:
+                    raise NotImplementedError
 
     def update_data_tabs(self,
                          tab_name: str,

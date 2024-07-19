@@ -6,7 +6,7 @@
 # - Notes
 # - Agitha's Castle
 # - Jovani's Poes
-#   - Rename to "Redemption"
+#   x Rename to "Redemption"
 
 # Main Page ===================================================================
 # - Pick Spoiler Log
