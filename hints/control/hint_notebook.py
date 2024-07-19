@@ -4,7 +4,7 @@
 from CTkMessagebox import CTkMessagebox
 from customtkinter import CTk, CTkButton, CTkFrame, CTkTabview, CTkTextbox
 from hints.control.program import Program
-from hints.tabs.options_tab import OptionsTab
+from hints.tabs.optionstab.options_tab import OptionsTab
 
 
 class HintNotebook(Program):
