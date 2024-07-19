@@ -4,6 +4,7 @@
 from CTkMessagebox import CTkMessagebox
 from customtkinter import CTk, CTkButton, CTkFrame, CTkTabview, CTkTextbox
 from hints.control.program import Program
+from hints.tabs.options_tab import OptionsTab
 
 
 class HintNotebook(Program):
@@ -42,6 +43,8 @@ class HintNotebook(Program):
         self.create_data_tabs()
 
         # Options Tab
+        OptionsTab(self)
+
 
         # DEBUG - remove for updates
         # debug_tab = self.notebook.add('DEBUG')
@@ -56,10 +59,9 @@ class HintNotebook(Program):
 
     def add_tab(self, tab_name: str) -> None:
         '''Create a tab in the notebook.'''
-        if not self.tab_exists(tab_name):
-            self.notebook.add(tab_name)
-
-        self.update_data_tabs(tab_name, None)
+        if not (tab_name in self.data_tabs.values()):
+            self.update_data_tabs(tab_name, None)
+            return self.notebook.add(tab_name)
 
     def close_all_tabs(self) -> None:
         '''Close all of the tabs.'''
@@ -67,20 +69,19 @@ class HintNotebook(Program):
 
     def close_tab(self, tab_name: str) -> None:
         '''Close a tab in the notebook.'''
-        if self.tab_exists(tab_name):
+        try:
             # Close the tab
             self.notebook.delete(tab_name)
 
             # Remove the key, it no longer exists
             del self.data_tabs[tab_name]
+        except ValueError:
+            pass
 
     def create_data_tabs(self) -> None:
         '''Creates the tabs that have data in their default state.'''
         # Go through and create each tab with a blank notepad, then store.
         for tab_name in self.data_tab_names:
-            # Add the tab
-            self.add_tab(tab_name)
-
             # Create the notepad that goes in it
             notepad = self.create_notepad(tab_name)
 
@@ -89,8 +90,8 @@ class HintNotebook(Program):
 
     def create_notepad(self, tab_name: str) -> CTkTextbox:
         '''Creates a notepad under the target tab.'''
-        # Get the tab at the tab name
-        tab = self.notebook.tab(tab_name)
+        # Create the tab at the tab name
+        tab = self.add_tab(tab_name)
 
         # Create the notepad
         notepad = CTkTextbox(corner_radius=0, master=tab)
@@ -98,6 +99,17 @@ class HintNotebook(Program):
 
         # Return the notepad
         return notepad
+
+    def create_notepad_tab(self) -> None:
+        '''Recreate the primary tab.'''
+        # Makes plonking this in easier
+        tab_name = 'Notes'
+
+        # Create the notepad and tab
+        notepad = self.create_notepad(tab_name)
+
+        # And store the new info
+        self.update_data_tabs(tab_name, notepad)
 
     def reset_tab(self, tab_name: str) -> None:
         '''Reset the contents of the tab.'''
@@ -123,15 +135,6 @@ class HintNotebook(Program):
             to_reset = True
 
         return to_reset
-
-    def tab_exists(self, tab_name: str) -> bool:
-        '''A simple test for if the tab even exists.'''
-        try:
-            exists = True
-        except ValueError:
-            exists = False
-
-        return exists
 
     def tracker_wide_reset(self, type: str) -> None:
         '''A DRY location for a tracker-wide reset- closing or resetting.'''
