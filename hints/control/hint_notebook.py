@@ -16,8 +16,8 @@ class HintNotebook(Program):
     # Easily expandable later.
     data_tab_names = [
         'Notes',
-        "Agitha's Castle",
-        "Jovani's Redemption"
+        'Bugs',
+        'Poes'
     ]
 
     def __init__(self) -> None:
