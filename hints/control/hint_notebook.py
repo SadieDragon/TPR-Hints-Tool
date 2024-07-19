@@ -2,9 +2,10 @@
 # Hosts the main window stuffs
 
 from CTkMessagebox import CTkMessagebox
-from customtkinter import CTk, CTkButton, CTkFrame, CTkTabview, CTkTextbox
+from customtkinter import CTk, CTkFrame, CTkTabview, CTkTextbox
 from hints.control.program import Program
-from hints.tabs.optionstab.options_tab import OptionsTab
+from hints.tabs.options_tab import OptionsTab
+from hints.tabs.spoiler_log import SpoilerLog
 
 
 class HintNotebook(Program):
@@ -25,7 +26,7 @@ class HintNotebook(Program):
         # Create the main window --------
         self.root = CTk()
         self.root.geometry('500x500')
-        self.root.minsize(250, 250)
+        self.root.minsize(300, 300)
         self.root.title('TPR Hint Notebook')
         # -------------------------------
 
@@ -45,14 +46,8 @@ class HintNotebook(Program):
         # Options Tab
         OptionsTab(self)
 
-
-        # DEBUG - remove for updates
-        # debug_tab = self.notebook.add('DEBUG')
-
-        # debug_button = CTkButton(command=lambda: self.close_tab('Options'),
-        #                          master=debug_tab,
-        #                          text='DEBUG')
-        # debug_button.pack(padx=5, pady=5)
+        # Spoiler Log Tab
+        SpoilerLog()
 
         # Run the window
         self.root.mainloop()
