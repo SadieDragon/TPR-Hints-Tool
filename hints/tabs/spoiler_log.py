@@ -4,6 +4,7 @@
 
 from customtkinter import CTkButton, CTkComboBox, CTkFrame, CTkLabel, StringVar
 from hints.control.program import Program
+from hints.data.parse_log import define_spoilers_folder, dump_and_fill
 from os import listdir
 from pathlib import Path
 
@@ -35,7 +36,7 @@ class SpoilerLog:
         self.program = program
 
         # Grab the spoiler log folder
-        self.spoiler_logs_folder = self.program.root_dir / 'SpoilerLog'
+        self.spoiler_logs_folder = define_spoilers_folder()
 
         # Get the spoiler logs available
         self.spoiler_logs = listdir(self.spoiler_logs_folder)
@@ -99,9 +100,8 @@ class SpoilerLog:
         # Destroy the interface frame
         self.destroy_frame()
 
-        # Dump the spoiler log
-
-        # Do the actual parsing
+        # Dump and fill the tabs
+        dump_and_fill(self.program, spoiler_log)
 
     def present_logs(self) -> None:
         '''Presents a list of the spoiler logs available.'''

@@ -27,7 +27,9 @@ class HintNotebook(Program):
         self.root = CTk()
         self.root.geometry('500x500')
         self.root.minsize(300, 300)
-        self.root.title('TPR Hint Notebook')
+
+        # Set the title to default title.
+        self.change_title()
         # -------------------------------
 
         # Create the main notebook. -------------
@@ -63,6 +65,16 @@ class HintNotebook(Program):
 
             # Create and return the tab
             return self.notebook.insert(tab_index, tab_name)
+
+    def change_title(self, seed_name: str = '') -> None:
+        '''Change the title of the window.'''
+        # The default without the seed name
+        title = 'TPR Hint Notebook'
+        # If there was a seed name, append it
+        if seed_name:
+            title = f'{title} ({seed_name})'
+
+        self.root.title(title)
 
     def close_all_tabs(self) -> None:
         '''Close all of the tabs.'''
@@ -123,6 +135,10 @@ class HintNotebook(Program):
 
     def reset_tracker(self) -> None:
         '''Completely reset the tracker.'''
+        # Revert the title to default
+        self.change_title()
+
+        # Reset the tracker
         self.tracker_wide_reset('reset')
 
     def show_warning(self) -> bool:

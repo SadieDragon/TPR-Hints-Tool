@@ -15,6 +15,10 @@ class Program:
     data_tabs = {}
 
     # Functions that are required elsewhere. --
+    def change_title(self) -> None:
+        '''Change the title of the window.'''
+        pass
+
     def close_all_tabs(self) -> None:
         '''Close all of the tabs.'''
         pass
