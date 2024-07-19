@@ -1,7 +1,7 @@
 
 # Hosts the main window stuffs
 
-from customtkinter import CTk, CTkTabview, CTkTextbox
+from customtkinter import CTk, CTkFrame, CTkTabview, CTkTextbox
 from hints.control.program import Program
 
 
@@ -50,10 +50,31 @@ class HintNotebook(Program):
             new_tab = self.notebook.add(tab_name)
 
             # Create the notepad that goes in it
-            notepad = CTkTextbox(corner_radius=0, master=new_tab)
-            notepad.pack(padx=5, pady=5, expand=True, fill='both')
+            notepad = self.create_notepad(new_tab)
 
-            # Store the tab and the notepad under the tab name
-            self.data_tabs[tab_name] = [new_tab, notepad]
+            # Store the notepad under the tab name
+            self.update_data_tabs(tab_name, notepad)
 
-        print(self.data_tabs)
+    def create_notepad(self, tab_name: str) -> CTkTextbox:
+        '''Creates a notepad under the target tab.'''
+        # Get the tab at the tab name
+        tab = self.notebook.tab(tab_name)
+
+        # Create the notepad
+        notepad = CTkTextbox(corner_radius=0, master=tab)
+        notepad.pack(padx=5, pady=5, expand=True, fill='both')
+
+        # Return the notepad
+        return notepad
+
+    def reset_tab(self, tab_name: str) -> None:
+        '''Reset the contents of the tab.'''
+        self.data_tabs[tab_name].destroy()
+
+        self.update_data_tabs(tab_name, None)
+
+    def update_data_tabs(self,
+                         tab_name: str,
+                         tab_content: CTkTextbox | CTkFrame | None) -> None:
+        '''Update the storage of data tab info'''
+        self.data_tabs[tab_name] = tab_content
