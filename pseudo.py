@@ -19,12 +19,12 @@
 #         and a confirmation button.
 #         - Loading a spoiler log resets the tracker, then autofills the Agitha
 #           and Jovani tabs.
-# - Reset Tracker
-#   - Clears the notepad, and sets the Agitha's and Jovani's tabs to notepads.
-#     - If they do not exist, recreate them (though this is a bug that is
+# x Reset Tracker
+#   x Clears the notepad, and sets the Agitha's and Jovani's tabs to notepads.
+#     x If they do not exist, recreate them (though this is a bug that is
 #       currently in the app)
-# - Race Mode
-#   - Deletes the Agitha and Jovani Tabs, and resets the notepad to empty
+# x Race Mode
+#   x Deletes the Agitha and Jovani Tabs, and resets the notepad to empty
 # =============================================================================
 
 # Notes =======================================================================

@@ -59,7 +59,7 @@ class HintNotebook(Program):
 
     def add_tab(self, tab_name: str) -> None:
         '''Create a tab in the notebook.'''
-        if not (tab_name in self.data_tabs.values()):
+        if not (tab_name in self.data_tabs.keys()):
             # Update the data tabs dict
             self.update_data_tabs(tab_name, None)
 
@@ -119,9 +119,12 @@ class HintNotebook(Program):
 
     def reset_tab(self, tab_name: str) -> None:
         '''Reset the contents of the tab.'''
-        self.data_tabs[tab_name].destroy()
+        # If the tab already exists, close the tab
+        if tab_name in self.data_tabs.keys():
+            self.close_tab(tab_name)
 
-        self.update_data_tabs(tab_name, None)
+        # Recreate the blank tab
+        self.create_notepad(tab_name)
 
     def reset_tracker(self) -> None:
         '''Completely reset the tracker.'''
