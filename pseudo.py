@@ -10,8 +10,7 @@
 
 # Main Page ===================================================================
 # - Pick Spoiler Log
-#   - May get made into its own tab.
-#   - Creates a pop up to pick spoilers
+#   x May get made into its own tab.
 #     - Ensures that .jsons are provided.
 #       - If none is provided, it tells you to put a spoiler log in the folder
 #         it is looking for them in

@@ -47,7 +47,7 @@ class HintNotebook(Program):
         OptionsTab(self)
 
         # Spoiler Log Tab
-        SpoilerLog()
+        SpoilerLog(self)
 
         # Run the window
         self.root.mainloop()

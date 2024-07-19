@@ -1,7 +1,13 @@
 
 # Avoids the risk of circular imports. Somehow.
+from os import getcwd
+from pathlib import Path
+
 
 class Program:
+    # The root folder
+    root_dir = Path(getcwd())
+
     # The global variable of the notepad to add to
     notebook = None
 
