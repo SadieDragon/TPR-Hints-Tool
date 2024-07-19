@@ -60,8 +60,14 @@ class HintNotebook(Program):
     def add_tab(self, tab_name: str) -> None:
         '''Create a tab in the notebook.'''
         if not (tab_name in self.data_tabs.values()):
+            # Update the data tabs dict
             self.update_data_tabs(tab_name, None)
-            return self.notebook.add(tab_name)
+
+            # Find the index
+            tab_index = self.data_tab_names.index(tab_name)
+
+            # Create and return the tab
+            return self.notebook.insert(tab_index, tab_name)
 
     def close_all_tabs(self) -> None:
         '''Close all of the tabs.'''
