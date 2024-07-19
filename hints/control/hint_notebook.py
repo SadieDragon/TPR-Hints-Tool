@@ -1,7 +1,7 @@
 
 # Hosts the main window stuffs
 
-from customtkinter import CTk, CTkFrame, CTkTabview, CTkTextbox
+from customtkinter import CTk, CTkButton, CTkFrame, CTkTabview, CTkTextbox
 from hints.control.program import Program
 
 
@@ -31,8 +31,26 @@ class HintNotebook(Program):
 
         # Options Tab
 
+        # DEBUG - remove for updates
+        # debug_tab = self.notebook.add('DEBUG')
+
+        # debug_button = CTkButton(command=lambda: self.close_tab('Options'),
+        #                          master=debug_tab,
+        #                          text='DEBUG')
+        # debug_button.pack(padx=5, pady=5)
+
         # Run the window
         root.mainloop()
+
+    def add_tab(self, tab_name: str) -> None:
+        '''Create a tab in the notebook.'''
+        if not self.tab_exists(tab_name):
+            self.notebook.add(tab_name)
+
+    def close_tab(self, tab_name: str) -> None:
+        '''Close a tab in the notebook.'''
+        if self.tab_exists(tab_name):
+            self.notebook.delete(tab_name)
 
     def create_data_tabs(self) -> None:
         '''Creates the tabs that have data in their default state.'''
@@ -47,10 +65,10 @@ class HintNotebook(Program):
         # Go through and create each tab with a blank notepad, then store.
         for tab_name in tab_list:
             # Add the tab
-            new_tab = self.notebook.add(tab_name)
+            self.add_tab(tab_name)
 
             # Create the notepad that goes in it
-            notepad = self.create_notepad(new_tab)
+            notepad = self.create_notepad(tab_name)
 
             # Store the notepad under the tab name
             self.update_data_tabs(tab_name, notepad)
@@ -72,6 +90,15 @@ class HintNotebook(Program):
         self.data_tabs[tab_name].destroy()
 
         self.update_data_tabs(tab_name, None)
+
+    def tab_exists(self, tab_name: str) -> bool:
+        '''A simple test for if the tab even exists.'''
+        try:
+            exists = True
+        except ValueError:
+            exists = False
+
+        return exists
 
     def update_data_tabs(self,
                          tab_name: str,
