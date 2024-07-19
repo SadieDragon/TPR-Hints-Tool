@@ -1,23 +1,35 @@
 
 # Hosts the main window stuffs
 
+from CTkMessagebox import CTkMessagebox
 from customtkinter import CTk, CTkButton, CTkFrame, CTkTabview, CTkTextbox
 from hints.control.program import Program
 
 
 class HintNotebook(Program):
     '''The main window.'''
+    # The root window
+    root = None
+
+    # The tabs that are to be created.
+    # Easily expandable later.
+    data_tab_names = [
+        'Notes',
+        "Agitha's Castle",
+        "Jovani's Redemption"
+    ]
+
     def __init__(self) -> None:
         '''Initialize the program window.'''
         # Create the main window --------
-        root = CTk()
-        root.geometry('500x500')
-        root.minsize(250, 250)
-        root.title('TPR Hint Notebook')
+        self.root = CTk()
+        self.root.geometry('500x500')
+        self.root.minsize(250, 250)
+        self.root.title('TPR Hint Notebook')
         # -------------------------------
 
         # Create the main notebook. -------------
-        self.notebook = CTkTabview(master=root)
+        self.notebook = CTkTabview(master=self.root)
         self.notebook.pack(anchor='nw',
                            expand=True,
                            fill='both',
@@ -40,7 +52,7 @@ class HintNotebook(Program):
         # debug_button.pack(padx=5, pady=5)
 
         # Run the window
-        root.mainloop()
+        self.root.mainloop()
 
     def add_tab(self, tab_name: str) -> None:
         '''Create a tab in the notebook.'''
@@ -54,16 +66,8 @@ class HintNotebook(Program):
 
     def create_data_tabs(self) -> None:
         '''Creates the tabs that have data in their default state.'''
-        # The tabs that are to be created.
-        # Easily expandable later.
-        tab_list = [
-            'Notes',
-            "Agitha's Castle",
-            "Jovani's Redemption"
-        ]
-
         # Go through and create each tab with a blank notepad, then store.
-        for tab_name in tab_list:
+        for tab_name in self.data_tab_names:
             # Add the tab
             self.add_tab(tab_name)
 
@@ -84,6 +88,20 @@ class HintNotebook(Program):
 
         # Return the notepad
         return notepad
+
+    def reset_tracker(self) -> None:
+        '''Completely reset the tracker.'''
+        # Create a warning to ask them are ya sure?
+        warning_box = CTkMessagebox(icon='warning',
+                                    option_1='Cancel',
+                                    option_2='Yes',
+                                    master=self.root,
+                                    message='This will reset everything.',
+                                    title='Are you sure?')
+
+        # Reset all of the tabs only if they explicitly click yes.
+        if warning_box.get() == 'Yes':
+            [self.reset_tab(tab_name) for tab_name in self.data_tab_names]
 
     def reset_tab(self, tab_name: str) -> None:
         '''Reset the contents of the tab.'''
