@@ -7,6 +7,7 @@ from hints.control.program import Program
 from hints.data.parse_log import ParseLog
 from os import listdir
 from pathlib import Path
+from subprocess import check_call
 
 
 class SpoilerLog:
@@ -57,6 +58,13 @@ class SpoilerLog:
         self.show_button()
         # ---------------------------------------------------------------------
 
+    def clipboard_path(self) -> None:
+        '''Copies the path to clipboard.'''
+        # https://stackoverflow.com/a/41029935
+        command = f'echo {self.spoiler_logs_folder}|clip'
+
+        check_call(command, shell=True)
+
     def create_frame(self) -> None:
         '''Create the frame for the interface.'''
         # Create the frame
@@ -106,15 +114,35 @@ class SpoilerLog:
         put one in the folder.'''
         # The error text
         error_text = ('There are no available spoiler logs. Please provide one'
-                      ' in the following folder:\n'
-                      f'{self.spoiler_logs_folder}')
+                      ' in the following folder:\n\n'
+                      f'{self.spoiler_logs_folder}\n\nClick below to copy'
+                      ' the path to your clipboard.')
 
-        # The error label
+        # The error label -----------------------------------
         error_label = CTkLabel(justify='left',
                                master=self.interface_frame,
                                text=error_text,
                                wraplength=450)
         error_label.pack(padx=5, pady=5)
+        # ---------------------------------------------------
+
+        # Button Land -----------------------------------------
+        # Frame for gridding
+        button_frame = CTkFrame(master=self.interface_frame)
+        button_frame.pack(padx=5, pady=5)
+
+        # Copy to clipboard
+        copy_button = CTkButton(command=self.clipboard_path,
+                                master=button_frame,
+                                text='Copy')
+        copy_button.grid(column=0, padx=5, pady=5, row=0)
+
+        # Go back to the default state
+        return_button = CTkButton(command=self.destroy_frame,
+                                  master=button_frame,
+                                  text='Try Again')
+        return_button.grid(column=1, padx=5, pady=5, row=0)
+        # ------------------------------------------------------
 
     def dump_spoiler_log(self) -> None:
         '''Dumps the spoiler log and passes it on to the parser'''

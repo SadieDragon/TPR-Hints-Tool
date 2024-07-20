@@ -12,7 +12,7 @@
 # - Pick Spoiler Log
 #   x May get made into its own tab.
 #     x Ensures that .jsons are provided.
-#       - If none is provided, it tells you to put a spoiler log in the folder
+#       x If none is provided, it tells you to put a spoiler log in the folder
 #         it is looking for them in
 #       x If one or more is provided, creates a dropdown for you to select from,
 #         and a confirmation button.
