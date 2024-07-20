@@ -4,7 +4,7 @@
 from hints.control.program import Program
 from json import load
 from pathlib import Path
-from re import findall
+from re import findall, sub
 
 
 # Can I just class this?
@@ -53,7 +53,30 @@ class ParseLog:
 
     def parse_spoiler_log(self) -> None:
         '''Parse the spoiler log data.'''
+        # NOTE: This does require some arbitrary knowledge of the
+        # spoiler log's structure. Sorry in advance.
+
         # Grab the data from the spoiler log
         spoiler_log_data = self.dump_log()
 
-        print(spoiler_log_data)
+        # Grab the hints specifically out of the spoiler log
+        hints = spoiler_log_data['hints']
+
+        # Go through each hint, grabbing the sign and data
+        for sign, hint_datas in hints.items():
+            # Cycle through each hint data
+            for hint_data in hint_datas:
+                # Grab the hint text itself
+                hint_text = hint_data['text']
+
+                # Remove excess spacing from the hint text
+                hint_text = sub(r' +', ' ', hint_text)
+
+                # Special handling for Agitha
+                if sign == 'Agithas_Castle_Sign':
+                    # Go to her parsing
+                    print(hint_text)
+                # Special handling for Jovani
+                elif sign == 'Jovani_House_Sign':
+                    # Go to his parsing
+                    print(hint_text)
