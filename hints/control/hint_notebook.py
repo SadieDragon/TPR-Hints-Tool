@@ -150,6 +150,9 @@ class HintNotebook(Program):
         # Reset the tracker
         permission_granted = self.tracker_wide_reset('reset')
 
+        # Set the notes tab to be the default tab
+        self.notebook.set('Notes')
+
         return permission_granted
 
     def show_warning(self) -> bool:
