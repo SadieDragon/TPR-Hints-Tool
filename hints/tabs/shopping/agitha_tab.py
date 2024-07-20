@@ -27,7 +27,16 @@ class AgithaTab(Shopping):
         else:
             self.no_rewards()
 
-    def parse_rewards(self) -> None:
+    def auto_fill(self) -> None:
+        '''Populate the tab with the provided info.'''
+        # Parse the rewards
+        are_rewards = self.parse_rewards()
+
+        # Create the checklist itself, if rewards
+        if are_rewards:
+            self.create_checklist()
+
+    def parse_text(self) -> None:
         '''Grab the text off the sign, and parse into the list of rewards.'''
         # Split off of the intro text
         raw_rewards = self.hint_text.split(': ')[1]

@@ -27,6 +27,11 @@ class Shopping:
         self.program = program
         self.hint_text = hint_text
 
+    def auto_fill(self) -> None:
+        '''Populate the tab with the provided info.'''
+        # Varies based on tab.
+        pass
+
     def collect_item(self) -> None:
         '''What happens when an item is checked off.'''
         # Go through and check the states of the checkboxes
@@ -81,24 +86,26 @@ class Shopping:
             self.checkboxes.append(checkbox)
             self.checkbox_vars.append(checkbox_variable)
 
-    def auto_fill(self) -> None:
-        '''Autofills with the provided information.'''
-        # Parse the text
-        self.parse_rewards()
-
-        # If there are now no rewards, close the tab.
-        if not self.rewards:
-            self.no_rewards()
-            return
-
-        # Create the checklist of the rewards.
-        self.create_checklist()
-
     def no_rewards(self) -> None:
         '''The action for no rewards: Close the tab.'''
         self.program.close_tab(self.tab_name)
 
     def parse_rewards(self) -> None:
+        '''Autofills with the provided information.'''
+        # Parse the text
+        self.parse_text()
+
+        # Test if there are rewards
+        are_rewards = bool(self.rewards)
+
+        # If there are now no rewards, close the tab.
+        if not are_rewards:
+            self.no_rewards()
+
+        # Return if there are rewards
+        return are_rewards
+
+    def parse_text(self) -> None:
         '''Grab the text off the sign, and parse into the list of rewards.'''
         # Varies by tab
         pass

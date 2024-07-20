@@ -2,6 +2,7 @@
 # All of Jovani's special handling goes here.
 from hints.control.program import Program
 from hints.tabs.shopping.shopping import Shopping
+from re import findall
 
 
 class JovaniTab(Shopping):
@@ -28,5 +29,20 @@ class JovaniTab(Shopping):
             self.no_rewards()
 
     def auto_fill(self) -> None:
+        '''Populate the tab with the provided info.'''
+        # Parse the rewards
+        are_rewards = self.parse_rewards()
+
+        # If there are no rewards, then leave
+        if not are_rewards:
+            return
+
+        # If there are, create the checklist
+        self.create_checklist()
+
+    def parse_text(self) -> None:
         '''Debug state'''
-        print()
+        # Grab the threshold(s) and rewards(s) off of the sign text
+        # Looking for 'xx souls reward: {[reward]}'
+        self.rewards = findall(r'(\d+ souls reward: \{.*?\})', self.hint_text)
+        print(self.rewards)
