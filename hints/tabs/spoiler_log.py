@@ -73,7 +73,12 @@ class SpoilerLog:
     def create_spoiler_dropdown(self, spoilers: list) -> None:
         '''Create a dropdwon with valid spoiler logs.'''
         # Reset the tracker
-        self.program.reset_tracker()
+        permission_granted = self.program.reset_tracker()
+
+        # If we were denied, then leave this
+        if not permission_granted:
+            self.destroy_frame()
+            return
 
         # Make the stringvar to store which was chosen
         self.spoiler_log_var = StringVar(value=spoilers[0])

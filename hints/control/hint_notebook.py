@@ -133,13 +133,15 @@ class HintNotebook(Program):
         # Recreate the blank tab
         self.create_notepad(tab_name)
 
-    def reset_tracker(self) -> None:
+    def reset_tracker(self) -> bool:
         '''Completely reset the tracker.'''
         # Revert the title to default
         self.change_title()
 
         # Reset the tracker
-        self.tracker_wide_reset('reset')
+        permission_granted = self.tracker_wide_reset('reset')
+
+        return permission_granted
 
     def show_warning(self) -> bool:
         '''Create a warning to ask them are ya sure?'''
@@ -156,7 +158,7 @@ class HintNotebook(Program):
 
         return to_reset
 
-    def tracker_wide_reset(self, type: str) -> None:
+    def tracker_wide_reset(self, type: str) -> bool:
         '''A DRY location for a tracker-wide reset- closing or resetting.'''
         permission_granted = self.show_warning()
 
@@ -168,6 +170,8 @@ class HintNotebook(Program):
                     self.reset_tab(tab_name)
                 else:
                     raise NotImplementedError
+
+        return permission_granted
 
     def update_data_tabs(self,
                          tab_name: str,
