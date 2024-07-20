@@ -20,7 +20,6 @@ class SpoilerLog:
 
     # The spoiler log folder and available logs
     spoiler_logs_folder = None
-    spoiler_logs = None
 
     # The tab that we're working in
     spoiler_tab = None
@@ -44,9 +43,6 @@ class SpoilerLog:
 
         # Grab the spoiler log folder
         self.spoiler_logs_folder = self.parser.spoiler_log_folder
-
-        # Get the spoiler logs available
-        self.spoiler_logs = listdir(self.spoiler_logs_folder)
 
         # Create the spoiler log tab
         self.spoiler_tab = self.program.notebook.add('Spoiler Log')
@@ -161,9 +157,12 @@ class SpoilerLog:
         if self.interface_frame is not None:
             self.destroy_frame()
 
+        # Get the spoiler logs available
+        spoiler_logs = listdir(self.spoiler_logs_folder)
+
         # Validate which files can actually be used
         valid_spoilers = []
-        for spoiler_log_file in self.spoiler_logs:
+        for spoiler_log_file in spoiler_logs:
             if spoiler_log_file.endswith('.json'):
                 # Append only the file name, without the .json
                 # While .replace works, jaq suggests this for cross-platform.
