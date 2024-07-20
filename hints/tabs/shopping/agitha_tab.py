@@ -10,7 +10,10 @@ class AgithaTab:
     tab_name = 'Bugs'
 
     # Default label text
-    default_text = 'Agitha gives you GREAT HAPPINESS:'
+    default_text = 'Agitha gives you GREAT HAPPINESS:\n'
+
+    # The label for the status
+    status_label = None
 
     # The program provided
     program = None
@@ -56,18 +59,34 @@ class AgithaTab:
 
     def collect_item(self) -> None:
         '''Debug state'''
-        print('Hello World')
+        # Go through and check the states of the checkboxes
+        checked = []
+        for int_var in self.checkbox_vars:
+            checked.append(int_var.get())
+
+        # Set the text to the default text, to be safe
+        self.status_label.configure(text=self.default_text)
+
+        # If all are true, update the text
+        if all(checked):
+            # PEP8 compliant and readable text
+            new_text = ('Congratulations!'
+                        ' There is nothing left to collect here.\n'
+                        'You have collected the following items from'
+                        f' Agitha:')
+            self.status_label.configure(text=new_text)
+
 
     def create_checklist(self) -> None:
         '''Create the checklist of the provided rewards.'''
         # Reset, but don't reset to default
         tab = self.program.reset_tab(self.tab_name, False)
 
-        # Create the status label -----------------------
-        status_label = CTkLabel(master=tab,
-                                text=self.default_text)
-        status_label.pack(anchor='w', padx=5, pady=5)
-        # -----------------------------------------------
+        # Create the status label ----------------------------
+        self.status_label = CTkLabel(master=tab,
+                                     text=self.default_text)
+        self.status_label.pack(anchor='w', padx=5, pady=5)
+        # ----------------------------------------------------
 
         # Create the checklist frame ---------------------
         checklist_frame = CTkFrame(master=tab)

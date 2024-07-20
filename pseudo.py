@@ -32,15 +32,15 @@
 
 # Agitha's Castle =============================================================
 # x By default, a notepad for user to jot down notes, nothing fancy.
-# - If she has items, then autofill with a checklist.
-#   - Update the text to say "Agitha gives you GREAT HAPPINESS:"
+# x If she has items, then autofill with a checklist.
+#   x Update the text to say "Agitha gives you GREAT HAPPINESS:"
 #     - I would like to in the future update the text to be more accurate
-#   - List the items that she has a checklist
+#   x List the items that she has as a checklist
 #     - Once all the items are selected, update the text to say
 #       "Congratulations! There is nothing left to collect here.\nYou have
 #       collected the following items from Agitha's Castle:"
 #       - In the future, I want to just say "Agitha" instead of the full name.
-# - If she has no items, then close the tab
+# x If she has no items, then close the tab
 #   - I would like this to somehow otherwise indicate that Agitha is not a
 #     valuable set of checks, than just closing the tab. But for now, closing
 #     the tab works.
