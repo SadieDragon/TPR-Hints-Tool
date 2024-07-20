@@ -11,12 +11,12 @@
 # Main Page ===================================================================
 # - Pick Spoiler Log
 #   x May get made into its own tab.
-#     - Ensures that .jsons are provided.
+#     x Ensures that .jsons are provided.
 #       - If none is provided, it tells you to put a spoiler log in the folder
 #         it is looking for them in
-#       - If one or more is provided, creates a dropdown for you to select from,
+#       x If one or more is provided, creates a dropdown for you to select from,
 #         and a confirmation button.
-#         - Loading a spoiler log resets the tracker, then autofills the Agitha
+#         \ Loading a spoiler log resets the tracker, then autofills the Agitha
 #           and Jovani tabs.
 # x Reset Tracker
 #   x Clears the notepad, and sets the Agitha's and Jovani's tabs to notepads.

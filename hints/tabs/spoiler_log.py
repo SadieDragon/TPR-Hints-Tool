@@ -4,7 +4,7 @@
 
 from customtkinter import CTkButton, CTkComboBox, CTkFrame, CTkLabel, StringVar
 from hints.control.program import Program
-from hints.data.parse_log import define_spoilers_folder, dump_and_fill
+from hints.data.parse_log import ParseLog
 from os import listdir
 from pathlib import Path
 
@@ -13,6 +13,9 @@ class SpoilerLog:
     '''The class to handle all spoiler log things.'''
     # The program that was passed in
     program = None
+
+    # The parser
+    parser = None
 
     # The spoiler log folder and available logs
     spoiler_logs_folder = None
@@ -35,8 +38,11 @@ class SpoilerLog:
         # Store the program
         self.program = program
 
+        # Init the spoiler log parser
+        self.parser = ParseLog(self.program)
+
         # Grab the spoiler log folder
-        self.spoiler_logs_folder = define_spoilers_folder()
+        self.spoiler_logs_folder = self.parser.spoiler_log_folder
 
         # Get the spoiler logs available
         self.spoiler_logs = listdir(self.spoiler_logs_folder)
@@ -62,6 +68,9 @@ class SpoilerLog:
 
     def create_spoiler_dropdown(self, spoilers: list) -> None:
         '''Create a dropdwon with valid spoiler logs.'''
+        # Reset the tracker
+        self.program.reset_tracker()
+
         # Make the stringvar to store which was chosen
         self.spoiler_log_var = StringVar(value=spoilers[0])
 
@@ -101,7 +110,7 @@ class SpoilerLog:
         self.destroy_frame()
 
         # Dump and fill the tabs
-        dump_and_fill(self.program, spoiler_log)
+        self.parser.dump_and_fill(spoiler_log)
 
     def present_logs(self) -> None:
         '''Presents a list of the spoiler logs available.'''

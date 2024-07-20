@@ -7,29 +7,53 @@ from pathlib import Path
 from re import findall
 
 
-def define_spoilers_folder() -> Path:
-    '''Create the path to the spoiler log folder.'''
-    return Program.root_dir / 'SpoilerLog'
+# Can I just class this?
+class ParseLog:
+    '''It just, parses the spoiler log data.'''
+    # The root program
+    program = None
 
+    # The spoiler log folder
+    spoiler_log_folder = None
 
-def dump(spoiler_log_file: str) -> None:
-    '''Take the provided file name, and dump the log.'''
-    # Re-affix '.json' to the log, and hopefully make the file work again
-    spoiler_log_file = Path(''.join(spoiler_log_file, '.json'))
+    # The provided spoiler log
+    spoiler_log_file = None
 
-    # Make the path to the log
-    spoiler_log_path = (define_spoilers_folder() / spoiler_log_file)
+    def __init__(self, program: Program) -> None:
+        '''Set the global var here.'''
+        # Set the global program var
+        self.program = program
 
+        self.spoiler_log_folder = program.root_dir / 'SpoilerLog'
 
-def dump_and_fill(program: Program, spoiler_log_file: str) -> None:
-    '''Take the provided path, and dump the log then fill the tabs.'''
-    # Reset the tracker
-    program.reset_tracker()
+    def dump_and_fill(self, spoiler_log_file: str) -> None:
+        '''Take the provided path, and dump the log then fill the tabs.'''
+        # Set the local var of the log
+        self.spoiler_log_file = spoiler_log_file
 
-    seed_name = findall(r'\-\-(.*?)\-\-', spoiler_log_file)[0]
-    program.change_title(seed_name)
+        # Change the window title
+        seed_name = findall(r'\-\-(.*?)\-\-', spoiler_log_file)[0]
+        self.program.change_title(seed_name)
 
-    # # Dump the spoiler log data.
-    # # The file is encoded in UTF-8, and Ecconia provided this fix.
-    # with open(log_path, 'r', encoding='utf-8') as f:
-    #     spoiler_log_data = load(f)
+        # Parse the provided data
+        self.parse_spoiler_log()
+
+    def dump_log(self) -> dict:
+        '''Take the provided file name, and dump the log.'''
+        # Re-affix '.json' to the log, and hopefully make the file work again
+        self.spoiler_log_file = Path(''.join([self.spoiler_log_file, '.json']))
+
+        # Make the path to the log
+        spoiler_log_path = (self.spoiler_log_folder / self.spoiler_log_file)
+
+        # Dump the spoiler log data.
+        # The file is encoded in UTF-8, and Ecconia provided this fix.
+        with open(spoiler_log_path, 'r', encoding='utf-8') as f:
+            return load(f)
+
+    def parse_spoiler_log(self) -> None:
+        '''Parse the spoiler log data.'''
+        # Grab the data from the spoiler log
+        spoiler_log_data = self.dump_log()
+
+        print(spoiler_log_data)
