@@ -101,6 +101,21 @@ class SpoilerLog:
         # Show the button again
         self.show_button()
 
+    def display_no_logs(self) -> None:
+        '''If there are no spoiler logs, ask them to please
+        put one in the folder.'''
+        # The error text
+        error_text = ('There are no available spoiler logs. Please provide one'
+                      ' in the following folder:\n'
+                      f'{self.spoiler_logs_folder}')
+
+        # The error label
+        error_label = CTkLabel(justify='left',
+                               master=self.interface_frame,
+                               text=error_text,
+                               wraplength=450)
+        error_label.pack(padx=5, pady=5)
+
     def dump_spoiler_log(self) -> None:
         '''Dumps the spoiler log and passes it on to the parser'''
         # Get the chosen log
@@ -114,6 +129,10 @@ class SpoilerLog:
 
     def present_logs(self) -> None:
         '''Presents a list of the spoiler logs available.'''
+        # Destroy a frame which might be leftover
+        if self.interface_frame is not None:
+            self.destroy_frame()
+
         # Validate which files can actually be used
         valid_spoilers = []
         for spoiler_log_file in self.spoiler_logs:
@@ -131,7 +150,7 @@ class SpoilerLog:
             self.create_spoiler_dropdown(valid_spoilers)
         else:
             # Create a label telling them hey, uhm, we don't have any?
-            print()
+            self.display_no_logs()
 
     def show_button(self) -> None:
         '''Pack the button so the user can see it again.'''
