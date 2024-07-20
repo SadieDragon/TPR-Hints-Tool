@@ -40,8 +40,8 @@ class ParseLog:
 
     def dump_log(self) -> dict:
         '''Take the provided file name, and dump the log.'''
-        # Re-affix '.json' to the log, and hopefully make the file work again
-        self.spoiler_log_file = Path(''.join([self.spoiler_log_file, '.json']))
+        # Re-affix '.json' to the log
+        self.spoiler_log_file = Path(self.spoiler_log_file).with_suffix('.json')
 
         # Make the path to the log
         spoiler_log_path = (self.spoiler_log_folder / self.spoiler_log_file)
