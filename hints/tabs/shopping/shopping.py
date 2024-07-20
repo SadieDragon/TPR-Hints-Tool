@@ -47,8 +47,7 @@ class Shopping:
             # PEP8 compliant and readable text
             new_text = ('Congratulations!'
                         ' There is nothing left to collect here.\n'
-                        'You have collected the following items from'
-                        f' Agitha:')
+                        'You have collected the following items from here:')
             self.status_label.configure(text=new_text)
 
     def create_checklist(self) -> None:
