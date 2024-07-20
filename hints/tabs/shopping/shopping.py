@@ -53,6 +53,11 @@ class Shopping:
 
     def create_checklist(self) -> None:
         '''Create the checklist of the provided rewards.'''
+        # Clean out the vars.
+        # Jovani was getting Agitha's, for *some reason.*
+        self.checkbox_vars = []
+        self.checkboxes = []
+
         # Reset, but don't reset to default
         tab = self.program.reset_tab(self.tab_name, False)
 
