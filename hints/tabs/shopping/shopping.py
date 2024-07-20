@@ -1,6 +1,10 @@
 
 # The parent class for the shopping lists
-from customtkinter import  CTkCheckBox, CTkLabel, CTkScrollableFrame, IntVar
+from customtkinter import (CTkCheckBox,
+                           CTkFrame,
+                           CTkLabel,
+                           CTkScrollableFrame,
+                           IntVar)
 from hints.control.program import Program
 
 
@@ -60,14 +64,23 @@ class Shopping:
         # Reset, but don't reset to default
         tab = self.program.reset_tab(self.tab_name, False)
 
+        # Host frame --------------------------------------------
+        # Create the frame to pass to dict
+        tab_frame = CTkFrame(master=tab)
+        tab_frame.pack()
+
+        # Pass it to the dict
+        self.program.update_data_tabs(self.tab_name, tab_frame)
+        # -------------------------------------------------------
+
         # Create the status label ----------------------------
-        self.status_label = CTkLabel(master=tab,
+        self.status_label = CTkLabel(master=tab_frame,
                                      text=self.default_text)
         self.status_label.pack(anchor='w', padx=5, pady=5)
         # ----------------------------------------------------
 
         # Create the checklist frame ---------------------
-        checklist_frame = CTkScrollableFrame(master=tab)
+        checklist_frame = CTkScrollableFrame(master=tab_frame)
         checklist_frame.pack(anchor='w',
                              expand=True,
                              fill='both',

@@ -1,5 +1,6 @@
 
 # Avoids the risk of circular imports. Somehow.
+from customtkinter import CTkFrame, CTkTextbox
 from os import getcwd
 from pathlib import Path
 
@@ -41,5 +42,11 @@ class Program:
 
     def set_to_notes_tab(self) -> None:
         '''Change the tab to the notes tab.'''
+        pass
+
+    def update_data_tabs(self,
+                         tab_name: str,
+                         tab_content: CTkTextbox | CTkFrame | None) -> None:
+        '''Update the storage of data tab info'''
         pass
     # -----------------------------------------------------------------
