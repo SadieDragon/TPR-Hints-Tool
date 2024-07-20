@@ -2,6 +2,7 @@
 # Rather than keep spaghetti'ng the spoiler log handling,
 # take the data and handle it elsewhere.
 from hints.control.program import Program
+from hints.tabs.shopping.agitha_tab import AgithaTab
 from json import load
 from pathlib import Path
 from re import findall, sub
@@ -75,7 +76,7 @@ class ParseLog:
                 # Special handling for Agitha
                 if sign == 'Agithas_Castle_Sign':
                     # Go to her parsing
-                    print(hint_text)
+                    AgithaTab(self.program, hint_text)
                 # Special handling for Jovani
                 elif sign == 'Jovani_House_Sign':
                     # Go to his parsing

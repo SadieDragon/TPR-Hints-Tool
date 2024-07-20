@@ -14,7 +14,7 @@ class Program:
     # The global variable of the data tabs.
     data_tabs = {}
 
-    # Functions that are required elsewhere. --
+    # Functions that are required elsewhere. --------------------------
     def change_title(self) -> None:
         '''Change the title of the window.'''
         pass
@@ -23,11 +23,19 @@ class Program:
         '''Close all of the tabs.'''
         pass
 
+    def close_tab(self, tab_name: str) -> None:
+        '''Close a tab in the notebook.'''
+        pass
+
     def create_notepad_tab(self) -> None:
         '''Recreate the primary tab.'''
+        pass
+
+    def reset_tab(self, tab_name: str, default: bool = True) -> None:
+        '''Reset the contents of the tab.'''
         pass
 
     def reset_tracker(self) -> None:
         '''Completely reset the tracker.'''
         pass
-    # -----------------------------------------
+    # -----------------------------------------------------------------

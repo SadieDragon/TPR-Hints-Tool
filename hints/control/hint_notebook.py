@@ -56,15 +56,18 @@ class HintNotebook(Program):
 
     def add_tab(self, tab_name: str) -> None:
         '''Create a tab in the notebook.'''
-        if not (tab_name in self.data_tabs.keys()):
-            # Update the data tabs dict
-            self.update_data_tabs(tab_name, None)
+        # If it already exists, don't bother.
+        if tab_name in self.data_tabs.keys():
+            return
 
-            # Find the index
-            tab_index = self.data_tab_names.index(tab_name)
+        # Update the data tabs dict
+        self.update_data_tabs(tab_name, None)
 
-            # Create and return the tab
-            return self.notebook.insert(tab_index, tab_name)
+        # Find the index
+        tab_index = self.data_tab_names.index(tab_name)
+
+        # Create and return the tab
+        return self.notebook.insert(tab_index, tab_name)
 
     def change_title(self, seed_name: str = '') -> None:
         '''Change the title of the window.'''
@@ -124,14 +127,20 @@ class HintNotebook(Program):
         # And store the new info
         self.update_data_tabs(tab_name, notepad)
 
-    def reset_tab(self, tab_name: str) -> None:
+    def reset_tab(self, tab_name: str, default: bool = True) -> None:
         '''Reset the contents of the tab.'''
         # If the tab already exists, close the tab
         if tab_name in self.data_tabs.keys():
             self.close_tab(tab_name)
 
-        # Recreate the blank tab
-        self.create_notepad(tab_name)
+        if default:
+            # Recreate the blank tab
+            self.create_notepad(tab_name)
+        else:
+            # Just add a tab
+            self.add_tab(tab_name)
+
+        return self.notebook.tab(tab_name)
 
     def reset_tracker(self) -> bool:
         '''Completely reset the tracker.'''
