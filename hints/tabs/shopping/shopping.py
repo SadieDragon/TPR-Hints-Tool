@@ -1,6 +1,6 @@
 
 # The parent class for the shopping lists
-from customtkinter import  CTkCheckBox, CTkFrame, CTkLabel, IntVar
+from customtkinter import  CTkCheckBox, CTkLabel, CTkScrollableFrame, IntVar
 from hints.control.program import Program
 
 
@@ -67,8 +67,12 @@ class Shopping:
         # ----------------------------------------------------
 
         # Create the checklist frame ---------------------
-        checklist_frame = CTkFrame(master=tab)
-        checklist_frame.pack(anchor='w', padx=5, pady=5)
+        checklist_frame = CTkScrollableFrame(master=tab)
+        checklist_frame.pack(anchor='w',
+                             expand=True,
+                             fill='both',
+                             padx=5,
+                             pady=5)
         # ------------------------------------------------
 
         # Go through the rewards
