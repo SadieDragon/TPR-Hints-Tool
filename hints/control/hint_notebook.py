@@ -142,7 +142,7 @@ class HintNotebook(Program):
 
         return self.notebook.tab(tab_name)
 
-    def reset_tracker(self) -> bool:
+    def reset_tracker(self, tab_back: bool = True) -> bool:
         '''Completely reset the tracker.'''
         # Revert the title to default
         self.change_title()
@@ -150,10 +150,15 @@ class HintNotebook(Program):
         # Reset the tracker
         permission_granted = self.tracker_wide_reset('reset')
 
-        # Set the notes tab to be the default tab
-        self.notebook.set('Notes')
+        # Set the notes tab to be the default tab if requested
+        if tab_back:
+            self.set_to_notes_tab()
 
         return permission_granted
+
+    def set_to_notes_tab(self) -> None:
+        '''Change the tab to the notes tab.'''
+        self.notebook.set('Notes')
 
     def show_warning(self) -> bool:
         '''Create a warning to ask them are ya sure?'''

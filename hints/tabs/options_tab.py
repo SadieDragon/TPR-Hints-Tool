@@ -43,3 +43,6 @@ class OptionsTab:
 
         # Recreate the notes page
         self.program.create_notepad_tab()
+
+        # Tab back to it
+        self.program.set_to_notes_tab()

@@ -72,6 +72,14 @@ class SpoilerLog:
 
     def create_spoiler_dropdown(self, spoilers: list) -> None:
         '''Create a dropdwon with valid spoiler logs.'''
+        # Reset the tracker, but do not tab back *yet*
+        permission_granted = self.program.reset_tracker(False)
+
+        # If we were denied, then leave this
+        if not permission_granted:
+            self.destroy_frame()
+            return
+
         # Make the stringvar to store which was chosen
         self.spoiler_log_var = StringVar(value=spoilers[0])
 
@@ -139,18 +147,14 @@ class SpoilerLog:
 
     def dump_spoiler_log(self) -> None:
         '''Dumps the spoiler log and passes it on to the parser'''
+        # Tab back to the notes
+        self.program.set_to_notes_tab()
+
         # Get the chosen log
         spoiler_log = self.spoiler_log_var.get()
 
-        # Reset the tracker
-        permission_granted = self.program.reset_tracker()
-
         # Destroy the interface frame
         self.destroy_frame()
-
-        # If we were denied, then leave this
-        if not permission_granted:
-            return
 
         # Dump and fill the tabs
         self.parser.dump_and_fill(spoiler_log)

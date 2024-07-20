@@ -38,4 +38,8 @@ class Program:
     def reset_tracker(self) -> None:
         '''Completely reset the tracker.'''
         pass
+
+    def set_to_notes_tab(self) -> None:
+        '''Change the tab to the notes tab.'''
+        pass
     # -----------------------------------------------------------------
