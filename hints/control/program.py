@@ -1,0 +1,52 @@
+
+# Avoids the risk of circular imports. Somehow.
+from customtkinter import CTkFrame, CTkTextbox
+from os import getcwd
+from pathlib import Path
+
+
+class Program:
+    # The root folder
+    root_dir = Path(getcwd())
+
+    # The global variable of the notepad to add to
+    notebook = None
+
+    # The global variable of the data tabs.
+    data_tabs = {}
+
+    # Functions that are required elsewhere. --------------------------
+    def change_title(self) -> None:
+        '''Change the title of the window.'''
+        pass
+
+    def close_all_tabs(self) -> None:
+        '''Close all of the tabs.'''
+        pass
+
+    def close_tab(self, tab_name: str) -> None:
+        '''Close a tab in the notebook.'''
+        pass
+
+    def create_notepad_tab(self) -> None:
+        '''Recreate the primary tab.'''
+        pass
+
+    def reset_tab(self, tab_name: str, default: bool = True) -> None:
+        '''Reset the contents of the tab.'''
+        pass
+
+    def reset_tracker(self) -> None:
+        '''Completely reset the tracker.'''
+        pass
+
+    def set_to_notes_tab(self) -> None:
+        '''Change the tab to the notes tab.'''
+        pass
+
+    def update_data_tabs(self,
+                         tab_name: str,
+                         tab_content: CTkTextbox | CTkFrame | None) -> None:
+        '''Update the storage of data tab info'''
+        pass
+    # -----------------------------------------------------------------
