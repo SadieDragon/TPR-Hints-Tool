@@ -30,7 +30,7 @@ class OptionsTab:
         # -------------------------------------------------
 
         # Reset Tracker -----------------------------------------------
-        reset_tracker = CTkButton(command=self.program.reset_tracker,
+        reset_tracker = CTkButton(command=self.program.resetter.reset_tracker,
                                   master=buttons_frame,
                                   text='Reset Tracker')
         reset_tracker.grid(column=1, padx=5, pady=5, row=0)
@@ -39,10 +39,10 @@ class OptionsTab:
     def race_mode(self) -> None:
         '''The command for race mode.'''
         # Close every tab
-        self.program.close_all_tabs()
+        self.program.resetter.close_all_tabs()
 
         # Recreate the notes page
-        self.program.create_notepad_tab()
+        self.program.resetter.create_notepad_tab()
 
         # Tab back to it
         self.program.set_to_notes_tab()
