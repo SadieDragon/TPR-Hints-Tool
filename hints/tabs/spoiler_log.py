@@ -4,7 +4,7 @@
 
 from customtkinter import CTkButton, CTkComboBox, CTkFrame, CTkLabel, StringVar
 from hints.control.program import Program
-from hints.data.parse_log import ParseLog
+from hints.utils.parse_log import ParseLog
 from os import listdir
 from pathlib import Path
 from subprocess import check_call
