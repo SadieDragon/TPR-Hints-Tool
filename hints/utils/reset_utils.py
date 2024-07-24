@@ -2,6 +2,7 @@
 # Holds all of the reset utilities for the tracker
 
 from CTkMessagebox import CTkMessagebox
+from customtkinter import CTkFrame
 from hints.control.program import Program
 
 
@@ -40,7 +41,7 @@ class ResetUtils:
         # And store the new info
         self.program.update_data_tabs(tab_name, notepad)
 
-    def reset_tab(self, tab_name: str, default: bool = True) -> None:
+    def reset_tab(self, tab_name: str, default: bool = True) -> CTkFrame:
         '''Reset the contents of the tab.'''
         # If the tab already exists, close the tab
         if tab_name in self.program.data_tabs.keys():

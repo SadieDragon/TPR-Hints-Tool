@@ -47,8 +47,7 @@ class HintNotebook(Program):
         # Run the window
         self.root.mainloop()
 
-    # TODO: Return type outdated
-    def add_tab(self, tab_name: str) -> None:
+    def add_tab(self, tab_name: str) -> None | CTkFrame:
         '''Create a tab in the notebook.'''
         # If it already exists, don't bother.
         if tab_name in self.data_tabs.keys():
@@ -60,7 +59,7 @@ class HintNotebook(Program):
         # Find the index
         tab_index = self.data_tab_names.index(tab_name)
 
-        # Create and return the tab
+        # Create the tab, and return it
         return self.notebook.insert(tab_index, tab_name)
 
     def change_title(self, seed_name: str = '') -> None:

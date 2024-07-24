@@ -119,7 +119,7 @@ class Shopping:
         '''The action for no rewards: Close the tab.'''
         self.program.resetter.close_tab(self.tab_name)
 
-    def parse_rewards(self) -> None:
+    def parse_rewards(self) -> bool:
         '''Autofills with the provided information.'''
         # Parse the text
         self.parse_text()
