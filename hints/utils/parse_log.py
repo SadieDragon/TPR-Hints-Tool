@@ -3,7 +3,6 @@
 # take the data and handle it elsewhere.
 from hints.control.program import Program
 from hints.tabs.shopping.agitha_tab import AgithaTab
-from hints.tabs.shopping.jovani_tab import JovaniTab
 from json import load
 from pathlib import Path
 from re import findall, sub
@@ -78,7 +77,3 @@ class ParseLog:
                 if sign == 'Agithas_Castle_Sign':
                     # Go to her parsing
                     AgithaTab(self.program, hint_text)
-                # Special handling for Jovani
-                elif sign == 'Jovani_House_Sign':
-                    # Go to his parsing
-                    JovaniTab(self.program, hint_text)
