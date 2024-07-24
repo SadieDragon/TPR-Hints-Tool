@@ -54,8 +54,8 @@ class ParseLog:
         '''Parse the spoiler log data.'''
         # NOTE: This does require some arbitrary knowledge of the
         # spoiler log's structure. Sorry in advance.
-        # There is little I can do to make this easier, aside from
-        # writing a note file explaining the structure. (Planned feature)
+        # Please refer to the examples in hints/documentation for
+        # a rough explanation of the structure.
 
         # Grab the data from the spoiler log
         spoiler_log_data = self.dump_log()
