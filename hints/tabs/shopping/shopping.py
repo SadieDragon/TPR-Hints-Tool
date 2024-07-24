@@ -1,5 +1,6 @@
 
-# The parent class for the shopping lists
+# The parent class for the shopping lists and their utilities
+
 from customtkinter import (CTkCheckBox,
                            CTkFrame,
                            CTkLabel,
@@ -17,13 +18,13 @@ class Shopping:
     status_label = None  # The label itself
 
     # The rewards list
-    rewards = []        # The rewards themselves
-    checkboxes = []     # Holds the checkboxes
-    checkbox_vars = []  # Holds the IntVars
+    rewards = []         # The rewards themselves
+    checkboxes = []      # Holds the checkboxes
+    checkbox_vars = []   # Holds the IntVars
 
     # The provided info
-    program = None  # The program we're running in
-    hint_text = ''  # The provided hint text
+    program = None       # The program we're running in
+    hint_text = ''       # The provided hint text
 
     def __init__(self, program: Program, hint_text: str) -> None:
         '''Initialize the variables provided.'''
@@ -56,8 +57,9 @@ class Shopping:
 
     def create_checklist(self) -> None:
         '''Create the checklist of the provided rewards.'''
-        # Clean out the vars.
-        # Jovani was getting Agitha's, for *some reason.*
+        # Clean out the vars to prevent a bug where,
+        # if there are multiple children classes,
+        # they each got the same copy of the var.
         self.checkbox_vars = []
         self.checkboxes = []
 
@@ -83,14 +85,14 @@ class Shopping:
         self.status_label.pack(anchor='w', padx=5, pady=5)
         # ----------------------------------------------------
 
-        # Create the checklist frame ---------------------
+        # Create the checklist frame ---------------------------
         checklist_frame = CTkScrollableFrame(master=tab_frame)
         checklist_frame.pack(anchor='w',
                              expand=True,
                              fill='both',
                              padx=5,
                              pady=5)
-        # ------------------------------------------------
+        # ------------------------------------------------------
 
         # Go through the rewards
         for reward in self.rewards:
@@ -100,16 +102,18 @@ class Shopping:
             # Create the IntVar for the collection status
             checkbox_variable = IntVar()
 
-            # Create the checkbox for the reward
+            # Create the checkbox for the reward ---------------
             checkbox = CTkCheckBox(command=self.collect_item,
                                    master=checklist_frame,
                                    text=reward,
                                    variable=checkbox_variable)
             checkbox.pack(anchor='w', pady=5)
+            # --------------------------------------------------
 
-            # Store the checkbox with its var
+            # Store the checkbox with its var ------------
             self.checkboxes.append(checkbox)
             self.checkbox_vars.append(checkbox_variable)
+            # --------------------------------------------
 
     def no_rewards(self) -> None:
         '''The action for no rewards: Close the tab.'''

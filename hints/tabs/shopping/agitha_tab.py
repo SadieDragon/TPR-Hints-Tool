@@ -1,5 +1,6 @@
 
-# All of Agitha's special handling goes here.
+# All of Agitha's special handling and utilities.
+
 from hints.control.program import Program
 from hints.tabs.shopping.shopping import Shopping
 
@@ -19,7 +20,7 @@ class AgithaTab(Shopping):
         self.default_text = 'Agitha gives you GREAT HAPPINESS:\n'
         # ---------------------------------------------------------
 
-        # Check if there's any hints.
+        # Check if there are any hints.
         # If there are, then we'll move forward.
         if ':' in self.hint_text:
             self.auto_fill()

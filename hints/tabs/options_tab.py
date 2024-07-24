@@ -1,6 +1,6 @@
 
-# For easy expansion in the future: A class hosting all of the options
-# (well. Most of them. Spoiler is probs its own thing.)
+# A class hosting all of the basic options,
+# for more flexible and future-proof code
 
 from customtkinter import CTkButton, CTkFrame
 from hints.control.program import Program
@@ -29,12 +29,12 @@ class OptionsTab:
         race_button.grid(column=0, padx=5, pady=5, row=0)
         # -------------------------------------------------
 
-        # Reset Tracker -----------------------------------------------
+        # Reset Tracker -------------------------------------------------------
         reset_tracker = CTkButton(command=self.program.resetter.reset_tracker,
                                   master=buttons_frame,
                                   text='Reset Tracker')
         reset_tracker.grid(column=1, padx=5, pady=5, row=0)
-        # -------------------------------------------------------------
+        # ---------------------------------------------------------------------
 
     def race_mode(self) -> None:
         '''The command for race mode.'''

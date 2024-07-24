@@ -1,5 +1,6 @@
 
-# Hosts the main window stuffs
+# Hosts the main window creation, running,
+# and also some basic utitlies acting upon it.
 
 from customtkinter import CTk, CTkFrame, CTkTabview, CTkTextbox
 from hints.control.program import Program
@@ -12,24 +13,25 @@ class HintNotebook(Program):
     '''The main window.'''
     def __init__(self) -> None:
         '''Initialize the program window.'''
-        # Create the main window --------
+        # Create the main window ---------
         self.root = CTk()
         self.root.geometry('500x500')
         self.root.minsize(300, 300)
 
-        # Set the title to default title.
+        # Set the title to default title
         self.change_title()
+        # --------------------------------
 
-        # Create the main notebook. -------------
+        # Create the main notebook. ------------------
         self.notebook = CTkTabview(master=self.root)
         self.notebook.pack(anchor='nw',
                            expand=True,
                            fill='both',
                            padx=5,
                            pady=5)
-        # ---------------------------------------
+        # --------------------------------------------
 
-        # Initialize the resetter
+        # Initialize the reset utils class
         self.resetter = ResetUtils(self)
 
         # Notes, Agitha's Castle
@@ -45,6 +47,7 @@ class HintNotebook(Program):
         # Run the window
         self.root.mainloop()
 
+    # TODO: Return type outdated
     def add_tab(self, tab_name: str) -> None:
         '''Create a tab in the notebook.'''
         # If it already exists, don't bother.
@@ -72,7 +75,8 @@ class HintNotebook(Program):
 
     def create_data_tabs(self) -> None:
         '''Creates the tabs that have data in their default state.'''
-        # Go through and create each tab with a blank notepad, then store.
+        # Go through and create each tab with a blank notepad,
+        # then store the notepad for later use.
         for tab_name in self.data_tab_names:
             # Create the notepad that goes in it
             notepad = self.create_notepad(tab_name)
@@ -85,9 +89,10 @@ class HintNotebook(Program):
         # Create the tab at the tab name
         tab = self.add_tab(tab_name)
 
-        # Create the notepad
+        # Create the notepad -----------------------------------
         notepad = CTkTextbox(corner_radius=0, master=tab)
         notepad.pack(padx=5, pady=5, expand=True, fill='both')
+        # ------------------------------------------------------
 
         # Return the notepad
         return notepad

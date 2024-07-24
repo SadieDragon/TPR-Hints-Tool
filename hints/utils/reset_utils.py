@@ -1,5 +1,5 @@
 
-# Holds all of the reset utilities
+# Holds all of the reset utilities for the tracker
 
 from CTkMessagebox import CTkMessagebox
 from hints.control.program import Program
