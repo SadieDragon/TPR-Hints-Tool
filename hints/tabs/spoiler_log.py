@@ -73,7 +73,7 @@ class SpoilerLog:
     def create_spoiler_dropdown(self, spoilers: list) -> None:
         '''Create a dropdwon with valid spoiler logs.'''
         # Reset the tracker, but do not tab back *yet*
-        permission_granted = self.program.reset_tracker(False)
+        permission_granted = self.program.resetter.reset_tracker(False)
 
         # If we were denied, then leave this
         if not permission_granted:

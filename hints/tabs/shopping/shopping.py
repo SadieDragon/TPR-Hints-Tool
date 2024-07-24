@@ -62,7 +62,7 @@ class Shopping:
         self.checkboxes = []
 
         # Reset, but don't reset to default
-        tab = self.program.reset_tab(self.tab_name, False)
+        tab = self.program.resetter.reset_tab(self.tab_name, False)
 
         # Host frame --------------------------------------------
         # Create the frame to pass to dict
@@ -113,7 +113,7 @@ class Shopping:
 
     def no_rewards(self) -> None:
         '''The action for no rewards: Close the tab.'''
-        self.program.close_tab(self.tab_name)
+        self.program.resetter.close_tab(self.tab_name)
 
     def parse_rewards(self) -> None:
         '''Autofills with the provided information.'''

@@ -1,25 +1,15 @@
 
 # Hosts the main window stuffs
 
-from CTkMessagebox import CTkMessagebox
 from customtkinter import CTk, CTkFrame, CTkTabview, CTkTextbox
 from hints.control.program import Program
 from hints.tabs.options_tab import OptionsTab
 from hints.tabs.spoiler_log import SpoilerLog
+from hints.utils.reset_utils import ResetUtils
 
 
 class HintNotebook(Program):
     '''The main window.'''
-    # The root window
-    root = None
-
-    # The tabs that are to be created.
-    # Easily expandable later.
-    data_tab_names = [
-        'Notes',
-        'Bugs'
-    ]
-
     def __init__(self) -> None:
         '''Initialize the program window.'''
         # Create the main window --------
@@ -29,7 +19,6 @@ class HintNotebook(Program):
 
         # Set the title to default title.
         self.change_title()
-        # -------------------------------
 
         # Create the main notebook. -------------
         self.notebook = CTkTabview(master=self.root)
@@ -40,7 +29,10 @@ class HintNotebook(Program):
                            pady=5)
         # ---------------------------------------
 
-        # Notes, Agitha's Castle, and Jovani's Redemption
+        # Initialize the resetter
+        self.resetter = ResetUtils(self)
+
+        # Notes, Agitha's Castle
         # (Default state for the latter)
         self.create_data_tabs()
 
@@ -78,21 +70,6 @@ class HintNotebook(Program):
 
         self.root.title(title)
 
-    def close_all_tabs(self) -> None:
-        '''Close all of the tabs.'''
-        self.tracker_wide_reset('close')
-
-    def close_tab(self, tab_name: str) -> None:
-        '''Close a tab in the notebook.'''
-        try:
-            # Close the tab
-            self.notebook.delete(tab_name)
-
-            # Remove the key, it no longer exists
-            del self.data_tabs[tab_name]
-        except ValueError:
-            pass
-
     def create_data_tabs(self) -> None:
         '''Creates the tabs that have data in their default state.'''
         # Go through and create each tab with a blank notepad, then store.
@@ -115,79 +92,9 @@ class HintNotebook(Program):
         # Return the notepad
         return notepad
 
-    def create_notepad_tab(self) -> None:
-        '''Recreate the primary tab.'''
-        # Makes plonking this in easier
-        tab_name = 'Notes'
-
-        # Create the notepad and tab
-        notepad = self.create_notepad(tab_name)
-
-        # And store the new info
-        self.update_data_tabs(tab_name, notepad)
-
-    def reset_tab(self, tab_name: str, default: bool = True) -> None:
-        '''Reset the contents of the tab.'''
-        # If the tab already exists, close the tab
-        if tab_name in self.data_tabs.keys():
-            self.close_tab(tab_name)
-
-        if default:
-            # Recreate the blank tab
-            self.create_notepad(tab_name)
-        else:
-            # Just add a tab
-            self.add_tab(tab_name)
-
-        return self.notebook.tab(tab_name)
-
-    def reset_tracker(self, tab_back: bool = True) -> bool:
-        '''Completely reset the tracker.'''
-        # Revert the title to default
-        self.change_title()
-
-        # Reset the tracker
-        permission_granted = self.tracker_wide_reset('reset')
-
-        # Set the notes tab to be the default tab if requested
-        if tab_back:
-            self.set_to_notes_tab()
-
-        return permission_granted
-
     def set_to_notes_tab(self) -> None:
         '''Change the tab to the notes tab.'''
         self.notebook.set('Notes')
-
-    def show_warning(self) -> bool:
-        '''Create a warning to ask them are ya sure?'''
-        warning_box = CTkMessagebox(icon='warning',
-                                    option_1='Cancel',
-                                    option_2='Yes',
-                                    master=self.root,
-                                    message='This will reset everything.',
-                                    title='Are you sure?')
-
-        to_reset = False
-        if warning_box.get() == 'Yes':
-            to_reset = True
-
-        return to_reset
-
-    def tracker_wide_reset(self, type: str) -> bool:
-        '''A DRY location for a tracker-wide reset- closing or resetting.'''
-        permission_granted = self.show_warning()
-
-        if permission_granted:
-            for tab_name in self.data_tab_names:
-                if type == 'close':
-                    self.close_tab(tab_name)
-                elif type == 'reset':
-                    self.reset_tab(tab_name)
-                else:
-                    raise NotImplementedError
-
-        return permission_granted
 
     def update_data_tabs(self,
                          tab_name: str,
