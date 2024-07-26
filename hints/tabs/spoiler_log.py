@@ -24,7 +24,7 @@ class SpoilerLog:
     # Local interface vars
     spoiler_tab = CTkFrame          # The tab that we're working in
     spoiler_log_button = CTkButton  # The main button
-    interface_frame = CTkFrame      # The frame hosting the interface elements
+    interface_frame = None          # The frame hosting the interface elements
     spoiler_log_var = StringVar     # The var for picking the spoiler log
 
     def __init__(self, program: Program) -> None:
@@ -70,13 +70,14 @@ class SpoilerLog:
 
     def create_spoiler_dropdown(self, spoilers: list) -> None:
         '''Create a dropdwon with valid spoiler logs.'''
-        # Reset the tracker, but do not tab back
-        permission_granted = self.resetter.reset_tracker(False)
-
-        # If we were denied, then do not continue
-        if not permission_granted:
+        # Get permission to reset the tracker
+        if not self.resetter.show_warning():
+            # Destroy the frame if denied, before returning
             self.destroy_frame()
             return
+
+        # Reset the tracker, but do not tab back
+        self.resetter.reset_tracker(False)
 
         # Make the stringvar to store which was chosen
         self.spoiler_log_var = StringVar(value=spoilers[0])
@@ -103,9 +104,10 @@ class SpoilerLog:
 
     def destroy_frame(self) -> None:
         '''Destroys the interface frame when it's no longer in use.'''
-        # Destroy the frame
-        self.interface_frame.destroy()
-        self.interface_frame = None
+        # If the interface frame was created, destroy it
+        if self.interface_frame is not None:
+            self.interface_frame.destroy()
+            self.interface_frame = None
 
         # Show the button again
         self.show_button()
@@ -153,7 +155,7 @@ class SpoilerLog:
         # Get the chosen log
         spoiler_log = self.spoiler_log_var.get()
 
-        # Destroy the interface frame
+        # Destroy the interface frame if necessary
         self.destroy_frame()
 
         # Dump and fill the tabs
@@ -162,8 +164,7 @@ class SpoilerLog:
     def present_logs(self) -> None:
         '''Presents a list of the spoiler logs available.'''
         # Destroy any frame which might be leftover
-        if self.interface_frame is not None:
-            self.destroy_frame()
+        self.destroy_frame()
 
         # Get the spoiler logs available
         spoiler_logs = listdir(self.spoiler_logs_folder)

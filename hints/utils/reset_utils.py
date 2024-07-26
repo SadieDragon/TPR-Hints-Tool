@@ -52,19 +52,21 @@ class ResetUtils:
 
         return self.program.notebook.tab(tab_name)
 
-    def reset_tracker(self, tab_back: bool = True) -> bool:
+    def reset_tracker(self, tab_back: bool = True) -> None:
         '''Completely reset the tracker.'''
         # Revert the title to default
         self.program.change_title()
 
+        # Get permission to reset the tracker
+        if not self.show_warning():
+            return
+
         # Reset the tracker
-        permission_granted = self.tracker_wide_reset('reset')
+        self.tracker_wide_reset('reset')
 
         # Set the notes tab to be the default tab if requested
         if tab_back:
             self.program.set_to_notes_tab()
-
-        return permission_granted
 
     def show_warning(self) -> bool:
         '''Create a warning to ask them are ya sure?'''
@@ -81,17 +83,12 @@ class ResetUtils:
 
         return to_reset
 
-    def tracker_wide_reset(self, type: str) -> bool:
+    def tracker_wide_reset(self, type: str) -> None:
         '''A DRY location for a tracker-wide reset- closing or resetting.'''
-        permission_granted = self.show_warning()
-
-        if permission_granted:
-            for tab_name in self.program.data_tab_names:
-                if type == 'close':
-                    self.close_tab(tab_name)
-                elif type == 'reset':
-                    self.reset_tab(tab_name)
-                else:
-                    raise NotImplementedError
-
-        return permission_granted
+        for tab_name in self.program.data_tab_names:
+            if type == 'close':
+                self.close_tab(tab_name)
+            elif type == 'reset':
+                self.reset_tab(tab_name)
+            else:
+                raise NotImplementedError
