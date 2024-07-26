@@ -5,6 +5,7 @@
 from customtkinter import CTkButton, CTkComboBox, CTkFrame, CTkLabel, StringVar
 from hints.control.program import Program
 from hints.utils.parse_log import ParseLog
+from hints.utils.reset_utils import ResetUtils
 from os import listdir
 from pathlib import Path
 from subprocess import check_call
@@ -15,6 +16,7 @@ class SpoilerLog:
     # Instances
     program = Program               # Provided program instance
     parser = ParseLog               # The parser instance
+    resetter = ResetUtils           # The reset instance, set by the program
 
     # The spoiler log folder
     spoiler_logs_folder = Path
@@ -32,6 +34,9 @@ class SpoilerLog:
 
         # Init the spoiler log parser
         self.parser = ParseLog(self.program)
+
+        # Update the reset instance
+        self.resetter = program.resetter
 
         # Grab the spoiler log folder
         self.spoiler_logs_folder = self.parser.spoiler_log_folder
@@ -66,7 +71,7 @@ class SpoilerLog:
     def create_spoiler_dropdown(self, spoilers: list) -> None:
         '''Create a dropdwon with valid spoiler logs.'''
         # Reset the tracker, but do not tab back
-        permission_granted = self.program.resetter.reset_tracker(False)
+        permission_granted = self.resetter.reset_tracker(False)
 
         # If we were denied, then do not continue
         if not permission_granted:

@@ -7,9 +7,18 @@ from customtkinter import (CTkCheckBox,
                            CTkScrollableFrame,
                            IntVar)
 from hints.control.program import Program
+from hints.utils.reset_utils import ResetUtils
 
 
 class Shopping:
+    '''The parent class for all of the shopping list tabs.'''
+    # The instances
+    program = Program        # The program we're running in
+    resetter = ResetUtils    # The reset instance, set by the program
+
+    # The provided hint text
+    hint_text = str
+
     # The tab name
     tab_name = str
 
@@ -22,15 +31,14 @@ class Shopping:
     checkboxes = list()      # Holds the checkboxes
     checkbox_vars = list()   # Holds the IntVars
 
-    # The provided info
-    program = Program        # The program we're running in
-    hint_text = str          # The provided hint text
-
     def __init__(self, program: Program, hint_text: str) -> None:
         '''Initialize the variables provided.'''
         # Store the provided information
         self.program = program
         self.hint_text = hint_text
+
+        # Update the resetter to be the program's instance
+        self.resetter = program.resetter
 
     def auto_fill(self) -> None:
         '''Populate the tab with the provided info.'''
@@ -64,7 +72,7 @@ class Shopping:
         self.checkboxes = []
 
         # Reset, but don't reset to default
-        tab = self.program.resetter.reset_tab(self.tab_name, False)
+        tab = self.resetter.reset_tab(self.tab_name, False)
 
         # Host frame --------------------------------------------
         # Create the frame to pass to dict
@@ -117,7 +125,7 @@ class Shopping:
 
     def no_rewards(self) -> None:
         '''The action for no rewards: Close the tab.'''
-        self.program.resetter.close_tab(self.tab_name)
+        self.resetter.close_tab(self.tab_name)
 
     def parse_rewards(self) -> bool:
         '''Autofills with the provided information.'''
