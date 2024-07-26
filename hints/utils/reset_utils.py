@@ -57,10 +57,6 @@ class ResetUtils:
         # Revert the title to default
         self.program.change_title()
 
-        # Get permission to reset the tracker
-        if not self.show_warning():
-            return
-
         # Reset the tracker
         self.tracker_wide_reset('reset')
 
