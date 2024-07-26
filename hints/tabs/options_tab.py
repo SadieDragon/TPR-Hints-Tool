@@ -44,8 +44,12 @@ class OptionsTab:
 
     def race_mode(self) -> None:
         '''The command for race mode.'''
-        # Close every tab
-        self.resetter.close_all_tabs()
+        # Attempt to close every tab
+        permission_granted = self.resetter.tracker_wide_reset('close')
+
+        # Do not proceed if permission was not granted.
+        if not permission_granted:
+            return
 
         # Recreate the notes page
         self.resetter.create_notepad_tab()

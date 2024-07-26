@@ -15,10 +15,6 @@ class ResetUtils:
         '''Set the program to be locally global.'''
         self.program = program
 
-    def close_all_tabs(self) -> None:
-        '''Close all of the tabs.'''
-        self.tracker_wide_reset('close')
-
     def close_tab(self, tab_name: str) -> None:
         '''Close a tab in the notebook.'''
         try:
