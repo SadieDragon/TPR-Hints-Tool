@@ -8,7 +8,7 @@ from hints.control.program import Program
 
 class OptionsTab:
     # Store the program passed in
-    program = None
+    program = Program
 
     def __init__(self, program: Program) -> None:
         '''Create the tab with the options, flexibly.'''

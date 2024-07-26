@@ -9,7 +9,7 @@ from hints.control.program import Program
 class ResetUtils:
     '''A class for all of the reset utilities.'''
     # The program passed in
-    program = None
+    program = Program
 
     def __init__(self, program: Program) -> None:
         '''Set the program to be locally global.'''

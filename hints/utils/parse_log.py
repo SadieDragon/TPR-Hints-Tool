@@ -11,11 +11,11 @@ from re import findall, sub
 class ParseLog:
     '''It just, parses the spoiler log data.'''
     # The root program
-    program = None
+    program = Program
 
     # Spoiler log info
-    spoiler_log_folder = None  # The spoiler log folder
-    spoiler_log_file = None    # The provided spoiler log
+    spoiler_log_folder = Path  # The spoiler log folder
+    spoiler_log_file = str     # The provided spoiler log
 
     def __init__(self, program: Program) -> None:
         '''Set the global var here.'''

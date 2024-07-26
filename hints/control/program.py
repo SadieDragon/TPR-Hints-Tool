@@ -5,7 +5,7 @@
 # https://stackoverflow.com/q/9252543 < Much better answers
 # This will hopefully be better addressed in the future.
 
-from customtkinter import CTkFrame, CTkTextbox
+from customtkinter import CTk, CTkFrame, CTkTabview, CTkTextbox
 from os import getcwd
 from pathlib import Path
 
@@ -13,15 +13,15 @@ from pathlib import Path
 class Program:
     # Root information
     root_dir = Path(getcwd())           # The root folder
-    root = None                         # The root window
-    notebook = None                     # The global variable of the notepad
+    root = CTk                          # The root window
+    notebook = CTkTabview               # The global variable of the notepad
 
     # The global data tab vars
     data_tabs = {}                      # The storage var of all data tabs
     data_tab_names = ['Notes', 'Bugs']  # The tabs that are to be created
 
     # The reset class instance
-    resetter = None
+    resetter = None                     # from hints.utils.reset_utils
 
     # Functions that are required elsewhere. ----------------------------------
     def add_tab(self, tab_name: str) -> None:

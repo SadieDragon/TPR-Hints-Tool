@@ -11,20 +11,20 @@ from hints.control.program import Program
 
 class Shopping:
     # The tab name
-    tab_name = ''
+    tab_name = str
 
     # The label that displays the status
-    default_text = ''    # The default text for the label
-    status_label = None  # The label itself
+    default_text = str       # The default text for the label
+    status_label = CTkLabel  # The label itself
 
     # The rewards list
-    rewards = []         # The rewards themselves
-    checkboxes = []      # Holds the checkboxes
-    checkbox_vars = []   # Holds the IntVars
+    rewards = list()         # The rewards themselves
+    checkboxes = list()      # Holds the checkboxes
+    checkbox_vars = list()   # Holds the IntVars
 
     # The provided info
-    program = None       # The program we're running in
-    hint_text = ''       # The provided hint text
+    program = Program        # The program we're running in
+    hint_text = str          # The provided hint text
 
     def __init__(self, program: Program, hint_text: str) -> None:
         '''Initialize the variables provided.'''

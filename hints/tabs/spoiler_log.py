@@ -13,17 +13,17 @@ from subprocess import check_call
 class SpoilerLog:
     '''The class to handle all spoiler log things.'''
     # Instances
-    program = None             # Provided program instance
-    parser = None              # The parser instance
+    program = Program               # Provided program instance
+    parser = ParseLog               # The parser instance
 
     # The spoiler log folder
-    spoiler_logs_folder = None
+    spoiler_logs_folder = Path
 
     # Local interface vars
-    spoiler_tab = None         # The tab that we're working in
-    spoiler_log_button = None  # The main button
-    interface_frame = None     # The frame hosting the interface elements
-    spoiler_log_var = None     # The var for picking the spoiler log
+    spoiler_tab = CTkFrame          # The tab that we're working in
+    spoiler_log_button = CTkButton  # The main button
+    interface_frame = CTkFrame      # The frame hosting the interface elements
+    spoiler_log_var = StringVar     # The var for picking the spoiler log
 
     def __init__(self, program: Program) -> None:
         '''Create the host frames, and the main button.'''
