@@ -48,11 +48,12 @@ class OptionsTab:
         if not self.resetter.show_warning():
             return
 
-        # Close every tab
-        self.resetter.tracker_wide_reset('close')
+        # Go through the data tabs
+        for index, tab_name in [*enumerate(self.program.data_tab_names)]:
+            # Reset the notes tab
+            if index == 0:
+                self.resetter.reset_tab(tab_name)
+                continue
 
-        # Recreate the notes page
-        self.resetter.create_notepad_tab()
-
-        # Tab back to it
-        self.program.set_to_notes_tab()
+            # Close everything else
+            self.resetter.close_tab(tab_name)

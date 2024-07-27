@@ -42,10 +42,9 @@ class ResetUtils:
 
     def reset_tab(self, tab_name: str, default: bool = True) -> CTkFrame:
         '''Reset the contents of the tab.'''
-        # If the tab does not already exist, create it, and return
+        # If the tab does not already exist, create it
         if not tab_name in self.program.data_tabs.keys():
             self.program.add_tab(tab_name)
-            return self.program.notebook.tab(tab_name)
 
         # Destroy the frame contents
         if self.program.data_tabs[tab_name] is not None:
@@ -65,7 +64,8 @@ class ResetUtils:
         self.program.change_title()
 
         # Reset the tracker
-        self.tracker_wide_reset('reset')
+        for tab_name in self.program.data_tab_names:
+            self.reset_tab(tab_name)
 
         # Set the notes tab to be the default tab if requested
         if tab_back:
@@ -85,13 +85,3 @@ class ResetUtils:
             to_reset = True
 
         return to_reset
-
-    def tracker_wide_reset(self, type: str) -> None:
-        '''A DRY location for a tracker-wide reset- closing or resetting.'''
-        for tab_name in self.program.data_tab_names:
-            if type == 'close':
-                self.close_tab(tab_name)
-            elif type == 'reset':
-                self.reset_tab(tab_name)
-            else:
-                raise NotImplementedError
