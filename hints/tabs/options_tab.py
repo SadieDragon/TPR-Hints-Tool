@@ -35,12 +35,12 @@ class OptionsTab:
         race_button.grid(column=0, padx=5, pady=5, row=0)
         # -------------------------------------------------
 
-        # Reset Tracker -----------------------------------------------
-        reset_button = CTkButton(command=self.resetter.reset_tracker,
+        # Reset Tracker ------------------------------------
+        reset_button = CTkButton(command=self.reset,
                                   master=buttons_frame,
                                   text='Reset Tracker')
         reset_button.grid(column=1, padx=5, pady=5, row=0)
-        # -------------------------------------------------------------
+        # --------------------------------------------------
 
     def race_mode(self) -> None:
         '''The command for race mode.'''
@@ -57,3 +57,12 @@ class OptionsTab:
 
             # Close everything else
             self.resetter.close_tab(tab_name)
+
+    def reset(self) -> None:
+        '''A wrapper for the tracker reset.'''
+        # Get permission to reset the tracker
+        if not self.resetter.show_warning():
+            return
+
+        # Reset the tracker
+        self.resetter.reset_tracker()
