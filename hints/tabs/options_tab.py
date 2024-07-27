@@ -58,6 +58,8 @@ class OptionsTab:
             # Close everything else
             self.resetter.close_tab(tab_name)
 
+        self.program.set_to_notes_tab()
+
     def reset(self) -> None:
         '''A wrapper for the tracker reset.'''
         # Get permission to reset the tracker

@@ -67,7 +67,7 @@ class ResetUtils:
         for tab_name in self.program.data_tab_names:
             self.reset_tab(tab_name)
 
-        # Set the notes tab to be the default tab if requested
+        # Tab back if requested
         if tab_back:
             self.program.set_to_notes_tab()
 
