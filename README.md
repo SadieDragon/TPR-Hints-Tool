@@ -39,4 +39,4 @@ __(Unorganized) To-Do:__
   - Pre-package this into a .exe file - I have done testing, and there are some
   issues that arise with the user input
 
-Next planned release as of writing: July 20 at the latest for release 0.2
+Next planned release as of writing: [No release date planned] for [Release 0.3]
