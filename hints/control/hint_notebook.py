@@ -49,7 +49,7 @@ class HintNotebook(Program):
 
     def add_tab(self, tab_name: str) -> None | CTkFrame:
         '''Create a tab in the notebook.'''
-        # If it already exists, don't bother.
+        # If it already exists, don't bother
         if tab_name in self.data_tabs.keys():
             return
 
@@ -77,6 +77,9 @@ class HintNotebook(Program):
         # Go through and create each tab with a blank notepad,
         # then store the notepad for later use.
         for tab_name in self.data_tab_names:
+            # Create the tab
+            self.add_tab(tab_name)
+
             # Create the notepad that goes in it
             notepad = self.create_notepad(tab_name)
 
@@ -86,7 +89,7 @@ class HintNotebook(Program):
     def create_notepad(self, tab_name: str) -> CTkTextbox:
         '''Creates a notepad under the target tab.'''
         # Create the tab at the tab name
-        tab = self.add_tab(tab_name)
+        tab = self.notebook.tab(tab_name)
 
         # Create the notepad -----------------------------------
         notepad = CTkTextbox(corner_radius=0, master=tab)

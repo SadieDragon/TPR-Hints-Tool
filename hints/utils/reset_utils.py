@@ -31,6 +31,9 @@ class ResetUtils:
         # The name of the tab
         tab_name = 'Notes'
 
+        # Create the tab
+        self.program.add_tab(tab_name)
+
         # Create the notepad and tab
         notepad = self.program.create_notepad(tab_name)
 
@@ -39,17 +42,21 @@ class ResetUtils:
 
     def reset_tab(self, tab_name: str, default: bool = True) -> CTkFrame:
         '''Reset the contents of the tab.'''
-        # If the tab already exists, close the tab
-        if tab_name in self.program.data_tabs.keys():
-            self.close_tab(tab_name)
-
-        if default:
-            # Recreate the blank tab
-            self.program.create_notepad(tab_name)
-        else:
-            # Just add a tab
+        # If the tab does not already exist, create it, and return
+        if not tab_name in self.program.data_tabs.keys():
             self.program.add_tab(tab_name)
+            return self.program.notebook.tab(tab_name)
 
+        # Destroy the frame contents
+        if self.program.data_tabs[tab_name] is not None:
+            self.program.data_tabs[tab_name].destroy()
+
+        # If requested, place a blank notepad in the tab
+        if default:
+            new_contents = self.program.create_notepad(tab_name)
+            self.program.update_data_tabs(tab_name, new_contents)
+
+        # Return the tab
         return self.program.notebook.tab(tab_name)
 
     def reset_tracker(self, tab_back: bool = True) -> None:
