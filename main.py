@@ -1,10 +1,11 @@
 
 # The main file that runs everything.
 
-# Don't write __pycache__
+# Don't write __pycache__ ------
 import sys
 
 sys.dont_write_bytecode = True
+# ------------------------------
 
 from hints.control.hint_notebook import HintNotebook
 

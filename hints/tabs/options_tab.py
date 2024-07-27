@@ -1,19 +1,25 @@
 
-# For easy expansion in the future: A class hosting all of the options
-# (well. Most of them. Spoiler is probs its own thing.)
+# A class hosting all of the basic options,
+# for more flexible and future-proof code
 
 from customtkinter import CTkButton, CTkFrame
 from hints.control.program import Program
+from hints.utils.reset_utils import ResetUtils
 
 
 class OptionsTab:
-    # Store the program passed in
-    program = None
+    '''Hosts all of the Option Tab setup.'''
+    # Instances
+    program = Program      # The program passed in
+    resetter = ResetUtils  # The reset instance, set by the program
 
     def __init__(self, program: Program) -> None:
         '''Create the tab with the options, flexibly.'''
         # Set the program locally
         self.program = program
+
+        # Update the resetter to be the program's instance
+        self.resetter = program.resetter
 
         # Create the tab itself
         options_tab = program.notebook.add('Options')
@@ -29,20 +35,36 @@ class OptionsTab:
         race_button.grid(column=0, padx=5, pady=5, row=0)
         # -------------------------------------------------
 
-        # Reset Tracker -----------------------------------------------
-        reset_tracker = CTkButton(command=self.program.reset_tracker,
+        # Reset Tracker ------------------------------------
+        reset_button = CTkButton(command=self.reset,
                                   master=buttons_frame,
                                   text='Reset Tracker')
-        reset_tracker.grid(column=1, padx=5, pady=5, row=0)
-        # -------------------------------------------------------------
+        reset_button.grid(column=1, padx=5, pady=5, row=0)
+        # --------------------------------------------------
 
     def race_mode(self) -> None:
         '''The command for race mode.'''
-        # Close every tab
-        self.program.close_all_tabs()
+        # Get permission to reset the tracker
+        if not self.resetter.show_warning():
+            return
 
-        # Recreate the notes page
-        self.program.create_notepad_tab()
+        # Go through the data tabs
+        for index, tab_name in [*enumerate(self.program.data_tab_names)]:
+            # Reset the notes tab
+            if index == 0:
+                self.resetter.reset_tab(tab_name)
+                continue
 
-        # Tab back to it
+            # Close everything else
+            self.resetter.close_tab(tab_name)
+
         self.program.set_to_notes_tab()
+
+    def reset(self) -> None:
+        '''A wrapper for the tracker reset.'''
+        # Get permission to reset the tracker
+        if not self.resetter.show_warning():
+            return
+
+        # Reset the tracker
+        self.resetter.reset_tracker()

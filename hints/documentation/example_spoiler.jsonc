@@ -1,0 +1,910 @@
+
+// A demonstration file based on my test spoiler log.
+
+{
+    // The seed names
+    "playthroughName": "CasualRutela_ysm",  // GC name
+    "wiiPlaythroughName": "cr_ysm_3tb",     // Wii name
+
+    // Race mode? (Should never see this!)
+    "isRaceSeed": false,
+
+    // The seed itself
+    "seedString": "EeTCFzLTORpOpHWjNPWs1H",
+
+    // The settings, provided as a string to be copied in the generator
+    "settingsString": "5s1P4lxS_-q5Oc148Fl_gML8M41F-",
+
+    // Further information on all these settings can be found on the generator page.
+    // http://rando.dimensionalsoftworks.net:60001/
+    "settings": {
+      // "Main Rules" tab (part 1) -----------------------------------------------
+      // States what rules the logic is based on
+      // glitchless / glitched / no logic
+      "logicRules": "Glitchless",
+
+      // States what locks the castle
+      // open / fused shadows / mirror shards / all dungeons / vanilla
+      // Note that Midna's Desperate Hour also affects this (it is stored later)
+      "castleRequirements": "Mirror_Shards",
+
+      // States what locks Palace of Twilight
+      // open / fused shadows / mirror shards / vanilla
+      "palaceRequirements": "Fused_Shadows",
+
+      // States what state Faron Woods is in
+      // open / closed
+      "faronWoodsLogic": "Open",
+
+      // States if x is shuffled
+      "shuffleGoldenBugs": true,     // true / false
+      "shuffleSkyCharacters": true,  // true / false
+      "shuffleNpcItems": true,       // true / false
+      "shufflePoes": "All",          // vanilla / overworld / dungeon / all
+      "shuffleShopItems": true,      // true / false
+      "shuffleHiddenSkills": true,   // true / false
+
+      // States the item pool scarcity
+      // vanilla / minimal / plentiful
+      "itemScarcity": "Vanilla",
+      // -------------------------------------------------------------------------
+
+      // "Other" tab (part 1) ----------------------------------------------------
+      // States the damage multiplier
+      // vanilla / double / triple / quadruple / ohko
+      "damageMagnification": "Double",
+
+      // States whether or not bonks harm link
+      // true / false
+      "bonksDoDamage": false,
+      // -------------------------------------------------------------------------
+
+      // "Main Rules" tab (part 2) -----------------------------------------------
+      // States whether or not dungeon rewards can only be found on the bosses
+      // true / false
+      "shuffleRewards": true,
+
+      // States how the dungeon keys are shuffled
+      // vanilla / own dungeon / any dungeon / keysanity / keysy
+      "smallKeySettings": "Anywhere",
+      "bigKeySettings": "Anywhere",
+
+      // States how the maps and compasses are shuffled
+      // vanilla / own dungeon / any dungeon / anywhere / start with
+      "mapAndCompassSettings": "Start_With",
+
+      // "Other" tab (part 2) ----------------------------------------------------
+      // States whether or not x is skipped
+      // true / false
+      "skipPrologue": true,
+      "faronTwilightCleared": true,
+      "eldinTwilightCleared": true,
+      "lanayruTwilightCleared": true,
+      "skipMdh": true,
+      "skipMinorCutscenes": true,
+      "skipMajorCutscenes": true,
+
+      // States whether or not fast iron boots is enabled
+      // true / false
+      "fastIronBoots": true,
+
+      // States whether or not (R+Y) can be used to transform
+      // true / false
+      "quickTransform": true,
+
+      // States whether or not the player can transform in front of NPCs
+      // true / false
+      "transformAnywhere": true,
+
+      // States whether or not the wallet is the default size (300 / 600 / 900)
+      // true / false
+      "increaseWallet": true,
+
+      // States whether or not the shop models will reflect what is being sold
+      // true / false
+      "modifyShopModels": true,
+
+      // States the trap frequency
+      // none / few / many / mayhem / nightmare
+      "trapFrequency": "Mayhem",
+
+      // States whether or not unrequired dungeons hold key items
+      // true / false
+      "barrenDungeons": false,
+
+      // States how the player can enter Goron Mines
+      // closed / no wrestling / open
+      "goronMinesEntrance": "Open",
+
+      // States whether or not water bombs are required to enter Lakebed Temple
+      // true / false
+      "skipLakebedEntrance": false,
+
+      // States whether or not Bulblin Camp needs to be defeated to access
+      // Arbiter's Grounds
+      // true / false
+      "skipArbitersEntrance": false,
+
+      // States whether or not the Reekfish Scent is needed to ascend Snowpeak
+      // true / false
+      "skipSnowpeakEntrance": false,
+
+      // States how the player accesses the Temple of Time
+      // closed / open grove / open
+      "totEntrance": "OpenGrove",
+
+      // States whether or not the sky cannon is available once Lanayru is open
+      // true / false
+      "skipCityEntrance": false,
+
+      // States whether or not fast textboxes are enabled
+      // true / false
+      "instantText": true,
+
+      // States whether or not regions need to be accessed to warp to them
+      // true / false
+      "openMap": false,
+
+      // States whether or not fast spinner is enabled
+      // true / false
+      "increaseSpinnerSpeed": true,
+
+      // States whether or not the Door of Time is opened
+      // without statue buddy
+      // true / false
+      "openDot": true,
+
+      // States whether or not small keys can be found on boos rewards
+      // (heart containers and dungeon rewards)
+      // true / false
+      "noSmallKeysOnBosses": false,
+
+      // States what time of day the game starts out at
+      // morning / noon / evening / night
+      "startingToD": "Morning",
+
+      // States the "strength" of the hints
+      // none / balanced / season 1 / strong / very strong / weak
+      "hintDistribution": "Strong",
+
+      // List of the items the user chose to start with
+      "startingItems": [
+        "Hawkeye",
+        "Horse_Call"
+      ],
+
+      // List of checks the user chose to exclude
+      "excludedChecks": [
+        "Herding Goats Reward",
+        "Palace of Twilight Collect Both Sols",
+        "Snowboard Racing Prize",
+        "Snowpeak Ruins Lobby Chandelier Chest",
+        "Wrestling With Bo"
+      ]
+    },
+
+    // The list of dungeons with dungeon rewards vital to defeating Ganondorf
+    "requiredDungeons": [],
+
+    // Entrance Rando Framework (ignore for now)
+    "shuffledEntrances": [],
+
+    // The list of all checks and their rewards
+    // Check name: item
+    "itemPlacements": {
+      "Agitha Female Ant Reward": "Piece_of_Heart",
+      "Agitha Female Beetle Reward": "Poe_Soul",
+      "Agitha Female Butterfly Reward": "Piece_of_Heart",
+      "Agitha Female Dayfly Reward": "Progressive_Hidden_Skill",
+      "Agitha Female Dragonfly Reward": "Water_Bombs_10",
+      "Agitha Female Grasshopper Reward": "Orange_Rupee",
+      "Agitha Female Ladybug Reward": "Heart_Container",
+      "Agitha Female Mantis Reward": "Foolish_Item",
+      "Agitha Female Phasmid Reward": "Forest_Temple_Small_Key",
+      "Agitha Female Pill Bug Reward": "Water_Bombs_5",
+      "Agitha Female Snail Reward": "Poe_Soul",
+      "Agitha Female Stag Beetle Reward": "Poe_Soul",
+      "Agitha Male Ant Reward": "Foolish_Item",
+      "Agitha Male Beetle Reward": "Foolish_Item",
+      "Agitha Male Butterfly Reward": "Poe_Soul",
+      "Agitha Male Dayfly Reward": "Piece_of_Heart",
+      "Agitha Male Dragonfly Reward": "Water_Bombs_10",
+      "Agitha Male Grasshopper Reward": "Male_Phasmid",
+      "Agitha Male Ladybug Reward": "Progressive_Bow",
+      "Agitha Male Mantis Reward": "Piece_of_Heart",
+      "Agitha Male Phasmid Reward": "Foolish_Item",
+      "Agitha Male Pill Bug Reward": "Piece_of_Heart",
+      "Agitha Male Snail Reward": "Poe_Soul",
+      "Agitha Male Stag Beetle Reward": "Orange_Rupee",
+      "Arbiters Grounds Big Key Chest": "Orange_Rupee",
+      "Arbiters Grounds Death Sword Chest": "Heart_Container",
+      "Arbiters Grounds Dungeon Reward": "Piece_of_Heart",
+      "Arbiters Grounds East Lower Turnable Redead Chest": "Yellow_Rupee",
+      "Arbiters Grounds East Turning Room Poe": "Progressive_Sword",
+      "Arbiters Grounds East Upper Turnable Chest": "Bombs_5",
+      "Arbiters Grounds East Upper Turnable Redead Chest": "Piece_of_Heart",
+      "Arbiters Grounds Entrance Chest": "Foolish_Item",
+      "Arbiters Grounds Ghoul Rat Room Chest": "Snowpeak_Ruins_Small_Key",
+      "Arbiters Grounds Hidden Wall Poe": "Arrows_20",
+      "Arbiters Grounds North Turning Room Chest": "Foolish_Item",
+      "Arbiters Grounds Spinner Room First Small Chest": "Foolish_Item",
+      "Arbiters Grounds Spinner Room Lower Central Small Chest": "Poe_Soul",
+      "Arbiters Grounds Spinner Room Lower North Chest": "Orange_Rupee",
+      "Arbiters Grounds Spinner Room Second Small Chest": "Foolish_Item",
+      "Arbiters Grounds Spinner Room Stalfos Alcove Chest": "Foolish_Item",
+      "Arbiters Grounds Stallord Heart Container": "Foolish_Item",
+      "Arbiters Grounds Torch Room East Chest": "Poe_Soul",
+      "Arbiters Grounds Torch Room Poe": "Coro_Bottle",
+      "Arbiters Grounds Torch Room West Chest": "Piece_of_Heart",
+      "Arbiters Grounds West Chandelier Chest": "Bombs_10",
+      "Arbiters Grounds West Poe": "Red_Rupee",
+      "Arbiters Grounds West Small Chest Behind Block": "Water_Bombs_15",
+      "Arbiters Grounds West Stalfos Northeast Chest": "Water_Bombs_5",
+      "Arbiters Grounds West Stalfos West Chest": "Female_Dayfly",
+      "Ashei Sketch": "Progressive_Sky_Book",
+      "Auru Gift To Fyer": "Poe_Soul",
+      "Barnes Bomb Bag": "Orange_Rupee",
+      "Bridge of Eldin Female Phasmid": "Bombs_5",
+      "Bridge of Eldin Male Phasmid": "Yellow_Rupee",
+      "Bridge of Eldin Owl Statue Chest": "Heart_Container",
+      "Bridge of Eldin Owl Statue Sky Character": "Male_Butterfly",
+      "Bulblin Camp First Chest Under Tower At Entrance": "Purple_Rupee",
+      "Bulblin Camp Poe": "Poe_Soul",
+      "Bulblin Camp Roasted Boar": "Progressive_Sky_Book",
+      "Bulblin Camp Small Chest in Back of Camp": "Poe_Soul",
+      "Bulblin Guard Key": "Foolish_Item",
+      "Castle Town Malo Mart Magic Armor": "Lantern",
+      "Cats Hide and Seek Minigame": "Bombs_5",
+      "Cave of Ordeals Floor 17 Poe": "Palace_of_Twilight_Small_Key",
+      "Cave of Ordeals Floor 33 Poe": "Bomblings_5",
+      "Cave of Ordeals Floor 44 Poe": "Forest_Temple_Small_Key",
+      "Cave of Ordeals Great Fairy Reward": "Foolish_Item",
+      "Charlo Donation Blessing": "Arbiters_Grounds_Small_Key",
+      "City in The Sky Aeralfos Chest": "Foolish_Item",
+      "City in The Sky Argorok Heart Container": "Foolish_Item",
+      "City in The Sky Baba Tower Alcove Chest": "Foolish_Item",
+      "City in The Sky Baba Tower Narrow Ledge Chest": "Piece_of_Heart",
+      "City in The Sky Baba Tower Top Small Chest": "Bomblings_5",
+      "City in The Sky Big Key Chest": "Purple_Rupee",
+      "City in The Sky Central Outside Ledge Chest": "Giant_Bomb_Bag",
+      "City in The Sky Central Outside Poe Island Chest": "Water_Bombs_15",
+      "City in The Sky Chest Behind North Fan": "Magic_Armor",
+      "City in The Sky Chest Below Big Key Chest": "Poe_Soul",
+      "City in The Sky Dungeon Reward": "Poe_Soul",
+      "City in The Sky East First Wing Chest After Fans": "Red_Rupee",
+      "City in The Sky East Tile Worm Small Chest": "Bombs_5",
+      "City in The Sky East Wing After Dinalfos Alcove Chest": "Snowpeak_Ruins_Ordon_Pumpkin",
+      "City in The Sky East Wing After Dinalfos Ledge Chest": "Foolish_Item",
+      "City in The Sky East Wing Lower Level Chest": "Orange_Rupee",
+      "City in The Sky Garden Island Poe": "Red_Rupee",
+      "City in The Sky Poe Above Central Fan": "Foolish_Item",
+      "City in The Sky Underwater East Chest": "Poe_Soul",
+      "City in The Sky Underwater West Chest": "Orange_Rupee",
+      "City in The Sky West Garden Corner Chest": "Poe_Soul",
+      "City in The Sky West Garden Ledge Chest": "Water_Bombs_5",
+      "City in The Sky West Garden Lone Island Chest": "Arrows_20",
+      "City in The Sky West Garden Lower Chest": "Arrows_10",
+      "City in The Sky West Wing Baba Balcony Chest": "Poe_Soul",
+      "City in The Sky West Wing First Chest": "Progressive_Fused_Shadow",
+      "City in The Sky West Wing Narrow Ledge Chest": "Poe_Soul",
+      "City in The Sky West Wing Tile Worm Chest": "Foolish_Item",
+      "Coro Bottle": "Piece_of_Heart",
+      "Death Mountain Alcove Chest": "Orange_Rupee",
+      "Death Mountain Trail Poe": "Water_Bombs_15",
+      "Doctors Office Balcony Chest": "Poe_Soul",
+      "East Castle Town Bridge Poe": "Orange_Rupee",
+      "Eldin Field Bomb Rock Chest": "Poe_Soul",
+      "Eldin Field Bomskit Grotto Lantern Chest": "Poe_Soul",
+      "Eldin Field Bomskit Grotto Left Chest": "Poe_Soul",
+      "Eldin Field Female Grasshopper": "Foolish_Item",
+      "Eldin Field Male Grasshopper": "Red_Rupee",
+      "Eldin Field Stalfos Grotto Left Small Chest": "Orange_Rupee",
+      "Eldin Field Stalfos Grotto Right Small Chest": "Arbiters_Grounds_Big_Key",
+      "Eldin Field Stalfos Grotto Stalfos Chest": "Filled_Bomb_Bag",
+      "Eldin Field Water Bomb Fish Grotto Chest": "Progressive_Hidden_Skill",
+      "Eldin Lantern Cave First Chest": "Arrows_20",
+      "Eldin Lantern Cave Lantern Chest": "Orange_Rupee",
+      "Eldin Lantern Cave Poe": "Male_Beetle",
+      "Eldin Lantern Cave Second Chest": "Poe_Soul",
+      "Eldin Spring Underwater Chest": "Bomblings_10",
+      "Eldin Stockcave Lantern Chest": "Foolish_Item",
+      "Eldin Stockcave Lowest Chest": "Piece_of_Heart",
+      "Eldin Stockcave Upper Chest": "Hylian_Shield",
+      "Faron Field Bridge Chest": "Foolish_Item",
+      "Faron Field Corner Grotto Left Chest": "Temple_of_Time_Small_Key",
+      "Faron Field Corner Grotto Rear Chest": "Seeds_50",
+      "Faron Field Corner Grotto Right Chest": "Female_Pill_Bug",
+      "Faron Field Female Beetle": "Arbiters_Grounds_Small_Key",
+      "Faron Field Male Beetle": "Orange_Rupee",
+      "Faron Field Poe": "Progressive_Sky_Book",
+      "Faron Field Tree Heart Piece": "Foolish_Item",
+      "Faron Mist Cave Lantern Chest": "Female_Grasshopper",
+      "Faron Mist Cave Open Chest": "Orange_Rupee",
+      "Faron Mist North Chest": "Aurus_Memo",
+      "Faron Mist Poe": "Foolish_Item",
+      "Faron Mist South Chest": "Progressive_Mirror_Shard",
+      "Faron Mist Stump Chest": "Orange_Rupee",
+      "Faron Woods Golden Wolf": "City_in_The_Sky_Small_Key",
+      "Faron Woods Owl Statue Chest": "Palace_of_Twilight_Small_Key",
+      "Faron Woods Owl Statue Sky Character": "Poe_Soul",
+      "Fishing Hole Bottle": "Foolish_Item",
+      "Fishing Hole Heart Piece": "Piece_of_Heart",
+      "Flight By Fowl Fifth Platform Chest": "Yellow_Rupee",
+      "Flight By Fowl Fourth Platform Chest": "Arrows_20",
+      "Flight By Fowl Ledge Poe": "Orange_Rupee",
+      "Flight By Fowl Second Platform Chest": "Foolish_Item",
+      "Flight By Fowl Third Platform Chest": "Filled_Bomb_Bag",
+      "Flight By Fowl Top Platform Reward": "Bomblings_10",
+      "Forest Temple Big Baba Key": "Blue_Rupee",
+      "Forest Temple Big Key Chest": "Orange_Rupee",
+      "Forest Temple Central Chest Behind Stairs": "Progressive_Dominion_Rod",
+      "Forest Temple Central Chest Hanging From Web": "Foolish_Item",
+      "Forest Temple Central North Chest": "Foolish_Item",
+      "Forest Temple Diababa Heart Container": "Foolish_Item",
+      "Forest Temple Dungeon Reward": "Poe_Soul",
+      "Forest Temple East Tile Worm Chest": "Orange_Rupee",
+      "Forest Temple East Water Cave Chest": "Heart_Container",
+      "Forest Temple Entrance Vines Chest": "Piece_of_Heart",
+      "Forest Temple Gale Boomerang": "Male_Ant",
+      "Forest Temple North Deku Like Chest": "Hyrule_Castle_Small_Key",
+      "Forest Temple Second Monkey Under Bridge Chest": "Foolish_Item",
+      "Forest Temple Totem Pole Chest": "Purple_Rupee",
+      "Forest Temple West Deku Like Chest": "Yellow_Rupee",
+      "Forest Temple West Tile Worm Chest Behind Stairs": "Progressive_Sword",
+      "Forest Temple West Tile Worm Room Vines Chest": "Arbiters_Grounds_Small_Key",
+      "Forest Temple Windless Bridge Chest": "Piece_of_Heart",
+      "Gerudo Desert Campfire East Chest": "Foolish_Item",
+      "Gerudo Desert Campfire North Chest": "Foolish_Item",
+      "Gerudo Desert Campfire West Chest": "Lakebed_Temple_Big_Key",
+      "Gerudo Desert East Canyon Chest": "Palace_of_Twilight_Small_Key",
+      "Gerudo Desert East Poe": "Foolish_Item",
+      "Gerudo Desert Female Dayfly": "Water_Bombs_15",
+      "Gerudo Desert Golden Wolf": "Ball_and_Chain",
+      "Gerudo Desert Lone Small Chest": "Foolish_Item",
+      "Gerudo Desert Male Dayfly": "Poe_Soul",
+      "Gerudo Desert North Peahat Poe": "Lakebed_Temple_Small_Key",
+      "Gerudo Desert North Small Chest Before Bulblin Camp": "Heart_Container",
+      "Gerudo Desert Northeast Chest Behind Gates": "Progressive_Dominion_Rod",
+      "Gerudo Desert Northwest Chest Behind Gates": "Water_Bombs_15",
+      "Gerudo Desert Owl Statue Chest": "Piece_of_Heart",
+      "Gerudo Desert Owl Statue Sky Character": "Spinner",
+      "Gerudo Desert Peahat Ledge Chest": "Poe_Soul",
+      "Gerudo Desert Poe Above Cave of Ordeals": "Foolish_Item",
+      "Gerudo Desert Rock Grotto First Poe": "Temple_of_Time_Small_Key",
+      "Gerudo Desert Rock Grotto Lantern Chest": "Orange_Rupee",
+      "Gerudo Desert Rock Grotto Second Poe": "Snowpeak_Ruins_Small_Key",
+      "Gerudo Desert Skulltula Grotto Chest": "Empty_Bottle",
+      "Gerudo Desert South Chest Behind Wooden Gates": "Poe_Soul",
+      "Gerudo Desert West Canyon Chest": "Bomblings_10",
+      "Gift From Ralis": "Seeds_50",
+      "Goron Mines After Crystal Switch Room Magnet Wall Chest": "Arrows_10",
+      "Goron Mines Beamos Room Chest": "Arrows_10",
+      "Goron Mines Chest Before Dangoro": "Piece_of_Heart",
+      "Goron Mines Crystal Switch Room Small Chest": "Purple_Rupee",
+      "Goron Mines Crystal Switch Room Underwater Chest": "Temple_of_Time_Big_Key",
+      "Goron Mines Dangoro Chest": "Arrows_10",
+      "Goron Mines Dungeon Reward": "Poe_Soul",
+      "Goron Mines Entrance Chest": "Foolish_Item",
+      "Goron Mines Fyrus Heart Container": "Female_Dragonfly",
+      "Goron Mines Gor Amato Chest": "Male_Grasshopper",
+      "Goron Mines Gor Amato Key Shard": "Purple_Rupee",
+      "Goron Mines Gor Amato Small Chest": "Foolish_Item",
+      "Goron Mines Gor Ebizo Chest": "Silver_Rupee",
+      "Goron Mines Gor Ebizo Key Shard": "Foolish_Item",
+      "Goron Mines Gor Liggs Chest": "Orange_Rupee",
+      "Goron Mines Gor Liggs Key Shard": "Poe_Soul",
+      "Goron Mines Magnet Maze Chest": "Foolish_Item",
+      "Goron Mines Main Magnet Room Bottom Chest": "Bombs_5",
+      "Goron Mines Main Magnet Room Top Chest": "Hyrule_Castle_Small_Key",
+      "Goron Mines Outside Beamos Chest": "Poe_Soul",
+      "Goron Mines Outside Clawshot Chest": "Poe_Soul",
+      "Goron Mines Outside Underwater Chest": "Foolish_Item",
+      "Goron Springwater Rush": "Poe_Soul",
+      "Herding Goats Reward": "Foolish_Item",
+      "Hidden Village Poe": "Foolish_Item",
+      "Hyrule Castle Big Key Chest": "Poe_Soul",
+      "Hyrule Castle East Wing Balcony Chest": "Purple_Rupee",
+      "Hyrule Castle East Wing Boomerang Puzzle Chest": "Purple_Rupee",
+      "Hyrule Castle Graveyard Grave Switch Room Back Left Chest": "Foolish_Item",
+      "Hyrule Castle Graveyard Grave Switch Room Front Left Chest": "Orange_Rupee",
+      "Hyrule Castle Graveyard Grave Switch Room Right Chest": "Male_Stag_Beetle",
+      "Hyrule Castle Graveyard Owl Statue Chest": "Piece_of_Heart",
+      "Hyrule Castle King Bulblin Key": "Piece_of_Heart",
+      "Hyrule Castle Lantern Staircase Chest": "Palace_of_Twilight_Small_Key",
+      "Hyrule Castle Main Hall Northeast Chest": "Hyrule_Castle_Big_Key",
+      "Hyrule Castle Main Hall Northwest Chest": "Water_Bombs_10",
+      "Hyrule Castle Main Hall Southwest Chest": "Arbiters_Grounds_Small_Key",
+      "Hyrule Castle Southeast Balcony Tower Chest": "Orange_Rupee",
+      "Hyrule Castle Treasure Room Eighth Small Chest": "Arrows_30",
+      "Hyrule Castle Treasure Room Fifth Chest": "Yellow_Rupee",
+      "Hyrule Castle Treasure Room Fifth Small Chest": "Arrows_10",
+      "Hyrule Castle Treasure Room First Chest": "Progressive_Sky_Book",
+      "Hyrule Castle Treasure Room First Small Chest": "Progressive_Hidden_Skill",
+      "Hyrule Castle Treasure Room Fourth Chest": "Poe_Soul",
+      "Hyrule Castle Treasure Room Fourth Small Chest": "Orange_Rupee",
+      "Hyrule Castle Treasure Room Second Chest": "Bombs_5",
+      "Hyrule Castle Treasure Room Second Small Chest": "Foolish_Item",
+      "Hyrule Castle Treasure Room Seventh Small Chest": "Orange_Rupee",
+      "Hyrule Castle Treasure Room Sixth Small Chest": "Purple_Rupee",
+      "Hyrule Castle Treasure Room Third Chest": "Piece_of_Heart",
+      "Hyrule Castle Treasure Room Third Small Chest": "Orange_Rupee",
+      "Hyrule Castle West Courtyard Central Small Chest": "Poe_Soul",
+      "Hyrule Castle West Courtyard North Small Chest": "Zora_Armor",
+      "Hyrule Field Amphitheater Owl Statue Chest": "Progressive_Fishing_Rod",
+      "Hyrule Field Amphitheater Owl Statue Sky Character": "Piece_of_Heart",
+      "Hyrule Field Amphitheater Poe": "Goron_Mines_Key_Shard",
+      "Ilia Charm": "Ilias_Charm",
+      "Ilia Memory Reward": "Horse_Call",
+      "Isle of Riches Poe": "Female_Snail",
+      "Iza Helping Hand": "Progressive_Clawshot",
+      "Iza Raging Rapids Minigame": "Temple_of_Time_Small_Key",
+      "Jovani 20 Poe Soul Reward": "Orange_Rupee",
+      "Jovani 60 Poe Soul Reward": "Arrows_20",
+      "Jovani House Poe": "Progressive_Hidden_Skill",
+      "Kakariko Gorge Double Clawshot Chest": "Arrows_10",
+      "Kakariko Gorge Female Pill Bug": "Forest_Temple_Small_Key",
+      "Kakariko Gorge Male Pill Bug": "Poe_Soul",
+      "Kakariko Gorge Owl Statue Chest": "Progressive_Sky_Book",
+      "Kakariko Gorge Owl Statue Sky Character": "Foolish_Item",
+      "Kakariko Gorge Poe": "Male_Dayfly",
+      "Kakariko Gorge Spire Heart Piece": "Heart_Container",
+      "Kakariko Graveyard Golden Wolf": "Female_Ant",
+      "Kakariko Graveyard Grave Poe": "Hyrule_Castle_Small_Key",
+      "Kakariko Graveyard Lantern Chest": "Foolish_Item",
+      "Kakariko Graveyard Male Ant": "Foolish_Item",
+      "Kakariko Graveyard Open Poe": "Orange_Rupee",
+      "Kakariko Inn Chest": "Poe_Soul",
+      "Kakariko Village Bomb Rock Spire Heart Piece": "Foolish_Item",
+      "Kakariko Village Bomb Shop Poe": "Poe_Soul",
+      "Kakariko Village Female Ant": "Bombs_5",
+      "Kakariko Village Malo Mart Hawkeye": "Bombs_10",
+      "Kakariko Village Malo Mart Hylian Shield": "Gerudo_Desert_Bulblin_Camp_Key",
+      "Kakariko Village Malo Mart Red Potion": "Bomblings_5",
+      "Kakariko Village Malo Mart Wooden Shield": "Palace_of_Twilight_Small_Key",
+      "Kakariko Village Watchtower Poe": "Palace_of_Twilight_Big_Key",
+      "Kakariko Watchtower Alcove Chest": "Foolish_Item",
+      "Kakariko Watchtower Chest": "Foolish_Item",
+      "Lake Hylia Alcove Poe": "Poe_Soul",
+      "Lake Hylia Bridge Bubble Grotto Chest": "Foolish_Item",
+      "Lake Hylia Bridge Cliff Chest": "Piece_of_Heart",
+      "Lake Hylia Bridge Cliff Poe": "Orange_Rupee",
+      "Lake Hylia Bridge Female Mantis": "Progressive_Wallet",
+      "Lake Hylia Bridge Male Mantis": "Forest_Temple_Small_Key",
+      "Lake Hylia Bridge Owl Statue Chest": "Foolish_Item",
+      "Lake Hylia Bridge Owl Statue Sky Character": "Water_Bombs_10",
+      "Lake Hylia Bridge Vines Chest": "Orange_Rupee",
+      "Lake Hylia Dock Poe": "Piece_of_Heart",
+      "Lake Hylia Shell Blade Grotto Chest": "Poe_Soul",
+      "Lake Hylia Tower Poe": "Foolish_Item",
+      "Lake Hylia Underwater Chest": "Poe_Soul",
+      "Lake Hylia Water Toadpoli Grotto Chest": "Orange_Rupee",
+      "Lake Lantern Cave Eighth Chest": "Jovani_Bottle",
+      "Lake Lantern Cave Eleventh Chest": "Purple_Rupee_Links_House",
+      "Lake Lantern Cave End Lantern Chest": "Piece_of_Heart",
+      "Lake Lantern Cave Fifth Chest": "Foolish_Item",
+      "Lake Lantern Cave Final Poe": "Yellow_Rupee",
+      "Lake Lantern Cave First Chest": "Piece_of_Heart",
+      "Lake Lantern Cave First Poe": "Piece_of_Heart",
+      "Lake Lantern Cave Fourteenth Chest": "Orange_Rupee",
+      "Lake Lantern Cave Fourth Chest": "Progressive_Hidden_Skill",
+      "Lake Lantern Cave Ninth Chest": "Piece_of_Heart",
+      "Lake Lantern Cave Second Chest": "Foolish_Item",
+      "Lake Lantern Cave Second Poe": "Poe_Soul",
+      "Lake Lantern Cave Seventh Chest": "Female_Phasmid",
+      "Lake Lantern Cave Sixth Chest": "Foolish_Item",
+      "Lake Lantern Cave Tenth Chest": "Green_Rupee",
+      "Lake Lantern Cave Third Chest": "Progressive_Hidden_Skill",
+      "Lake Lantern Cave Thirteenth Chest": "Orange_Rupee",
+      "Lake Lantern Cave Twelfth Chest": "Orange_Rupee",
+      "Lakebed Temple Before Deku Toad Alcove Chest": "Progressive_Bow",
+      "Lakebed Temple Before Deku Toad Underwater Left Chest": "Female_Stag_Beetle",
+      "Lakebed Temple Before Deku Toad Underwater Right Chest": "Foolish_Item",
+      "Lakebed Temple Big Key Chest": "Snowpeak_Ruins_Bedroom_Key",
+      "Lakebed Temple Central Room Chest": "Foolish_Item",
+      "Lakebed Temple Central Room Small Chest": "Foolish_Item",
+      "Lakebed Temple Central Room Spire Chest": "Male_Mantis",
+      "Lakebed Temple Chandelier Chest": "Progressive_Clawshot",
+      "Lakebed Temple Deku Toad Chest": "Piece_of_Heart",
+      "Lakebed Temple Dungeon Reward": "Foolish_Item",
+      "Lakebed Temple East Lower Waterwheel Bridge Chest": "Orange_Rupee",
+      "Lakebed Temple East Lower Waterwheel Stalactite Chest": "Progressive_Hidden_Skill",
+      "Lakebed Temple East Second Floor Southeast Chest": "Foolish_Item",
+      "Lakebed Temple East Second Floor Southwest Chest": "Arrows_30",
+      "Lakebed Temple East Water Supply Clawshot Chest": "Piece_of_Heart",
+      "Lakebed Temple East Water Supply Small Chest": "Seeds_50",
+      "Lakebed Temple Lobby Left Chest": "Orange_Rupee",
+      "Lakebed Temple Lobby Rear Chest": "Foolish_Item",
+      "Lakebed Temple Morpheel Heart Container": "Asheis_Sketch",
+      "Lakebed Temple Stalactite Room Chest": "Orange_Rupee",
+      "Lakebed Temple Underwater Maze Small Chest": "Female_Butterfly",
+      "Lakebed Temple West Lower Small Chest": "Orange_Rupee",
+      "Lakebed Temple West Second Floor Central Small Chest": "Bombs_5",
+      "Lakebed Temple West Second Floor Northeast Chest": "Piece_of_Heart",
+      "Lakebed Temple West Second Floor Southeast Chest": "Progressive_Fused_Shadow",
+      "Lakebed Temple West Second Floor Southwest Underwater Chest": "Poe_Soul",
+      "Lakebed Temple West Water Supply Chest": "Orange_Rupee",
+      "Lakebed Temple West Water Supply Small Chest": "Foolish_Item",
+      "Lanayru Field Behind Gate Underwater Chest": "Piece_of_Heart",
+      "Lanayru Field Bridge Poe": "Piece_of_Heart",
+      "Lanayru Field Female Stag Beetle": "Foolish_Item",
+      "Lanayru Field Male Stag Beetle": "Purple_Rupee",
+      "Lanayru Field Poe Grotto Left Poe": "Bomblings_5",
+      "Lanayru Field Poe Grotto Right Poe": "Purple_Rupee",
+      "Lanayru Field Skulltula Grotto Chest": "Poe_Soul",
+      "Lanayru Field Spinner Track Chest": "Poe_Soul",
+      "Lanayru Ice Block Puzzle Cave Chest": "Lakebed_Temple_Small_Key",
+      "Lanayru Spring Back Room Lantern Chest": "Foolish_Item",
+      "Lanayru Spring Back Room Left Chest": "Poe_Soul",
+      "Lanayru Spring Back Room Right Chest": "Poe_Soul",
+      "Lanayru Spring East Double Clawshot Chest": "Foolish_Item",
+      "Lanayru Spring Underwater Left Chest": "Orange_Rupee",
+      "Lanayru Spring Underwater Right Chest": "Bomblings_10",
+      "Lanayru Spring West Double Clawshot Chest": "Piece_of_Heart",
+      "Links Basement Chest": "Seeds_50",
+      "Lost Woods Boulder Poe": "Snowpeak_Ruins_Ordon_Goat_Cheese",
+      "Lost Woods Lantern Chest": "Progressive_Fishing_Rod",
+      "Lost Woods Waterfall Poe": "Snowpeak_Ruins_Small_Key",
+      "North Castle Town Golden Wolf": "Heart_Container",
+      "North Faron Woods Deku Baba Chest": "Arrows_10",
+      "Ordon Cat Rescue": "Foolish_Item",
+      "Ordon Ranch Grotto Lantern Chest": "Green_Rupee",
+      "Ordon Shield": "Piece_of_Heart",
+      "Ordon Spring Golden Wolf": "Progressive_Mirror_Shard",
+      "Ordon Sword": "Sera_Bottle",
+      "Outside Arbiters Grounds Lantern Chest": "Heart_Container",
+      "Outside Arbiters Grounds Poe": "Orange_Rupee",
+      "Outside Bulblin Camp Poe": "Water_Bombs_15",
+      "Outside Lanayru Spring Left Statue Chest": "Goron_Mines_Small_Key",
+      "Outside Lanayru Spring Right Statue Chest": "Lakebed_Temple_Small_Key",
+      "Outside South Castle Town Double Clawshot Chasm Chest": "Foolish_Item",
+      "Outside South Castle Town Female Ladybug": "Foolish_Item",
+      "Outside South Castle Town Fountain Chest": "Foolish_Item",
+      "Outside South Castle Town Golden Wolf": "Progressive_Sword",
+      "Outside South Castle Town Male Ladybug": "Orange_Rupee",
+      "Outside South Castle Town Poe": "Bombs_5",
+      "Outside South Castle Town Tektite Grotto Chest": "Piece_of_Heart",
+      "Outside South Castle Town Tightrope Chest": "Poe_Soul",
+      "Palace of Twilight Big Key Chest": "Bombs_5",
+      "Palace of Twilight Central First Room Chest": "Silver_Rupee",
+      "Palace of Twilight Central Outdoor Chest": "Palace_of_Twilight_Small_Key",
+      "Palace of Twilight Central Tower Chest": "Poe_Soul",
+      "Palace of Twilight Collect Both Sols": "Arrows_20",
+      "Palace of Twilight East Wing First Room East Alcove": "Foolish_Item",
+      "Palace of Twilight East Wing First Room North Small Chest": "Poe_Soul",
+      "Palace of Twilight East Wing First Room West Alcove": "Orange_Rupee",
+      "Palace of Twilight East Wing First Room Zant Head Chest": "Poe_Soul",
+      "Palace of Twilight East Wing Second Room Northeast Chest": "Female_Beetle",
+      "Palace of Twilight East Wing Second Room Northwest Chest": "Progressive_Sword",
+      "Palace of Twilight East Wing Second Room Southeast Chest": "Foolish_Item",
+      "Palace of Twilight East Wing Second Room Southwest Chest": "Foolish_Item",
+      "Palace of Twilight West Wing Chest Behind Wall of Darkness": "Goron_Mines_Key_Shard",
+      "Palace of Twilight West Wing First Room Central Chest": "Foolish_Item",
+      "Palace of Twilight West Wing Second Room Central Chest": "Orange_Rupee",
+      "Palace of Twilight West Wing Second Room Lower South Chest": "Red_Rupee",
+      "Palace of Twilight West Wing Second Room Southeast Chest": "Arbiters_Grounds_Small_Key",
+      "Palace of Twilight Zant Heart Container": "Goron_Mines_Key_Shard",
+      "Plumm Fruit Balloon Minigame": "Progressive_Fused_Shadow",
+      "Renados Letter": "Renados_Letter",
+      "Rutelas Blessing": "Poe_Soul",
+      "STAR Prize 1": "Progressive_Sky_Book",
+      "STAR Prize 2": "Poe_Soul",
+      "Sacred Grove Baba Serpent Grotto Chest": "Goron_Mines_Small_Key",
+      "Sacred Grove Female Snail": "Slingshot",
+      "Sacred Grove Male Snail": "Orange_Rupee",
+      "Sacred Grove Master Sword Poe": "Bombs_5",
+      "Sacred Grove Past Owl Statue Chest": "Water_Bombs_10",
+      "Sacred Grove Pedestal Master Sword": "Arrows_20",
+      "Sacred Grove Pedestal Shadow Crystal": "City_in_The_Sky_Big_Key",
+      "Sacred Grove Spinner Chest": "Poe_Soul",
+      "Sacred Grove Temple of Time Owl Statue Poe": "Orange_Rupee",
+      "Sera Shop Slingshot": "Arrows_20",
+      "Skybook From Impaz": "Ordon_Shield",
+      "Snowboard Racing Prize": "Foolish_Item",
+      "Snowpeak Above Freezard Grotto Poe": "Purple_Rupee",
+      "Snowpeak Blizzard Poe": "Progressive_Mirror_Shard",
+      "Snowpeak Cave Ice Lantern Chest": "Piece_of_Heart",
+      "Snowpeak Cave Ice Poe": "Piece_of_Heart",
+      "Snowpeak Freezard Grotto Chest": "Progressive_Sky_Book",
+      "Snowpeak Icy Summit Poe": "Male_Snail",
+      "Snowpeak Poe Among Trees": "Piece_of_Heart",
+      "Snowpeak Ruins Ball and Chain": "Progressive_Wallet",
+      "Snowpeak Ruins Blizzeta Heart Container": "Water_Bombs_10",
+      "Snowpeak Ruins Broken Floor Chest": "Water_Bombs_15",
+      "Snowpeak Ruins Chapel Chest": "Iron_Boots",
+      "Snowpeak Ruins Chest After Darkhammer": "Piece_of_Heart",
+      "Snowpeak Ruins Courtyard Central Chest": "Water_Bombs_10",
+      "Snowpeak Ruins Dungeon Reward": "Foolish_Item",
+      "Snowpeak Ruins East Courtyard Buried Chest": "Piece_of_Heart",
+      "Snowpeak Ruins East Courtyard Chest": "Poe_Soul",
+      "Snowpeak Ruins Ice Room Poe": "Goron_Mines_Small_Key",
+      "Snowpeak Ruins Lobby Armor Poe": "Forest_Temple_Big_Key",
+      "Snowpeak Ruins Lobby Chandelier Chest": "Water_Bombs_15",
+      "Snowpeak Ruins Lobby East Armor Chest": "Foolish_Item",
+      "Snowpeak Ruins Lobby Poe": "Piece_of_Heart",
+      "Snowpeak Ruins Lobby West Armor Chest": "Foolish_Item",
+      "Snowpeak Ruins Mansion Map": "Female_Ladybug",
+      "Snowpeak Ruins Northeast Chandelier Chest": "Bombs_5",
+      "Snowpeak Ruins Ordon Pumpkin Chest": "Snowpeak_Ruins_Small_Key",
+      "Snowpeak Ruins West Cannon Room Central Chest": "Purple_Rupee",
+      "Snowpeak Ruins West Cannon Room Corner Chest": "Piece_of_Heart",
+      "Snowpeak Ruins West Courtyard Buried Chest": "Female_Mantis",
+      "Snowpeak Ruins Wooden Beam Central Chest": "Piece_of_Heart",
+      "Snowpeak Ruins Wooden Beam Chandelier Chest": "Red_Rupee",
+      "Snowpeak Ruins Wooden Beam Northwest Chest": "Orange_Rupee",
+      "South Faron Cave Chest": "Shadow_Crystal",
+      "Talo Sharpshooting": "Orange_Rupee",
+      "Telma Invoice": "Invoice",
+      "Temple of Time Armogohma Heart Container": "Arrows_30",
+      "Temple of Time Armos Antechamber East Chest": "Yellow_Rupee",
+      "Temple of Time Armos Antechamber North Chest": "Poe_Soul",
+      "Temple of Time Armos Antechamber Statue Chest": "Piece_of_Heart",
+      "Temple of Time Big Key Chest": "Bombs_30",
+      "Temple of Time Chest Before Darknut": "Arrows_30",
+      "Temple of Time Darknut Chest": "Yellow_Rupee",
+      "Temple of Time Dungeon Reward": "Palace_of_Twilight_Small_Key",
+      "Temple of Time First Staircase Armos Chest": "Poe_Soul",
+      "Temple of Time First Staircase Gohma Gate Chest": "Poe_Soul",
+      "Temple of Time First Staircase Window Chest": "Red_Rupee",
+      "Temple of Time Floor Switch Puzzle Room Upper Chest": "Foolish_Item",
+      "Temple of Time Gilloutine Chest": "Poe_Soul",
+      "Temple of Time Lobby Lantern Chest": "Water_Bombs_10",
+      "Temple of Time Moving Wall Beamos Room Chest": "Bombs_5",
+      "Temple of Time Moving Wall Dinalfos Room Chest": "Orange_Rupee",
+      "Temple of Time Poe Above Scales": "Male_Pill_Bug",
+      "Temple of Time Poe Behind Gate": "Piece_of_Heart",
+      "Temple of Time Scales Gohma Chest": "Foolish_Item",
+      "Temple of Time Scales Upper Chest": "Foolish_Item",
+      "Uli Cradle Delivery": "Orange_Rupee",
+      "Upper Zoras River Female Dragonfly": "Progressive_Mirror_Shard",
+      "Upper Zoras River Poe": "Yellow_Rupee",
+      "West Hyrule Field Female Butterfly": "Water_Bombs_10",
+      "West Hyrule Field Golden Wolf": "Poe_Soul",
+      "West Hyrule Field Helmasaur Grotto Chest": "Poe_Soul",
+      "West Hyrule Field Male Butterfly": "Orange_Rupee",
+      "Wooden Statue": "Wooden_Statue",
+      "Wooden Sword Chest": "Filled_Bomb_Bag",
+      "Wrestling With Bo": "Foolish_Item",
+      "Zoras Domain Chest Behind Waterfall": "Orange_Rupee",
+      "Zoras Domain Chest By Mother and Child Isles": "Gate_Keys",
+      "Zoras Domain Extinguish All Torches Chest": "Piece_of_Heart",
+      "Zoras Domain Light All Torches Chest": "Progressive_Bow",
+      "Zoras Domain Male Dragonfly": "Male_Dragonfly",
+      "Zoras Domain Mother and Child Isle Poe": "Boomerang",
+      "Zoras Domain Underwater Goron": "Foolish_Item",
+      "Zoras Domain Waterfall Poe": "Male_Ladybug"
+    },
+
+    // The hint signs' texts
+
+    // Each sign is formatted simply as follows:
+    // sign_name: [
+    //  lines_of_text
+    // ]
+  
+    // Each line is presented as its own item, formatted as follows:
+    // {text: text_on_sign,
+    //  colors: [colors_used_for_formatting],
+    //  hinted_check(s): [check(s)_referenced],
+    //  hinted_item(s): [items_found_at_those_checks]}
+    "hints": {
+      "Agithas_Castle_Sign": [
+        {"text": "Please bring the {24 golden bugs} to Agitha's Castle. I'll share {GREAT happiness} with you:  {Forest Temple small key, Bow}", "colors": ["yellow", "red", "green"], "hintedChecks": ["Agitha Female Phasmid Reward", "Agitha Male Ladybug Reward"], "hintedItems": ["Forest_Temple_Small_Key", "Progressive_Bow"]}
+      ],
+      "Arbiters_Grounds_Sign": [
+        {"text": "They say that the {Arbiter's Grounds big key} can be found in {North Eldin}.", "colors": ["green", "red"], "hintedCheck": "Eldin Field Stalfos Grotto Right Small Chest", "hintedItems": ["Arbiters_Grounds_Big_Key"]}, 
+        {"text": "They say that {Lakebed Temple} is on the way of the hero.", "colors": ["blue"], "hintedCheck": "Lakebed Temple Chandelier Chest", "hintedItems": ["Progressive_Clawshot"]}
+      ],
+      "Beside_Castle_Town_Sign": [
+        {"text": "They say that {Zora's Domain} is on the way of the hero.", "colors": ["blue"], "hintedCheck": "Zoras Domain Waterfall Poe", "hintedItems": ["Male_Ladybug"]}
+      ],
+      "Bulblin_Camp_Sign": [
+        {"text": "They say that {South of Castle Town} is on the way of the hero.", "colors": ["blue"], "hintedCheck": "Outside South Castle Town Golden Wolf", "hintedItems": ["Progressive_Sword"]}
+      ],
+      "Castle_Town_Sign": [
+        {"text": "They say that {Castle Town} is on the way of the hero.", "colors": ["blue"], "hintedCheck": "Castle Town Malo Mart Magic Armor", "hintedItems": ["Lantern"]}
+      ],
+      "Cave_of_Ordeals_Sign": [
+        {"text": "They say that the reward for {Cave of Ordeals Floor 17 Poe} is a {Palace of Twilight small key} (not required).", "colors": ["red", "green"], "hintedCheck": "Cave of Ordeals Floor 17 Poe", "hintedItems": ["Palace_of_Twilight_Small_Key"]}, 
+        {"text": "They say that the reward for {Cave of Ordeals Floor 33 Poe} is {bomblings (5)} (not required).", "colors": ["red", "purple"], "hintedCheck": "Cave of Ordeals Floor 33 Poe", "hintedItems": ["Bomblings_5"]}, 
+        {"text": "They say that the reward for {Cave of Ordeals Floor 44 Poe} is a {Forest Temple small key} (not required).", "colors": ["red", "green"], "hintedCheck": "Cave of Ordeals Floor 44 Poe", "hintedItems": ["Forest_Temple_Small_Key"]}, 
+        {"text": "They say that the reward for {Cave of Ordeals Great Fairy Reward} is a {trap} (not required).", "colors": ["red", "purple"], "hintedCheck": "Cave of Ordeals Great Fairy Reward", "hintedItems": ["Foolish_Item"]}, 
+        {"text": "They say that {Zora's Domain} is on the way of the hero.", "colors": ["blue"], "hintedCheck": "Zoras Domain Waterfall Poe", "hintedItems": ["Male_Ladybug"]}
+      ],
+      "City_in_the_Sky_Sign": [
+        {"text": "They say that the {City in the Sky big key} can be found in the {Sacred Grove}.", "colors": ["green", "red"], "hintedCheck": "Sacred Grove Pedestal Shadow Crystal", "hintedItems": ["City_in_The_Sky_Big_Key"]}, 
+        {"text": "They say that the reward for {Goron Springwater Rush} is a {Poe's soul} (not required).", "colors": ["red", "purple"], "hintedCheck": "Goron Springwater Rush", "hintedItems": ["Poe_Soul"]}, 
+        {"text": "They say that the reward for {Lanayru Ice Block Puzzle Cave Chest} is a {Lakebed Temple small key} (not required).", "colors": ["red", "green"], "hintedCheck": "Lanayru Ice Block Puzzle Cave Chest", "hintedItems": ["Lakebed_Temple_Small_Key"]}
+      ],
+      "Death_Mountain_Sign": [
+        {"text": "They say that {Kakariko Village} is on the way of the hero.", "colors": ["blue"], "hintedCheck": "Kakariko Village Malo Mart Hylian Shield", "hintedItems": ["Gerudo_Desert_Bulblin_Camp_Key"]}
+      ],
+      "Eldin_Field_Sign": [
+        {"text": "They say that the reward for {Lanayru Field Spinner Track Chest} is a {Poe's soul}.", "colors": ["red", "purple"], "hintedCheck": "Lanayru Field Spinner Track Chest", "hintedItems": ["Poe_Soul"]}
+      ],
+      "Faron_Field_Sign": [
+        {"text": "They say that there is nothing to be found in {Eldin Field}.", "colors": ["purple"]}
+      ],
+      "Faron_Woods_Sign": [
+        {"text": "They say that {Beside Castle Town} is on the way of the hero.", "colors": ["blue"], "hintedCheck": "Hyrule Field Amphitheater Owl Statue Chest", "hintedItems": ["Progressive_Fishing_Rod"]}
+      ],
+      "Forest_Temple_Sign": [
+        {"text": "They say that the {Forest Temple big key} can be found in {Snowpeak Ruins}.", "colors": ["green", "red"], "hintedCheck": "Snowpeak Ruins Lobby Armor Poe", "hintedItems": ["Forest_Temple_Big_Key"]}, 
+        {"text": "They say that {Lakebed Temple} is on the way of the hero.", "colors": ["blue"], "hintedCheck": "Lakebed Temple Chandelier Chest", "hintedItems": ["Progressive_Clawshot"]}
+      ],
+      "Gerudo_Desert_Sign": [
+        {"text": "They say that {water bombs (15)} can be found in the {Gerudo Desert}.", "colors": ["purple", "red"], "hintedCheck": "Gerudo Desert Northwest Chest Behind Gates", "hintedItems": ["Water_Bombs_15"]}
+      ],
+      "Goron_Mines_Sign": [
+        {"text": "They say that a {key shard} can be found {Beside Castle Town}.", "colors": ["green", "red"], "hintedCheck": "Hyrule Field Amphitheater Poe", "hintedItems": ["Goron_Mines_Key_Shard"]}, 
+        {"text": "They say that a {key shard} can be found in the {Palace of Twilight}.", "colors": ["green", "red"], "hintedCheck": "Palace of Twilight West Wing Chest Behind Wall of Darkness", "hintedItems": ["Goron_Mines_Key_Shard"]}, 
+        {"text": "They say that a {key shard} can be found in the {Palace of Twilight}.", "colors": ["green", "red"], "hintedCheck": "Palace of Twilight Zant Heart Container", "hintedItems": ["Goron_Mines_Key_Shard"]}, 
+        {"text": "They say that the reward for {Iza Raging Rapids Minigame} is a {Temple of Time small key} (not required).", "colors": ["red", "green"], "hintedCheck": "Iza Raging Rapids Minigame", "hintedItems": ["Temple_of_Time_Small_Key"]}, 
+        {"text": "They say that the reward for {Iza Helping Hand} is a {Clawshot} (required).", "colors": ["red", "blue"], "hintedCheck": "Iza Helping Hand", "hintedItems": ["Progressive_Clawshot"]}
+      ],
+      "Great_Bridge_of_Hylia_Sign": [
+        {"text": "They say that the reward for {Cats Hide and Seek Minigame} is {bombs (5)} (not required).", "colors": ["red", "purple"], "hintedCheck": "Cats Hide and Seek Minigame", "hintedItems": ["Bombs_5"]}, 
+        {"text": "They say that the reward for {Iza Raging Rapids Minigame} is a {Temple of Time small key} (not required).", "colors": ["red", "green"], "hintedCheck": "Iza Raging Rapids Minigame", "hintedItems": ["Temple_of_Time_Small_Key"]}
+      ],
+      "Hidden_Village_Sign": [
+        {"text": "They say that {South of Castle Town} is on the way of the hero.", "colors": ["blue"], "hintedCheck": "Outside South Castle Town Golden Wolf", "hintedItems": ["Progressive_Sword"]}
+      ],
+      "Hyrule_Castle_Sign": [
+        {"text": "They say that the {Hyrule Castle big key} can be found at {Hyrule Castle}.", "colors": ["green", "red"], "hintedCheck": "Hyrule Castle Main Hall Northeast Chest", "hintedItems": ["Hyrule_Castle_Big_Key"]}, 
+        {"text": "They say that {Snowpeak Ruins} is on the way of the hero.", "colors": ["blue"], "hintedCheck": "Snowpeak Ruins Chapel Chest", "hintedItems": ["Iron_Boots"]}
+      ],
+      "Jovani_House_Sign": [
+        {"text": "20 souls reward: {Orange Rupee} (not required)  60 souls reward: {Arrows (20)} (not required)", "colors": ["purple", "purple"], "hintedChecks": ["Jovani 20 Poe Soul Reward", "Jovani 60 Poe Soul Reward"], "hintedItems": ["Orange_Rupee", "Arrows_20"]}
+      ],
+      "Kakariko_Gorge_Sign": [
+        {"text": "They say that a {red Rupee} can be found in {Arbiter's Grounds}.", "colors": ["purple", "red"], "hintedCheck": "Arbiters Grounds West Poe", "hintedItems": ["Red_Rupee"]}
+      ],
+      "Kakariko_Graveyard_Sign": [
+        {"text": "They say that the reward for {Ordon Cat Rescue} is a {trap}.", "colors": ["red", "purple"], "hintedCheck": "Ordon Cat Rescue", "hintedItems": ["Foolish_Item"]}
+      ],
+      "Kakariko_Village_Sign": [
+        {"text": "They say that a {red Rupee} can be found in {Snowpeak Ruins}.", "colors": ["purple", "red"], "hintedCheck": "Snowpeak Ruins Wooden Beam Chandelier Chest", "hintedItems": ["Red_Rupee"]}
+      ],
+      "Lake_Hylia_Sign": [
+        {"text": "They say that the reward for {Zoras Domain Light All Torches Chest} is a {bow}.", "colors": ["red", "purple"], "hintedCheck": "Zoras Domain Light All Torches Chest", "hintedItems": ["Progressive_Bow"]}
+      ],
+      "Lake_Lantern_Cave_Sign": [
+        {"text": "{Nothing} beyond this point!", "colors": ["purple"]}, 
+        {"text": "They say that {Kakariko Village} is on the way of the hero.", "colors": ["blue"], "hintedCheck": "Kakariko Village Malo Mart Hylian Shield", "hintedItems": ["Gerudo_Desert_Bulblin_Camp_Key"]}
+      ],
+      "Lakebed_Temple_Sign": [
+        {"text": "They say that the {Lakebed Temple big key} can be found in the {Gerudo Desert}.", "colors": ["green", "red"], "hintedCheck": "Gerudo Desert Campfire West Chest", "hintedItems": ["Lakebed_Temple_Big_Key"]}, 
+        {"text": "They say that the reward for {Iza Helping Hand} is a {Clawshot} (required).", "colors": ["red", "blue"], "hintedCheck": "Iza Helping Hand", "hintedItems": ["Progressive_Clawshot"]}, 
+        {"text": "They say that the reward for {Goron Springwater Rush} is a {Poe's soul} (not required).", "colors": ["red", "purple"], "hintedCheck": "Goron Springwater Rush", "hintedItems": ["Poe_Soul"]}
+      ],
+      "Lanayru_Field_Sign": [
+        {"text": "They say that a {Dominion Rod} can be found in the {Gerudo Desert}.", "colors": ["green", "red"], "hintedCheck": "Gerudo Desert Northeast Chest Behind Gates", "hintedItems": ["Progressive_Dominion_Rod"]}
+      ],
+      "Lanayru_Spring_Sign": [
+        {"text": "They say that the reward for {Plumm Fruit Balloon Minigame} is a {Fused Shadow} (not required).", "colors": ["red", "green"], "hintedCheck": "Plumm Fruit Balloon Minigame", "hintedItems": ["Progressive_Fused_Shadow"]}, 
+        {"text": "They say that the reward for {Cats Hide and Seek Minigame} is {bombs (5)} (not required).", "colors": ["red", "purple"], "hintedCheck": "Cats Hide and Seek Minigame", "hintedItems": ["Bombs_5"]}
+      ],
+      "North_Eldin_Sign": [
+        {"text": "They say that {Snowpeak Ruins} is on the way of the hero.", "colors": ["blue"], "hintedCheck": "Snowpeak Ruins Chapel Chest", "hintedItems": ["Iron_Boots"]}
+      ],
+      "Ordon_Sign": [
+        {"text": "They say that the reward for {Lost Woods Lantern Chest} is a {fishing rod}.", "colors": ["red", "green"], "hintedCheck": "Lost Woods Lantern Chest", "hintedItems": ["Progressive_Fishing_Rod"]}
+      ],
+      "Palace_of_Twilight_Sign": [
+        {"text": "They say that the {Palace of Twilight big key} can be found in {Kakariko Village}.", "colors": ["green", "red"], "hintedCheck": "Kakariko Village Watchtower Poe", "hintedItems": ["Palace_of_Twilight_Big_Key"]}, 
+        {"text": "They say that {Castle Town} is on the way of the hero.", "colors": ["blue"], "hintedCheck": "Castle Town Malo Mart Magic Armor", "hintedItems": ["Lantern"]}
+      ],
+      "Sacred_Grove_Sign": [
+        {"text": "They say that {Beside Castle Town} is on the way of the hero.", "colors": ["blue"], "hintedCheck": "Hyrule Field Amphitheater Owl Statue Chest", "hintedItems": ["Progressive_Fishing_Rod"]}
+      ],
+      "Snowpeak_Ruins_Sign": [
+        {"text": "They say that the {bedroom key} can be found in {Lakebed Temple}.", "colors": ["green", "red"], "hintedCheck": "Lakebed Temple Big Key Chest", "hintedItems": ["Snowpeak_Ruins_Bedroom_Key"]}, 
+        {"text": "They say that the reward for {Faron Field Bridge Chest} is a {trap}.", "colors": ["red", "purple"], "hintedCheck": "Faron Field Bridge Chest", "hintedItems": ["Foolish_Item"]}
+      ],
+      "Snowpeak_Sign": [
+        {"text": "They say that the reward for {Lanayru Ice Block Puzzle Cave Chest} is a {Lakebed Temple small key} (not required).", "colors": ["red", "green"], "hintedCheck": "Lanayru Ice Block Puzzle Cave Chest", "hintedItems": ["Lakebed_Temple_Small_Key"]}, 
+        {"text": "They say that the reward for {Plumm Fruit Balloon Minigame} is a {Fused Shadow} (not required).", "colors": ["red", "green"], "hintedCheck": "Plumm Fruit Balloon Minigame", "hintedItems": ["Progressive_Fused_Shadow"]}
+      ],
+      "South_of_Castle_Town_Sign": [
+        {"text": "They say that {Ordon} is on the way of the hero.", "colors": ["blue"], "hintedCheck": "Wooden Sword Chest", "hintedItems": ["Filled_Bomb_Bag"]}
+      ],
+      "Temple_of_Time_Beyond_Point_Sign": [
+        {"text": "They say that defeating a flock of Guays will reward Rupees."}
+      ],
+      "Temple_of_Time_Sign": [
+        {"text": "They say that the {Temple of Time big key} can be found in {Goron Mines}.", "colors": ["green", "red"], "hintedCheck": "Goron Mines Crystal Switch Room Underwater Chest", "hintedItems": ["Temple_of_Time_Big_Key"]}, 
+        {"text": "They say that the reward for {Zoras Domain Extinguish All Torches Chest} is a {Piece of Heart}.", "colors": ["red", "purple"], "hintedCheck": "Zoras Domain Extinguish All Torches Chest", "hintedItems": ["Piece_of_Heart"]}
+      ],
+      "Upper_Zoras_River_Sign": [
+        {"text": "They say that there is nothing to be found at {Lanayru Spring}.", "colors": ["purple"]}
+      ],
+      "Zoras_Domain_Sign": [
+        {"text": "They say that {Ordon} is on the way of the hero.", "colors": ["blue"], "hintedCheck": "Wooden Sword Chest", "hintedItems": ["Filled_Bomb_Bag"]}
+      ]
+    },
+
+    // The "Way of the Hero", the path the seed expects you to take.
+    // Each entry is 'Sphere x', where x is an index starting at 0, formatted as follows:
+    // 'Sphere x': {
+    //  check_name: item,
+    //  ...
+    // }
+    // Spheres can be any non-zero amount of checks.
+    "spheres": {
+      "Sphere 0": {
+        "Wooden Sword Chest": "Filled_Bomb_Bag",
+        "South Faron Cave Chest": "Shadow_Crystal",
+        "Kakariko Village Malo Mart Hylian Shield": "Gerudo_Desert_Bulblin_Camp_Key"
+      },
+      "Sphere 1": {
+        "Kakariko Graveyard Grave Poe": "Hyrule_Castle_Small_Key",
+        "Eldin Field Water Bomb Fish Grotto Chest": "Progressive_Hidden_Skill",
+        "Lost Woods Waterfall Poe": "Snowpeak_Ruins_Small_Key",
+        "Charlo Donation Blessing": "Arbiters_Grounds_Small_Key",
+        "Lost Woods Boulder Poe": "Snowpeak_Ruins_Ordon_Goat_Cheese",
+        "Zoras Domain Mother and Child Isle Poe": "Boomerang",
+        "Zoras Domain Waterfall Poe": "Male_Ladybug",
+        "Upper Zoras River Female Dragonfly": "Progressive_Mirror_Shard",
+        "Castle Town Malo Mart Magic Armor": "Lantern",
+        "Outside South Castle Town Golden Wolf": "Progressive_Sword"
+      },
+      "Sphere 2": {
+        "Faron Field Female Beetle": "Arbiters_Grounds_Small_Key",
+        "Faron Mist North Chest": "Aurus_Memo",
+        "Faron Mist South Chest": "Progressive_Mirror_Shard",
+        "Agitha Male Ladybug Reward": "Progressive_Bow",
+        "Lost Woods Lantern Chest": "Progressive_Fishing_Rod",
+        "Forest Temple Central Chest Behind Stairs": "Progressive_Dominion_Rod",
+        "Forest Temple North Deku Like Chest": "Hyrule_Castle_Small_Key"
+      },
+      "Sphere 3": {
+        "Gerudo Desert Northeast Chest Behind Gates": "Progressive_Dominion_Rod",
+        "Iza Helping Hand": "Progressive_Clawshot",
+        "Gerudo Desert Golden Wolf": "Ball_and_Chain",
+        "Forest Temple West Tile Worm Room Vines Chest": "Arbiters_Grounds_Small_Key",
+        "Forest Temple West Tile Worm Chest Behind Stairs": "Progressive_Sword"
+      },
+      "Sphere 4": {
+        "Hyrule Field Amphitheater Owl Statue Chest": "Progressive_Fishing_Rod",
+        "Gerudo Desert Owl Statue Sky Character": "Spinner",
+        "Gerudo Desert Rock Grotto Second Poe": "Snowpeak_Ruins_Small_Key",
+        "Arbiters Grounds Ghoul Rat Room Chest": "Snowpeak_Ruins_Small_Key",
+        "Arbiters Grounds East Turning Room Poe": "Progressive_Sword"
+      },
+      "Sphere 5": {
+        "Snowpeak Blizzard Poe": "Progressive_Mirror_Shard",
+        "Snowpeak Ruins Ordon Pumpkin Chest": "Snowpeak_Ruins_Small_Key"
+      },
+      "Sphere 6": {
+        "Snowpeak Ruins Chapel Chest": "Iron_Boots"
+      },
+      "Sphere 7": {
+        "Ordon Spring Golden Wolf": "Progressive_Mirror_Shard"
+      },
+      "Sphere 8": {
+        "Hyrule Castle Main Hall Northeast Chest": "Hyrule_Castle_Big_Key",
+        "Hyrule Castle West Courtyard North Small Chest": "Zora_Armor"
+      },
+      "Sphere 9": {
+        "Lakebed Temple Chandelier Chest": "Progressive_Clawshot"
+      }
+    },
+
+    // Generator Information
+    "meta": {
+      // The ID the seed can be found by
+      // http://rando.dimensionalsoftworks.net:60001/s/[seedId]
+      "seedId": "aKrNh1mQfr4",
+
+      // What time the seed was generated
+      "timestamp": "2024-07-13T19:13:20.590Z",
+
+      // What release version the seed was generated for
+      "imageVersion": "1.2.0",
+
+      // The generator version
+      "gitCommit": "489ed2f389cf"
+    },
+
+    // What release version the seed was generated for
+    "version": "s1.2.0"
+  }

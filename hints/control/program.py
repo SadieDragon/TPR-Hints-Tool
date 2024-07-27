@@ -1,43 +1,39 @@
 
-# Avoids the risk of circular imports. Somehow.
-from customtkinter import CTkFrame, CTkTextbox
+# Somehow avoids the risk of circular imports and dependencies.
+# This idea came from Ecconia during his prototyping.
+# https://stackoverflow.com/q/7336802
+# https://stackoverflow.com/q/9252543 < Much better answers
+# This will hopefully be better addressed in the future.
+
+from customtkinter import CTk, CTkFrame, CTkTabview, CTkTextbox
 from os import getcwd
 from pathlib import Path
 
 
 class Program:
-    # The root folder
-    root_dir = Path(getcwd())
+    # Root information
+    root_dir = Path(getcwd())           # The root folder
+    root = CTk                          # The root window
+    notebook = CTkTabview               # The global variable of the notepad
 
-    # The global variable of the notepad to add to
-    notebook = None
+    # The global data tab vars
+    data_tabs = {}                      # The storage var of all data tabs
+    data_tab_names = ['Notes', 'Bugs']  # The tabs that are to be created
 
-    # The global variable of the data tabs.
-    data_tabs = {}
+    # The reset class instance
+    resetter = None                     # from hints.utils.reset_utils
 
-    # Functions that are required elsewhere. --------------------------
+    # Functions that are required elsewhere. ----------------------------------
+    def add_tab(self, tab_name: str) -> None:
+        '''Create a tab in the notebook.'''
+        pass
+
     def change_title(self) -> None:
         '''Change the title of the window.'''
         pass
 
-    def close_all_tabs(self) -> None:
-        '''Close all of the tabs.'''
-        pass
-
-    def close_tab(self, tab_name: str) -> None:
-        '''Close a tab in the notebook.'''
-        pass
-
-    def create_notepad_tab(self) -> None:
-        '''Recreate the primary tab.'''
-        pass
-
-    def reset_tab(self, tab_name: str, default: bool = True) -> None:
-        '''Reset the contents of the tab.'''
-        pass
-
-    def reset_tracker(self) -> None:
-        '''Completely reset the tracker.'''
+    def create_notepad(self, tab_name: str) -> CTkTextbox:
+        '''Creates a notepad under the target tab.'''
         pass
 
     def set_to_notes_tab(self) -> None:
@@ -49,4 +45,4 @@ class Program:
                          tab_content: CTkTextbox | CTkFrame | None) -> None:
         '''Update the storage of data tab info'''
         pass
-    # -----------------------------------------------------------------
+    # -------------------------------------------------------------------------

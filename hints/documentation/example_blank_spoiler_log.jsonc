@@ -1,0 +1,228 @@
+
+// hints/documentation/example_spoiler.jsonc
+// but stripped to very basic information that is needed.
+// Any information that we do not need, or any bulk information, is removed.
+// All bools have been set to a default "false", all strings have been set to ""
+
+{
+    // The seed names
+    // In the future, this will replace the following line of code
+    // seed_name = findall(r'\-\-(.*?)\-\-', spoiler_log_file)[0]
+    // to read this and set based on which version of the game is being played
+    // (GC by default and GC only for now)
+    "playthroughName": "",     // GC name
+    "wiiPlaythroughName": "",  // Wii name
+
+    // Race mode? (Should never see this!)
+    // In the future, this will be used to lock the user out
+    // If they are running a race seed, I do not want to enable cheating.
+    "isRaceSeed": false,
+
+    // The settings, provided as a string to be copied in the generator
+    // In the future, I would like to provide a button to copy this to clipboard
+    // (This tool is built for me, and I get tired of fishing it out of spoilers,
+    // but am too lazy to save it somewhere smart.)
+    "settingsString": "",
+
+    // Further information on all these settings can be found on the generator page.
+    // http://rando.dimensionalsoftworks.net:60001/
+    // This will be used in the future to aide the logic reading tool.
+    "settings": {
+      // "Main Rules" tab (part 1) -----------------------------------------------
+      // States what rules the logic is based on
+      // glitchless / glitched / no logic
+      "logicRules": "",
+
+      // States what locks the castle
+      // open / fused shadows / mirror shards / all dungeons / vanilla
+      // Note that Midna's Desperate Hour also affects this (it is stored later)
+      "castleRequirements": "",
+
+      // States what locks Palace of Twilight
+      // open / fused shadows / mirror shards / vanilla
+      "palaceRequirements": "",
+
+      // States what state Faron Woods is in
+      // open / closed
+      "faronWoodsLogic": "",
+
+      // States if x is shuffled
+      "shuffleGoldenBugs": false,     // true / false
+      "shuffleSkyCharacters": false,  // true / false
+      "shuffleNpcItems": false,       // true / false
+      "shufflePoes": "",              // vanilla / overworld / dungeon / all
+      "shuffleShopItems": false,      // true / false
+      "shuffleHiddenSkills": false,   // true / false
+      // -------------------------------------------------------------------------
+
+      // "Other" tab (part 1) ----------------------------------------------------
+      // States the damage multiplier
+      // vanilla / double / triple / quadruple / ohko
+      // ohko is the only one the logic reading tool will care about
+      "damageMagnification": "",
+
+      // States whether or not bonks harm link
+      // true / false
+      "bonksDoDamage": false,
+      // -------------------------------------------------------------------------
+
+      // "Main Rules" tab (part 2) -----------------------------------------------
+      // States whether or not dungeon rewards can only be found on the bosses
+      // true / false
+      "shuffleRewards": false,
+
+      // States how the dungeon keys are shuffled
+      // vanilla / own dungeon / any dungeon / keysanity / keysy
+      "smallKeySettings": "",
+      "bigKeySettings": "",
+
+      // "Other" tab (part 2) ----------------------------------------------------
+      // States whether or not x is skipped
+      // true / false
+      "skipPrologue": false,
+      "faronTwilightCleared": false,
+      "eldinTwilightCleared": false,
+      "lanayruTwilightCleared": false,
+      "skipMdh": false,
+
+      // States whether or not the player can transform in front of NPCs
+      // true / false
+      // This *might* affect Iza's Helping Hand?
+      "transformAnywhere": false,
+
+      // States whether or not the wallet is the default size (300 / 600 / 900)
+      // true / false
+      // This *might* affect shop items?
+      "increaseWallet": false,
+
+      // States whether or not the shop models will reflect what is being sold
+      // true / false
+      // This will probably be used to remove shops from the default
+      // dropdwon list in the future (requiring the user to type it out)?
+      "modifyShopModels": false,
+
+      // States the trap frequency
+      // none / few / many / mayhem / nightmare
+      // I might find a use for this
+      "trapFrequency": "",
+
+      // States whether or not unrequired dungeons hold key items
+      // true / false
+      "barrenDungeons": false,
+
+      // States how the player can enter Goron Mines
+      // closed / no wrestling / open
+      "goronMinesEntrance": "",
+
+      // States whether or not water bombs are required to enter Lakebed Temple
+      // true / false
+      "skipLakebedEntrance": false,
+
+      // States whether or not Bulblin Camp needs to be defeated to access
+      // Arbiter's Grounds
+      // true / false
+      "skipArbitersEntrance": false,
+
+      // States whether or not the Reekfish Scent is needed to ascend Snowpeak
+      // true / false
+      "skipSnowpeakEntrance": false,
+
+      // States how the player accesses the Temple of Time
+      // closed / open grove / open
+      "totEntrance": "",
+
+      // States whether or not the sky cannon is available once Lanayru is open
+      // true / false
+      "skipCityEntrance": false,
+
+      // States whether or not regions need to be accessed to warp to them
+      // true / false
+      "openMap": false,
+
+      // States whether or not fast spinner is enabled
+      // true / false
+      // This *might* be used in gliched or no logic ?
+      "increaseSpinnerSpeed": false,
+
+      // States whether or not the Door of Time is opened
+      // without statue buddy
+      // true / false
+      "openDot": false,
+
+      // States whether or not small keys can be found on boos rewards
+      // (heart containers and dungeon rewards)
+      // true / false
+      "noSmallKeysOnBosses": false,
+
+      // States what time of day the game starts out at
+      // morning / noon / evening / night
+      // Eh, this mainly affects a couple checks in Ordon and Kakariko Village
+      "startingToD": "",
+
+      // States the "strength" of the hints
+      // none / balanced / season 1 / strong / very strong / weak
+      // I might be able to discern how many hints are possible in the future
+      "hintDistribution": "",
+
+      // List of the items the user chose to start with
+      // Affects sphere 0 checks.
+      "startingItems": [
+      ],
+
+      // List of checks the user chose to exclude
+      // Use this to skip them for stuff in the future
+      "excludedChecks": [
+      ]
+    },
+
+    // The list of dungeons with dungeon rewards vital to defeating Ganondorf
+    "requiredDungeons": [],
+
+    // The list of all checks and their rewards
+    "itemPlacements": {
+      "check_name": "item"
+    },
+
+    // The hint signs' texts
+
+    // Each sign is formatted simply as follows:
+    // sign_name: [
+    //  lines_of_text
+    // ]
+  
+    // Each line is presented as its own item, formatted as follows:
+    // {text: text_on_sign,
+    //  colors: [colors_used_for_formatting],
+    //  hinted_check(s): [check(s)_referenced],
+    //  hinted_item(s): [items_found_at_those_checks]}
+    "hints": {
+      "sign_name": [
+        {"text": "", "colors": [], "hinted_check(s)": [], "hinted_item(s)": []}
+      ]
+    },
+
+    // The "Way of the Hero", the path the seed expects you to take.
+    // Each entry is 'Sphere x', where x is an index starting at 0, formatted as follows:
+    // 'Sphere x': {
+    //  check_name: item,
+    //  ...
+    // }
+    // Spheres can be any non-zero amount of checks.
+    "spheres": {
+      "Sphere 0": {
+        "check_name": "item"
+      }
+    },
+
+    // Generator Information
+    "meta": {
+      // The ID the seed can be found by
+      // http://rando.dimensionalsoftworks.net:60001/s/[seedId]
+      // In the future I might have a button for "I forgot to copy the linkus, oh nu"
+      "seedId": "",
+
+      // What release version the seed was generated for
+      // While this is found in 2 places, since I'm already here- may as well grab it here.
+      "imageVersion": ""
+    }
+  }

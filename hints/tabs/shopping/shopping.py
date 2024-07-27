@@ -1,35 +1,44 @@
 
-# The parent class for the shopping lists
+# The parent class for the shopping lists and their utilities
+
 from customtkinter import (CTkCheckBox,
                            CTkFrame,
                            CTkLabel,
                            CTkScrollableFrame,
                            IntVar)
 from hints.control.program import Program
+from hints.utils.reset_utils import ResetUtils
 
 
 class Shopping:
+    '''The parent class for all of the shopping list tabs.'''
+    # The instances
+    program = Program        # The program we're running in
+    resetter = ResetUtils    # The reset instance, set by the program
+
+    # The provided hint text
+    hint_text = str
+
     # The tab name
-    tab_name = ''
+    tab_name = str
 
     # The label that displays the status
-    default_text = ''    # The default text for the label
-    status_label = None  # The label itself
+    default_text = str       # The default text for the label
+    status_label = CTkLabel  # The label itself
 
     # The rewards list
-    rewards = []        # The rewards themselves
-    checkboxes = []     # Holds the checkboxes
-    checkbox_vars = []  # Holds the IntVars
-
-    # The provided info
-    program = None  # The program we're running in
-    hint_text = ''  # The provided hint text
+    rewards = list()         # The rewards themselves
+    checkboxes = list()      # Holds the checkboxes
+    checkbox_vars = list()   # Holds the IntVars
 
     def __init__(self, program: Program, hint_text: str) -> None:
         '''Initialize the variables provided.'''
         # Store the provided information
         self.program = program
         self.hint_text = hint_text
+
+        # Update the resetter to be the program's instance
+        self.resetter = program.resetter
 
     def auto_fill(self) -> None:
         '''Populate the tab with the provided info.'''
@@ -56,13 +65,14 @@ class Shopping:
 
     def create_checklist(self) -> None:
         '''Create the checklist of the provided rewards.'''
-        # Clean out the vars.
-        # Jovani was getting Agitha's, for *some reason.*
+        # Clean out the vars to prevent a bug where,
+        # if there are multiple children classes,
+        # they each got the same copy of the var.
         self.checkbox_vars = []
         self.checkboxes = []
 
         # Reset, but don't reset to default
-        tab = self.program.reset_tab(self.tab_name, False)
+        tab = self.resetter.reset_tab(self.tab_name, False)
 
         # Host frame --------------------------------------------
         # Create the frame to pass to dict
@@ -83,14 +93,14 @@ class Shopping:
         self.status_label.pack(anchor='w', padx=5, pady=5)
         # ----------------------------------------------------
 
-        # Create the checklist frame ---------------------
+        # Create the checklist frame ---------------------------
         checklist_frame = CTkScrollableFrame(master=tab_frame)
         checklist_frame.pack(anchor='w',
                              expand=True,
                              fill='both',
                              padx=5,
                              pady=5)
-        # ------------------------------------------------
+        # ------------------------------------------------------
 
         # Go through the rewards
         for reward in self.rewards:
@@ -100,22 +110,24 @@ class Shopping:
             # Create the IntVar for the collection status
             checkbox_variable = IntVar()
 
-            # Create the checkbox for the reward
+            # Create the checkbox for the reward ---------------
             checkbox = CTkCheckBox(command=self.collect_item,
                                    master=checklist_frame,
                                    text=reward,
                                    variable=checkbox_variable)
             checkbox.pack(anchor='w', pady=5)
+            # --------------------------------------------------
 
-            # Store the checkbox with its var
+            # Store the checkbox with its var ------------
             self.checkboxes.append(checkbox)
             self.checkbox_vars.append(checkbox_variable)
+            # --------------------------------------------
 
     def no_rewards(self) -> None:
         '''The action for no rewards: Close the tab.'''
-        self.program.close_tab(self.tab_name)
+        self.resetter.close_tab(self.tab_name)
 
-    def parse_rewards(self) -> None:
+    def parse_rewards(self) -> bool:
         '''Autofills with the provided information.'''
         # Parse the text
         self.parse_text()
