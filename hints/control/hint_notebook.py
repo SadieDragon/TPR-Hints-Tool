@@ -2,25 +2,19 @@
 # Hosts the main window creation, running,
 # and also some basic utitlies acting upon it.
 
-from customtkinter import CTk, CTkFrame, CTkTabview, CTkTextbox
+from customtkinter import CTkFrame, CTkTabview, CTkTextbox
 from hints.control.program import Program
 from hints.tabs.options_tab import OptionsTab
 from hints.tabs.spoiler_log import SpoilerLog
-from hints.utils.reset_utils import ResetUtils
+from hints.utils.gui_management.reset_utils import ResetUtils
 
 
 class HintNotebook(Program):
     '''The main window.'''
     def __init__(self) -> None:
         '''Initialize the program window.'''
-        # Create the main window ---------
-        self.root = CTk()
-        self.root.geometry('500x500')
-        self.root.minsize(300, 300)
-
-        # Set the title to default title
-        self.change_title()
-        # --------------------------------
+        # Create the window
+        self.resetter.create_window()
 
         # Create the main notebook. ------------------
         self.notebook = CTkTabview(master=self.root)
@@ -31,7 +25,7 @@ class HintNotebook(Program):
                            pady=5)
         # --------------------------------------------
 
-        # Initialize the reset utils class
+        # Initialize the instance
         self.resetter = ResetUtils(self)
 
         # Notes, Agitha's Castle

@@ -4,7 +4,7 @@
 
 from customtkinter import CTkButton, CTkFrame
 from hints.control.program import Program
-from hints.utils.reset_utils import ResetUtils
+from hints.utils.gui_management.reset_utils import ResetUtils
 
 
 class OptionsTab:
