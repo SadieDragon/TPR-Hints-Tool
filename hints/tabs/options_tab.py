@@ -3,26 +3,23 @@
 # for more flexible and future-proof code
 
 from customtkinter import CTkButton, CTkFrame
-from hints.control.program import Program
+from hints.utils.constants.constants import Constants
 from hints.utils.gui_management.reset_utils import ResetUtils
 
 
 class OptionsTab:
     '''Hosts all of the Option Tab setup.'''
     # Instances
-    program = Program      # The program passed in
-    resetter = ResetUtils  # The reset instance, set by the program
+    program = Constants.program  # The program instance
+    resetter = ResetUtils        # The reset instance, set by the program
 
-    def __init__(self, program: Program) -> None:
+    def __init__(self) -> None:
         '''Create the tab with the options, flexibly.'''
-        # Set the program locally
-        self.program = program
-
         # Update the resetter to be the program's instance
-        self.resetter = program.resetter
+        self.resetter = self.program.resetter
 
         # Create the tab itself
-        options_tab = program.notebook.add('Options')
+        options_tab = self.program.notebook.add('Options')
 
         # And a sub frame for the buttons
         buttons_frame = CTkFrame(master=options_tab)
@@ -49,7 +46,7 @@ class OptionsTab:
             return
 
         # Go through the data tabs
-        for index, tab_name in [*enumerate(self.program.data_tab_names)]:
+        for index, tab_name in [*enumerate(Constants.data_tab_names)]:
             # Reset the notes tab
             if index == 0:
                 self.resetter.reset_tab(tab_name)

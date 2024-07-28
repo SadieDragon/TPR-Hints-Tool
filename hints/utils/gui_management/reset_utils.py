@@ -2,20 +2,19 @@
 # Holds all of the reset utilities for the tracker
 
 from customtkinter import CTkFrame
-from hints.control.program import Program
+from hints.utils.constants.constants import Constants
 from hints.utils.gui_management.creation_utils import CreationUtils
 
 
 class ResetUtils:
     '''A class for all of the reset utilities.'''
     # Instances
-    program = Program         # The program provided
-    creation = CreationUtils  # The creation util
+    program = Constants.program  # The program instance
+    creation = CreationUtils     # The creation utility instance
 
-    def __init__(self, program: Program) -> None:
-        '''Update the instances.'''
-        self.program = program
-        self.creation = CreationUtils(self.program)
+    def __init__(self) -> None:
+        '''Initialize the creation instance.'''
+        self.creation = CreationUtils()
 
     def close_tab(self, tab_name: str) -> None:
         '''Close a tab in the notebook.'''
@@ -52,7 +51,7 @@ class ResetUtils:
         self.program.change_title()
 
         # Reset the tracker
-        for tab_name in self.program.data_tab_names:
+        for tab_name in Constants.data_tab_names:
             self.reset_tab(tab_name)
 
         # Tab back if requested

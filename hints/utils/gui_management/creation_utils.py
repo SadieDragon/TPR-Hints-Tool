@@ -3,16 +3,15 @@
 
 from CTkMessagebox import CTkMessagebox
 from customtkinter import CTk
-from hints.control.program import Program
+from hints.utils.constants.constants import Constants
 
 class CreationUtils:
     '''A class for all of the creation utilities.'''
-    # The program passed in
-    program = Program
+    program = Constants.program  # The program instance
 
-    def __init__(self, program: Program) -> None:
-        '''Set the program to be locally global.'''
-        self.program = program
+    def __init__(self) -> None:
+        '''Initialize the creation instance.'''
+        pass
 
     def create_window(self) -> None:
         '''Create the main window'''

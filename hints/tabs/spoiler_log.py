@@ -3,7 +3,7 @@
 # Complex utils are found under hints/utils/parse_log.py
 
 from customtkinter import CTkButton, CTkComboBox, CTkFrame, CTkLabel, StringVar
-from hints.control.program import Program
+from hints.utils.constants.constants import Constants
 from hints.utils.parse_log import ParseLog
 from hints.utils.gui_management.reset_utils import ResetUtils
 from os import listdir
@@ -14,7 +14,7 @@ from subprocess import check_call
 class SpoilerLog:
     '''The class to handle all spoiler log things.'''
     # Instances
-    program = Program               # Provided program instance
+    program = Constants.program     # The program instance
     parser = ParseLog               # The parser instance
     resetter = ResetUtils           # The reset instance, set by the program
 
@@ -27,16 +27,13 @@ class SpoilerLog:
     interface_frame = None          # The frame hosting the interface elements
     spoiler_log_var = StringVar     # The var for picking the spoiler log
 
-    def __init__(self, program: Program) -> None:
+    def __init__(self) -> None:
         '''Create the host frames, and the main button.'''
-        # Store the program
-        self.program = program
-
         # Init the spoiler log parser
-        self.parser = ParseLog(self.program)
+        self.parser = ParseLog()
 
         # Update the reset instance
-        self.resetter = program.resetter
+        self.resetter = self.program.resetter
 
         # Grab the spoiler log folder
         self.spoiler_logs_folder = self.parser.spoiler_log_folder

@@ -1,8 +1,8 @@
 
 # The complex utility functions for the spoiler log parsing
 
-from hints.control.program import Program
 from hints.tabs.shopping.agitha_tab import AgithaTab
+from hints.utils.constants.constants import Constants
 from json import load
 from pathlib import Path
 from re import findall, sub
@@ -10,20 +10,16 @@ from re import findall, sub
 
 class ParseLog:
     '''It just, parses the spoiler log data.'''
-    # The root program
-    program = Program
+    program = Constants.program  # The program instance
 
     # Spoiler log info
-    spoiler_log_folder = Path  # The spoiler log folder
-    spoiler_log_file = str     # The provided spoiler log
+    spoiler_log_folder = Path    # The spoiler log folder
+    spoiler_log_file = str       # The provided spoiler log
 
-    def __init__(self, program: Program) -> None:
-        '''Set the global var here.'''
-        # Set the local program var
-        self.program = program
-
+    def __init__(self) -> None:
+        '''Update the spoiler log folder variable.'''
         # Set the local var of the spoiler log folder
-        self.spoiler_log_folder = program.root_dir / 'SpoilerLog'
+        self.spoiler_log_folder = self.program.root_dir / 'SpoilerLog'
 
     def dump_and_fill(self, spoiler_log_file: str) -> None:
         '''Take the provided path, and dump the log then fill the tabs.'''
@@ -76,4 +72,4 @@ class ParseLog:
                 # Special handling for Agitha
                 if sign == 'Agithas_Castle_Sign':
                     # Go to her parsing
-                    AgithaTab(self.program, hint_text)
+                    AgithaTab(hint_text)
