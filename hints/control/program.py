@@ -18,7 +18,6 @@ class Program:
 
     # The global data tab vars
     data_tabs = {}                      # The storage var of all data tabs
-    data_tab_names = ['Notes', 'Bugs']  # The tabs that are to be created
 
     # The reset class instance
     resetter = None                     # from hints.utils.reset_utils

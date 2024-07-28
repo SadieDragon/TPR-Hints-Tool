@@ -3,6 +3,7 @@
 
 from hints.control.program import Program
 from hints.tabs.shopping.shopping import Shopping
+from hints.utils.constants import constants
 
 
 class AgithaTab(Shopping):
@@ -14,7 +15,7 @@ class AgithaTab(Shopping):
         super().__init__(program, hint_text)
 
         # The tab name
-        self.tab_name = 'Bugs'
+        self.tab_name = constants.agitha_tab_name
 
         # The default text for the label
         self.default_text = 'Agitha gives you GREAT HAPPINESS:\n'

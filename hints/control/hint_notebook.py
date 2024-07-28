@@ -6,6 +6,7 @@ from customtkinter import CTkFrame, CTkTabview, CTkTextbox
 from hints.control.program import Program
 from hints.tabs.options_tab import OptionsTab
 from hints.tabs.spoiler_log import SpoilerLog
+from hints.utils.constants import constants
 from hints.utils.gui_management.reset_utils import ResetUtils
 
 
@@ -13,6 +14,9 @@ class HintNotebook(Program):
     '''The main window.'''
     def __init__(self) -> None:
         '''Initialize the program window.'''
+        # Initialize the resetter instance
+        self.resetter = ResetUtils(self)
+
         # Create the window
         self.resetter.create_window()
 
@@ -24,9 +28,6 @@ class HintNotebook(Program):
                            padx=5,
                            pady=5)
         # --------------------------------------------
-
-        # Initialize the instance
-        self.resetter = ResetUtils(self)
 
         # Notes, Agitha's Castle
         # (Default state for the latter)
@@ -51,7 +52,7 @@ class HintNotebook(Program):
         self.update_data_tabs(tab_name, None)
 
         # Find the index
-        tab_index = self.data_tab_names.index(tab_name)
+        tab_index = constants.data_tab_names.index(tab_name)
 
         # Create the tab, and return it
         return self.notebook.insert(tab_index, tab_name)
@@ -70,7 +71,7 @@ class HintNotebook(Program):
         '''Creates the tabs that have data in their default state.'''
         # Go through and create each tab with a blank notepad,
         # then store the notepad for later use.
-        for tab_name in self.data_tab_names:
+        for tab_name in constants.data_tab_names:
             # Create the tab
             self.add_tab(tab_name)
 
@@ -95,7 +96,7 @@ class HintNotebook(Program):
 
     def set_to_notes_tab(self) -> None:
         '''Change the tab to the notes tab.'''
-        self.notebook.set('Notes')
+        self.notebook.set(constants.notes_tab_name)
 
     def update_data_tabs(self,
                          tab_name: str,
