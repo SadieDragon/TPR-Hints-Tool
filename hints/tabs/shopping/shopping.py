@@ -6,15 +6,15 @@ from customtkinter import (CTkCheckBox,
                            CTkLabel,
                            CTkScrollableFrame,
                            IntVar)
-from hints.utils.constants.constants import Constants
+from hints.control.program import Program
 from hints.utils.gui_management.reset_utils import ResetUtils
 
 
 class Shopping:
     '''The parent class for all of the shopping list tabs.'''
     # The instances
-    program = Constants.program  # The program instance
-    resetter = ResetUtils        # The reset instance, set by the program
+    program = Program        # The program we're running in
+    resetter = ResetUtils    # The reset instance, set by the program
 
     # The provided hint text
     hint_text = str
@@ -23,21 +23,22 @@ class Shopping:
     tab_name = str
 
     # The label that displays the status
-    default_text = str           # The default text for the label
-    status_label = CTkLabel      # The label itself
+    default_text = str       # The default text for the label
+    status_label = CTkLabel  # The label itself
 
     # The rewards list
-    rewards = list()             # The rewards themselves
-    checkboxes = list()          # Holds the checkboxes
-    checkbox_vars = list()       # Holds the IntVars
+    rewards = list()         # The rewards themselves
+    checkboxes = list()      # Holds the checkboxes
+    checkbox_vars = list()   # Holds the IntVars
 
-    def __init__(self, hint_text: str) -> None:
+    def __init__(self, program: Program, hint_text: str) -> None:
         '''Initialize the variables provided.'''
         # Store the provided information
+        self.program = program
         self.hint_text = hint_text
 
         # Update the resetter to be the program's instance
-        self.resetter = self.program.resetter
+        self.resetter = program.resetter
 
     def auto_fill(self) -> None:
         '''Populate the tab with the provided info.'''

@@ -1,16 +1,17 @@
 
 # All of Agitha's special handling and utilities.
 
+from hints.control.program import Program
 from hints.tabs.shopping.shopping import Shopping
 
 
 class AgithaTab(Shopping):
     '''Agitha's special checklist handling.'''
-    def __init__(self, hint_text: str) -> None:
+    def __init__(self, program: Program, hint_text: str) -> None:
         '''Initialize the tab.'''
         # Initialize the default vars -----------------------------
         # The static vars
-        super().__init__(hint_text)
+        super().__init__(program, hint_text)
 
         # The tab name
         self.tab_name = 'Bugs'

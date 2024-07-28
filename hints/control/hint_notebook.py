@@ -6,7 +6,6 @@ from customtkinter import CTkFrame, CTkTabview, CTkTextbox
 from hints.control.program import Program
 from hints.tabs.options_tab import OptionsTab
 from hints.tabs.spoiler_log import SpoilerLog
-from hints.utils.constants.constants import Constants
 from hints.utils.gui_management.reset_utils import ResetUtils
 
 
@@ -14,12 +13,6 @@ class HintNotebook(Program):
     '''The main window.'''
     def __init__(self) -> None:
         '''Initialize the program window.'''
-        # Set the program instance.
-        Constants.set_program(self)
-
-        # Initialize the resetter instance
-        self.resetter = ResetUtils()
-
         # Create the window
         self.resetter.create_window()
 
@@ -32,15 +25,18 @@ class HintNotebook(Program):
                            pady=5)
         # --------------------------------------------
 
+        # Initialize the instance
+        self.resetter = ResetUtils(self)
+
         # Notes, Agitha's Castle
         # (Default state for the latter)
         self.create_data_tabs()
 
         # Options Tab
-        OptionsTab()
+        OptionsTab(self)
 
         # Spoiler Log Tab
-        SpoilerLog()
+        SpoilerLog(self)
 
         # Run the window
         self.root.mainloop()
@@ -55,7 +51,7 @@ class HintNotebook(Program):
         self.update_data_tabs(tab_name, None)
 
         # Find the index
-        tab_index = Constants.data_tab_names.index(tab_name)
+        tab_index = self.data_tab_names.index(tab_name)
 
         # Create the tab, and return it
         return self.notebook.insert(tab_index, tab_name)
@@ -74,7 +70,7 @@ class HintNotebook(Program):
         '''Creates the tabs that have data in their default state.'''
         # Go through and create each tab with a blank notepad,
         # then store the notepad for later use.
-        for tab_name in Constants.data_tab_names:
+        for tab_name in self.data_tab_names:
             # Create the tab
             self.add_tab(tab_name)
 
@@ -99,7 +95,7 @@ class HintNotebook(Program):
 
     def set_to_notes_tab(self) -> None:
         '''Change the tab to the notes tab.'''
-        self.notebook.set(Constants.notes_tab_name)
+        self.notebook.set('Notes')
 
     def update_data_tabs(self,
                          tab_name: str,
