@@ -5,19 +5,16 @@ from CTkMessagebox import CTkMessagebox
 from customtkinter import CTkFrame, CTkTextbox
 from hints.control.program import Program
 from hints.utils.constants import tab_names
-from hints.utils.gui_management.notebook_manager import NotebookManager
 
 
 class CreationUtils:
     '''A class for all of the creation utilities.'''
     # The instances
-    program = Program                   # The program instance
-    notebook_manager = NotebookManager  # The notebook instance
+    program = Program  # The program instance
 
     def __init__(self, program: Program) -> None:
         '''Set the instances.'''
         self.program = program
-        self.notebook_manager = self.program.notebook_manager
 
     def add_tab(self, tab_name: str) -> None | CTkFrame:
         '''Create a tab in the notebook.'''
@@ -39,16 +36,13 @@ class CreationUtils:
         # Go through and create each tab with a blank notepad,
         # then store the notepad for later use.
         for tab_name in tab_names.data_tab_names:
-            # Create the tab
-            self.add_tab(tab_name)
-
             # Create the notepad that goes in it
             self.create_notepad_tab(tab_name)
 
     def create_notepad_tab(self, tab_name: str) -> CTkTextbox:
         '''Creates a notepad under the target tab.'''
         # Create the tab at the tab name
-        tab = self.program.notebook.tab(tab_name)
+        tab = self.add_tab(tab_name)
 
         # Create the notepad -----------------------------------
         notepad = CTkTextbox(corner_radius=0, master=tab)

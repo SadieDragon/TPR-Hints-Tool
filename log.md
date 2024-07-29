@@ -150,4 +150,22 @@ Make that uniform.
     - Ok, I should push now. That's already a big change.
 - Actually remove ``change_title()``
 - I forgot to update the window_manager vars, so this is a quick formatting push
+- "Ok, so what do the managers actually need from ``hint_notebook.py``, that would cause a circular dependency?"
+    - ``CreationUtils``
+        - Wait, ``NotebookManager`` is no longer used. *rips it out*
+        - needs ``data_tabs`` for ``add_tab()`` and ``create_notepad_tab()``
+        - needs the notebook for ``create_notepad_tab()``
+            - Wait. I added a tab here. USE THE FUNCTION.
+            - Mmh, that means I don't need that call in ``create_data_tabs()``...
+        - needs the root window for ``show_warning()``.
+            - Does that *actually* belong in ``ResetUtils``? I mean, it creates a pop-up, but... it returns whether or not permission was granted to reset.. Hm.
+    - ``DeletionUtils``
+        - Needs the notebook to delete tabs, and ``data_tabs`` to remove the tab, in ``close_tab()``
+    - ``NotebookManager``
+        - It needs the notebook for changing to the notes tab in ``set_to_notes_tab()``
+        - Could this be where I create the notebook itself? prolly, then it would need the root window as well
+        - This is also where ``data_tabs`` could go...
+    - ``ResetUtils``
+        - Needs ``data_tabs`` for ``reset_tab()``, and the notebook to return the tab
+        - Needs root to update the title for ``reset_tracker()``
 - ...
