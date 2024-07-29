@@ -50,4 +50,4 @@ class ResetUtils:
 
         # Tab back if requested
         if tab_back:
-            self.program.set_to_notes_tab()
+            self.window_manager.set_to_notes_tab()

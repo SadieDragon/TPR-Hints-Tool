@@ -116,4 +116,14 @@ Make that uniform.
         - Import the window manager instance
         - Remove the resetter instance
         - ``change_title`` in line 38 is from ``window_manager``
+- Arguably, ``set_to_notes_tab()`` is window management.
+    - Move ``set_to_notes_tab()`` to ``window_management.py``
+    - Update ``options_tab.py``
+        - Import the window manager instance
+        - ``set_to_notes_tab`` in line 72 is from ``window_manager``
+    - Update ``spoiler_log.py``
+        - Import the window manager instance
+        - ``set_to_notes_tab`` in line 163 is from ``window_manager``
+    - Update ``reset_utils.py``
+        - ``set_to_notes_tab`` in line 53 is from ``window_manager``
 - ...

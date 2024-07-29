@@ -70,10 +70,6 @@ class HintNotebook(Program):
         self.resetter = ResetUtils(self)
         self.window_manager = WindowManagement(self)
 
-    def set_to_notes_tab(self) -> None:
-        '''Change the tab to the notes tab.'''
-        self.notebook.set(tab_names.notes_tab_name)
-
     def update_data_tabs(self,
                          tab_name: str,
                          tab_content: CTkTextbox | CTkFrame | None) -> None:

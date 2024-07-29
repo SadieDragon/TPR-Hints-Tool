@@ -2,6 +2,7 @@
 # Holds all of the window management utilities for the tracker
 
 from hints.control.program import Program
+from hints.utils.constants import tab_names
 
 
 class WindowManagement:
@@ -22,3 +23,7 @@ class WindowManagement:
             title = f'{title} ({seed_name})'
 
         self.program.root.title(title)
+
+    def set_to_notes_tab(self) -> None:
+        '''Change the tab to the notes tab.'''
+        self.program.notebook.set(tab_names.notes_tab_name)

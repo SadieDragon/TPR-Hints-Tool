@@ -9,15 +9,17 @@ from hints.utils.constants import tab_names
 from hints.utils.gui_management.creation_utils import CreationUtils
 from hints.utils.gui_management.deletion_utils import DeletionUtils
 from hints.utils.gui_management.reset_utils import ResetUtils
+from hints.utils.gui_management.window_management import WindowManagement
 
 
 class OptionsTab:
     '''Hosts all of the Option Tab setup.'''
     # Instances
-    program = Program        # The program instance
-    creator = CreationUtils  # The creation instance, set by the program
-    deleter = DeletionUtils  # The deletion instance, set by the program
-    resetter = ResetUtils    # The reset instance, set by the program
+    program = Program                  # The program instance
+    creator = CreationUtils            # The creator, set by the program
+    deleter = DeletionUtils            # The deleter, set by the program
+    resetter = ResetUtils              # The reset instance, set by the program
+    window_manager = WindowManagement  # The window manager, set by the program
 
     def __init__(self, program: Program) -> None:
         '''Create the tab with the options, flexibly.'''
@@ -28,6 +30,7 @@ class OptionsTab:
         self.creator = self.program.creator
         self.deleter = self.program.deleter
         self.resetter = self.program.resetter
+        self.window_manager = self.program.window_manager
 
         # Create the tab itself
         options_tab = program.notebook.add(tab_names.options_tab_name)
@@ -66,7 +69,7 @@ class OptionsTab:
             # Close everything else
             self.deleter.close_tab(tab_name)
 
-        self.program.set_to_notes_tab()
+        self.window_manager.set_to_notes_tab()
 
     def reset(self) -> None:
         '''A wrapper for the tracker reset.'''

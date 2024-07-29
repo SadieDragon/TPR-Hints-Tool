@@ -10,6 +10,7 @@ from hints.utils.parse_log import ParseLog
 
 from hints.utils.gui_management.creation_utils import CreationUtils
 from hints.utils.gui_management.reset_utils import ResetUtils
+from hints.utils.gui_management.window_management import WindowManagement
 
 from os import listdir
 from pathlib import Path
@@ -19,10 +20,11 @@ from subprocess import check_call
 class SpoilerLog:
     '''The class to handle all spoiler log things.'''
     # Instances
-    program = Program               # Provided program instance
-    parser = ParseLog               # The parser instance
-    creator = CreationUtils         # The creation instance, set by the program
-    resetter = ResetUtils           # The reset instance, set by the program
+    program = Program                  # The program instance
+    parser = ParseLog                  # The parser instance
+    creator = CreationUtils            # The creator, set by the program
+    resetter = ResetUtils              # The reset instance, set by the program
+    window_manager = WindowManagement  # The window manager, set by the program
 
     # The spoiler log folder
     spoiler_logs_folder = Path
@@ -44,6 +46,7 @@ class SpoilerLog:
         # Grab the necessary instances from the program
         self.creator = self.program.creator
         self.resetter = self.program.resetter
+        self.window_manager = self.program.window_manager
 
         # Grab the spoiler log folder
         self.spoiler_logs_folder = folders.spoiler_log_folder
@@ -157,7 +160,7 @@ class SpoilerLog:
     def dump_spoiler_log(self) -> None:
         '''Dumps the spoiler log and passes it on to the parser'''
         # Tab back to the notes
-        self.program.set_to_notes_tab()
+        self.window_manager.set_to_notes_tab()
 
         # Get the chosen log
         spoiler_log = self.spoiler_log_var.get()
