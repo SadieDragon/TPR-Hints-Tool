@@ -11,13 +11,13 @@ from hints.utils.gui_management.notebook_manager import NotebookManager
 class CreationUtils:
     '''A class for all of the creation utilities.'''
     # The instances
-    program = Program                  # The program instance
-    window_manager = NotebookManager  # The window manager instance
+    program = Program                   # The program instance
+    notebook_manager = NotebookManager  # The notebook instance
 
     def __init__(self, program: Program) -> None:
         '''Set the instances.'''
         self.program = program
-        self.window_manager = self.program.window_manager
+        self.notebook_manager = self.program.notebook_manager
 
     def add_tab(self, tab_name: str) -> None | CTkFrame:
         '''Create a tab in the notebook.'''

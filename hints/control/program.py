@@ -17,7 +17,7 @@ class Program:
     data_tabs = {}          # The storage var of all data tabs
 
     # The instances
-    creator = None          # from hints.utils.gui_management.creation_utils
-    deleter = None          # from hints.utils.gui_management.deletion_utils
-    resetter = None         # from hints.utils.gui_management.reset_utils
-    window_manager = None   # from hints.utils.gui_management.window_management
+    creator = None           # from hints.utils.gui_management.creation_utils
+    deleter = None           # from hints.utils.gui_management.deletion_utils
+    resetter = None          # from hints.utils.gui_management.reset_utils
+    notebook_manager = None  # from hints.utils.gui_management.window_management

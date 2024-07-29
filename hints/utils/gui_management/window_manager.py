@@ -8,10 +8,10 @@ def create_window() -> CTk:
     # Create the window
     root = CTk()
 
-    # Manage the window size --------------
+    # Manage the window size --
     root.geometry('500x500')
     root.minsize(300, 300)
-    # -------------------------------------
+    # -------------------------
 
     # Set the title to default title
     root.title(return_title())

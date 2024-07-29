@@ -56,4 +56,4 @@ class HintNotebook(Program):
         self.creator = CreationUtils(self)
         self.deleter = DeletionUtils(self)
         self.resetter = ResetUtils(self)
-        self.window_manager = NotebookManager(self)
+        self.notebook_manager = NotebookManager(self)

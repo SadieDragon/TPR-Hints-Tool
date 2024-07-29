@@ -148,4 +148,6 @@ Make that uniform.
     - create a new util file, ``title.py``, with that function without setting the title
     - Delete the function ``change_title()`` and update all calls to it
     - Ok, I should push now. That's already a big change.
+- Actually remove ``change_title()``
+- I forgot to update the window_manager vars, so this is a quick formatting push
 - ...

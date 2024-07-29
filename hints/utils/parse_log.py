@@ -16,8 +16,8 @@ from re import findall, sub
 class ParseLog:
     '''It just, parses the spoiler log data.'''
     # The instances
-    program = Program                  # The program instance
-    window_manager = NotebookManager  # The window manager, set by the program
+    program = Program                   # The program instance
+    notebook_manager = NotebookManager  # The notebook, set by the program
 
     # Spoiler log info
     spoiler_log_file = str     # The provided spoiler log
@@ -25,7 +25,7 @@ class ParseLog:
     def __init__(self, program: Program) -> None:
         '''Set the instances.'''
         self.program = program
-        self.window_manager = self.program.window_manager
+        self.notebook_manager = self.program.notebook_manager
 
     def dump_and_fill(self, spoiler_log_file: str) -> None:
         '''Take the provided path, and dump the log then fill the tabs.'''

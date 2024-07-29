@@ -13,15 +13,15 @@ from hints.utils.gui_management.notebook_manager import NotebookManager
 class ResetUtils:
     '''A class for all of the reset utilities.'''
     # Instances
-    program = Program                  # The program instance
-    creator = CreationUtils            # The creation utilities instance
-    window_manager = NotebookManager   # The window manager
+    program = Program                    # The program instance
+    creator = CreationUtils              # The creation utilities instance
+    notebook_manager = NotebookManager   # The notebook manager
 
     def __init__(self, program: Program) -> None:
         '''Update the instances.'''
         self.program = program
         self.creation = self.program.creator
-        self.window_manager = self.program.window_manager
+        self.notebook_manager = self.program.notebook_manager
 
     def reset_tab(self, tab_name: str, default: bool = True) -> CTkFrame:
         '''Reset the contents of the tab.'''
@@ -51,4 +51,4 @@ class ResetUtils:
 
         # Tab back if requested
         if tab_back:
-            self.window_manager.set_to_notes_tab()
+            self.notebook_manager.set_to_notes_tab()
