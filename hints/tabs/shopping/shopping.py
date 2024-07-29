@@ -8,8 +8,8 @@ from customtkinter import (CTkCheckBox,
                            IntVar)
 from hints.control.program import Program
 
-from hints.utils.gui_management.deletion_utils import DeletionUtils
-from hints.utils.gui_management.reset_utils import ResetUtils
+from hints.gui_management.managers.deletion_utils import DeletionUtils
+from hints.gui_management.managers.reset_utils import ResetUtils
 
 
 class Shopping:

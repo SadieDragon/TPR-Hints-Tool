@@ -6,7 +6,7 @@ from hints.tabs.shopping.agitha_tab import AgithaTab
 from hints.utils.constants import folders
 from hints.utils.title import return_title
 
-from hints.utils.gui_management.notebook_manager import NotebookManager
+from hints.gui_management.notebook_manager import NotebookManager
 
 from json import load
 from pathlib import Path

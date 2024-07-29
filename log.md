@@ -177,4 +177,7 @@ Make that uniform.
     - update ``hint_notebook.py``
         - Create the notebook manager instance during ``__init__``
         - Remove it from ``create_instances()``
+- Move ``gui_management`` into the root folder (told you you'd see why)
+    - Do the bulk move
+    - Move the utils into ``hints/gui_management/managers``
 - ...

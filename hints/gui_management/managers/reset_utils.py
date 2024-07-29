@@ -6,8 +6,8 @@ from hints.control.program import Program
 from hints.utils.constants import tab_names
 from hints.utils.title import return_title
 
-from hints.utils.gui_management.creation_utils import CreationUtils
-from hints.utils.gui_management.notebook_manager import NotebookManager
+from hints.gui_management.managers.creation_utils import CreationUtils
+from hints.gui_management.notebook_manager import NotebookManager
 
 
 class ResetUtils:

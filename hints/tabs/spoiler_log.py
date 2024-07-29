@@ -8,9 +8,9 @@ from hints.utils.constants import folders
 from hints.utils.constants import tab_names
 from hints.utils.parse_log import ParseLog
 
-from hints.utils.gui_management.creation_utils import CreationUtils
-from hints.utils.gui_management.reset_utils import ResetUtils
-from hints.utils.gui_management.notebook_manager import NotebookManager
+from hints.gui_management.managers.creation_utils import CreationUtils
+from hints.gui_management.managers.reset_utils import ResetUtils
+from hints.gui_management.notebook_manager import NotebookManager
 
 from os import listdir
 from pathlib import Path

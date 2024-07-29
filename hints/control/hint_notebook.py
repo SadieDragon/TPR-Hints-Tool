@@ -9,12 +9,12 @@ from hints.control.program import Program
 from hints.tabs.options_tab import OptionsTab
 from hints.tabs.spoiler_log import SpoilerLog
 
-from hints.utils.gui_management.window_manager import create_window
-from hints.utils.gui_management.notebook_manager import NotebookManager
+from hints.gui_management.window_manager import create_window
+from hints.gui_management.notebook_manager import NotebookManager
 
-from hints.utils.gui_management.creation_utils import CreationUtils
-from hints.utils.gui_management.deletion_utils import DeletionUtils
-from hints.utils.gui_management.reset_utils import ResetUtils
+from hints.gui_management.managers.creation_utils import CreationUtils
+from hints.gui_management.managers.deletion_utils import DeletionUtils
+from hints.gui_management.managers.reset_utils import ResetUtils
 
 
 
