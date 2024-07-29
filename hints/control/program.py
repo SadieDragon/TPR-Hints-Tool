@@ -24,10 +24,6 @@ class Program:
 
     # Functions that are required elsewhere. ----------------------------------
 
-    def set_to_notes_tab(self) -> None:
-        '''Change the tab to the notes tab.'''
-        pass
-
     def update_data_tabs(self,
                          tab_name: str,
                          tab_content: CTkTextbox | CTkFrame | None) -> None:
