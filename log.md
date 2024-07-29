@@ -233,4 +233,5 @@ Make that uniform.
         - remove the call for ``CreationUtils``
         - change the comment to just mention reset utils
         - change the one other use of creator to use the resetter
+- don't need to call the notebook twice
 - ...

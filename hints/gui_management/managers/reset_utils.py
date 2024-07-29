@@ -12,9 +12,8 @@ from hints.utils.title import return_title
 
 class ResetUtils(CreationUtils):
     '''A class for all of the reset utilities.'''
-    # The main frame stuff
-    notebook_frame = NotebookFrame  # The notebook frame
-    root = CTk                      # The root window
+    # The root window
+    root = CTk
 
     def __init__(self, notebook_frame: NotebookFrame, root: CTk) -> None:
         '''Store the notebook frame, and the root window.'''
