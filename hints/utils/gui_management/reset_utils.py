@@ -3,7 +3,7 @@
 
 from customtkinter import CTkFrame
 from hints.control.program import Program
-from hints.utils.constants import constants
+from hints.utils.constants import tab_names
 from hints.utils.gui_management.creation_utils import CreationUtils
 
 
@@ -53,7 +53,7 @@ class ResetUtils:
         self.program.change_title()
 
         # Reset the tracker
-        for tab_name in constants.data_tab_names:
+        for tab_name in tab_names.data_tab_names:
             self.reset_tab(tab_name)
 
         # Tab back if requested

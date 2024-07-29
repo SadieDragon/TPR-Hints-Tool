@@ -6,7 +6,7 @@ from customtkinter import CTkFrame, CTkTabview, CTkTextbox
 from hints.control.program import Program
 from hints.tabs.options_tab import OptionsTab
 from hints.tabs.spoiler_log import SpoilerLog
-from hints.utils.constants import constants
+from hints.utils.constants import tab_names
 from hints.utils.gui_management.reset_utils import ResetUtils
 
 
@@ -52,7 +52,7 @@ class HintNotebook(Program):
         self.update_data_tabs(tab_name, None)
 
         # Find the index
-        tab_index = constants.data_tab_names.index(tab_name)
+        tab_index = tab_names.data_tab_names.index(tab_name)
 
         # Create the tab, and return it
         return self.notebook.insert(tab_index, tab_name)
@@ -71,7 +71,7 @@ class HintNotebook(Program):
         '''Creates the tabs that have data in their default state.'''
         # Go through and create each tab with a blank notepad,
         # then store the notepad for later use.
-        for tab_name in constants.data_tab_names:
+        for tab_name in tab_names.data_tab_names:
             # Create the tab
             self.add_tab(tab_name)
 
@@ -96,7 +96,7 @@ class HintNotebook(Program):
 
     def set_to_notes_tab(self) -> None:
         '''Change the tab to the notes tab.'''
-        self.notebook.set(constants.notes_tab_name)
+        self.notebook.set(tab_names.notes_tab_name)
 
     def update_data_tabs(self,
                          tab_name: str,

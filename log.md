@@ -49,4 +49,7 @@ Make that uniform.
         - ``tab_name = 'Bugs'`` is now in ``constants/tab_names.py`` as ``agitha_tab_name``
         - The options tab and spoiler log tab names have now been defined in ``constants/tab_names.py``
         - ``data_tab_names`` is now in ``constants/tab_names.py`` under the same name
+- Remove ``constants.py`` and convert everything over to ``tab_names.py``
+    - Feel like I'm not going to be able to hold the global constants like I expected.
+        - I might be able to convert the "instances" constants into such in ``hint_notebook.py`` once I uncouple everything and can globally import it and only it.
 - 

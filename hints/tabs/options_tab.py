@@ -4,7 +4,7 @@
 
 from customtkinter import CTkButton, CTkFrame
 from hints.control.program import Program
-from hints.utils.constants import constants
+from hints.utils.constants import tab_names
 from hints.utils.gui_management.reset_utils import ResetUtils
 
 
@@ -23,7 +23,7 @@ class OptionsTab:
         self.resetter = program.resetter
 
         # Create the tab itself
-        options_tab = program.notebook.add(constants.options_tab_name)
+        options_tab = program.notebook.add(tab_names.options_tab_name)
 
         # And a sub frame for the buttons
         buttons_frame = CTkFrame(master=options_tab)
@@ -50,7 +50,7 @@ class OptionsTab:
             return
 
         # Go through the data tabs
-        for index, tab_name in [*enumerate(constants.data_tab_names)]:
+        for index, tab_name in [*enumerate(tab_names.data_tab_names)]:
             # Reset the notes tab
             if index == 0:
                 self.resetter.reset_tab(tab_name)

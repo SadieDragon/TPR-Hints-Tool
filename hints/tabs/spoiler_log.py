@@ -4,7 +4,7 @@
 
 from customtkinter import CTkButton, CTkComboBox, CTkFrame, CTkLabel, StringVar
 from hints.control.program import Program
-from hints.utils.constants import constants
+from hints.utils.constants import tab_names
 from hints.utils.parse_log import ParseLog
 from hints.utils.gui_management.reset_utils import ResetUtils
 from os import listdir
@@ -43,7 +43,7 @@ class SpoilerLog:
         self.spoiler_logs_folder = self.parser.spoiler_log_folder
 
         # Create the spoiler log tab
-        self.spoiler_tab = self.program.notebook.add(constants.spoiler_tab_name)
+        self.spoiler_tab = self.program.notebook.add(tab_names.spoiler_tab_name)
 
         # The main button that affects the frame -----------------------
         self.spoiler_log_button = CTkButton(command=self.present_logs,
