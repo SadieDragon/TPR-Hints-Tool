@@ -6,13 +6,10 @@
 # This will hopefully be better addressed in the future.
 
 from customtkinter import CTk, CTkFrame, CTkTabview, CTkTextbox
-from os import getcwd
-from pathlib import Path
 
 
 class Program:
     # Root information
-    root_dir = Path(getcwd())           # The root folder
     root = CTk                          # The root window
     notebook = CTkTabview               # The global variable of the notepad
 

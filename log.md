@@ -52,4 +52,7 @@ Make that uniform.
 - Remove ``constants.py`` and convert everything over to ``tab_names.py``
     - Feel like I'm not going to be able to hold the global constants like I expected.
         - I might be able to convert the "instances" constants into such in ``hint_notebook.py`` once I uncouple everything and can globally import it and only it.
+- Move the folder calls out to a constants file ``folders.py``
+    - There is no reason this should really be stuck in the program file.
+    - It is not very used right now, but when I get around to saving, it will hopefully be used a lot more.
 - 

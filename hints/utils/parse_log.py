@@ -3,6 +3,7 @@
 
 from hints.control.program import Program
 from hints.tabs.shopping.agitha_tab import AgithaTab
+from hints.utils.constants import folders
 from json import load
 from pathlib import Path
 from re import findall, sub
@@ -14,16 +15,12 @@ class ParseLog:
     program = Program
 
     # Spoiler log info
-    spoiler_log_folder = Path  # The spoiler log folder
     spoiler_log_file = str     # The provided spoiler log
 
     def __init__(self, program: Program) -> None:
         '''Set the global var here.'''
         # Set the local program var
         self.program = program
-
-        # Set the local var of the spoiler log folder
-        self.spoiler_log_folder = program.root_dir / 'SpoilerLog'
 
     def dump_and_fill(self, spoiler_log_file: str) -> None:
         '''Take the provided path, and dump the log then fill the tabs.'''
@@ -43,7 +40,7 @@ class ParseLog:
         self.spoiler_log_file = Path(self.spoiler_log_file).with_suffix('.json')
 
         # Make the path to the log
-        spoiler_log_path = (self.spoiler_log_folder / self.spoiler_log_file)
+        spoiler_log_path = (folders.spoiler_log_folder / self.spoiler_log_file)
 
         # Dump the spoiler log data
         # Ecconia provided the fix for reading the file, encoded in 'UTF-8'
