@@ -6,7 +6,6 @@ from customtkinter import CTkButton, CTkFrame
 from hints.control.program import Program
 from hints.utils.constants import tab_names
 
-from hints.gui_management.managers.creation_utils import CreationUtils
 from hints.gui_management.managers.deletion_utils import DeletionUtils
 from hints.gui_management.managers.reset_utils import ResetUtils
 from hints.gui_management.notebook_frame import NotebookFrame
@@ -16,7 +15,6 @@ class OptionsTab:
     '''Hosts all of the Option Tab setup.'''
     # Instances
     program = Program                   # The program instance
-    creator = CreationUtils             # The creator, set by the program
     deleter = DeletionUtils             # The deleter, set by the program
     resetter = ResetUtils               # The reseter, set by the program
     notebook_manager = NotebookFrame  # The notebook, set by the program
@@ -27,7 +25,6 @@ class OptionsTab:
         self.program = program
 
         # Grab the necessary instances from the program
-        self.creator = self.program.creator
         self.deleter = self.program.deleter
         self.resetter = self.program.resetter
         self.notebook_manager = self.program.notebook_manager
@@ -56,7 +53,7 @@ class OptionsTab:
     def race_mode(self) -> None:
         '''The command for race mode.'''
         # Get permission to reset the tracker
-        if not self.creator.show_warning():
+        if not self.resetter.show_warning():
             return
 
         # Go through the data tabs
@@ -74,7 +71,7 @@ class OptionsTab:
     def reset(self) -> None:
         '''A wrapper for the tracker reset.'''
         # Get permission to reset the tracker
-        if not self.creator.show_warning():
+        if not self.resetter.show_warning():
             return
 
         # Reset the tracker

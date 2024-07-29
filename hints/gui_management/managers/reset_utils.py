@@ -1,6 +1,7 @@
 
 # Holds all of the reset utilities for the tracker
 
+from CTkMessagebox import CTkMessagebox
 from customtkinter import CTkFrame
 from hints.control.program import Program
 from hints.utils.constants import tab_names
@@ -52,3 +53,18 @@ class ResetUtils:
         # Tab back if requested
         if tab_back:
             self.notebook_manager.set_to_notes_tab()
+
+    def show_warning(self) -> bool:
+        '''Create a warning to ask them are ya sure?'''
+        warning_box = CTkMessagebox(icon='warning',
+                                    option_1='Cancel',
+                                    option_2='Yes',
+                                    master=self.program.root,
+                                    message='This will reset everything.',
+                                    title='Are you sure?')
+
+        to_reset = False
+        if warning_box.get() == 'Yes':
+            to_reset = True
+
+        return to_reset

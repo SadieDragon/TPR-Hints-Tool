@@ -8,7 +8,6 @@ from hints.utils.constants import folders
 from hints.utils.constants import tab_names
 from hints.utils.parse_log import ParseLog
 
-from hints.gui_management.managers.creation_utils import CreationUtils
 from hints.gui_management.managers.reset_utils import ResetUtils
 from hints.gui_management.notebook_frame import NotebookFrame
 
@@ -22,7 +21,6 @@ class SpoilerLog:
     # Instances
     program = Program                   # The program instance
     parser = ParseLog                   # The parser instance
-    creator = CreationUtils             # The creator, set by the program
     resetter = ResetUtils               # The reseter, set by the program
     notebook_manager = NotebookFrame  # The notebook, set by the program
 
@@ -44,7 +42,6 @@ class SpoilerLog:
         self.parser = ParseLog(self.program)
 
         # Grab the necessary instances from the program
-        self.creator = self.program.creator
         self.resetter = self.program.resetter
         self.notebook_manager = self.program.notebook_manager
 
@@ -81,7 +78,7 @@ class SpoilerLog:
     def create_spoiler_dropdown(self, spoilers: list) -> None:
         '''Create a dropdwon with valid spoiler logs.'''
         # Get permission to reset the tracker
-        if not self.creator.show_warning():
+        if not self.resetter.show_warning():
             # Destroy the frame if denied, before returning
             self.destroy_frame()
             return

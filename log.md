@@ -181,4 +181,24 @@ Make that uniform.
     - Do the bulk move
     - Move the utils into ``hints/gui_management/managers``
 - Rename ``NotebookManager`` to ``NotebookFrame`` because it fits a bit better into its new role
+- Address the utility managers to try to figure out how to incorporate them with the new ``NotebookFrame`` changes: ``CreationUtils``
+    - I know that the rest of the app is broken right now, and I will get to it,
+    after I get the children settled.
+    - moved ``show_warning()`` to ``ResetUtils``, because it fits better there
+        - There was a lot of internal debate over this but yeah.
+        It's meant for resetting, and only used by resetting.
+        - update ``options_tab.py``
+            - lines 56 and 74
+            - remove the creator manager, no longer used
+        - update ``spoiler_log.py``
+            - line 81
+            - remove the creator manager, no longer used
+    - Make a local var for the notebook frame
+        - Remove the call to ``program.py`` *WOO*
+        - Update ``__init__`` accordingly
+        - update ``add_tab`` and ``create_notepad_tab`` to use the new var
+    - Update ``hint_notebook.py``
+        - Make a var for it in the top of the class before ``__init__``
+        - Move its creation up into ``__init__``
+        - Update its initialization
 - ...
