@@ -18,6 +18,5 @@ class Program:
 
     # The instances
     creator = None           # from hints.gui_management.creation_utils
-    deleter = None           # from hints.gui_management.deletion_utils
     resetter = None          # from hints.gui_management.reset_utils
     notebook_manager = None  # from hints.gui_management.window_management

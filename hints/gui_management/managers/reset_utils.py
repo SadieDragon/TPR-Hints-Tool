@@ -28,6 +28,17 @@ class ResetUtils:
         self.notebook_frame = notebook_frame
         self.root = root
 
+    def close_tab(self, tab_name: str) -> None:
+        '''Close a tab in the notebook.'''
+        try:
+            # Close the tab
+            self.notebook_frame.notebook.delete(tab_name)
+
+            # Remove the key, it no longer exists
+            del self.notebook_frame.data_tabs[tab_name]
+        except ValueError:
+            pass
+
     def reset_tab(self, tab_name: str, default: bool = True) -> CTkFrame:
         '''Reset the contents of the tab.'''
         # If the tab does not already exist, create it

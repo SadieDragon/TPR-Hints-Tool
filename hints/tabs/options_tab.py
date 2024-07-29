@@ -6,7 +6,6 @@ from customtkinter import CTkButton, CTkFrame
 from hints.control.program import Program
 from hints.utils.constants import tab_names
 
-from hints.gui_management.managers.deletion_utils import DeletionUtils
 from hints.gui_management.managers.reset_utils import ResetUtils
 from hints.gui_management.notebook_frame import NotebookFrame
 
@@ -15,7 +14,6 @@ class OptionsTab:
     '''Hosts all of the Option Tab setup.'''
     # Instances
     program = Program                   # The program instance
-    deleter = DeletionUtils             # The deleter, set by the program
     resetter = ResetUtils               # The reseter, set by the program
     notebook_manager = NotebookFrame  # The notebook, set by the program
 
@@ -25,7 +23,6 @@ class OptionsTab:
         self.program = program
 
         # Grab the necessary instances from the program
-        self.deleter = self.program.deleter
         self.resetter = self.program.resetter
         self.notebook_manager = self.program.notebook_manager
 
@@ -64,7 +61,7 @@ class OptionsTab:
                 continue
 
             # Close everything else
-            self.deleter.close_tab(tab_name)
+            self.resetter.close_tab(tab_name)
 
         self.notebook_manager.set_to_notes_tab()
 

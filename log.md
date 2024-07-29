@@ -222,4 +222,6 @@ Make that uniform.
         - Update its initialization
             - also feed it root and the creator utils.
         - Remove the function ``create_instances()``
+- move ``close_tab()`` to ``ResetUtils``
+    - It didn't need to be pulled out.
 - ...

@@ -8,7 +8,6 @@ from customtkinter import (CTkCheckBox,
                            IntVar)
 from hints.control.program import Program
 
-from hints.gui_management.managers.deletion_utils import DeletionUtils
 from hints.gui_management.managers.reset_utils import ResetUtils
 
 
@@ -17,7 +16,6 @@ class Shopping:
     # The instances
     program = Program        # The program instance
     resetter = ResetUtils    # The reset instance, set by the program
-    deleter = DeletionUtils  # The deleter instance, set by the program
 
     # The provided hint text
     hint_text = str
@@ -40,8 +38,7 @@ class Shopping:
         self.program = program
         self.hint_text = hint_text
 
-        # Grab the necessary instances from the program
-        self.deleter = self.program.deleter
+        # Grab the reset instance from the program
         self.resetter = self.program.resetter
 
     def auto_fill(self) -> None:
@@ -129,7 +126,7 @@ class Shopping:
 
     def no_rewards(self) -> None:
         '''The action for no rewards: Close the tab.'''
-        self.deleter.close_tab(self.tab_name)
+        self.resetter.close_tab(self.tab_name)
 
     def parse_rewards(self) -> bool:
         '''Autofills with the provided information.'''

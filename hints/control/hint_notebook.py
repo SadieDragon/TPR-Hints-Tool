@@ -13,8 +13,6 @@ from hints.gui_management.window_manager import create_window
 from hints.gui_management.notebook_frame import NotebookFrame
 
 from hints.gui_management.managers.creation_utils import CreationUtils
-from hints.gui_management.managers.deletion_utils import DeletionUtils
-
 from hints.gui_management.managers.reset_utils import ResetUtils
 
 
@@ -29,7 +27,6 @@ class HintNotebook(Program):
 
     # The management utilities
     creator = CreationUtils  # Manages the creation of widgets (and tabs)
-    deleter = DeletionUtils  # Manages the deletion of widgets (and tabs)
     resetter = ResetUtils    # Manages the reset functions
 
     def __init__(self) -> None:
@@ -42,7 +39,6 @@ class HintNotebook(Program):
 
         # Initialize the gui management instances --------------------------
         self.creator = CreationUtils(self.notebook)
-        self.deleter = DeletionUtils(self.notebook)
         self.resetter = ResetUtils(self.creator, self.notebook, self.root)
         # ------------------------------------------------------------------
 
