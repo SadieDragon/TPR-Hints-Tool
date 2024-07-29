@@ -288,4 +288,14 @@ Make that uniform.
     - still broken. why?
     - Argh. ``super().__init__(notebook_frame)`` fixed it
     - it's still grayed out even though the app CAN run. (oh neat it actually runs)
+- One good ole reboot later, let's tackle the shopping tab!
+    - update ``shopping.py``
+        - out with the ``program`` call! *woo!*
+        - give it the resetter and notebook
+    - update ``agitha_tab.py``
+        - out with the ``program`` call! *WOO!*
+        - give it the resetter and notebook
+    - remove ``program.py`` ***WOO***!
+    - update ``parse_log.py`` and ``spoiler_log.py`` to be able to pass the shopping tab their resetter
+        - pretty hacky but eh. I don't care anymore.
 - ...

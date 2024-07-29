@@ -157,7 +157,7 @@ class SpoilerLog:
         self.destroy_frame()
 
         # Dump and fill the tabs
-        self.parser.dump_and_fill(spoiler_log)
+        self.parser.dump_and_fill(spoiler_log, self.resetter)
 
     def present_logs(self) -> None:
         '''Presents a list of the spoiler logs available.'''

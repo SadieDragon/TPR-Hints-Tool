@@ -6,16 +6,16 @@ from customtkinter import (CTkCheckBox,
                            CTkLabel,
                            CTkScrollableFrame,
                            IntVar)
-from hints.control.program import Program
 
-from hints.gui_management.managers.reset_utils import ResetUtils
+from hints.gui_management.managers import ResetUtils
+from hints.gui_management.notebook_frame import NotebookFrame
 
 
 class Shopping:
     '''The parent class for all of the shopping list tabs.'''
     # The instances
-    program = Program        # The program instance
-    resetter = ResetUtils    # The reset instance, set by the program
+    resetter = ResetUtils           # The resetter instance (passed in)
+    notebook_frame = NotebookFrame  # The notebook instance (passed in)
 
     # The provided hint text
     hint_text = str
@@ -24,22 +24,23 @@ class Shopping:
     tab_name = str
 
     # The label that displays the status
-    default_text = str       # The default text for the label
-    status_label = CTkLabel  # The label itself
+    default_text = str              # The default text for the label
+    status_label = CTkLabel         # The label itself
 
     # The rewards list
-    rewards = list()         # The rewards themselves
-    checkboxes = list()      # Holds the checkboxes
-    checkbox_vars = list()   # Holds the IntVars
+    rewards = list()                # The rewards themselves
+    checkboxes = list()             # Holds the checkboxes
+    checkbox_vars = list()          # Holds the IntVars
 
-    def __init__(self, program: Program, hint_text: str) -> None:
+    def __init__(self,
+                 hint_text:str,
+                 notebook_frame: NotebookFrame,
+                 resetter: ResetUtils) -> None:
         '''Initialize the variables provided.'''
         # Store the provided information
-        self.program = program
+        self.resetter = resetter
+        self.notebook_frame = notebook_frame
         self.hint_text = hint_text
-
-        # Grab the reset instance from the program
-        self.resetter = self.program.resetter
 
     def auto_fill(self) -> None:
         '''Populate the tab with the provided info.'''
@@ -75,7 +76,7 @@ class Shopping:
         # Reset, but don't reset to default
         tab = self.resetter.reset_tab(self.tab_name, False)
 
-        # Host frame --------------------------------------------
+        # Host frame ---------------------------------------------
         # Create the frame to pass to dict
         tab_frame = CTkFrame(master=tab)
         tab_frame.pack(anchor='w',
@@ -85,8 +86,8 @@ class Shopping:
                        pady=5)
 
         # Pass it to the dict
-        self.program.data_tabs[self.tab_name] = tab_frame
-        # -------------------------------------------------------
+        self.notebook_frame.data_tabs[self.tab_name] = tab_frame
+        # --------------------------------------------------------
 
         # Create the status label ----------------------------
         self.status_label = CTkLabel(master=tab_frame,

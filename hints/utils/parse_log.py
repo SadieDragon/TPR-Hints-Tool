@@ -1,7 +1,9 @@
 
 # The complex utility functions for the spoiler log parsing
 
+from hints.gui_management.managers import ResetUtils
 from hints.gui_management.notebook_frame import NotebookFrame
+
 from hints.tabs.shopping.agitha_tab import AgithaTab
 from hints.utils.constants import folders
 from json import load
@@ -21,7 +23,9 @@ class ParseLog:
         '''Set the notebook instance.'''
         self.notebook_frame = notebook_frame
 
-    def dump_and_fill(self, spoiler_log_file: str) -> None:
+    def dump_and_fill(self,
+                      spoiler_log_file: str,
+                      resetter: ResetUtils) -> None:
         '''Take the provided path, and dump the log then fill the tabs.'''
         # Set the local var of the log
         self.spoiler_log_file = Path(spoiler_log_file)
@@ -31,7 +35,7 @@ class ParseLog:
         self.notebook_frame.update_title(seed_name)
 
         # Parse the provided data
-        self.parse_spoiler_log()
+        self.parse_spoiler_log(resetter)
 
     def dump_log(self) -> dict:
         '''Take the provided file name, and dump the log.'''
@@ -46,7 +50,7 @@ class ParseLog:
         with open(spoiler_log_path, 'r', encoding='utf-8') as f:
             return load(f)
 
-    def parse_spoiler_log(self) -> None:
+    def parse_spoiler_log(self, resetter: ResetUtils) -> None:
         '''Parse the spoiler log data.'''
         # NOTE: This does require some arbitrary knowledge of the
         # spoiler log's structure. Sorry in advance.
@@ -72,4 +76,4 @@ class ParseLog:
                 # Special handling for Agitha
                 if sign == 'Agithas_Castle_Sign':
                     # Go to her parsing
-                    AgithaTab(self.notebook_frame, hint_text)
+                    AgithaTab(hint_text, self.notebook_frame, resetter)
