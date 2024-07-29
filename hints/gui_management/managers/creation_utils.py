@@ -26,7 +26,6 @@ class CreationUtils:
         # Create the tab, and return it
         return self.notebook_frame.notebook.insert(tab_index, tab_name)
 
-
     def add_tab(self, tab_name: str) -> None | CTkFrame:
         '''Create a tab in the notebook.'''
         # If it already exists, don't bother
