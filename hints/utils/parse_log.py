@@ -6,7 +6,7 @@ from hints.tabs.shopping.agitha_tab import AgithaTab
 from hints.utils.constants import folders
 from hints.utils.title import return_title
 
-from hints.gui_management.notebook_manager import NotebookManager
+from hints.gui_management.notebook_frame import NotebookFrame
 
 from json import load
 from pathlib import Path
@@ -17,7 +17,7 @@ class ParseLog:
     '''It just, parses the spoiler log data.'''
     # The instances
     program = Program                   # The program instance
-    notebook_manager = NotebookManager  # The notebook, set by the program
+    notebook_manager = NotebookFrame  # The notebook, set by the program
 
     # Spoiler log info
     spoiler_log_file = str     # The provided spoiler log

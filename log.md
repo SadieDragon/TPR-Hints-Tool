@@ -180,4 +180,5 @@ Make that uniform.
 - Move ``gui_management`` into the root folder (told you you'd see why)
     - Do the bulk move
     - Move the utils into ``hints/gui_management/managers``
+- Rename ``NotebookManager`` to ``NotebookFrame`` because it fits a bit better into its new role
 - ...

@@ -7,15 +7,15 @@ from hints.utils.constants import tab_names
 from hints.utils.title import return_title
 
 from hints.gui_management.managers.creation_utils import CreationUtils
-from hints.gui_management.notebook_manager import NotebookManager
+from hints.gui_management.notebook_frame import NotebookFrame
 
 
 class ResetUtils:
     '''A class for all of the reset utilities.'''
     # Instances
-    program = Program                    # The program instance
-    creator = CreationUtils              # The creation utilities instance
-    notebook_manager = NotebookManager   # The notebook manager
+    program = Program                 # The program instance
+    creator = CreationUtils           # The creation utilities instance
+    notebook_manager = NotebookFrame  # The notebook manager
 
     def __init__(self, program: Program) -> None:
         '''Update the instances.'''

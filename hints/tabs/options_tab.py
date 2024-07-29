@@ -9,7 +9,7 @@ from hints.utils.constants import tab_names
 from hints.gui_management.managers.creation_utils import CreationUtils
 from hints.gui_management.managers.deletion_utils import DeletionUtils
 from hints.gui_management.managers.reset_utils import ResetUtils
-from hints.gui_management.notebook_manager import NotebookManager
+from hints.gui_management.notebook_frame import NotebookFrame
 
 
 class OptionsTab:
@@ -19,7 +19,7 @@ class OptionsTab:
     creator = CreationUtils             # The creator, set by the program
     deleter = DeletionUtils             # The deleter, set by the program
     resetter = ResetUtils               # The reseter, set by the program
-    notebook_manager = NotebookManager  # The notebook, set by the program
+    notebook_manager = NotebookFrame  # The notebook, set by the program
 
     def __init__(self, program: Program) -> None:
         '''Create the tab with the options, flexibly.'''

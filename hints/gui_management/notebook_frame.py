@@ -5,7 +5,7 @@ from customtkinter import CTk, CTkTabview
 from hints.utils.constants import tab_names
 
 
-class NotebookManager:
+class NotebookFrame:
     '''A class for managing the CTkTabview,
        which is the heart of this program.'''
     # The data tabs, and their contents

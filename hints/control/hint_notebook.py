@@ -10,7 +10,7 @@ from hints.tabs.options_tab import OptionsTab
 from hints.tabs.spoiler_log import SpoilerLog
 
 from hints.gui_management.window_manager import create_window
-from hints.gui_management.notebook_manager import NotebookManager
+from hints.gui_management.notebook_frame import NotebookFrame
 
 from hints.gui_management.managers.creation_utils import CreationUtils
 from hints.gui_management.managers.deletion_utils import DeletionUtils
@@ -24,7 +24,7 @@ class HintNotebook(Program):
     root = CTk
 
     # The notebook that is the heart of this program
-    notebook = NotebookManager
+    notebook = NotebookFrame
 
     def __init__(self) -> None:
         '''Initialize the program window.'''
@@ -32,7 +32,7 @@ class HintNotebook(Program):
         self.root = create_window()
 
         # Create the main notebook
-        self.notebook = NotebookManager(self.root)
+        self.notebook = NotebookFrame(self.root)
 
         # Initialize the gui management instances
         self.create_instances()

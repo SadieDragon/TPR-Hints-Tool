@@ -10,7 +10,7 @@ from hints.utils.parse_log import ParseLog
 
 from hints.gui_management.managers.creation_utils import CreationUtils
 from hints.gui_management.managers.reset_utils import ResetUtils
-from hints.gui_management.notebook_manager import NotebookManager
+from hints.gui_management.notebook_frame import NotebookFrame
 
 from os import listdir
 from pathlib import Path
@@ -24,7 +24,7 @@ class SpoilerLog:
     parser = ParseLog                   # The parser instance
     creator = CreationUtils             # The creator, set by the program
     resetter = ResetUtils               # The reseter, set by the program
-    notebook_manager = NotebookManager  # The notebook, set by the program
+    notebook_manager = NotebookFrame  # The notebook, set by the program
 
     # The spoiler log folder
     spoiler_logs_folder = Path
