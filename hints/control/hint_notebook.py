@@ -2,7 +2,7 @@
 # Hosts the main window creation, running,
 # and also some basic utitlies acting upon it.
 
-from customtkinter import CTk, CTkTabview
+from customtkinter import CTk
 
 from hints.control.program import Program
 
@@ -12,9 +12,7 @@ from hints.tabs.spoiler_log import SpoilerLog
 from hints.gui_management.window_manager import create_window
 from hints.gui_management.notebook_frame import NotebookFrame
 
-from hints.gui_management.managers.creation_utils import CreationUtils
-from hints.gui_management.managers.reset_utils import ResetUtils
-
+from hints.gui_management.managers import ResetUtils
 
 
 class HintNotebook(Program):
@@ -25,8 +23,7 @@ class HintNotebook(Program):
     # The notebook that is the heart of this program
     notebook = NotebookFrame
 
-    # The management utilities
-    creator = CreationUtils  # Manages the creation of widgets (and tabs)
+    # The reset utilities
     resetter = ResetUtils    # Manages the reset functions
 
     def __init__(self) -> None:
@@ -37,13 +34,11 @@ class HintNotebook(Program):
         # Create the main notebook
         self.notebook = NotebookFrame(self.root)
 
-        # Initialize the gui management instances --------------------------
-        self.creator = CreationUtils(self.notebook)
-        self.resetter = ResetUtils(self.creator, self.notebook, self.root)
-        # ------------------------------------------------------------------
+        # Initialize the reset utilities
+        self.resetter = ResetUtils(self.notebook, self.root)
 
         # Create the data tabs
-        self.creator.create_data_tabs()
+        self.resetter.create_data_tabs()
 
         # Options Tab
         OptionsTab(self)

@@ -224,4 +224,13 @@ Make that uniform.
         - Remove the function ``create_instances()``
 - move ``close_tab()`` to ``ResetUtils``
     - It didn't need to be pulled out.
+- Make ResetUtils inherit CreationUtils
+    - Yeah so, never really used outside of reset_utils?
+    - Create the ``__init__.py`` file for that package
+        - I think i'm combining things further in the next step
+    - Make the call to CreationUtils relative (futureproof)
+    - update ``hint_notebook.py``
+        - remove the call for ``CreationUtils``
+        - change the comment to just mention reset utils
+        - change the one other use of creator to use the resetter
 - ...

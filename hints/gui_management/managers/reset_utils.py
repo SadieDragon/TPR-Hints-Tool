@@ -1,31 +1,25 @@
 
 # Holds all of the reset utilities for the tracker
 
+from .creation_utils import CreationUtils
+
 from CTkMessagebox import CTkMessagebox
 from customtkinter import CTk, CTkFrame
+from hints.gui_management.notebook_frame import NotebookFrame
 from hints.utils.constants import tab_names
 from hints.utils.title import return_title
 
-from hints.gui_management.managers.creation_utils import CreationUtils
-from hints.gui_management.notebook_frame import NotebookFrame
 
-
-class ResetUtils:
+class ResetUtils(CreationUtils):
     '''A class for all of the reset utilities.'''
-    # Instances
-    creator = CreationUtils         # The creation utilities instance
-    notebook_frame = NotebookFrame  # The notebook manager
+    # The main frame stuff
+    notebook_frame = NotebookFrame  # The notebook frame
+    root = CTk                      # The root window
 
-    # The root window
-    root = CTk
+    def __init__(self, notebook_frame: NotebookFrame, root: CTk) -> None:
+        '''Store the notebook frame, and the root window.'''
+        super.__init__(self, notebook_frame)
 
-    def __init__(self,
-                 creator: CreationUtils,
-                 notebook_frame: NotebookFrame,
-                 root: CTk) -> None:
-        '''Store the provided information.'''
-        self.creation = creator
-        self.notebook_frame = notebook_frame
         self.root = root
 
     def close_tab(self, tab_name: str) -> None:
@@ -43,7 +37,7 @@ class ResetUtils:
         '''Reset the contents of the tab.'''
         # If the tab does not already exist, create it
         if not tab_name in self.notebook_frame.data_tabs.keys():
-            self.creator.add_tab(tab_name)
+            self.add_tab(tab_name)
 
         # Destroy the frame contents
         if self.notebook_frame.data_tabs[tab_name] is not None:
@@ -51,7 +45,7 @@ class ResetUtils:
 
         # If requested, place a blank notepad in the tab
         if default:
-            self.creator.create_notepad_tab(tab_name)
+            self.create_notepad_tab(tab_name)
 
         # Return the tab
         return self.notebook_frame.notebook.tab(tab_name)
