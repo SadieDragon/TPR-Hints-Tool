@@ -282,4 +282,10 @@ Make that uniform.
         - update line 46 with the recently added ``add_tab()``
         - update all ``notebook_manager`` remainders to ``notebook_frame`` (lines moved)
         - further cleanup will be done later.
+- fix ``tab_creator.py`` - it is greyed out, which means it cannot run
+    - try to run the app, and get the error that resetter.. is having a super init issue
+    - I was calling ``self`` in the super.init
+    - still broken. why?
+    - Argh. ``super().__init__(notebook_frame)`` fixed it
+    - it's still grayed out even though the app CAN run. (oh neat it actually runs)
 - ...

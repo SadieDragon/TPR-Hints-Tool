@@ -16,7 +16,7 @@ class ResetUtils(CreationUtils):
 
     def __init__(self, notebook_frame: NotebookFrame, root: CTk) -> None:
         '''Store the notebook frame, and the root window.'''
-        super.__init__(self, notebook_frame)
+        super().__init__(notebook_frame)
 
         self.root = root
 
