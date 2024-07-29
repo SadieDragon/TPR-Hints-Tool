@@ -1,6 +1,6 @@
 
 from customtkinter import CTk
-from hints.utils.title import return_title
+from hints.utils.return_title import return_title
 
 
 def create_window() -> CTk:

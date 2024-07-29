@@ -284,6 +284,6 @@ If you see a blank line between bullets on any given day, it means that I rolled
     - update ``parse_log.py`` and ``spoiler_log.py`` to be able to pass the shopping tab their resetter
         - pretty hacky but eh. I don't care anymore.
 
-- I get to bug squish later :D
+- Rename ``title.py`` to ``return_title.py``
 
 - ...

@@ -3,7 +3,7 @@
 
 from customtkinter import CTk, CTkTabview
 from hints.utils.constants import tab_names
-from hints.utils.title import return_title
+from hints.utils.return_title import return_title
 
 
 class NotebookFrame:
