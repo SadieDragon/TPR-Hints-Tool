@@ -58,10 +58,7 @@ class HintNotebook(Program):
             self.creator.add_tab(tab_name)
 
             # Create the notepad that goes in it
-            notepad = self.creator.create_notepad_tab(tab_name)
-
-            # Store the notepad under the tab name
-            self.update_data_tabs(tab_name, notepad)
+            self.creator.create_notepad_tab(tab_name)
 
     def create_instances(self) -> None:
         '''Creates the gui management instances.'''
@@ -69,9 +66,3 @@ class HintNotebook(Program):
         self.deleter = DeletionUtils(self)
         self.resetter = ResetUtils(self)
         self.window_manager = WindowManagement(self)
-
-    def update_data_tabs(self,
-                         tab_name: str,
-                         tab_content: CTkTextbox | CTkFrame | None) -> None:
-        '''Update the storage of data tab info'''
-        self.data_tabs[tab_name] = tab_content

@@ -88,7 +88,7 @@ class Shopping:
                        pady=5)
 
         # Pass it to the dict
-        self.program.update_data_tabs(self.tab_name, tab_frame)
+        self.program.data_tabs[self.tab_name] = tab_frame
         # -------------------------------------------------------
 
         # Create the status label ----------------------------

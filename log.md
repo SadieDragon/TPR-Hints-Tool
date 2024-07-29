@@ -126,4 +126,12 @@ Make that uniform.
         - ``set_to_notes_tab`` in line 163 is from ``window_manager``
     - Update ``reset_utils.py``
         - ``set_to_notes_tab`` in line 53 is from ``window_manager``
+- The function ``update_data_tabs`` doesn't really need to be a function.
+    - It is simply updating ``data_tabs``, the dict that holds the data tabs and their contents.
+    - "Replace the function call" will mean turning ``udpate_data_tabs(tab_name, [content])`` to ``data_tabs[tab_name] = content``
+    - Replace the function call in line 91 of ``shopping.py``
+    - Realize that it was used both times ``create_notepad_tab`` was called, and moved the call into that function
+    - Replace the function call in lines 29 and 48 of ``creation_utils.py``
+    - Remove the function call from ``reset_utils.py``
+    - Remvoe the function call from ``hint_notebook.py``
 - ...

@@ -34,7 +34,6 @@ class ResetUtils:
         # If requested, place a blank notepad in the tab
         if default:
             new_contents = self.creator.create_notepad_tab(tab_name)
-            self.program.update_data_tabs(tab_name, new_contents)
 
         # Return the tab
         return self.program.notebook.tab(tab_name)

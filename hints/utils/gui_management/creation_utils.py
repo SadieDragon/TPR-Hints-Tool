@@ -26,7 +26,7 @@ class CreationUtils:
             return
 
         # Update the data tabs dict
-        self.program.update_data_tabs(tab_name, None)
+        self.program.data_tabs[tab_name] = None
 
         # Find the index
         tab_index = tab_names.data_tab_names.index(tab_name)
@@ -43,6 +43,9 @@ class CreationUtils:
         notepad = CTkTextbox(corner_radius=0, master=tab)
         notepad.pack(padx=5, pady=5, expand=True, fill='both')
         # ------------------------------------------------------
+
+        # Store the notepad under the tab name
+        self.program.data_tabs[tab_name] = notepad
 
         # Return the notepad
         return notepad
