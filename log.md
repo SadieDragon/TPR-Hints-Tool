@@ -14,12 +14,10 @@ Please note that I will reset this between releases, to keep it organized.
 It's either that, or super long lines.
 Make that uniform.
     - When I do, make sure to go back through and update every python file reference to have the full path.
-- Uncouple as much as I can from ``hints_notebook.py`` to reduce circular imports and dependencies.
-- ``self.spoiler_tab``'s defintion line in ``spoiler_log.py`` is 81 characters long due to var names.
-    - this might get patched by the removal of program
 - Give these files a better name
     - ``title.py``
 - update all ``x = Class`` to ``x: Class`` (thanks @Ecconia for pointing this out)
+- bug squish time!
 
 # Log
 
