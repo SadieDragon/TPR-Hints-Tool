@@ -1,23 +1,23 @@
 
 # This is a log file for the things that I have done.
 
-It is written for my memory purposes when writing changelogs.  
-It is provided for clarity when I ask for help.
+It is written for my memory purposes when writing changelogs. It is provided for clarity when I ask for help.
 
 Please note that I will reset this between releases, to keep it organized.
+
+If you see a blank line between bullets on any given day, it means that I rolled over to the next day, and went to sleep somewhere in the region.
 
 # To-Do
 
 **Tasks which I recognize I need to do- I will forget to add things here, and I am sorry in advance.**
 
-- I have a lot of random newlines in the markdowns.
-It's either that, or super long lines.
-Make that uniform.
+- I have a lot of random newlines in the markdowns. It's either that, or super long lines. Make that uniform.
     - When I do, make sure to go back through and update every python file reference to have the full path.
 - Give these files a better name
     - ``title.py``
 - update all ``x = Class`` to ``x: Class`` (thanks @Ecconia for pointing this out)
 - bug squish time!
+- prettify the code
 
 # Log
 
@@ -28,22 +28,15 @@ Make that uniform.
 - Created the folder ``hints/utils/gui_management`` to handle all of the utility functions in relation to handling gui elements.
     - moved ``reset_utils.py`` into the folder (and all of the import renames), meant to host only resetting functions
     - created ``creation_utils.py``, meant to host only creation functions.
-        - All of its functions are wrapped within ``reset_utils.py``,
-        until I get to my idea for fixing the circular dependency issue.
-        This also means it's not as abstract as I intend, as it will be a folder,
-        but I just need to get the prototype going.
+        - All of its functions are wrapped within ``reset_utils.py``, until I get to my idea for fixing the circular dependency issue. This also means it's not as abstract as I intend, as it will be a folder, but I just need to get the prototype going.
         - Moved ``show_warning`` from ``reset_utils.py`` here.
         - Added the function ``create_window`` for creating ``program.root``.
-            - this will be part of a different file.
-            I want to abstract out the window management to make customization in the future easer.
+            - this will be part of a different file. I want to abstract out the window management to make customization in the future easer.
         - More things will be uncoupled from ``hints_notebook.py`` after the circular dependency is addressed.
 - Create the folder ``utils/constants``- and save the minor work done separately this time! :D
-    - I had to revert this change,
-    because ``program.py`` remains a thorn in my side.
-    Tackling it like that will not yet work. Woops.
+    - I had to revert this change, because ``program.py`` remains a thorn in my side. Tackling it like that will not yet work. Woops.
     - This is a prototype and is very likely written poorly.
-    - This is only the start of the uncoupling process,
-    as I need to take baby bites to prevent straight up bricking the app again.
+    - This is only the start of the uncoupling process, as I need to take baby bites to prevent straight up bricking the app again.
     - I also added a to-do list to this file for things that aren't in my notes file.
     - This was also suggested by @Ecconia when reviewing the work done on the previous hotfix, due to a couple vars I repeatedly set.
     - The file ``constants.py`` is a control file, creating the constants that have dependencies to avoid future dependency circles (i.e. the reason ``program.py`` exists.)
@@ -59,9 +52,7 @@ Make that uniform.
     - There is no reason this should really be stuck in the program file.
     - It is not very used right now, but when I get around to saving, it will hopefully be used a lot more.
 - Start pulling functions out of the program to try to weasel out of the need for it, or at least start untangling things from its web.
-    - Remember, ``reset_utils.py`` is acting like a wrapper for now,
-    and ``creation_utils.py`` is a condensed version of the folder it will become,
-    until I figure out how to set those up without the use of passing the utils around.
+    - Remember, ``reset_utils.py`` is acting like a wrapper for now, and ``creation_utils.py`` is a condensed version of the folder it will become, until I figure out how to set those up without the use of passing the utils around.
     - There was a minor formatting fix in ``hints/tabs/shopping/shopping.py`` where a ``.pack()`` call was not properly aligned
     - moved ``add_tab()`` to ``creation_utils.py``
     - Created ``window_management.py``
@@ -71,8 +62,7 @@ Make that uniform.
     - realize that ResetUtils is now a circular dependency child, and push this commit so I can unbreak things in the next
         - I rushed at the end to fix the last two calls. woops.
 - Set up the ``gui_management`` folder, properly this time.
-    - I wanted to use ``__init__.py`` to save some hassle,
-    but it was a struggle to understand how to set it up.
+    - I wanted to use ``__init__.py`` to save some hassle, but it was a struggle to understand how to set it up.
         - I will address this later.
     - Please note that this commit is a broken code commit.
     - Create a wrapper function in ``hints_notebook.py`` to create the 3 instances
@@ -179,8 +169,7 @@ Make that uniform.
     - Move the utils into ``hints/gui_management/managers``
 - Rename ``NotebookManager`` to ``NotebookFrame`` because it fits a bit better into its new role
 - Address the utility managers to try to figure out how to incorporate them with the new ``NotebookFrame`` changes: ``CreationUtils``
-    - I know that the rest of the app is broken right now, and I will get to it,
-    after I get the children settled.
+    - I know that the rest of the app is broken right now, and I will get to it, after I get the children settled.
     - moved ``show_warning()`` to ``ResetUtils``, because it fits better there
         - There was a lot of internal debate over this but yeah.
         It's meant for resetting, and only used by resetting.
@@ -267,9 +256,7 @@ Make that uniform.
         - give it the notebook
         - update line 34 to use the new ``update_title()``
         - realize that line 42 was 81 chars long, and split the setup in half
-        - Change that so that the local var is ``Path`` type,
-        then when setting the local var in ``dump_and_fill()``,
-        convert the ``str`` into a ``Path``
+        - Change that so that the local var is ``Path`` type, then when setting the local var in ``dump_and_fill()``, convert the ``str`` into a ``Path``
             - this is fine despite me using said file name afterwards because I call the input not the local var
         - Prematurely update line 78 to pass the notebook frame instead.
     - update ``spoiler_log.py``
@@ -296,4 +283,7 @@ Make that uniform.
     - remove ``program.py`` ***WOO***!
     - update ``parse_log.py`` and ``spoiler_log.py`` to be able to pass the shopping tab their resetter
         - pretty hacky but eh. I don't care anymore.
+
+- I get to bug squish later :D
+
 - ...

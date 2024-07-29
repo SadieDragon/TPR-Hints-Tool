@@ -1,0 +1,26 @@
+
+Hi. If you see this and heard I was taking a week off...
+
+My brain had a one-day blip of WOO ROCKET FUEL I HAVE TONS OF IDEAS I MUST CODE
+Given that's been p. rare recently... I took advantage of the steam
+
+This branch isn't even fully working right now. I ran out of steam at the end.
+
+"Hotfix 0.2b???"
+I name any not-inherently-next-patch releases a hotfix for one thing
+for another, i really do not want yet another "It's just a massive refactor" patch
+it might become 0.3
+but I really, really, really, wanna get saving working.
+
+Ecconia called out the code was a bit too cagey, not his words but the gist i got from the feedback
+and i agree on lookback
+I don't think this really fixed it
+i hope it made it better
+
+fun fact..
+you can see me runnin out of steam if you look through the commits
+
+ok
+good night
+idk when i'll be back to work on this
+by the end of next week for sure
