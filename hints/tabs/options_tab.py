@@ -2,32 +2,21 @@
 # A class hosting all of the basic options,
 # for more flexible and future-proof code
 
-from customtkinter import CTkButton, CTkFrame
-from hints.control.program import Program
+from customtkinter import CTk, CTkButton, CTkFrame
+from hints.gui_management.managers import ResetUtils
+from hints.gui_management.notebook_frame import NotebookFrame
 from hints.utils.constants import tab_names
 
-from hints.gui_management.managers.reset_utils import ResetUtils
-from hints.gui_management.notebook_frame import NotebookFrame
 
-
-class OptionsTab:
+class OptionsTab(ResetUtils):
     '''Hosts all of the Option Tab setup.'''
-    # Instances
-    program = Program                   # The program instance
-    resetter = ResetUtils               # The reseter, set by the program
-    notebook_manager = NotebookFrame  # The notebook, set by the program
-
-    def __init__(self, program: Program) -> None:
+    def __init__(self, notebook_frame: NotebookFrame, root: CTk) -> None:
         '''Create the tab with the options, flexibly.'''
-        # Set the program locally
-        self.program = program
-
-        # Grab the necessary instances from the program
-        self.resetter = self.program.resetter
-        self.notebook_manager = self.program.notebook_manager
+        # Initialize the resetter
+        super().__init__(notebook_frame, root)
 
         # Create the tab itself
-        options_tab = program.notebook.add(tab_names.options_tab_name)
+        options_tab = self.add_tab(tab_names.options_tab_name)
 
         # And a sub frame for the buttons
         buttons_frame = CTkFrame(master=options_tab)
@@ -50,26 +39,26 @@ class OptionsTab:
     def race_mode(self) -> None:
         '''The command for race mode.'''
         # Get permission to reset the tracker
-        if not self.resetter.show_warning():
+        if not self.show_warning():
             return
 
         # Go through the data tabs
         for index, tab_name in [*enumerate(tab_names.data_tab_names)]:
             # Reset the notes tab
             if index == 0:
-                self.resetter.reset_tab(tab_name)
+                self.reset_tab(tab_name)
                 continue
 
             # Close everything else
-            self.resetter.close_tab(tab_name)
+            self.close_tab(tab_name)
 
-        self.notebook_manager.set_to_notes_tab()
+        self.notebook_frame.set_to_notes_tab()
 
     def reset(self) -> None:
         '''A wrapper for the tracker reset.'''
         # Get permission to reset the tracker
-        if not self.resetter.show_warning():
+        if not self.show_warning():
             return
 
         # Reset the tracker
-        self.resetter.reset_tracker()
+        self.reset_tracker()

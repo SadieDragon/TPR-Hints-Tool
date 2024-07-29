@@ -15,11 +15,10 @@ It's either that, or super long lines.
 Make that uniform.
     - When I do, make sure to go back through and update every python file reference to have the full path.
 - Uncouple as much as I can from ``hints_notebook.py`` to reduce circular imports and dependencies.
-    - Flesh out the constants system
-- Try ``__init__.py`` again.
 - ``self.spoiler_tab``'s defintion line in ``spoiler_log.py`` is 81 characters long due to var names.
     - this might get patched by the removal of program
-- Give ``title.py`` a better name (I was struggling)
+- Give these files a better name
+    - ``title.py``
 - update all ``x = Class`` to ``x: Class`` (thanks @Ecconia for pointing this out)
 
 # Log
@@ -234,4 +233,19 @@ Make that uniform.
         - change the comment to just mention reset utils
         - change the one other use of creator to use the resetter
 - don't need to call the notebook twice
+
+**July 29, 2024**
+
+- Create ``tab_parent.py`` to try to boil down the repeated notebook and reset calls into an inheritable class
+    - start writing psuedocode explaining what's used
+    - realize there's a lot of similar function calls.
+        - ``options_tab.py`` calls all reset functions.
+        - ``shopping.py`` closes and resets the tracker
+        - ``spoiler_log.py`` resets the tracker and calls show warning
+    - Make options_tab.py just inherit ``Reset_Utils``
+        - remove the call to ``program.py`` *WOO*
+        - update all ``program.resetter`` stuffs to just be ``self``
+        - update all calls to the notebook to just use ``ResetUtils``'s ``CreationUtils``'s notebook_frame
+            - Decide to rewrite ``add_tab`` into a more generic ``add_tab`` and more focused ``add_data_tab``
+
 - ...

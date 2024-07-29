@@ -15,13 +15,9 @@ class CreationUtils:
         '''Set the notebook instance.'''
         self.notebook_frame = notebook_frame
 
-    def add_tab(self, tab_name: str) -> None | CTkFrame:
-        '''Create a tab in the notebook.'''
-        # If it already exists, don't bother
-        if tab_name in self.notebook_frame.data_tabs.keys():
-            return
-
-        # Update the data tabs dict
+    def add_data_tab(self, tab_name: str) -> None | CTkFrame:
+        '''Create specifically a data tab in the notebook.'''
+        # Update the data tabs dict to have a blank tab under this name
         self.notebook_frame.data_tabs[tab_name] = None
 
         # Find the index
@@ -29,6 +25,20 @@ class CreationUtils:
 
         # Create the tab, and return it
         return self.notebook_frame.notebook.insert(tab_index, tab_name)
+
+
+    def add_tab(self, tab_name: str) -> None | CTkFrame:
+        '''Create a tab in the notebook.'''
+        # If it already exists, don't bother
+        if tab_name in self.notebook_frame.data_tabs.keys():
+            return
+
+        # If the tab name is in the data tabs list, then create a data tab
+        if tab_name in tab_names.data_tab_names:
+            return self.add_data_tab(tab_name)
+
+        # Otherwise, just, add the tab
+        return self.notebook_frame.notebook.add(tab_name)
 
     def create_data_tabs(self) -> None:
         '''Creates the tabs that have data in their default state.'''
