@@ -7,7 +7,6 @@ from CTkMessagebox import CTkMessagebox
 from customtkinter import CTk, CTkFrame
 from hints.gui_management.notebook_frame import NotebookFrame
 from hints.utils.constants import tab_names
-from hints.utils.title import return_title
 
 
 class ResetUtils(CreationUtils):
@@ -52,7 +51,7 @@ class ResetUtils(CreationUtils):
     def reset_tracker(self, tab_back: bool = True) -> None:
         '''Completely reset the tracker.'''
         # Revert the title to default
-        self.root.title(return_title())
+        self.notebook_frame.update_title()
 
         # Reset the tracker
         for tab_name in tab_names.data_tab_names:

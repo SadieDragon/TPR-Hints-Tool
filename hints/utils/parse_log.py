@@ -1,13 +1,9 @@
 
 # The complex utility functions for the spoiler log parsing
 
-from hints.control.program import Program
+from hints.gui_management.notebook_frame import NotebookFrame
 from hints.tabs.shopping.agitha_tab import AgithaTab
 from hints.utils.constants import folders
-from hints.utils.title import return_title
-
-from hints.gui_management.notebook_frame import NotebookFrame
-
 from json import load
 from pathlib import Path
 from re import findall, sub
@@ -15,26 +11,24 @@ from re import findall, sub
 
 class ParseLog:
     '''It just, parses the spoiler log data.'''
-    # The instances
-    program = Program                   # The program instance
-    notebook_manager = NotebookFrame  # The notebook, set by the program
+    # The notebook instance
+    notebook_frame = NotebookFrame
 
-    # Spoiler log info
-    spoiler_log_file = str     # The provided spoiler log
+    # The provided spoiler log
+    spoiler_log_file = Path
 
-    def __init__(self, program: Program) -> None:
-        '''Set the instances.'''
-        self.program = program
-        self.notebook_manager = self.program.notebook_manager
+    def __init__(self, notebook_frame: NotebookFrame) -> None:
+        '''Set the notebook instance.'''
+        self.notebook_frame = notebook_frame
 
     def dump_and_fill(self, spoiler_log_file: str) -> None:
         '''Take the provided path, and dump the log then fill the tabs.'''
         # Set the local var of the log
-        self.spoiler_log_file = spoiler_log_file
+        self.spoiler_log_file = Path(spoiler_log_file)
 
         # Change the window title to include the seed name
         seed_name = findall(r'\-\-(.*?)\-\-', spoiler_log_file)[0]
-        self.program.root.title(return_title(seed_name))
+        self.notebook_frame.update_title(seed_name)
 
         # Parse the provided data
         self.parse_spoiler_log()
@@ -42,7 +36,7 @@ class ParseLog:
     def dump_log(self) -> dict:
         '''Take the provided file name, and dump the log.'''
         # Re-affix '.json' to the spoiler log's file name
-        self.spoiler_log_file = Path(self.spoiler_log_file).with_suffix('.json')
+        self.spoiler_log_file = self.spoiler_log_file.with_suffix('.json')
 
         # Make the path to the log
         spoiler_log_path = (folders.spoiler_log_folder / self.spoiler_log_file)
@@ -78,4 +72,4 @@ class ParseLog:
                 # Special handling for Agitha
                 if sign == 'Agithas_Castle_Sign':
                     # Go to her parsing
-                    AgithaTab(self.program, hint_text)
+                    AgithaTab(self.notebook_frame, hint_text)

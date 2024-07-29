@@ -3,7 +3,6 @@
 # Complex utils are found under hints/utils/parse_log.py
 
 from customtkinter import CTkButton, CTkComboBox, CTkFrame, CTkLabel, StringVar
-from hints.control.program import Program
 from hints.utils.constants import folders
 from hints.utils.constants import tab_names
 from hints.utils.parse_log import ParseLog
@@ -19,13 +18,9 @@ from subprocess import check_call
 class SpoilerLog:
     '''The class to handle all spoiler log things.'''
     # Instances
-    program = Program                   # The program instance
-    parser = ParseLog                   # The parser instance
-    resetter = ResetUtils               # The reseter, set by the program
-    notebook_manager = NotebookFrame  # The notebook, set by the program
-
-    # The spoiler log folder
-    spoiler_logs_folder = Path
+    parser = ParseLog                   # The parser instance (created locally)
+    resetter = ResetUtils               # The resetter instance (passed in)
+    notebook_frame = NotebookFrame      # The notebook instance (passed in)
 
     # Local interface vars
     spoiler_tab = CTkFrame          # The tab that we're working in
@@ -33,25 +28,21 @@ class SpoilerLog:
     interface_frame = None          # The frame hosting the interface elements
     spoiler_log_var = StringVar     # The var for picking the spoiler log
 
-    def __init__(self, program: Program) -> None:
+    def __init__(self,
+                 notebook_frame: NotebookFrame,
+                 resetter: ResetUtils) -> None:
         '''Create the host frames, and the main button.'''
-        # Store the program instance
-        self.program = program
-
         # Init the spoiler log parser
-        self.parser = ParseLog(self.program)
+        self.parser = ParseLog(notebook_frame)
 
-        # Grab the necessary instances from the program
-        self.resetter = self.program.resetter
-        self.notebook_manager = self.program.notebook_manager
-
-        # Grab the spoiler log folder
-        self.spoiler_logs_folder = folders.spoiler_log_folder
+        # Update the other instances with the ones provided
+        self.resetter = resetter
+        self.notebook_frame = notebook_frame
 
         # Create the spoiler log tab
-        self.spoiler_tab = self.program.notebook.add(tab_names.spoiler_tab_name)
+        self.spoiler_tab = self.resetter.add_tab(tab_names.spoiler_tab_name)
 
-        # The main button that affects the frame -----------------------
+        # Create the main button that affects the frame ----------------
         self.spoiler_log_button = CTkButton(command=self.present_logs,
                                             master=self.spoiler_tab,
                                             text='Pick Log')
@@ -61,7 +52,7 @@ class SpoilerLog:
     def clipboard_path(self) -> None:
         '''Copies the path to clipboard.'''
         # https://stackoverflow.com/a/41029935
-        command = f'echo {self.spoiler_logs_folder}|clip'
+        command = f'echo {folders.spoiler_log_folder}|clip'
 
         check_call(command, shell=True)
 
@@ -126,7 +117,7 @@ class SpoilerLog:
         # The error text (for PEP8 compliance, and readability)
         error_text = ('There are no available spoiler logs. Please provide one'
                       ' in the following folder:\n\n'
-                      f'{self.spoiler_logs_folder}\n\nClick below to copy'
+                      f'{folders.spoiler_log_folder}\n\nClick below to copy'
                       ' the path to your clipboard.')
         # The error label itself
         error_label = CTkLabel(justify='left',
@@ -156,8 +147,8 @@ class SpoilerLog:
 
     def dump_spoiler_log(self) -> None:
         '''Dumps the spoiler log and passes it on to the parser'''
-        # Tab back to the notes
-        self.notebook_manager.set_to_notes_tab()
+        # Tab back to the notes tab
+        self.notebook_frame.set_to_notes_tab()
 
         # Get the chosen log
         spoiler_log = self.spoiler_log_var.get()
@@ -174,7 +165,7 @@ class SpoilerLog:
         self.destroy_frame()
 
         # Get the spoiler logs available
-        spoiler_logs = listdir(self.spoiler_logs_folder)
+        spoiler_logs = listdir(folders.spoiler_log_folder)
 
         # Validate which files can actually be used
         valid_spoilers = []

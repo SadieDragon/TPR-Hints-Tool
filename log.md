@@ -253,4 +253,33 @@ Make that uniform.
     - Move the tab creation calls over and remove from ``hint_notebook.py``
     - remove the ``program`` inheritence from ``hint_notebook.py`` *WOO*
     - Nothing needs to be set locally in ``HintNotebook`` anymore.
+- Update ``SpoilerLog`` to not need program
+    - remove the local var ``resetter`` from ``TabCreator``, is not needed
+    - realizing that ``parse_log.py`` needs root, I look into why-
+    - and because it is only because of changing the title, that function returns to ``notebook_frame.py``
+        - it technically belongs in window manager.
+        - store root in the notebook frame's local vars
+        - update comments accordingly
+        - make a wrapper function ``update_title`` in ``notebook_frame.py``
+    - update ``reset_utils.py``
+        - update ``self.root.title()`` to be ``update_title`` from the notebook
+        - remove the call to import ``return_title``
+    - update ``parse_log.py``
+        - remove ``program`` from the initializer *WOO*
+        - give it the notebook
+        - update line 34 to use the new ``update_title()``
+        - realize that line 42 was 81 chars long, and split the setup in half
+        - Change that so that the local var is ``Path`` type,
+        then when setting the local var in ``dump_and_fill()``,
+        convert the ``str`` into a ``Path``
+            - this is fine despite me using said file name afterwards because I call the input not the local var
+        - Prematurely update line 78 to pass the notebook frame instead.
+    - update ``spoiler_log.py``
+        - remove ``program`` from the initializer *WOO*
+        - remove all ``program`` data grabbers
+        - ``self.spoiler_logs_folder = folders.spoiler_log_folder`` can just be how the local var is set to begin with.
+            - wait actually *no*, that doesn't need to be created.
+        - update line 46 with the recently added ``add_tab()``
+        - update all ``notebook_manager`` remainders to ``notebook_frame`` (lines moved)
+        - further cleanup will be done later.
 - ...
