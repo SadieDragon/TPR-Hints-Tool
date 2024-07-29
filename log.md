@@ -13,9 +13,15 @@ Please note that I will reset this between releases, to keep it organized.
 - I have a lot of random newlines in the markdowns.
 It's either that, or super long lines.
 Make that uniform.
+    - When I do, make sure to go back through and update every python file reference to have the full path.
 - Uncouple as much as I can from ``hints_notebook.py`` to reduce circular imports and dependencies.
     - Flesh out the constants system
-- Get things to a point where I can uncouple the wrapping of the reset_utils. Gr.
+- Break ``hints/gui_management/creation_utils.py`` into a folder
+    - ``utils/gui_management/creation/widgets.py``
+    - ``utils/gui_management/creation/window.py``
+- Try ``__init__.py`` again.
+- ``self.spoiler_tab``'s defintion line in ``spoiler_log.py`` is 81 characters long due to var names.
+    - this might get patched by the removal of program
 
 # Log
 
@@ -68,4 +74,46 @@ Make that uniform.
     - start moving ``change_title()`` to ``window_management.py``
     - realize that ResetUtils is now a circular dependency child, and push this commit so I can unbreak things in the next
         - I rushed at the end to fix the last two calls. woops.
-- 
+- Set up the ``gui_management`` folder, properly this time.
+    - I wanted to use ``__init__.py`` to save some hassle,
+    but it was a struggle to understand how to set it up.
+        - I will address this later.
+    - Please note that this commit is a broken code commit.
+    - Create a wrapper function in ``hints_notebook.py`` to create the 3 instances
+    - Prepare for the ensuing pain by analyzing the code and taking a very deep breath
+        - (I wish I had more than 1 monitor for this)
+    - Remove the wrapper functions from ``hints/utils/gui_management/reset_utils.py``
+    - Fix the window creator not knowing where to call ``change_title()`` from
+    - Update the instances in ``reset_utils.py`` to use the program ones.
+    - Realize there's also a deletion function, and create ``deletion_utils.py``
+        - and its instance. Yay. :/
+        - move ``close_tab()`` from ``reset_utils.py`` to ``deletion_utils.py``
+    - Update ``reset_utils.py`` to use the other managers' functions
+        - ``add_tab`` in line 28 is from ``creator``
+        - ``change_title`` in line 45 is from ``window_manager``
+    - Update ``creation_utils.py`` to use the other managers' functions
+        - ``change_title`` in line 48 is from ``window_manager``
+    - move ``create_notepad()`` to ``creation_utils.py``
+    - rename ``create_notepad()`` to ``create_notepad_tab()``
+    - Update ``reset_utils.py``
+        - line 36 uses the new function
+    - Update ``hints_notebook.py`` to use the manager functions
+        - ``create_window`` in line 28 is from ``creator``
+        - ``add_tab`` in line 58 is from ``creator``
+        - ``create_notepad`` in line 61 is now ``create_notepad_tab``, from ``creator``
+    - Update ``shopping.py`` to use the manager functions
+        - Import the deleter instance
+        - ``close_tab`` in line 132 is from ``deleter``
+    - Update ``options_tab.py`` to use the manager functions
+        - Import the creator and deleter instance
+        - ``show_warning`` in lines 55 and 73 are from ``creator``
+        - ``close_tab`` in line 67 is from ``deleter``
+    - Update ``spoiler_log.py`` - it needed more than the managers
+        - in line 45, the spoiler log folder var is now a constant
+        - Import the creator instance
+        - ``show_warning`` in line 81 is from ``creator``
+    - update ``parse_log.py`` to use the manager functions
+        - Import the window manager instance
+        - Remove the resetter instance
+        - ``change_title`` in line 38 is from ``window_manager``
+- ...

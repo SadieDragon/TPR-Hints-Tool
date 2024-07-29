@@ -1,5 +1,5 @@
 
-# Utilities which handle the window
+# Holds all of the window management utilities for the tracker
 
 from hints.control.program import Program
 

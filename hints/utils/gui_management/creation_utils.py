@@ -2,18 +2,22 @@
 # Holds all of the creation utilities for the tracker
 
 from CTkMessagebox import CTkMessagebox
-from customtkinter import CTk, CTkFrame
+from customtkinter import CTk, CTkFrame, CTkTextbox
 from hints.control.program import Program
 from hints.utils.constants import tab_names
+from hints.utils.gui_management.window_management import WindowManagement
+
 
 class CreationUtils:
     '''A class for all of the creation utilities.'''
-    # The program passed in
-    program = Program
+    # The instances
+    program = Program                  # The program instance
+    window_manager = WindowManagement  # The window manager instance
 
     def __init__(self, program: Program) -> None:
-        '''Set the program to be locally global.'''
+        '''Set the instances.'''
         self.program = program
+        self.window_manager = self.program.window_manager
 
     def add_tab(self, tab_name: str) -> None | CTkFrame:
         '''Create a tab in the notebook.'''
@@ -30,6 +34,19 @@ class CreationUtils:
         # Create the tab, and return it
         return self.program.notebook.insert(tab_index, tab_name)
 
+    def create_notepad_tab(self, tab_name: str) -> CTkTextbox:
+        '''Creates a notepad under the target tab.'''
+        # Create the tab at the tab name
+        tab = self.program.notebook.tab(tab_name)
+
+        # Create the notepad -----------------------------------
+        notepad = CTkTextbox(corner_radius=0, master=tab)
+        notepad.pack(padx=5, pady=5, expand=True, fill='both')
+        # ------------------------------------------------------
+
+        # Return the notepad
+        return notepad
+
     def create_window(self) -> None:
         '''Create the main window'''
         # Create the window
@@ -41,8 +58,7 @@ class CreationUtils:
         # -------------------------------------
 
         # Set the title to default title
-        # Panik, this is broken :D
-        self.change_title()
+        self.window_manager.change_title()
 
     def show_warning(self) -> bool:
         '''Create a warning to ask them are ya sure?'''

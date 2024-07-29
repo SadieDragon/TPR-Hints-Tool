@@ -5,22 +5,29 @@
 from customtkinter import CTkButton, CTkFrame
 from hints.control.program import Program
 from hints.utils.constants import tab_names
+
+from hints.utils.gui_management.creation_utils import CreationUtils
+from hints.utils.gui_management.deletion_utils import DeletionUtils
 from hints.utils.gui_management.reset_utils import ResetUtils
 
 
 class OptionsTab:
     '''Hosts all of the Option Tab setup.'''
     # Instances
-    program = Program      # The program passed in
-    resetter = ResetUtils  # The reset instance, set by the program
+    program = Program        # The program instance
+    creator = CreationUtils  # The creation instance, set by the program
+    deleter = DeletionUtils  # The deletion instance, set by the program
+    resetter = ResetUtils    # The reset instance, set by the program
 
     def __init__(self, program: Program) -> None:
         '''Create the tab with the options, flexibly.'''
         # Set the program locally
         self.program = program
 
-        # Update the resetter to be the program's instance
-        self.resetter = program.resetter
+        # Grab the necessary instances from the program
+        self.creator = self.program.creator
+        self.deleter = self.program.deleter
+        self.resetter = self.program.resetter
 
         # Create the tab itself
         options_tab = program.notebook.add(tab_names.options_tab_name)
@@ -46,7 +53,7 @@ class OptionsTab:
     def race_mode(self) -> None:
         '''The command for race mode.'''
         # Get permission to reset the tracker
-        if not self.resetter.show_warning():
+        if not self.creator.show_warning():
             return
 
         # Go through the data tabs
@@ -57,14 +64,14 @@ class OptionsTab:
                 continue
 
             # Close everything else
-            self.resetter.close_tab(tab_name)
+            self.deleter.close_tab(tab_name)
 
         self.program.set_to_notes_tab()
 
     def reset(self) -> None:
         '''A wrapper for the tracker reset.'''
         # Get permission to reset the tracker
-        if not self.resetter.show_warning():
+        if not self.creator.show_warning():
             return
 
         # Reset the tracker

@@ -4,7 +4,10 @@
 from hints.control.program import Program
 from hints.tabs.shopping.agitha_tab import AgithaTab
 from hints.utils.constants import folders
+
 from hints.utils.gui_management.reset_utils import ResetUtils
+from hints.utils.gui_management.window_management import WindowManagement
+
 from json import load
 from pathlib import Path
 from re import findall, sub
@@ -12,18 +15,17 @@ from re import findall, sub
 
 class ParseLog:
     '''It just, parses the spoiler log data.'''
-    # The root program
-    program = Program
-    resetter = ResetUtils
+    # The instances
+    program = Program                  # The program instance
+    window_manager = WindowManagement  # The window manager, set by the program
 
     # Spoiler log info
     spoiler_log_file = str     # The provided spoiler log
 
     def __init__(self, program: Program) -> None:
-        '''Set the global var here.'''
-        # Set the local program var
+        '''Set the instances.'''
         self.program = program
-        self.resetter = self.program.resetter
+        self.window_manager = self.program.window_manager
 
     def dump_and_fill(self, spoiler_log_file: str) -> None:
         '''Take the provided path, and dump the log then fill the tabs.'''
@@ -32,7 +34,7 @@ class ParseLog:
 
         # Change the window title to include the seed name
         seed_name = findall(r'\-\-(.*?)\-\-', spoiler_log_file)[0]
-        self.resetter.change_title(seed_name)
+        self.window_manager.change_title(seed_name)
 
         # Parse the provided data
         self.parse_spoiler_log()

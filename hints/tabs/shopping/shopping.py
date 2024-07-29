@@ -7,14 +7,17 @@ from customtkinter import (CTkCheckBox,
                            CTkScrollableFrame,
                            IntVar)
 from hints.control.program import Program
+
+from hints.utils.gui_management.deletion_utils import DeletionUtils
 from hints.utils.gui_management.reset_utils import ResetUtils
 
 
 class Shopping:
     '''The parent class for all of the shopping list tabs.'''
     # The instances
-    program = Program        # The program we're running in
+    program = Program        # The program instance
     resetter = ResetUtils    # The reset instance, set by the program
+    deleter = DeletionUtils  # The deleter instance, set by the program
 
     # The provided hint text
     hint_text = str
@@ -37,8 +40,9 @@ class Shopping:
         self.program = program
         self.hint_text = hint_text
 
-        # Update the resetter to be the program's instance
-        self.resetter = program.resetter
+        # Grab the necessary instances from the program
+        self.deleter = self.program.deleter
+        self.resetter = self.program.resetter
 
     def auto_fill(self) -> None:
         '''Populate the tab with the provided info.'''
@@ -125,7 +129,7 @@ class Shopping:
 
     def no_rewards(self) -> None:
         '''The action for no rewards: Close the tab.'''
-        self.resetter.close_tab(self.tab_name)
+        self.deleter.close_tab(self.tab_name)
 
     def parse_rewards(self) -> bool:
         '''Autofills with the provided information.'''

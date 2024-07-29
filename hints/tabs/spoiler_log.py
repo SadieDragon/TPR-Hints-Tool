@@ -4,9 +4,13 @@
 
 from customtkinter import CTkButton, CTkComboBox, CTkFrame, CTkLabel, StringVar
 from hints.control.program import Program
+from hints.utils.constants import folders
 from hints.utils.constants import tab_names
 from hints.utils.parse_log import ParseLog
+
+from hints.utils.gui_management.creation_utils import CreationUtils
 from hints.utils.gui_management.reset_utils import ResetUtils
+
 from os import listdir
 from pathlib import Path
 from subprocess import check_call
@@ -17,6 +21,7 @@ class SpoilerLog:
     # Instances
     program = Program               # Provided program instance
     parser = ParseLog               # The parser instance
+    creator = CreationUtils         # The creation instance, set by the program
     resetter = ResetUtils           # The reset instance, set by the program
 
     # The spoiler log folder
@@ -30,17 +35,18 @@ class SpoilerLog:
 
     def __init__(self, program: Program) -> None:
         '''Create the host frames, and the main button.'''
-        # Store the program
+        # Store the program instance
         self.program = program
 
         # Init the spoiler log parser
         self.parser = ParseLog(self.program)
 
-        # Update the reset instance
-        self.resetter = program.resetter
+        # Grab the necessary instances from the program
+        self.creator = self.program.creator
+        self.resetter = self.program.resetter
 
         # Grab the spoiler log folder
-        self.spoiler_logs_folder = self.parser.spoiler_log_folder
+        self.spoiler_logs_folder = folders.spoiler_log_folder
 
         # Create the spoiler log tab
         self.spoiler_tab = self.program.notebook.add(tab_names.spoiler_tab_name)
@@ -72,7 +78,7 @@ class SpoilerLog:
     def create_spoiler_dropdown(self, spoilers: list) -> None:
         '''Create a dropdwon with valid spoiler logs.'''
         # Get permission to reset the tracker
-        if not self.resetter.show_warning():
+        if not self.creator.show_warning():
             # Destroy the frame if denied, before returning
             self.destroy_frame()
             return
