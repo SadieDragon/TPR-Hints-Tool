@@ -10,7 +10,7 @@ class DeletionUtils:
     notebook_frame = NotebookFrame
 
     def __init__(self, notebook_frame: NotebookFrame) -> None:
-        '''Update the instances.'''
+        '''Set the notebook instance.'''
         self.notebook_frame = notebook_frame
 
     def close_tab(self, tab_name: str) -> None:
