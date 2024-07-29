@@ -20,6 +20,7 @@ Make that uniform.
 - ``self.spoiler_tab``'s defintion line in ``spoiler_log.py`` is 81 characters long due to var names.
     - this might get patched by the removal of program
 - Give ``title.py`` a better name (I was struggling)
+- update all ``x = Class`` to ``x: Class`` (thanks @Ecconia for pointing this out)
 
 # Log
 
@@ -168,4 +169,12 @@ Make that uniform.
     - ``ResetUtils``
         - Needs ``data_tabs`` for ``reset_tab()``, and the notebook to return the tab
         - Needs root to update the title for ``reset_tracker()``
+- Begin by making ``NotebookManager`` no longer rely on ``program.py`` (baby steps towards making it a sort of parent class for the utils)
+    - Not the order of operations I should be doing this (you'll see why next push), but I had the changes stashed (you'll see why)
+    - update the outdated doctstring (a byproduct of copy pasta from earlier)
+    - move ``data_tabs`` to ``notebook_manager.py``
+    - create the notebook within ``notebook_manager.py``'s ``__init__``
+    - update ``hint_notebook.py``
+        - Create the notebook manager instance during ``__init__``
+        - Remove it from ``create_instances()``
 - ...
