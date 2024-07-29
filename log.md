@@ -201,4 +201,15 @@ Make that uniform.
         - Make a var for it in the top of the class before ``__init__``
         - Move its creation up into ``__init__``
         - Update its initialization
+
+- Address the utility managers to try to figure out how to incorporate them with the new ``NotebookFrame`` changes: ``DeletionUtils``
+    - Its docstring was also out of date. GR
+    - Make a local var for the notebook frame
+        - Remove the call to ``program.py`` *WOO*
+        - Update ``__init__`` accordingly
+        - update ``close_tab()`` to use the new var
+    - Update ``hint_notebook.py``
+        - Make a var for it in the top of the class before ``__init__``
+        - Move its creation up into ``__init__``
+        - Update its initialization
 - ...
