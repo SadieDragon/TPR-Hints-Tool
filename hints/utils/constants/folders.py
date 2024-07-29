@@ -1,4 +1,6 @@
 
+# Holds the static folders
+
 from os import getcwd
 from pathlib import Path
 

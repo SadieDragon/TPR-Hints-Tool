@@ -4,8 +4,10 @@
 from customtkinter import CTkFrame
 from hints.control.program import Program
 from hints.utils.constants import tab_names
+from hints.utils.title import return_title
+
 from hints.utils.gui_management.creation_utils import CreationUtils
-from hints.utils.gui_management.window_management import WindowManagement
+from hints.utils.gui_management.notebook_manager import NotebookManager
 
 
 class ResetUtils:
@@ -13,7 +15,7 @@ class ResetUtils:
     # Instances
     program = Program                  # The program instance
     creator = CreationUtils            # The creation utilities instance
-    window_manager = WindowManagement  # The window manager
+    window_manager = NotebookManager   # The window manager
 
     def __init__(self, program: Program) -> None:
         '''Update the instances.'''
@@ -33,7 +35,7 @@ class ResetUtils:
 
         # If requested, place a blank notepad in the tab
         if default:
-            new_contents = self.creator.create_notepad_tab(tab_name)
+            self.creator.create_notepad_tab(tab_name)
 
         # Return the tab
         return self.program.notebook.tab(tab_name)
@@ -41,7 +43,7 @@ class ResetUtils:
     def reset_tracker(self, tab_back: bool = True) -> None:
         '''Completely reset the tracker.'''
         # Revert the title to default
-        self.window_manager.change_title()
+        self.program.root.title(return_title())
 
         # Reset the tracker
         for tab_name in tab_names.data_tab_names:

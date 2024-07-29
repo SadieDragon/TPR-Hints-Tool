@@ -16,12 +16,10 @@ Make that uniform.
     - When I do, make sure to go back through and update every python file reference to have the full path.
 - Uncouple as much as I can from ``hints_notebook.py`` to reduce circular imports and dependencies.
     - Flesh out the constants system
-- Break ``hints/gui_management/creation_utils.py`` into a folder
-    - ``utils/gui_management/creation/widgets.py``
-    - ``utils/gui_management/creation/window.py``
 - Try ``__init__.py`` again.
 - ``self.spoiler_tab``'s defintion line in ``spoiler_log.py`` is 81 characters long due to var names.
     - this might get patched by the removal of program
+- Give ``title.py`` a better name (I was struggling)
 
 # Log
 
@@ -133,5 +131,21 @@ Make that uniform.
     - Realize that it was used both times ``create_notepad_tab`` was called, and moved the call into that function
     - Replace the function call in lines 29 and 48 of ``creation_utils.py``
     - Remove the function call from ``reset_utils.py``
-    - Remvoe the function call from ``hint_notebook.py``
+    - Remove the function call from ``hint_notebook.py``
+- Time to try the ``__init__.py`` again. See if I can uncouple the managers from the hint notebook and avoid circles...
+    - After this I will finally test the code to make sure nothing is broken
+    - I was gonna create the init file...
+    - I then realized that ``create_data_tabs()`` in ``hint_notebook.py`` is practically only using creator functions and moved it there...
+    - Then realize that ``create_window()`` could go into its own file, ``utils/gui_management/creation/window.py``, and that would be the only function within- and it could return root instead of updating it- meaning no more circle dependency-
+        - Actually it got named to ``window/create.py`` so i can mess with the window more in the future.
+    - Rename the new file to ``window_manager.py``; moved to the base folder.
+    - Renamed ``window_management.py`` to ``notebook_manager.py``
+        - Updated every call
+    - moved ``change_title()`` to ``window_manager.py``
+        - Realized a funny mistake, where the title set was not in the correct scope, and fixed that.
+        - Updated every call
+    - Realize then that ``change_title()`` is basically doing the same thing, 2 times, and then 1 time, doing something special.
+    - create a new util file, ``title.py``, with that function without setting the title
+    - Delete the function ``change_title()`` and update all calls to it
+    - Ok, I should push now. That's already a big change.
 - ...

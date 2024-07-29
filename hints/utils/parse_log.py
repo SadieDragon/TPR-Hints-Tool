@@ -4,9 +4,9 @@
 from hints.control.program import Program
 from hints.tabs.shopping.agitha_tab import AgithaTab
 from hints.utils.constants import folders
+from hints.utils.title import return_title
 
-from hints.utils.gui_management.reset_utils import ResetUtils
-from hints.utils.gui_management.window_management import WindowManagement
+from hints.utils.gui_management.notebook_manager import NotebookManager
 
 from json import load
 from pathlib import Path
@@ -17,7 +17,7 @@ class ParseLog:
     '''It just, parses the spoiler log data.'''
     # The instances
     program = Program                  # The program instance
-    window_manager = WindowManagement  # The window manager, set by the program
+    window_manager = NotebookManager  # The window manager, set by the program
 
     # Spoiler log info
     spoiler_log_file = str     # The provided spoiler log
@@ -34,7 +34,7 @@ class ParseLog:
 
         # Change the window title to include the seed name
         seed_name = findall(r'\-\-(.*?)\-\-', spoiler_log_file)[0]
-        self.window_manager.change_title(seed_name)
+        self.program.root.title(return_title(seed_name))
 
         # Parse the provided data
         self.parse_spoiler_log()
