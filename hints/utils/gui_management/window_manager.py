@@ -18,15 +18,3 @@ def create_window() -> CTk:
 
     # Return the new window
     return root
-
-
-def change_title(root: CTk, seed_name: str = '') -> None:
-    '''Change the title of the window.'''
-    # The default without the seed name
-    title = 'TPR Hint Notebook'
-    # If there was a seed name, append it
-    if seed_name:
-        title = f'{title} ({seed_name})'
-
-    # Update the title of the window
-    root.title(title)
