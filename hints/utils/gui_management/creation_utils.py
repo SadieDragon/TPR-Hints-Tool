@@ -2,8 +2,9 @@
 # Holds all of the creation utilities for the tracker
 
 from CTkMessagebox import CTkMessagebox
-from customtkinter import CTk
+from customtkinter import CTk, CTkFrame
 from hints.control.program import Program
+from hints.utils.constants import tab_names
 
 class CreationUtils:
     '''A class for all of the creation utilities.'''
@@ -13,6 +14,21 @@ class CreationUtils:
     def __init__(self, program: Program) -> None:
         '''Set the program to be locally global.'''
         self.program = program
+
+    def add_tab(self, tab_name: str) -> None | CTkFrame:
+        '''Create a tab in the notebook.'''
+        # If it already exists, don't bother
+        if tab_name in self.program.data_tabs.keys():
+            return
+
+        # Update the data tabs dict
+        self.program.update_data_tabs(tab_name, None)
+
+        # Find the index
+        tab_index = tab_names.data_tab_names.index(tab_name)
+
+        # Create the tab, and return it
+        return self.program.notebook.insert(tab_index, tab_name)
 
     def create_window(self) -> None:
         '''Create the main window'''
@@ -25,7 +41,8 @@ class CreationUtils:
         # -------------------------------------
 
         # Set the title to default title
-        self.program.change_title()
+        # Panik, this is broken :D
+        self.change_title()
 
     def show_warning(self) -> bool:
         '''Create a warning to ask them are ya sure?'''

@@ -78,10 +78,10 @@ class Shopping:
         # Create the frame to pass to dict
         tab_frame = CTkFrame(master=tab)
         tab_frame.pack(anchor='w',
-                             expand=True,
-                             fill='both',
-                             padx=5,
-                             pady=5)
+                       expand=True,
+                       fill='both',
+                       padx=5,
+                       pady=5)
 
         # Pass it to the dict
         self.program.update_data_tabs(self.tab_name, tab_frame)

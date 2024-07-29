@@ -5,18 +5,21 @@ from customtkinter import CTkFrame
 from hints.control.program import Program
 from hints.utils.constants import tab_names
 from hints.utils.gui_management.creation_utils import CreationUtils
+from hints.utils.gui_management.window_management import WindowManagement
 
 
 class ResetUtils:
     '''A class for all of the reset utilities.'''
     # Instances
-    program = Program         # The program provided
-    creation = CreationUtils  # The creation util
+    program = Program                  # The program provided
+    creation = CreationUtils           # The creation util
+    window_manager = WindowManagement  # The window manager
 
     def __init__(self, program: Program) -> None:
         '''Update the instances.'''
         self.program = program
         self.creation = CreationUtils(self.program)
+        self.window_manager = WindowManagement(self.program)
 
     def close_tab(self, tab_name: str) -> None:
         '''Close a tab in the notebook.'''
@@ -33,7 +36,7 @@ class ResetUtils:
         '''Reset the contents of the tab.'''
         # If the tab does not already exist, create it
         if not tab_name in self.program.data_tabs.keys():
-            self.program.add_tab(tab_name)
+            self.add_tab(tab_name)
 
         # Destroy the frame contents
         if self.program.data_tabs[tab_name] is not None:
@@ -50,7 +53,7 @@ class ResetUtils:
     def reset_tracker(self, tab_back: bool = True) -> None:
         '''Completely reset the tracker.'''
         # Revert the title to default
-        self.program.change_title()
+        self.change_title()
 
         # Reset the tracker
         for tab_name in tab_names.data_tab_names:
@@ -60,7 +63,13 @@ class ResetUtils:
         if tab_back:
             self.program.set_to_notes_tab()
 
-    # Wrapped functions =======================================================
+    # Wrapped functions: creation_utils.py ====================================
+
+    # utils/gui_management/creation/widgets
+    def add_tab(self, tab_name: str) -> None | CTkFrame:
+        '''Wrapper function for creating a tab in the notebook.'''
+        self.creation.add_tab(tab_name)
+
     # utils/gui_management/creation/window
     def create_window(self) -> None:
         '''Wrapper function for creating the window.'''
@@ -70,4 +79,13 @@ class ResetUtils:
     def show_warning(self) -> bool:
         '''Wrapper function for the warning box.'''
         self.creation.show_warning()
+
+    # =========================================================================
+
+    # Wrapped functions: window_mgmt.py =======================================
+
+    def change_title(self, seed_name: str = '') -> None:
+        '''Wrapper function for changing the title of the window.'''
+        self.window_manager.change_title(seed_name)
+
     # =========================================================================

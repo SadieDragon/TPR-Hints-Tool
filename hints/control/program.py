@@ -20,13 +20,6 @@ class Program:
     resetter = None                     # from hints.utils.reset_utils
 
     # Functions that are required elsewhere. ----------------------------------
-    def add_tab(self, tab_name: str) -> None:
-        '''Create a tab in the notebook.'''
-        pass
-
-    def change_title(self) -> None:
-        '''Change the title of the window.'''
-        pass
 
     def create_notepad(self, tab_name: str) -> CTkTextbox:
         '''Creates a notepad under the target tab.'''
@@ -41,4 +34,5 @@ class Program:
                          tab_content: CTkTextbox | CTkFrame | None) -> None:
         '''Update the storage of data tab info'''
         pass
+
     # -------------------------------------------------------------------------

@@ -15,6 +15,7 @@ It's either that, or super long lines.
 Make that uniform.
 - Uncouple as much as I can from ``hints_notebook.py`` to reduce circular imports and dependencies.
     - Flesh out the constants system
+- Get things to a point where I can uncouple the wrapping of the reset_utils. Gr.
 
 # Log
 
@@ -55,4 +56,16 @@ Make that uniform.
 - Move the folder calls out to a constants file ``folders.py``
     - There is no reason this should really be stuck in the program file.
     - It is not very used right now, but when I get around to saving, it will hopefully be used a lot more.
+- Start pulling functions out of the program to try to weasel out of the need for it, or at least start untangling things from its web.
+    - Remember, ``reset_utils.py`` is acting like a wrapper for now,
+    and ``creation_utils.py`` is a condensed version of the folder it will become,
+    until I figure out how to set those up without the use of passing the utils around.
+    - There was a minor formatting fix in ``hints/tabs/shopping/shopping.py`` where a ``.pack()`` call was not properly aligned
+    - moved ``add_tab()`` to ``creation_utils.py``
+    - Created ``window_management.py``
+    - wrapped ``window_management.py`` in ``reset_utils.py`` for the same reasons as ``creation_utils.py``
+        - I *will* uncouple it later.
+    - start moving ``change_title()`` to ``window_management.py``
+    - realize that ResetUtils is now a circular dependency child, and push this commit so I can unbreak things in the next
+        - I rushed at the end to fix the last two calls. woops.
 - 
