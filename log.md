@@ -247,5 +247,10 @@ Make that uniform.
         - update all ``program.resetter`` stuffs to just be ``self``
         - update all calls to the notebook to just use ``ResetUtils``'s ``CreationUtils``'s notebook_frame
             - Decide to rewrite ``add_tab`` into a more generic ``add_tab`` and more focused ``add_data_tab``
-
+- Add ``tab_creator.py``
+    - Stop calling in the ``hint_notebook.py``
+    - move the resetter to the new file and remove from ``hint_notebook.py``
+    - Move the tab creation calls over and remove from ``hint_notebook.py``
+    - remove the ``program`` inheritence from ``hint_notebook.py`` *WOO*
+    - Nothing needs to be set locally in ``HintNotebook`` anymore.
 - ...
