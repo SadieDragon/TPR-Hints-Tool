@@ -53,4 +53,13 @@ If you see a blank line between bullets on any given day, it means that I rolled
 
 - Correct comments
 
+***Saving***
+
+- It is in its own folder "saving" so I can brute force a prototype and fix it later.
+    - ``save.py`` is meant for everything to do with saving
+    - ``reload.py`` is meant for getting the save data and reloading it.
+
+- Create a function to more easily modify and add buttons in the future (also DRY the code) - ``create_buttons`` in ``hints/tabs/options_tab.py``
+    - This could be in ``__init__`` but I put it here for easier modifications.
+
 - ...
