@@ -39,7 +39,7 @@ class OptionsTab(ResetUtils):
         buttons = {
             'Race Mode': [self.race_mode, [0, 0]],
             'Reset Tracker': [self.reset, [0, 1]],
-            'Save': [save, [1, 0]],
+            'Save': [(lambda: save(self.notebook_frame)), [1, 0]],
             'Reload Save': [reload, [1, 1]]
         }
 

@@ -63,8 +63,6 @@ If you see a blank line between bullets on any given day, it means that I rolled
     - ``hints/tabs/shopping/shopping.py`` no longer needs the notebook
         - This means ``hints/tabs/shopping/agitha.py`` no longer needs the notebook
 
-    - ``hints/tabs/options_tab.py`` only needs it because it inherits ``ResetUtils``
-
     - ``hints/utils/parse_log.py`` only needs it to update the title now
     - ``hints/tabs/spoiler_log.py`` only needs it for ``parse_log``
 
@@ -78,5 +76,18 @@ If you see a blank line between bullets on any given day, it means that I rolled
 
 - Create a function to more easily modify and add buttons in the future (also DRY the code) - ``create_buttons`` in ``hints/tabs/options_tab.py``
     - This could be in ``__init__`` but I put it here for easier modifications.
+
+- Saving Prototyping:
+    - Loop through the data tab names (the constant in ``hints/utils/constants/tab_names.py``)
+        - Try to get the tab.
+            - If success, set tab to the frame that is the tab
+            - If failure, set the tab to none
+        - If tab is none, move along.
+        - This could be done all within the try-except, but I wanna reduce nesting. New functions in the future?
+
+        - Textbox is easy. just, ``.get('1.0', END).strip()``, and done
+        - Checklist... oh boy
+            - So, that scrollable frame is packed as a ``canvas``, ``scrollbar``, and ``label`` object into a singular frame.
+
 
 - ...
