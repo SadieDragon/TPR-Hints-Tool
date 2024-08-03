@@ -7,7 +7,7 @@ from hints.gui_management.managers import ResetUtils
 from hints.gui_management.notebook_frame import NotebookFrame
 from hints.utils.constants import tab_names
 
-from hints.utils.saving.save import save
+from hints.utils.saving.save import SaveNotes
 from hints.utils.saving.reload import reload
 
 
@@ -37,10 +37,10 @@ class OptionsTab(ResetUtils):
         # A list of all the buttons and settings
         # button_text: [command, [row, column]]
         buttons = {
-            'Race Mode': [self.race_mode, [0, 0]],
+            'Race Mode':     [self.race_mode, [0, 0]],
             'Reset Tracker': [self.reset, [0, 1]],
-            'Save': [(lambda: save(self.notebook_frame)), [1, 0]],
-            'Reload Save': [reload, [1, 1]]
+            'Save':          [self.save, [1, 0]],
+            'Reload Save':   [reload, [1, 1]]
         }
 
         # Go through those buttons and create them
@@ -84,3 +84,7 @@ class OptionsTab(ResetUtils):
 
         # Reset the tracker
         self.reset_tracker()
+
+    def save(self) -> None:
+        '''A wrapper for saving.'''
+        SaveNotes(self.notebook_frame)
