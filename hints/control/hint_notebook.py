@@ -2,7 +2,6 @@
 # Hosts the main window creation, running,
 # and also some basic utitlies acting upon it.
 
-from customtkinter import CTk
 from hints.gui_management.window_manager import create_window
 from hints.gui_management.notebook_frame import NotebookFrame
 from hints.gui_management.tab_creator import TabCreator

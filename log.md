@@ -19,6 +19,38 @@ If you see a blank line between bullets on any given day, it means that I rolled
 - bug squish time!
 - prettify the code
 
+# Bugs
+
+**xxyy** where x is the version number and y is the bug number  
+(.201 = version 0.2, bug 1)
+
+
+- [ x ] .201: Resetting in any fashion destroys the textboxes (which is intended), but generates the textboxes on the main frame and never the tab frame.
+
 # Log
+
+**August 2 and 3, 2024**
+- Reset ``log.md`` because I wrote it poorly
+
+- Fix Bug .201
+    - In great summary, the issue:
+        - When ``reset_tab`` is called, it checks for the tab and calls ``add_tab`` if it does not exist.
+        - When ``create_notepad_tab`` is called, it calls ``add_tab``. And then tries to store the return value.
+        - If a notepad is requested for ``reset_tab``, it calls ``create_notepad_tab`` - oh wait a minute... *the tab was created... earlier in this function... so it gets None, and has no master*.
+            - The fallback master is the root it can access, which is either the notebook or root. I don't know which, nor does it matter, because the end result is the same: Tab contents are deleted correctly but the frame is jammed onto the default master.
+    - Solution:
+        - Just run ``add_tab`` when calling ``reset_tab``, and store its output
+        - Update ``add_tab`` to return the widget info if the tab does exist, instead of ``None``
+            - Update the return type of ``add_tab`` to no longer inlcude ``None``, as it should never return ``None`` now
+        - Update ``create_notepad_tab`` to have a new arg for a provided tab, defaulted to ``None``
+            - If no tab is passed in, it still runs ``add_tab`` to get one.
+
+- Update the return type for ``add_data_tab`` to not include ``None``
+    - That was a remnant, and it should never return ``None``
+
+- Remove unnecessary imports
+    - ``from customtkinter import CTk`` in ``hints/control/hint_notebook.py``
+
+- Correct comments
 
 - ...

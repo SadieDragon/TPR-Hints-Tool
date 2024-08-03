@@ -15,7 +15,7 @@ class CreationUtils:
         '''Set the notebook instance.'''
         self.notebook_frame = notebook_frame
 
-    def add_data_tab(self, tab_name: str) -> None | CTkFrame:
+    def add_data_tab(self, tab_name: str) -> CTkFrame:
         '''Create specifically a data tab in the notebook.'''
         # Update the data tabs dict to have a blank tab under this name
         self.notebook_frame.data_tabs[tab_name] = None
@@ -26,17 +26,17 @@ class CreationUtils:
         # Create the tab, and return it
         return self.notebook_frame.notebook.insert(tab_index, tab_name)
 
-    def add_tab(self, tab_name: str) -> None | CTkFrame:
+    def add_tab(self, tab_name: str) -> CTkFrame:
         '''Create a tab in the notebook.'''
-        # If it already exists, don't bother
+        # If it already exists, return the tab widget's info
         if tab_name in self.notebook_frame.data_tabs.keys():
-            return
+            return self.notebook_frame.notebook.tab(tab_name)
 
         # If the tab name is in the data tabs list, then create a data tab
         if tab_name in tab_names.data_tab_names:
             return self.add_data_tab(tab_name)
 
-        # Otherwise, just, add the tab
+        # Otherwise, just add the tab
         return self.notebook_frame.notebook.add(tab_name)
 
     def create_data_tabs(self) -> None:
@@ -44,13 +44,16 @@ class CreationUtils:
         # Go through and create each tab with a blank notepad,
         # then store the notepad for later use.
         for tab_name in tab_names.data_tab_names:
-            # Create the notepad that goes in it
             self.create_notepad_tab(tab_name)
 
-    def create_notepad_tab(self, tab_name: str) -> CTkTextbox:
+    def create_notepad_tab(self,
+                           tab_name: str,
+                           tab: CTkFrame | None = None) -> CTkTextbox:
         '''Creates a notepad under the target tab.'''
-        # Create the tab at the tab name
-        tab = self.add_tab(tab_name)
+        # Create the tab with the provided the tab name
+        # if a tab is not provided
+        if tab is None:
+            tab = self.add_tab(tab_name)
 
         # Create the notepad -----------------------------------
         notepad = CTkTextbox(corner_radius=0, master=tab)
