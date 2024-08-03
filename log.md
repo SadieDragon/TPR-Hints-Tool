@@ -12,12 +12,8 @@ If you see a blank line between bullets on any given day, it means that I rolled
 **Tasks which I recognize I need to do- I will forget to add things here, and I am sorry in advance.**
 
 - I have a lot of random newlines in the markdowns. It's either that, or super long lines. Make that uniform.
-    - When I do, make sure to go back through and update every python file reference to have the full path.
-- Give these files a better name
-    - ``title.py``
 - update all ``x = Class`` to ``x: Class`` (thanks @Ecconia for pointing this out)
-- bug squish time!
-- prettify the code
+- prettify the code and repository (later tasks, saving is priority)
 
 # Bugs
 
