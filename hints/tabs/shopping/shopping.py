@@ -14,23 +14,23 @@ from hints.gui_management.notebook_frame import NotebookFrame
 class Shopping:
     '''The parent class for all of the shopping list tabs.'''
     # The instances
-    resetter = ResetUtils           # The resetter instance (passed in)
-    notebook_frame = NotebookFrame  # The notebook instance (passed in)
+    resetter: ResetUtils           # The resetter instance (passed in)
+    notebook_frame: NotebookFrame  # The notebook instance (passed in)
 
     # The provided hint text
-    hint_text = str
+    hint_text: str
 
     # The tab name
-    tab_name = str
+    tab_name: str
 
     # The label that displays the status
-    default_text = str              # The default text for the label
-    status_label = CTkLabel         # The label itself
+    default_text: str              # The default text for the label
+    status_label:CTkLabel         # The label itself
 
     # The rewards list
-    rewards = list()                # The rewards themselves
-    checkboxes = list()             # Holds the checkboxes
-    checkbox_vars = list()          # Holds the IntVars
+    rewards = []                # The rewards themselves
+    checkboxes = []             # Holds the checkboxes
+    checkbox_vars = []          # Holds the IntVars
 
     def __init__(self,
                  hint_text:str,

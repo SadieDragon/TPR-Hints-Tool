@@ -18,15 +18,15 @@ from subprocess import check_call
 class SpoilerLog:
     '''The class to handle all spoiler log things.'''
     # Instances
-    parser = ParseLog                   # The parser instance (created locally)
-    resetter = ResetUtils               # The resetter instance (passed in)
-    notebook_frame = NotebookFrame      # The notebook instance (passed in)
+    parser: ParseLog                  # The parser instance (created locally)
+    resetter: ResetUtils              # The resetter instance (passed in)
+    notebook_frame: NotebookFrame     # The notebook instance (passed in)
 
     # Local interface vars
-    spoiler_tab = CTkFrame          # The tab that we're working in
-    spoiler_log_button = CTkButton  # The main button
-    interface_frame = None          # The frame hosting the interface elements
-    spoiler_log_var = StringVar     # The var for picking the spoiler log
+    spoiler_tab: CTkFrame             # The tab that we're working in
+    spoiler_log_button: CTkButton     # The main button
+    interface_frame: CTkFrame | None  # The frame for interface elements
+    spoiler_log_var: StringVar        # The var for picking the spoiler log
 
     def __init__(self,
                  notebook_frame: NotebookFrame,
@@ -41,6 +41,9 @@ class SpoilerLog:
 
         # Create the spoiler log tab
         self.spoiler_tab = self.resetter.add_tab(tab_names.spoiler_tab_name)
+
+        # Set the interface frame to None
+        self.interface_frame = None
 
         # Create the main button that affects the frame ----------------
         self.spoiler_log_button = CTkButton(command=self.present_logs,

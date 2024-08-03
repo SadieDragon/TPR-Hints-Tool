@@ -14,10 +14,10 @@ from re import findall, sub
 class ParseLog:
     '''It just, parses the spoiler log data.'''
     # The notebook instance
-    notebook_frame = NotebookFrame
+    notebook_frame: NotebookFrame
 
     # The provided spoiler log
-    spoiler_log_file = Path
+    spoiler_log_file: Path
 
     def __init__(self, notebook_frame: NotebookFrame) -> None:
         '''Set the notebook instance.'''

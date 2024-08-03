@@ -12,7 +12,7 @@ from hints.utils.constants import tab_names
 class ResetUtils(CreationUtils):
     '''A class for all of the reset utilities.'''
     # The root window
-    root = CTk
+    root: CTk
 
     def __init__(self, notebook_frame: NotebookFrame, root: CTk) -> None:
         '''Store the notebook frame, and the root window.'''

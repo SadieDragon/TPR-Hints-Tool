@@ -9,7 +9,7 @@ from hints.utils.constants import tab_names
 class CreationUtils:
     '''A class for all of the creation utilities.'''
     # The notebook instance
-    notebook_frame = NotebookFrame
+    notebook_frame: NotebookFrame
 
     def __init__(self, notebook_frame: NotebookFrame) -> None:
         '''Set the notebook instance.'''

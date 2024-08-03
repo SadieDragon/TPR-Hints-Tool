@@ -13,8 +13,8 @@ class NotebookFrame:
     data_tabs = {}
 
     # The main window and notebook
-    root = CTk
-    notebook = CTkTabview
+    root: CTk
+    notebook: CTkTabview
 
     def __init__(self, root: CTk) -> None:
         '''Create the notebook.'''

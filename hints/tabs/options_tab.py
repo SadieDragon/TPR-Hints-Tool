@@ -14,7 +14,7 @@ from hints.saving.reload import reload
 class OptionsTab(ResetUtils):
     '''Hosts all of the Option Tab setup.'''
     # The tab itself
-    options_tab = CTkButton
+    options_tab: CTkFrame
 
     def __init__(self, notebook_frame: NotebookFrame, root: CTk) -> None:
         '''Create the tab with the options, flexibly.'''
