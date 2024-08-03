@@ -55,7 +55,11 @@ class ResetUtils(CreationUtils):
 
         # Tab back if requested
         if tab_back:
-            self.notebook_frame.set_to_notes_tab()
+            self.set_to_notes_tab()
+
+    def set_to_notes_tab(self) -> None:
+        '''Change the tab to the notes tab.'''
+        self.notebook_frame.notebook.set(tab_names.notes_tab_name)
 
     def show_warning(self) -> bool:
         '''Create a warning to ask them are ya sure?'''

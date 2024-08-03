@@ -57,12 +57,16 @@ If you see a blank line between bullets on any given day, it means that I rolled
             - If it succeeds, return the frame info
             - If it fails, then do the creation stuffz. (we want the error.)
 
+- Move ``set_to_notes_tab()`` to ``hints/gui_management/managers/reset_utils.py``, as it is only ever used for resetting purposes.
+
 - Remove now unnecessary local notebook instances
     - ``hints/tabs/shopping/shopping.py`` no longer needs the notebook
         - This means ``hints/tabs/shopping/agitha.py`` no longer needs the notebook
+
+    - ``hints/tabs/options_tab.py`` only needs it because it inherits ``ResetUtils``
+
     - ``hints/utils/parse_log.py`` only needs it to update the title now
-    - ``hints/tabs/options_tab.py`` only needs it to set to the notes tab
-    - ``hints/tabs/spoiler_log.py`` only needs it for ``parse_log`` and to set to notes tab
+    - ``hints/tabs/spoiler_log.py`` only needs it for ``parse_log``
 
 ***Saving***
 

@@ -151,7 +151,7 @@ class SpoilerLog:
     def dump_spoiler_log(self) -> None:
         '''Dumps the spoiler log and passes it on to the parser'''
         # Tab back to the notes tab
-        self.notebook_frame.set_to_notes_tab()
+        self.resetter.set_to_notes_tab()
 
         # Get the chosen log
         spoiler_log = self.spoiler_log_var.get()

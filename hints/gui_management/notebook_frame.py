@@ -30,7 +30,3 @@ class NotebookFrame:
     def update_title(self, seed_name: str = '') -> None:
         '''Update the title of the window.'''
         self.root.title(return_title(seed_name))
-
-    def set_to_notes_tab(self) -> None:
-        '''Change the tab to the notes tab.'''
-        self.notebook.set(tab_names.notes_tab_name)

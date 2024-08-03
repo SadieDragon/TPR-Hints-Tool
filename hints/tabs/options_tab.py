@@ -74,7 +74,7 @@ class OptionsTab(ResetUtils):
             # Close everything else
             self.close_tab(tab_name)
 
-        self.notebook_frame.set_to_notes_tab()
+        self.set_to_notes_tab()
 
     def reset(self) -> None:
         '''A wrapper for the tracker reset.'''
