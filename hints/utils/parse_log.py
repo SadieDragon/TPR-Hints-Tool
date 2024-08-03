@@ -76,4 +76,4 @@ class ParseLog:
                 # Special handling for Agitha
                 if sign == 'Agithas_Castle_Sign':
                     # Go to her parsing
-                    AgithaTab(hint_text, self.notebook_frame, resetter)
+                    AgithaTab(hint_text, resetter)

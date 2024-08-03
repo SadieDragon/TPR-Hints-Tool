@@ -8,14 +8,12 @@ from customtkinter import (CTkCheckBox,
                            IntVar)
 
 from hints.gui_management.managers import ResetUtils
-from hints.gui_management.notebook_frame import NotebookFrame
 
 
 class Shopping:
     '''The parent class for all of the shopping list tabs.'''
     # The instances
     resetter: ResetUtils           # The resetter instance (passed in)
-    notebook_frame: NotebookFrame  # The notebook instance (passed in)
 
     # The provided hint text
     hint_text: str
@@ -34,12 +32,10 @@ class Shopping:
 
     def __init__(self,
                  hint_text:str,
-                 notebook_frame: NotebookFrame,
                  resetter: ResetUtils) -> None:
         '''Initialize the variables provided.'''
         # Store the provided information
         self.resetter = resetter
-        self.notebook_frame = notebook_frame
         self.hint_text = hint_text
 
     def auto_fill(self) -> None:
