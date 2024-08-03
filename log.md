@@ -74,7 +74,6 @@ If you see a blank line between bullets on any given day, it means that I rolled
 
 - It is in its own folder "saving" so I can brute force a prototype and fix it later.
     - It is within ``hints/utils`` because they are technically utils, if ``parse_log.py`` is something to refer to for that defintion.
-    - (It will, in the future, be combined into a single class. THIS IS A PROTOTYPE.)
     - ``save.py`` is meant for everything to do with saving
     - ``reload.py`` is meant for getting the save data and reloading it.
 
@@ -83,11 +82,17 @@ If you see a blank line between bullets on any given day, it means that I rolled
 
 - Saving Prototyping:
     - Loop through the data tab names (the constant in ``hints/utils/constants/tab_names.py``)
-        - Try to get the tab.
-            - If success, set tab to the frame that is the tab
-            - If failure, set the tab to none
-        - If tab is none, move along.
-        - This could be done all within the try-except, but I wanna reduce nesting. New functions in the future?
+        - All of this could be done in one sweep under a try-except, but I wanna reduce nesting, and clean up the flow a lil bit.
+            - I may also handle "None" returns differently in the future, so I want to have that flexibility available to me.
+
+        - Have the try-except to look for ``tab_contents`` in a function for readability
+            - As this is strucutured into a class, I can set the contents of the tab into a local variable, instead of needing to pass it in and out of different functions.
+                - This is being done for more flexible coding: Instead of assuming that the widget we're looking for is precisely at x index and is precisely y widget, look for the widget type (which can later be changed) in the list of widgets, then call the handling for that widget type separately.
+            - Try to get the tab.
+                - If success, set tab contents to the children of the frame that is the tab
+                - If failure, set the tab contents to none
+
+        - If tab is none, move along for now.
 
         - Textbox is easy. just, ``.get('1.0', END).strip()``, and done
         - Checklist... oh boy
