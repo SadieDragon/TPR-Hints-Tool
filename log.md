@@ -52,6 +52,7 @@ If you see a blank line between bullets on any given day, it means that I rolled
 ***Saving***
 
 - It is in its own folder "saving" so I can brute force a prototype and fix it later.
+    - It is within ``hints/utils`` because they are technically utils, if ``parse_log.py`` is something to refer to for that defintion.
     - ``save.py`` is meant for everything to do with saving
     - ``reload.py`` is meant for getting the save data and reloading it.
 

@@ -7,8 +7,8 @@ from hints.gui_management.managers import ResetUtils
 from hints.gui_management.notebook_frame import NotebookFrame
 from hints.utils.constants import tab_names
 
-from hints.saving.save import save
-from hints.saving.reload import reload
+from hints.utils.saving.save import save
+from hints.utils.saving.reload import reload
 
 
 class OptionsTab(ResetUtils):
