@@ -76,18 +76,16 @@ class Shopping:
         # Reset, but don't reset to default
         tab = self.resetter.reset_tab(self.tab_name, False)
 
-        # Host frame ---------------------------------------------
-        # Create the frame to pass to dict
+        # Host frame ---------------------------------
+        # This is used to more clearly indicate that
+        # a checklist exists in the tab, later.
         tab_frame = CTkFrame(master=tab)
         tab_frame.pack(anchor='w',
                        expand=True,
                        fill='both',
                        padx=5,
                        pady=5)
-
-        # Pass it to the dict
-        self.notebook_frame.data_tabs[self.tab_name] = tab_frame
-        # --------------------------------------------------------
+        # --------------------------------------------
 
         # Create the status label ----------------------------
         self.status_label = CTkLabel(master=tab_frame,

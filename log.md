@@ -49,10 +49,19 @@ If you see a blank line between bullets on any given day, it means that I rolled
 
 - Correct comments
 
+- Realize I have been foolish, and re-invented the wheel. Remove all of the ``data_tabs`` stuff.
+    - I can just use ``.winfo_children()`` on the tabs to get the data about the tabs.
+    - as for "Does it exist or not?"- ``try/except``
+        - I was already doing this in ``hints/gui_management/managers/reset_utils.py`` at ``close_tab``...
+        - Try to get the frame using ``.tab(tab_name)``
+            - If it succeeds, return the frame info
+            - If it fails, then do the creation stuffz. (we want the error.)
+
 ***Saving***
 
 - It is in its own folder "saving" so I can brute force a prototype and fix it later.
     - It is within ``hints/utils`` because they are technically utils, if ``parse_log.py`` is something to refer to for that defintion.
+    - (It will, in the future, be combined into a single class. THIS IS A PROTOTYPE.)
     - ``save.py`` is meant for everything to do with saving
     - ``reload.py`` is meant for getting the save data and reloading it.
 

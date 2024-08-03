@@ -25,9 +25,6 @@ class ResetUtils(CreationUtils):
         try:
             # Close the tab
             self.notebook_frame.notebook.delete(tab_name)
-
-            # Remove the key, it no longer exists
-            del self.notebook_frame.data_tabs[tab_name]
         except ValueError:
             pass
 
@@ -36,9 +33,9 @@ class ResetUtils(CreationUtils):
         # If the tab does not already exist, create it
         tab = self.add_tab(tab_name)
 
-        # Destroy the frame contents
-        if self.notebook_frame.data_tabs[tab_name] is not None:
-            self.notebook_frame.data_tabs[tab_name].destroy()
+        # Destroy the tab contents
+        for child_widget in tab.winfo_children():
+            child_widget.destroy()
 
         # If requested, place a blank notepad in the tab
         if default:

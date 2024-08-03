@@ -17,9 +17,6 @@ class CreationUtils:
 
     def add_data_tab(self, tab_name: str) -> CTkFrame:
         '''Create specifically a data tab in the notebook.'''
-        # Update the data tabs dict to have a blank tab under this name
-        self.notebook_frame.data_tabs[tab_name] = None
-
         # Find the index
         tab_index = tab_names.data_tab_names.index(tab_name)
 
@@ -28,16 +25,18 @@ class CreationUtils:
 
     def add_tab(self, tab_name: str) -> CTkFrame:
         '''Create a tab in the notebook.'''
-        # If it already exists, return the tab widget's info
-        if tab_name in self.notebook_frame.data_tabs.keys():
+        # Try to return an existing tab
+        try:
             return self.notebook_frame.notebook.tab(tab_name)
+        # If it fails, create the tab as intended
+        # (This function wants this error to occur.)
+        except ValueError:
+            # If the tab name is in the data tabs list, then create a data tab
+            if tab_name in tab_names.data_tab_names:
+                return self.add_data_tab(tab_name)
 
-        # If the tab name is in the data tabs list, then create a data tab
-        if tab_name in tab_names.data_tab_names:
-            return self.add_data_tab(tab_name)
-
-        # Otherwise, just add the tab
-        return self.notebook_frame.notebook.add(tab_name)
+            # Otherwise, just add the tab
+            return self.notebook_frame.notebook.add(tab_name)
 
     def create_data_tabs(self) -> None:
         '''Creates the tabs that have data in their default state.'''
@@ -59,9 +58,6 @@ class CreationUtils:
         notepad = CTkTextbox(corner_radius=0, master=tab)
         notepad.pack(padx=5, pady=5, expand=True, fill='both')
         # ------------------------------------------------------
-
-        # Store the notepad under the tab name
-        self.notebook_frame.data_tabs[tab_name] = notepad
 
         # Return the notepad
         return notepad

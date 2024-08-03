@@ -9,9 +9,6 @@ from hints.utils.return_title import return_title
 class NotebookFrame:
     '''A class for managing the CTkTabview,
        which is the heart of this program.'''
-    # The data tabs, and their contents
-    data_tabs = {}
-
     # The main window and notebook
     root: CTk
     notebook: CTkTabview
