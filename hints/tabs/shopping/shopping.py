@@ -2,7 +2,6 @@
 # The parent class for the shopping lists and their utilities
 
 from customtkinter import (CTkCheckBox,
-                           CTkFrame,
                            CTkLabel,
                            CTkScrollableFrame,
                            IntVar)
@@ -13,7 +12,7 @@ from hints.gui_management.managers import ResetUtils
 class Shopping:
     '''The parent class for all of the shopping list tabs.'''
     # The instances
-    resetter: ResetUtils           # The resetter instance (passed in)
+    resetter: ResetUtils   # The resetter instance (passed in)
 
     # The provided hint text
     hint_text: str
@@ -22,13 +21,13 @@ class Shopping:
     tab_name: str
 
     # The label that displays the status
-    default_text: str              # The default text for the label
-    status_label:CTkLabel         # The label itself
+    default_text: str      # The default text for the label
+    status_label:CTkLabel  # The label itself
 
     # The rewards list
-    rewards = []                # The rewards themselves
-    checkboxes = []             # Holds the checkboxes
-    checkbox_vars = []          # Holds the IntVars
+    rewards = []           # The rewards themselves
+    checkboxes = []        # Holds the checkboxes
+    checkbox_vars = []     # Holds the IntVars
 
     def __init__(self,
                  hint_text:str,
@@ -72,31 +71,20 @@ class Shopping:
         # Reset, but don't reset to default
         tab = self.resetter.reset_tab(self.tab_name, False)
 
-        # Host frame ---------------------------------
-        # This is used to more clearly indicate that
-        # a checklist exists in the tab, later.
-        tab_frame = CTkFrame(master=tab)
-        tab_frame.pack(anchor='w',
-                       expand=True,
-                       fill='both',
-                       padx=5,
-                       pady=5)
-        # --------------------------------------------
-
         # Create the status label ----------------------------
-        self.status_label = CTkLabel(master=tab_frame,
+        self.status_label = CTkLabel(master=tab,
                                      text=self.default_text)
         self.status_label.pack(anchor='w', padx=5, pady=5)
         # ----------------------------------------------------
 
-        # Create the checklist frame ---------------------------
-        checklist_frame = CTkScrollableFrame(master=tab_frame)
+        # Create the checklist frame ---------------------
+        checklist_frame = CTkScrollableFrame(master=tab)
         checklist_frame.pack(anchor='w',
                              expand=True,
                              fill='both',
                              padx=5,
                              pady=5)
-        # ------------------------------------------------------
+        # ------------------------------------------------
 
         # Go through the rewards
         for reward in self.rewards:

@@ -25,7 +25,7 @@ If you see a blank line between bullets on any given day, it means that I rolled
 
 # Log
 
-**August 2 and 3, 2024**
+**General Focus Patches**
 - Reset ``log.md`` because I wrote it poorly
 
 - Fix Bug .201
@@ -66,6 +66,10 @@ If you see a blank line between bullets on any given day, it means that I rolled
     - ``hints/utils/parse_log.py`` only needs it to update the title now
     - ``hints/tabs/spoiler_log.py`` only needs it for ``parse_log``
 
+- Update ``hints/tabs/shopping/shopping.py`` to not have an extra subframe.
+    - I do not think this is needed, though I may well be very wrong, we shall see.
+    - It was here to make checking for the checklist easier, but I want to more loosely code instead of hardcoding myself into a box
+
 ***Saving***
 
 - It is in its own folder "saving" so I can brute force a prototype and fix it later.
@@ -88,6 +92,5 @@ If you see a blank line between bullets on any given day, it means that I rolled
         - Textbox is easy. just, ``.get('1.0', END).strip()``, and done
         - Checklist... oh boy
             - So, that scrollable frame is packed as a ``canvas``, ``scrollbar``, and ``label`` object into a singular frame.
-
 
 - ...
