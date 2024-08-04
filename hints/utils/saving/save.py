@@ -15,11 +15,10 @@ class SaveNotes:
     # The stored information from each tab
     tab_data = {}
 
-    # A placeholder variable for the tab contents
-    tab_contents: list | None
-
-    # A placeholder variable for the target widget
-    target_widget: CTkFrame | CTkTextbox | None
+    # Placeholder variables
+    tab_name: str                                # Current tab name
+    tab_contents: list | None                    # Widgets in the tab
+    target_widget: CTkFrame | CTkTextbox | None  # Widget to be parsed
 
     def __init__(self, notebook_frame: NotebookFrame) -> None:
         '''Store the notebook instance,
@@ -29,8 +28,11 @@ class SaveNotes:
 
         # Go through the list of data tabs
         for tab_name in data_tab_names:
+            # Store the tab name for later updates
+            self.tab_name = tab_name
+
             # Try to grab the contents of the tab
-            self.grab_tab_contents(tab_name)
+            self.grab_tab_contents()
 
             # If the tab does not exist,
             # we do not save any information on it
@@ -41,13 +43,17 @@ class SaveNotes:
             if self.contains_widget(CTkTextbox):
                 self.save_notepad()
 
-            # elif self.contains_widget(CTkFrame):
+            elif self.contains_widget(CTkFrame):
+                print('I am a checklist! :D')
 
             # If we come across a case that is not A or B,
             # then it is something I need to address but have not.
             # (This includes BUGS.)
             else:
                 raise NotImplementedError
+
+        # DEBUG
+        print(self.tab_data)
 
     def contains_widget(self, target: CTkTextbox | CTkFrame) -> bool:
         '''Tests if a widget of the desired type is within the tab.'''
@@ -64,12 +70,12 @@ class SaveNotes:
         self.target_widget = None
         return False
 
-    def grab_tab_contents(self, tab_name: str) -> list | None:
+    def grab_tab_contents(self) -> list | None:
         '''Attempt to grab the tab contents.'''
         # Try grabbing the tab, and its frame information
         try:
             # Grab the tab
-            tab = self.notebook.tab(tab_name)
+            tab = self.notebook.tab(self.tab_name)
 
             # Then return the list of widgets on that tab
             self.tab_contents = tab.winfo_children()
@@ -82,7 +88,10 @@ class SaveNotes:
         # Ok. The checklist is where things get tricky.
         pass
 
-    def save_notepad(self) -> str:
-        '''Grab the information from the textbox.'''
+    def save_notepad(self) -> None:
+        '''Store the information from the textbox.'''
         # Grab the contents and remove trailing whitespace
-        # return tab_contents.get('1.0', END).strip()
+        textbox_contents = self.target_widget.get('1.0', END).strip()
+
+        # Store those contents
+        self.tab_data[self.tab_name] = textbox_contents

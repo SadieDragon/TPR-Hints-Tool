@@ -99,10 +99,12 @@ If you see a blank line between bullets on any given day, it means that I rolled
         - The ``contains_widget`` function also saves the target widget when found, to reduce repeated searching.
             - In the future, it would not be that difficult to switch this to an indices storage, to cherry pick.
 
-        - Look for a ``CTkTextbox`` widget within the contents
-            - If one exists, store the contents of the textbox
-                - Get the contents using ``.get('1.0', END).strip()``
-        - Look for a ``CTkFrame`` widget within the contents (the shopping list)
-            - So, that scrollable frame is packed as a ``canvas``, ``scrollbar``, and ``label`` object into a singular frame.
+        - Notepad Handling
+            - Look for a ``CTkTextbox`` widget within the contents
+            - If one exists, store the contents of the textbox (very straightforward)
+
+        - Shopping List Handling
+            - Look for a ``CTkFrame`` widget within the contents (the shopping list)
+                - So, that scrollable frame is packed as a ``canvas``, ``scrollbar``, and ``label`` object into a singular frame.
 
 - ...
