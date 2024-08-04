@@ -43,8 +43,9 @@ class SaveNotes:
             if self.contains_widget(CTkTextbox):
                 self.save_notepad()
 
+            # Save data from a checklist tab
             elif self.contains_widget(CTkFrame):
-                print('I am a checklist! :D')
+                self.save_checklist()
 
             # If we come across a case that is not A or B,
             # then it is something I need to address but have not.
@@ -78,15 +79,49 @@ class SaveNotes:
             tab = self.notebook.tab(self.tab_name)
 
             # Then return the list of widgets on that tab
-            self.tab_contents = tab.winfo_children()
+            self.tab_contents = self.return_children_widgets(tab)
         # If it fails, the tab doesn't exist, so return None.
         except ValueError:
             self.tab_contents = None
 
-    def read_checklist(self) -> None:
+    def return_children_widgets(self, widget) -> list:
+        '''A wrapper for the winfo_children function
+           in tkinter and customtkinter, which returns
+           a list of widgets within the parent widget.'''
+        return widget.winfo_children()
+
+    def return_first_child(self, widget):
+        '''A wrapper function to return the first child widget.'''
+        return self.return_children_widgets(widget)[0]
+
+    def save_checklist(self) -> None:
         '''Grab the states of the checkbox.'''
         # Ok. The checklist is where things get tricky.
-        pass
+        # Read log.md for more information as to why
+        # I chose to write this function like this.
+
+        # The canvas
+        canvas = self.return_first_child(self.target_widget)
+        # The scrollable frame
+        scrollable_frame = self.return_first_child(canvas)
+
+        # The checklist of checkboxes
+        checkboxes = self.return_children_widgets(scrollable_frame)
+
+        # Go through each and get their state,
+        # and the item that is being marked
+        checkboxes_data = []  # Placeholder variable for the data
+        for checkbox in checkboxes:
+            # Grab the item the checkbox is for
+            item = checkbox.cget('text')
+
+            # Grab the on / off value
+            collected = checkbox.get()
+
+            # Store that as a list
+            checkboxes_data.append([item, collected])
+
+        self.tab_data[self.tab_name] = checkboxes_data
 
     def save_notepad(self) -> None:
         '''Store the information from the textbox.'''

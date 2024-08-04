@@ -83,6 +83,9 @@ If you see a blank line between bullets on any given day, it means that I rolled
 - Saving Prototyping:
     - As much as I thought the flexibility was smart, this is still using pretty hardcoded expectances. If I change things in the future, this prototype will still be too hard-coded to take advantage of the flexibility.
         - Because of how the ``CTkScrollableFrame`` is actually packed, I need to look for a frame within the widget. But what if I create a frame myself, to store a different widget list? Stuff like this will make future expandability difficult.
+    - I wrote a wrapper function for ``.winfo_children()`` because... it's not very clear what exactly that's doing....
+        - I also wrote a wrapper function to return the first widget of that list. Cause er... lazy?
+        - Type defintions for these are a bit weird. Oops.
     - Loop through the data tab names (the constant in ``hints/utils/constants/tab_names.py``)
         - All of this could be done in one sweep under a try-except, but I wanna reduce nesting, and clean up the flow a lil bit.
             - I may also handle "None" returns differently in the future, so I want to have that flexibility available to me.
@@ -105,6 +108,24 @@ If you see a blank line between bullets on any given day, it means that I rolled
 
         - Shopping List Handling
             - Look for a ``CTkFrame`` widget within the contents (the shopping list)
-                - So, that scrollable frame is packed as a ``canvas``, ``scrollbar``, and ``label`` object into a singular frame.
+            - If one exists, handle the checklist frame
+                - The scrollable frame is packed into a frame as a ``canvas``, ``scrollbar``, and ``label``.
+                    - within the ``canvas``, is the ``scrollableframe``. Yeah.
+                        - Within *that* is the checklist of checkboxes. YAY
+
+                - So now that you get the architecture I'm working with- we have checkboxes now! :D Let's parse them-
+                    - Get the state- use ``.get()`` on the checkbox. Easy.
+                    - Get the item- use ``.cget('text')`` to get the text that was assigned to the checkbox (which was the item).
+
+                    - Future proofing note: For the minor lists which disable useless checkboxes, ``.cget('state')`` will tell whether the checkbox is enabled or not.
+
+                    - But what about the storing? Ooo that's the fun part, because I have 3 options for storing the data in the dict.
+                        - I could store it as a dict
+                            - I run into the issue of repeating item names, which would cause issues.
+                        - I could store them as a tuple, or a list acting like a tuple (I do this a lot because tuple has some weird indexing griefs)
+                        - I could store it as a string separated by a colon
+                            - And later rip it out by searching for ``: [digit]`` with regex.
+                            - Issue with this is "What if somehow something messes with that format?" headaches.
+                    - So I have settled on ``store as a tuple or list acting like a tuple``. Less headache, more flexible.
 
 - ...
