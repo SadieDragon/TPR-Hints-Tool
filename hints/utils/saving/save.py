@@ -34,6 +34,10 @@ class SaveNotes:
             if self.tab_contents is None:
                 continue
 
+            # DEBUG
+            print(self.tab_contents)
+            print(self.contains_widget(CTkFrame))
+
             # if isinstance(tab_contents, CTkFrame):
             #     # TODO: Actually implement the checklist handling.
             #     read_checklist(tab_contents)
@@ -43,6 +47,17 @@ class SaveNotes:
             # else:
             #     # ... er, that was not expected.
             #     raise NotImplementedError
+
+    def contains_widget(self, target: CTkTextbox | CTkFrame) -> bool:
+        '''Tests if a widget of the desired type is within the tab.'''
+        # A placeholder var that stores test results,
+        # for PEP8 compliance (80 character limits)
+        test_outputs = []
+        for widget in self.tab_contents:
+            test_outputs.append(isinstance(widget, target))
+
+        # Return if any were the target type
+        return any(test_outputs)
 
     def grab_tab_contents(self, tab_name: str) -> list | None:
         '''Attempt to grab the tab contents.'''
