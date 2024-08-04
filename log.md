@@ -12,8 +12,15 @@ If you see a blank line between bullets on any given day, it means that I rolled
 **Tasks which I recognize I need to do- I will forget to add things here, and I am sorry in advance.**
 
 - I have a lot of random newlines in the markdowns. It's either that, or super long lines. Make that uniform.
-- update all ``x = Class`` to ``x: Class`` (thanks @Ecconia for pointing this out)
 - prettify the code and repository (later tasks, saving is priority)
+
+
+- is ``add_data_tab`` necessary anymore?
+- ACTUAL saving (it's barebones basic right now)
+    - Better formatting
+    - Allow the user to choose where they want the output to go
+- Reloading save data
+- clean up the code to remove some of the hackiness that arose from my brain turning into a stubborn husky
 
 # Bugs
 
@@ -127,5 +134,11 @@ If you see a blank line between bullets on any given day, it means that I rolled
                             - And later rip it out by searching for ``: [digit]`` with regex.
                             - Issue with this is "What if somehow something messes with that format?" headaches.
                     - So I have settled on ``store as a tuple or list acting like a tuple``. Less headache, more flexible.
+
+    - Now that we have all of the data, it's time to finally actually save. For now, I am using a folder in the root directory. I will patch in "pick your own" later.
+        - Title will be the time stamp. Sort of.
+            - ``mm-dd-yy (hh-mm)`` - ``month-day-year (hour-minute)``; uses 24hr
+        - For now, it just goes through each item in the dictionary (tab, contents), and spits them out in the most bare-bones way.
+            - I ran out of mental energy to code and I could not get the stubborn husky that is my brain to stand up and move.
 
 - ...

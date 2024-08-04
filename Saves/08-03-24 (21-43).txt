@@ -1,0 +1,7 @@
+
+Notes: -------------------
+
+
+Bugs: -------------------
+['Forest Temple small key', 0]
+['Bow', 1]

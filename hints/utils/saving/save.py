@@ -2,9 +2,12 @@
 # Holds all of the utility for saving information on the tracker.
 
 from customtkinter import CTkFrame, CTkTabview, CTkTextbox, END
+from pathlib import Path
+from time import strftime
 
 from hints.gui_management.notebook_frame import NotebookFrame
 from hints.utils.constants.tab_names import data_tab_names
+from hints.utils.constants.folders import saves_folder
 
 
 class SaveNotes:
@@ -53,8 +56,7 @@ class SaveNotes:
             else:
                 raise NotImplementedError
 
-        # DEBUG
-        print(self.tab_data)
+        self.save_to_file()
 
     def contains_widget(self, target: CTkTextbox | CTkFrame) -> bool:
         '''Tests if a widget of the desired type is within the tab.'''
@@ -130,3 +132,26 @@ class SaveNotes:
 
         # Store those contents
         self.tab_data[self.tab_name] = textbox_contents
+
+    def save_to_file(self) -> None:
+        '''Writes the gathered data to the output file.'''
+        # Grab the time of the save
+        # month-day-year (hour-minute)
+        # Hours are 24 hour style
+        time = strftime('%m-%d-%y (%H-%M)')
+
+        # The default file name will be '{time}.txt'
+        save_file = Path(time).with_suffix('.txt')
+
+        path_to_save_file = saves_folder / save_file
+
+        # Open that file for saving into
+        with open(path_to_save_file, 'w+') as f:
+            for tab_name, contents in self.tab_data.items():
+                f.write(f'\n{tab_name}: -------------------\n')
+
+                if isinstance(contents, list):
+                    for item_state in contents:
+                        f.write(f'{item_state}\n')
+                else:
+                    f.write(f'{contents}\n')
