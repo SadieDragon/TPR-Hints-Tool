@@ -81,6 +81,8 @@ If you see a blank line between bullets on any given day, it means that I rolled
     - This could be in ``__init__`` but I put it here for easier modifications.
 
 - Saving Prototyping:
+    - As much as I thought the flexibility was smart, this is still using pretty hardcoded expectances. If I change things in the future, this prototype will still be too hard-coded to take advantage of the flexibility.
+        - Because of how the ``CTkScrollableFrame`` is actually packed, I need to look for a frame within the widget. But what if I create a frame myself, to store a different widget list? Stuff like this will make future expandability difficult.
     - Loop through the data tab names (the constant in ``hints/utils/constants/tab_names.py``)
         - All of this could be done in one sweep under a try-except, but I wanna reduce nesting, and clean up the flow a lil bit.
             - I may also handle "None" returns differently in the future, so I want to have that flexibility available to me.
@@ -92,10 +94,12 @@ If you see a blank line between bullets on any given day, it means that I rolled
                 - If success, set tab contents to the children of the frame that is the tab
                 - If failure, set the tab contents to none
 
-        - If tab is none, move along for now.
+        - If tab has nothing (it was closed, or otherwise does not exist), move along for now.
 
-        - Textbox is easy. just, ``.get('1.0', END).strip()``, and done
-        - Checklist... oh boy
+        - Look for a ``CTkTextbox`` widget within the contents
+            - If one exists, store the contents of the textbox
+                - Get the contents using ``.get('1.0', END).strip()``
+        - Look for a ``CTkFrame`` widget within the contents (the shopping list)
             - So, that scrollable frame is packed as a ``canvas``, ``scrollbar``, and ``label`` object into a singular frame.
 
 - ...
