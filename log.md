@@ -96,6 +96,9 @@ If you see a blank line between bullets on any given day, it means that I rolled
 
         - If tab has nothing (it was closed, or otherwise does not exist), move along for now.
 
+        - The ``contains_widget`` function also saves the target widget when found, to reduce repeated searching.
+            - In the future, it would not be that difficult to switch this to an indices storage, to cherry pick.
+
         - Look for a ``CTkTextbox`` widget within the contents
             - If one exists, store the contents of the textbox
                 - Get the contents using ``.get('1.0', END).strip()``

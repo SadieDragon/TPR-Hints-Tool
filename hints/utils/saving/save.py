@@ -18,6 +18,9 @@ class SaveNotes:
     # A placeholder variable for the tab contents
     tab_contents: list | None
 
+    # A placeholder variable for the target widget
+    target_widget: CTkFrame | CTkTextbox | None
+
     def __init__(self, notebook_frame: NotebookFrame) -> None:
         '''Store the notebook instance,
            and initialize saving functions.'''
@@ -34,30 +37,32 @@ class SaveNotes:
             if self.tab_contents is None:
                 continue
 
-            # DEBUG
-            print(self.tab_contents)
-            print(self.contains_widget(CTkFrame))
+            # Save data from a notepad tab
+            if self.contains_widget(CTkTextbox):
+                self.save_notepad()
 
-            # if isinstance(tab_contents, CTkFrame):
-            #     # TODO: Actually implement the checklist handling.
-            #     read_checklist(tab_contents)
-            # elif isinstance(tab_contents, CTkTextbox):
-            #     # Read the textbox contants and store the info
-            #     tab_information[tab_name] = read_textbox(tab_contents)
-            # else:
-            #     # ... er, that was not expected.
-            #     raise NotImplementedError
+            # elif self.contains_widget(CTkFrame):
+
+            # If we come across a case that is not A or B,
+            # then it is something I need to address but have not.
+            # (This includes BUGS.)
+            else:
+                raise NotImplementedError
 
     def contains_widget(self, target: CTkTextbox | CTkFrame) -> bool:
         '''Tests if a widget of the desired type is within the tab.'''
-        # A placeholder var that stores test results,
-        # for PEP8 compliance (80 character limits)
-        test_outputs = []
         for widget in self.tab_contents:
-            test_outputs.append(isinstance(widget, target))
+            # If we find a widget of the target type,
+            # store the index and return.
+            if isinstance(widget, target):
+                self.target_widget = widget
+                return True
 
-        # Return if any were the target type
-        return any(test_outputs)
+        # If it went through the entire list,
+        # and made it here, then there was not
+        # a widget of the type requested.
+        self.target_widget = None
+        return False
 
     def grab_tab_contents(self, tab_name: str) -> list | None:
         '''Attempt to grab the tab contents.'''
@@ -77,8 +82,7 @@ class SaveNotes:
         # Ok. The checklist is where things get tricky.
         pass
 
-    def read_textbox(self) -> str:
+    def save_notepad(self) -> str:
         '''Grab the information from the textbox.'''
         # Grab the contents and remove trailing whitespace
         # return tab_contents.get('1.0', END).strip()
-        pass
