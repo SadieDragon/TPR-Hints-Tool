@@ -2,6 +2,7 @@
 # Holds all of the utility for saving information on the tracker.
 
 from customtkinter import CTkFrame, CTkTabview, CTkTextbox, END
+from os import listdir, remove
 from pathlib import Path
 from time import strftime
 
@@ -103,6 +104,25 @@ class SaveNotes:
         '''A wrapper function to return the first child widget.'''
         return self.return_children_widgets(widget)[0]
 
+    def remove_old_files(self) -> None:
+        '''Remove old folders, to avoid flooding the user's storage.'''
+        # Grab the list of save files
+        save_files = listdir(saves_folder)
+
+        # Leave if there are less than 5
+        if len(save_files) < 5:
+            return
+
+        # Grab all but the last 4 files from the list
+        files_to_remove = save_files[:-4]
+
+        for file in files_to_remove:
+            # Add the save folder to the path
+            file_path = saves_folder / file
+
+            # Remove it from the folder
+            remove(file_path)
+
     def save_checklist(self) -> None:
         '''Grab the states of the checkbox.'''
         # Ok. The checklist is where things get tricky.
@@ -142,6 +162,9 @@ class SaveNotes:
 
     def save_to_file(self) -> None:
         '''Writes the gathered data to the output file.'''
+        # Remove old files before creating a new one.
+        self.remove_old_files()
+
         # Grab the time of the save
         # month-day-year (hour-minute)
         # Hours are 24 hour style
