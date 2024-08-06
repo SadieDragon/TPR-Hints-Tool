@@ -29,6 +29,30 @@ class SaveNotes:
         # Store the notebook
         self.notebook = notebook_frame.notebook
 
+        # Grab the data to write to saving
+        self.gather_data()
+
+        # Write the data to the file
+        self.save_to_file()
+
+    def contains_widget(self, target: CTkTextbox | CTkFrame) -> bool:
+        '''Tests if a widget of the desired type is within the tab.'''
+        for widget in self.tab_contents:
+            # If we find a widget of the target type,
+            # store the index and return.
+            if isinstance(widget, target):
+                self.target_widget = widget
+                return True
+
+        # If it went through the entire list,
+        # and made it here, then there was not
+        # a widget of the type requested.
+        self.target_widget = None
+        return False
+
+    def gather_data(self) -> None:
+        '''A wrapper function for the overall functionality
+           of gathering data from the different widget types.'''
         # Go through the list of data tabs
         for tab_name in data_tab_names:
             # Store the tab name for later updates
@@ -55,23 +79,6 @@ class SaveNotes:
             # (This includes BUGS.)
             else:
                 raise NotImplementedError
-
-        self.save_to_file()
-
-    def contains_widget(self, target: CTkTextbox | CTkFrame) -> bool:
-        '''Tests if a widget of the desired type is within the tab.'''
-        for widget in self.tab_contents:
-            # If we find a widget of the target type,
-            # store the index and return.
-            if isinstance(widget, target):
-                self.target_widget = widget
-                return True
-
-        # If it went through the entire list,
-        # and made it here, then there was not
-        # a widget of the type requested.
-        self.target_widget = None
-        return False
 
     def grab_tab_contents(self) -> list | None:
         '''Attempt to grab the tab contents.'''

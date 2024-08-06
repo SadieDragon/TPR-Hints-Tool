@@ -9,3 +9,6 @@ Output
 
 # Ignore the new spoiler logs I dump for testing
 SpoilerLog
+
+# Ignore any new saves created by testing
+Saves
