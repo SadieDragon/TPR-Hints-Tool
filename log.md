@@ -25,6 +25,9 @@ If you see a blank line between bullets on any given day, it means that I rolled
 - Rename the user file / master save file to be ``master`` instead of ``time``
 - when collecting data, store also the tab type
     - The val will be a list, index 0 is tab type and index 1 is tab contents
+- Figure out how to implement an autosave upon resets, and inform the user of the autosave
+- Proper errorhandling instead of ``raise NotImplementedError``
+- Textwrapping in the textboxes to be word
 
 # Bugs
 
@@ -73,19 +76,19 @@ If you see a blank line between bullets on any given day, it means that I rolled
 - Saving Prototyping (``save.py``):
     - As much as I thought the flexibility was smart, this is still using pretty hardcoded expectances. If I change things in the future, this prototype will still be too hard-coded to take advantage of the flexibility.
         - Because of how the ``CTkScrollableFrame`` is actually packed, I need to look for a frame within the widget. But what if I create a frame myself, to store a different widget list? Stuff like this will make future expandability difficult.
-    - I wrote a wrapper function for ``.winfo_children()`` because... it's not very clear what exactly that's doing....
-        - I also wrote a wrapper function to return the first widget of that list.
-        - Type defintions for these are a bit weird
-    - Gathering the data from the tabs
+    - Gathering the data from the tabs (``gather_tab_data.py``)
+        - I wrote a wrapper function for ``.winfo_children()`` because... it's not very clear what exactly that's doing....
+            - I also wrote a wrapper function to return the first widget of that list.
+            - Type defintions for these are a bit weird
         - All of this could be done in one sweep under a try-except, but I wanna reduce nesting, and clean up the flow a lil bit.
             - I may also handle "None" returns differently in the future, so I want to have that flexibility available to me.
         - Loop through the data tab names (the constant in ``hints/utils/constants/tab_names.py``)
-            - Have the try-except to look for ``tab_contents``- in a separate function for readability
+            - Have the try-except to look for ``tab_contents``
                 - As this is strucutured into a class, I can set the contents of the tab into a local placeholder variable (``tab_contents``), instead of needing to pass it in and out of different functions.
                     - This is being done for more flexible coding: Instead of assuming that the widget we're looking for is precisely at ``x`` index and is precisely ``y`` widget, look for the widget type (which can later be changed) in the list of widgets, so I can call the handling for that widget type separately.
                 - Try to get the tab.
                     - If success, set ``tab_contents`` to the children of the frame that is the tab
-                    - If failure, the tab was closed, so move to the next tab. (which is done by setting ``tab_contents`` to ``None``)
+                    - If failure, the tab was closed, so move to the next tab.
 
             - The ``contains_widget`` function also saves the target widget when found, to reduce repeated searching.
                 - In the future, it would not be that difficult to switch this to an indices storage, to cherry pick which specific widget is to be the target.
@@ -125,7 +128,7 @@ If you see a blank line between bullets on any given day, it means that I rolled
                     - The checklist format: ``'item name': bool``, with the integer translated into a boolean
                         - would use yaml, but not built in, and honestly not worth at this time.
                         - Could use JSON- but again, not worth.
-        - Further notes;
+        - Further notes
             - There's an edge case, where if you create 2 saves within the same moment, the oldest save is overwritten. Oops.
             - jaq suggested using ``.anything-but-zip`` but i want the end user to be able to access the contents.
 
