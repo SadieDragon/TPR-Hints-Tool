@@ -9,13 +9,16 @@ from time import strftime
 from hints.utils.constants.directories import saves_dir
 
 
-class SaveNotes:
+class CreateSaveDir:
     '''A class that hosts the utilities for saving your progress.'''
     # The stored information from each tab
     tab_data = {}
 
-    def __init__(self) -> None:
+    def __init__(self, tab_data: dict) -> None:
         '''Initialize saving functions.'''
+        # Store the tab data
+        self.tab_data = tab_data
+
         # Write the data to the file
         self.save_to_file()
 

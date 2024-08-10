@@ -2,7 +2,6 @@
 # Holds all of the window management utilities for the tracker
 
 from customtkinter import CTk, CTkTabview
-from hints.utils.constants import tab_names
 from hints.utils.return_title import return_title
 
 
