@@ -15,4 +15,4 @@ class SaveNotes:
         collected_data = GatherTabData(notebook_frame).tab_data
 
         # Write the save folder
-        dir_writing_instance = CreateSaveDir()
+        dir_writing_instance = CreateSaveDir(collected_data)
