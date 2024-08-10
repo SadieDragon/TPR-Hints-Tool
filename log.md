@@ -143,8 +143,21 @@ If you see a blank line between bullets on any given day, it means that I rolled
         - Only 5 files will be saved, before old ones are deleted.
 
         - Formatting notes:
-            - Pads the tab name with '=' to make it easier to find where each section is (80 chars long)
-            - notepads are just dumped verbatim into the log
-            - checklists are formatted ``'item name': bool`` with the integer translated into a boolean
+            - In a zip file, to save space (not like much is used but hey)
+            - Contains the different tabs as different formats for the reloading to read easier, but also a master file for the user to read all of their notes at once.
+            - Tab files will be named after the tab
+                - Master Save File: the user can use this to read all of their notes at once, instead of having to parse the separate files.
+                    - Pads the tab name with '=' to make it easier to find where each section is (80 chars long)
+                    - notepads are just dumped verbatim into the log
+                    - checklists are formatted ``'item name': bool`` with the integer translated into a boolean
+                - The notepad's format
+                    - literally just dump the notes in here
+                - The checklist format
+                    - format like in master.
+                    - would use yaml, but not built in, and honestly not worth.
+
+        - Further notes;
+            - For the record: I spent over an hour and a half fighting with "make_archive". Ripped out the code I had, and rewrote it line for line. And it ``just worked*tm*.`` Thanks, python.
+            - There's an edge case, where if you create 2 saves within the same moment, the oldest save is overwritten. Oops.
 
 - ...
