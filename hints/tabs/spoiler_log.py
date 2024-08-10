@@ -3,7 +3,7 @@
 # Complex utils are found under hints/utils/parse_log.py
 
 from customtkinter import CTkButton, CTkComboBox, CTkFrame, CTkLabel, StringVar
-from hints.utils.constants import folders
+from hints.utils.constants import directories
 from hints.utils.constants import tab_names
 from hints.utils.parse_log import ParseLog
 
@@ -55,7 +55,7 @@ class SpoilerLog:
     def clipboard_path(self) -> None:
         '''Copies the path to clipboard.'''
         # https://stackoverflow.com/a/41029935
-        command = f'echo {folders.spoiler_log_dir}|clip'
+        command = f'echo {directories.spoiler_log_dir}|clip'
 
         check_call(command, shell=True)
 
@@ -120,7 +120,7 @@ class SpoilerLog:
         # The error text (for PEP8 compliance, and readability)
         error_text = ('There are no available spoiler logs. Please provide one'
                       ' in the following folder:\n\n'
-                      f'{folders.spoiler_log_dir}\n\nClick below to copy'
+                      f'{directories.spoiler_log_dir}\n\nClick below to copy'
                       ' the path to your clipboard.')
         # The error label itself
         error_label = CTkLabel(justify='left',
@@ -168,7 +168,7 @@ class SpoilerLog:
         self.destroy_frame()
 
         # Get the spoiler logs available
-        spoiler_logs = listdir(folders.spoiler_log_dir)
+        spoiler_logs = listdir(directories.spoiler_log_dir)
 
         # Validate which files can actually be used
         valid_spoilers = []

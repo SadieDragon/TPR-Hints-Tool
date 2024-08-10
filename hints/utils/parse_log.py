@@ -5,7 +5,7 @@ from hints.gui_management.managers import ResetUtils
 from hints.gui_management.notebook_frame import NotebookFrame
 
 from hints.tabs.shopping.agitha_tab import AgithaTab
-from hints.utils.constants import folders
+from hints.utils.constants import directories
 from json import load
 from pathlib import Path
 from re import findall, sub
@@ -43,7 +43,7 @@ class ParseLog:
         self.spoiler_log_file = self.spoiler_log_file.with_suffix('.json')
 
         # Make the path to the log
-        spoiler_log_path = (folders.spoiler_log_dir / self.spoiler_log_file)
+        spoiler_log_path = (directories.spoiler_log_dir / self.spoiler_log_file)
 
         # Dump the spoiler log data
         # Ecconia provided the fix for reading the file, encoded in 'UTF-8'
