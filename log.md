@@ -21,6 +21,10 @@ If you see a blank line between bullets on any given day, it means that I rolled
     - it's getting way too long and it's kind of annoying me. there's so much for just grabbing the data, and so little for saving, but it's 275 lines long.
 - Reloading save data
 - clean up the code to remove some of the hackiness that arose from my brain turning into a stubborn husky
+- Update the ``state`` variable name for the checklist processing to instead be something more accurately referring to ``collection status``
+- Rename the user file / master save file to be ``master`` instead of ``time``
+- when collecting data, store also the tab type
+    - The val will be a list, index 0 is tab type and index 1 is tab contents
 
 # Bugs
 
@@ -44,38 +48,18 @@ If you see a blank line between bullets on any given day, it means that I rolled
     - Solution:
         - Just run ``add_tab`` when calling ``reset_tab``, and store its output
         - Update ``add_tab`` to return the widget info if the tab does exist, instead of ``None``
-            - Update the return type of ``add_tab`` to no longer inlcude ``None``, as it should never return ``None`` now
         - Update ``create_notepad_tab`` to have a new arg for a provided tab, defaulted to ``None``
             - If no tab is passed in, it still runs ``add_tab`` to get one.
 
-- Update the return type for ``add_data_tab`` to not include ``None``
-    - That was a remnant, and it should never return ``None``
-
-- Remove unnecessary imports
-    - ``from customtkinter import CTk`` in ``hints/control/hint_notebook.py``
-
-- Correct comments
-
-- Realize I have been foolish, and re-invented the wheel. Remove all of the ``data_tabs`` stuff.
+- Remove all of the ``data_tabs`` stuff.
     - I can just use ``.winfo_children()`` on the tabs to get the data about the tabs.
-    - as for "Does it exist or not?"- ``try/except``
-        - I was already doing this in ``hints/gui_management/managers/reset_utils.py`` at ``close_tab``...
-        - Try to get the frame using ``.tab(tab_name)``
-            - If it succeeds, return the frame info
-            - If it fails, then do the creation stuffz. (we want the error.)
+    - For creating the tab: Try to get the frame using ``.tab(tab_name)``
+        - If it succeeds, return the frame info
+        - If it fails, then do the creation stuffz. (we want the error.)
 
 - Move ``set_to_notes_tab()`` to ``hints/gui_management/managers/reset_utils.py``, as it is only ever used for resetting purposes.
 
-- Remove now unnecessary local notebook instances
-    - ``hints/tabs/shopping/shopping.py`` no longer needs the notebook
-        - This means ``hints/tabs/shopping/agitha.py`` no longer needs the notebook
-
-    - ``hints/utils/parse_log.py`` only needs it to update the title now
-    - ``hints/tabs/spoiler_log.py`` only needs it for ``parse_log``
-
 - Update ``hints/tabs/shopping/shopping.py`` to not have an extra subframe.
-    - I do not think this is needed, though I may well be very wrong, we shall see.
-    - It was here to make checking for the checklist easier, but I want to more loosely code instead of hardcoding myself into a box
 
 ***Saving***
 
@@ -85,80 +69,64 @@ If you see a blank line between bullets on any given day, it means that I rolled
     - ``reload.py`` is meant for getting the save data and reloading it.
 
 - Create a function to more easily modify and add buttons in the future (also DRY the code) - ``create_buttons`` in ``hints/tabs/options_tab.py``
-    - This could be in ``__init__`` but I put it here for easier modifications.
 
-- Saving Prototyping:
+- Saving Prototyping (``save.py``):
     - As much as I thought the flexibility was smart, this is still using pretty hardcoded expectances. If I change things in the future, this prototype will still be too hard-coded to take advantage of the flexibility.
         - Because of how the ``CTkScrollableFrame`` is actually packed, I need to look for a frame within the widget. But what if I create a frame myself, to store a different widget list? Stuff like this will make future expandability difficult.
     - I wrote a wrapper function for ``.winfo_children()`` because... it's not very clear what exactly that's doing....
-        - I also wrote a wrapper function to return the first widget of that list. Cause er... lazy?
-        - Type defintions for these are a bit weird. Oops.
-    - Loop through the data tab names (the constant in ``hints/utils/constants/tab_names.py``)
+        - I also wrote a wrapper function to return the first widget of that list.
+        - Type defintions for these are a bit weird
+    - Gathering the data from the tabs
         - All of this could be done in one sweep under a try-except, but I wanna reduce nesting, and clean up the flow a lil bit.
             - I may also handle "None" returns differently in the future, so I want to have that flexibility available to me.
+        - Loop through the data tab names (the constant in ``hints/utils/constants/tab_names.py``)
+            - Have the try-except to look for ``tab_contents``- in a separate function for readability
+                - As this is strucutured into a class, I can set the contents of the tab into a local placeholder variable (``tab_contents``), instead of needing to pass it in and out of different functions.
+                    - This is being done for more flexible coding: Instead of assuming that the widget we're looking for is precisely at ``x`` index and is precisely ``y`` widget, look for the widget type (which can later be changed) in the list of widgets, so I can call the handling for that widget type separately.
+                - Try to get the tab.
+                    - If success, set ``tab_contents`` to the children of the frame that is the tab
+                    - If failure, the tab was closed, so move to the next tab. (which is done by setting ``tab_contents`` to ``None``)
 
-        - Have the try-except to look for ``tab_contents`` in a function for readability
-            - As this is strucutured into a class, I can set the contents of the tab into a local variable, instead of needing to pass it in and out of different functions.
-                - This is being done for more flexible coding: Instead of assuming that the widget we're looking for is precisely at x index and is precisely y widget, look for the widget type (which can later be changed) in the list of widgets, then call the handling for that widget type separately.
-            - Try to get the tab.
-                - If success, set tab contents to the children of the frame that is the tab
-                - If failure, set the tab contents to none
+            - The ``contains_widget`` function also saves the target widget when found, to reduce repeated searching.
+                - In the future, it would not be that difficult to switch this to an indices storage, to cherry pick which specific widget is to be the target.
 
-        - If tab has nothing (it was closed, or otherwise does not exist), move along for now.
+            - Notepad Handling
+                - Look for a ``CTkTextbox`` widget within the contents
+                - If one exists, store the contents of the textbox
 
-        - The ``contains_widget`` function also saves the target widget when found, to reduce repeated searching.
-            - In the future, it would not be that difficult to switch this to an indices storage, to cherry pick.
-
-        - Notepad Handling
-            - Look for a ``CTkTextbox`` widget within the contents
-            - If one exists, store the contents of the textbox (very straightforward)
-
-        - Shopping List Handling
-            - Look for a ``CTkFrame`` widget within the contents (the shopping list)
-            - If one exists, handle the checklist frame
-                - The scrollable frame is packed into a frame as a ``canvas``, ``scrollbar``, and ``label``.
-                    - within the ``canvas``, is the ``scrollableframe``. Yeah.
-                        - Within *that* is the checklist of checkboxes. YAY
-
-                - So now that you get the architecture I'm working with- we have checkboxes now! :D Let's parse them-
-                    - Get the state- use ``.get()`` on the checkbox. Easy.
-                    - Get the item- use ``.cget('text')`` to get the text that was assigned to the checkbox (which was the item).
-
-                    - Future proofing note: For the minor lists which disable useless checkboxes, ``.cget('state')`` will tell whether the checkbox is enabled or not.
-
-                    - But what about the storing? Ooo that's the fun part, because I have 3 options for storing the data in the dict.
-                        - I could store it as a dict
-                            - I run into the issue of repeating item names, which would cause issues.
-                        - I could store them as a tuple, or a list acting like a tuple (I do this a lot because tuple has some weird indexing griefs)
-                        - I could store it as a string separated by a colon
-                            - And later rip it out by searching for ``: [digit]`` with regex.
-                            - Issue with this is "What if somehow something messes with that format?" headaches.
-                    - So I have settled on ``store as a tuple or list acting like a tuple``. Less headache, more flexible.
-
-    - Now that we have all of the data, it's time to finally actually save. For now, I am using a folder in the root directory. I will patch in "pick your own" later.
-        - Title will be the time stamp. Sort of.
-            - ``mm-dd-yy (hh-mm)`` - ``month-day-year (hour-minute)``; uses 24hr
-        - For now, it just goes through each item in the dictionary (tab, contents), and spits them out in the most bare-bones way.
-            - I ran out of mental energy to code and I could not get the stubborn husky that is my brain to stand up and move.
+            - Shopping List Handling
+                - Look for a ``CTkFrame`` widget within the contents
+                    - This has some major futureproofing issues, as mentioned above. But this is how the checklist frame is handled by ``customtkinter``.
+                - If one exists, handle the checklist frame
+                    - Checkbox Architecture notes
+                        - The scrollable frame is packed into a frame as a ``canvas``, ``scrollbar``, and ``label``.
+                        - within the ``canvas``, is the ``scrollableframe``
+                        - Within the ``scrollableframe`` is the checklist.
+                    - Checkbox parsing
+                        - Use ``.get()`` to get the state of the ``IntVar`` (the collection status)
+                        - Use ``.cget('text')`` to get the text that was assigned to the checkbox, which was the item
+                        - Future proofing note: For the minor lists which disable useless checkboxes, ``.cget('state')`` will tell whether the checkbox is enabled or not
+                        - Store the item and the state in a tuple like list, ``['item', state]``
+    - Saving the Data
+        - For now, I am using a folder in the root directory to hold all of the saves. I will patch in "pick your own" later.
+        - The default name of the zip folder will be a time stamp, but file name friendly.
+            - ``mm-dd-yy (hh-mm)`` - ``month-day-year (hour-minute)``
+            - uses 24hr clock; could use AM/PM but eh
         - Only 5 files will be saved, before old ones are deleted.
 
         - Formatting notes:
-            - In a zip file, to save space (not like much is used but hey)
+            - In a zip file to organize each save file
             - Contains the different tabs as different formats for the reloading to read easier, but also a master file for the user to read all of their notes at once.
-            - Tab files will be named after the tab
                 - Master Save File: the user can use this to read all of their notes at once, instead of having to parse the separate files.
-                    - Pads the tab name with '=' to make it easier to find where each section is (80 chars long)
-                    - notepads are just dumped verbatim into the log
-                    - checklists are formatted ``'item name': bool`` with the integer translated into a boolean
-                - The notepad's format
-                    - literally just dump the notes in here
-                - The checklist format
-                    - format like in master.
-                    - would use yaml, but not built in, and honestly not worth.
-
+                    - Pads the tab name with '=' to a length of 80 characters, to make it easier to find where each section is
+                    - The formatting for each section is the same as in the individual tabs, as listed below.
+                - Tab files: named after the tab itself, and the tab type is stored at the top of the file
+                    - The notepad is literally just "dump notes in file verbatim"
+                    - The checklist format: ``'item name': bool``, with the integer translated into a boolean
+                        - would use yaml, but not built in, and honestly not worth at this time.
+                        - Could use JSON- but again, not worth.
         - Further notes;
-            - For the record: I spent over an hour and a half fighting with "make_archive". Ripped out the code I had, and rewrote it line for line. And it ``just worked*tm*.`` Thanks, python.
             - There's an edge case, where if you create 2 saves within the same moment, the oldest save is overwritten. Oops.
-            - jaq suggested using '.anything-but-zip' but i want the end user to be able to access the contents.
+            - jaq suggested using ``.anything-but-zip`` but i want the end user to be able to access the contents.
 
 - ...

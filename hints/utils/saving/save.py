@@ -3,7 +3,6 @@
 
 from customtkinter import CTkFrame, CTkTabview, CTkTextbox, END
 from os import listdir, makedirs, remove
-from os.path import isfile
 from pathlib import Path
 from shutil import make_archive, rmtree
 from time import strftime
