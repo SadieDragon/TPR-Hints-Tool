@@ -140,5 +140,11 @@ If you see a blank line between bullets on any given day, it means that I rolled
             - ``mm-dd-yy (hh-mm)`` - ``month-day-year (hour-minute)``; uses 24hr
         - For now, it just goes through each item in the dictionary (tab, contents), and spits them out in the most bare-bones way.
             - I ran out of mental energy to code and I could not get the stubborn husky that is my brain to stand up and move.
+        - Only 5 files will be saved, before old ones are deleted.
+
+        - Formatting notes:
+            - Pads the tab name with '=' to make it easier to find where each section is (80 chars long)
+            - notepads are just dumped verbatim into the log
+            - checklists are formatted ``'item name': bool`` with the integer translated into a boolean
 
 - ...

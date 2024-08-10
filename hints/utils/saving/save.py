@@ -150,6 +150,7 @@ class SaveNotes:
             # Store that as a list
             checkboxes_data.append([item, collected])
 
+        # Store the acquired data
         self.tab_data[self.tab_name] = checkboxes_data
 
     def save_notepad(self) -> None:
@@ -173,15 +174,30 @@ class SaveNotes:
         # The default file name will be '{time}.txt'
         save_file = Path(time).with_suffix('.txt')
 
+        # Create the path
         path_to_save_file = saves_folder / save_file
 
-        # Open that file for saving into
+        # Write the file ====================================================
         with open(path_to_save_file, 'w+') as f:
             for tab_name, contents in self.tab_data.items():
-                f.write(f'\n{tab_name}: -------------------\n')
+                # Add a space to the tab name
+                tab_name = f'{tab_name} '
+                # Pad it out to 80 characters with =
+                f.write(f'{tab_name:=<80}')
 
-                if isinstance(contents, list):
-                    for item_state in contents:
-                        f.write(f'{item_state}\n')
-                else:
+                # Just dump notepad contents into the file verbatim
+                if isinstance(contents, str):
                     f.write(f'{contents}\n')
+                # Format the checklist to be human readable
+                elif isinstance(contents, list):
+                    for item_state in contents:
+                        # Unpack the item and state (readability)
+                        item, state = item_state
+
+                        # Write 'item': bool(state)
+                        f.write(f"'{item}': {bool(state)}")
+                # If there is something else here, then something has
+                # gone wrong somewhere, and I need to write error handling.
+                else:
+                    raise NotImplementedError
+        # ===================================================================
