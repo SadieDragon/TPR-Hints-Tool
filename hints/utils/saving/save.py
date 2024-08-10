@@ -213,7 +213,7 @@ class SaveNotes:
         # Grab the time of the save
         # month-day-year (hour-minute)
         # Hours are 24 hour style
-        time = strftime('%m-%d-%y (%H-%M)')
+        time = strftime('%m-%d-%y (%H-%M-%f)')
 
         # Making the sub-directory =================================
         # This will be zipped up later. See the log file for info.
