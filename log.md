@@ -158,5 +158,6 @@ If you see a blank line between bullets on any given day, it means that I rolled
 
         - Further notes;
             - For the record: I spent over an hour and a half fighting with "make_archive". Ripped out the code I had, and rewrote it line for line. And it ``just worked*tm*.`` Thanks, python.
+            - There's an edge case, where if you create 2 saves within the same moment, the oldest save is overwritten. Oops.
 
 - ...
