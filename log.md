@@ -23,11 +23,9 @@ It is finally time for a release. There are some things I need to get working fi
 
 - Update text wrapping in the textboxes to be word based
 - Improve some code in ``gather_tab_data.py`` (maybe even rename it)
-    - Update the ``state`` variable name for the checklist processing to instead be something more accurately referring to ``collection status``
-    - when collecting data, store also the tab type
-        - The val will be a list, index 0 is tab type and index 1 is tab contents
 - Improve some code in ``create_save_dir.py`` (maybe even rename it)
     - Rename the user file / master save file to be ``master`` instead of ``time``, so the user knows what to look for
+    - Update the ``state`` variable name for the checklist processing to instead be something more accurately referring to ``collection status``
 - Reloading save data
 - Figure out if ``add_data_tab`` necessary anymore
 
@@ -86,11 +84,11 @@ It is finally time for a release. There are some things I need to get working fi
         - All of this could be done in one sweep under a try-except, but I wanna reduce nesting, and clean up the flow a lil bit.
             - I may also handle "None" returns differently in the future, so I want to have that flexibility available to me.
         - Loop through the data tab names (the constant in ``hints/utils/constants/tab_names.py``)
-            - Have the try-except to look for ``tab_contents``
-                - As this is strucutured into a class, I can set the contents of the tab into a local placeholder variable (``tab_contents``), instead of needing to pass it in and out of different functions.
+            - Have the try-except to look for ``tab_widgets``
+                - As this is strucutured into a class, I can set the contents of the tab into a local placeholder variable (``tab_widgets``), instead of needing to pass it in and out of different functions.
                     - This is being done for more flexible coding: Instead of assuming that the widget we're looking for is precisely at ``x`` index and is precisely ``y`` widget, look for the widget type (which can later be changed) in the list of widgets, so I can call the handling for that widget type separately.
                 - Try to get the tab.
-                    - If success, set ``tab_contents`` to the children of the frame that is the tab
+                    - If success, set ``tab_widgets`` to the children of the frame that is the tab
                     - If failure, the tab was closed, so move to the next tab.
 
             - The ``contains_widget`` function also saves the target widget when found, to reduce repeated searching.
@@ -109,6 +107,7 @@ It is finally time for a release. There are some things I need to get working fi
                         - within the ``canvas``, is the ``scrollableframe``
                         - Within the ``scrollableframe`` is the checklist.
                     - Checkbox parsing
+                        - Use ``get_checklist`` to grab the checklist more clearly and also have the typing be correct
                         - Use ``.get()`` to get the state of the ``IntVar`` (the collection status)
                         - Use ``.cget('text')`` to get the text that was assigned to the checkbox, which was the item
                         - Future proofing note: For the minor lists which disable useless checkboxes, ``.cget('state')`` will tell whether the checkbox is enabled or not

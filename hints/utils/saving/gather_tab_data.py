@@ -1,5 +1,6 @@
 
-from customtkinter import (CTkFrame,
+from customtkinter import (CTkCheckBox,
+                           CTkFrame,
                            CTkScrollableFrame,
                            CTkTabview,
                            CTkTextbox,
@@ -15,11 +16,12 @@ class GatherTabData:
     notebook: CTkTabview
 
     # The stored information from each tab
-    tab_data = {}
+    notebook_data = {}
 
     # Placeholder variables
     tab_name: str                                # Current tab name
-    tab_contents: list | None                    # Widgets in the tab
+    tab_contents: str | list | None              # The contents of the tab
+    tab_widgets: list | None                     # Widgets in the tab
     target_widget: CTkFrame | CTkTextbox | None  # Widget to be parsed
 
     def __init__(self, notebook_frame: NotebookFrame) -> None:
@@ -38,20 +40,18 @@ class GatherTabData:
                 # Grab the tab
                 tab = self.notebook.tab(self.tab_name)
 
-                # Then return the list of widgets on that tab
-                self.tab_contents = self.return_children_widgets(tab)
+                # Return the list of widgets on that tab
+                self.tab_widgets = self.return_children_widgets(tab)
             # If it fails, the tab doesn't exist, so continue to the next.
             except ValueError:
                 continue
 
-            # Save data from a notepad tab
+            # Collect data from a notepad tab
             if self.contains_widget(CTkTextbox):
                 self.parse_notepad()
-
-            # Save data from a checklist tab
+            # Collect data from a checklist tab
             elif self.contains_widget(CTkFrame):
                 self.parse_checklist()
-
             # If we come across a case that is not A or B,
             # then it is something I need to address but have not.
             # (This includes BUGS.)
@@ -60,7 +60,7 @@ class GatherTabData:
 
     def contains_widget(self, target: CTkTextbox | CTkFrame) -> bool:
         '''Tests if a widget of the desired type is within the tab.'''
-        for widget in self.tab_contents:
+        for widget in self.tab_widgets:
             # If we find a widget of the target type,
             # store the index and return.
             if isinstance(widget, target):
@@ -73,43 +73,55 @@ class GatherTabData:
         self.target_widget = None
         return False
 
-    def parse_checklist(self) -> None:
-        '''Grab the states of the checkbox.'''
-        # Ok. The checklist is where things get tricky.
-        # Read log.md for more information as to why
-        # I chose to write this function like this.
+    def get_checklist(self) -> list[CTkCheckBox]:
+        '''Grab the checklist out of the frame it is in.'''
+        # Architecture notes of the ScrollableFrame are in the log file.
+        # This is complicated only because of that.
 
-        # The canvas
+        # Grab the canvas out of the frame
         canvas = self.return_first_widget(self.target_widget)
-        # The scrollable frame
+
+        # Grab the scrollable frame out of the canvas
         scrollable_frame = self.return_first_widget(canvas)
 
-        # The checklist of checkboxes
-        checkboxes = self.return_children_widgets(scrollable_frame)
+        # Return the checklist
+        return self.return_children_widgets(scrollable_frame)
 
-        # Go through each and get their state,
-        # and the item that is being marked
-        checkboxes_data = []  # Placeholder variable for the data
+    def parse_checklist(self) -> None:
+        '''Grab the collection states of the checkbox.'''
+        # Get the list of checkboxes
+        checkboxes = self.get_checklist()
+
+        # If that checklist is empty, something has gone wrong
+        if not checkboxes:
+            raise NotImplementedError
+
+        # Update the placeholder variable for the tab contents
+        # to be an empty list
+        self.tab_contents = []
+
+        # Go through each and get their collection state,
+        # and the item that is being marked as collected or not
         for checkbox in checkboxes:
             # Grab the item the checkbox is for
             item = checkbox.cget('text')
 
             # Grab the on / off value
-            collected = checkbox.get()
+            collection_status = checkbox.get()
 
             # Store that as a list
-            checkboxes_data.append([item, collected])
+            self.tab_contents.append([item, collection_status])
 
-        # Store the acquired data
-        self.tab_data[self.tab_name] = checkboxes_data
+        # Update the dict
+        self.store_data('checklist')
 
     def parse_notepad(self) -> None:
         '''Store the information from the textbox.'''
         # Grab the contents and remove trailing whitespace
-        textbox_contents = self.target_widget.get('1.0', END).strip()
+        self.tab_contents = self.target_widget.get('1.0', END).strip()
 
-        # Store those contents
-        self.tab_data[self.tab_name] = textbox_contents
+        # Update the dict
+        self.store_data('notepad')
 
     def return_children_widgets(self,
                                 widget: CTkFrame | CTkScrollableFrame) -> list:
@@ -121,3 +133,7 @@ class GatherTabData:
     def return_first_widget(self, widget):
         '''A wrapper function to return the first child widget.'''
         return self.return_children_widgets(widget)[0]
+
+    def store_data(self, tab_type: str) -> None:
+        '''Store the tab data wrapper function.'''
+        self.notebook_data[self.tab_name] = [tab_type, self.tab_contents]
