@@ -183,7 +183,7 @@ class SaveNotes:
                 # Add a space to the tab name
                 tab_name = f'{tab_name} '
                 # Pad it out to 80 characters with =
-                f.write(f'{tab_name:=<80}')
+                f.write(f'\n{tab_name:=<80}\n')
 
                 # Just dump notepad contents into the file verbatim
                 if isinstance(contents, str):
@@ -195,7 +195,7 @@ class SaveNotes:
                         item, state = item_state
 
                         # Write 'item': bool(state)
-                        f.write(f"'{item}': {bool(state)}")
+                        f.write(f"'{item}': {bool(state)}\n")
                 # If there is something else here, then something has
                 # gone wrong somewhere, and I need to write error handling.
                 else:
