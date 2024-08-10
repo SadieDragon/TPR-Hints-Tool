@@ -3,6 +3,7 @@
 
 from customtkinter import CTkFrame, CTkTabview, CTkTextbox, END
 from os import listdir, makedirs, remove
+from os.path import isfile
 from pathlib import Path
 from shutil import make_archive, rmtree
 from time import strftime
@@ -140,7 +141,14 @@ class SaveNotes:
     def remove_old_files(self) -> None:
         '''Remove old folders, to avoid flooding the user's storage.'''
         # Grab the list of save files
-        save_files = listdir(saves_dir)
+        saves_dir_contents = listdir(saves_dir)
+
+        # Ignore directories, in case the user extracted a save
+        # (Trust them to remove the folders themselves if they care.)
+        save_files = []
+        for file in saves_dir_contents:
+            if file.endswith('.zip'):
+                save_files.append(file)
 
         # Leave if there are less than 5
         if len(save_files) < 5:
