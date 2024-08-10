@@ -16,9 +16,9 @@ If you see a blank line between bullets on any given day, it means that I rolled
 
 
 - is ``add_data_tab`` necessary anymore?
-- ACTUAL saving (it's barebones basic right now)
-    - Better formatting
-    - Allow the user to choose where they want the output to go
+- Breakdown ``save.py``
+    - probs use a sub_folder, as cumbersome as they are becoming, to create a class for ``grab data``, and a class for ``save``.
+    - it's getting way too long and it's kind of annoying me. there's so much for just grabbing the data, and so little for saving, but it's 275 lines long.
 - Reloading save data
 - clean up the code to remove some of the hackiness that arose from my brain turning into a stubborn husky
 

@@ -257,7 +257,7 @@ class SaveNotes:
                 master_file.write(section_text)
                 # ------------------------------------------------
 
-                # TAB FILE ------------------------------------
+                # TAB FILE -----------------------------------------------
                 # Make the text file name using the tab name
                 tab_file_name = self.make_txt_path(tab_name)
 
@@ -267,7 +267,7 @@ class SaveNotes:
                 # Open the file, and write to it the contents
                 with open(tab_file_path, 'w+') as tab_file:
                     tab_file.write(section_text)
-                # ---------------------------------------------
+                # --------------------------------------------------------
         # ===================================================================
 
         # Zip the folder up
