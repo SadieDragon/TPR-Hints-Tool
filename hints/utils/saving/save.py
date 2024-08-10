@@ -41,7 +41,7 @@ class SaveNotes:
     def checklist_to_str(self, contents: list) -> str:
         '''Write the checklist formatting.'''
         # The placeholder variable for the output
-        to_return = ''
+        to_return = 'tab_type: checklist\n\n'
 
         # Convert each to 'item_name': bool
         for item_state in contents:
@@ -243,9 +243,9 @@ class SaveNotes:
                 if isinstance(contents, list):
                     section_text = self.checklist_to_str(contents)
                 # If it is a notepad, dump the whole contents into the file
-                # as they are already. (plus a newline)
+                # as they are already. (plus a newline, and the indicator)
                 else:
-                    section_text = f'{contents}\n'
+                    section_text = f'tab_type: notepad\n\n{contents}\n'
 
                 # MASTER FILE ------------------------------------
                 # Add a space to the tab name
