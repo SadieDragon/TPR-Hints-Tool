@@ -43,7 +43,7 @@ class ParseLog:
         self.spoiler_log_file = self.spoiler_log_file.with_suffix('.json')
 
         # Make the path to the log
-        spoiler_log_path = (folders.spoiler_log_folder / self.spoiler_log_file)
+        spoiler_log_path = (folders.spoiler_log_dir / self.spoiler_log_file)
 
         # Dump the spoiler log data
         # Ecconia provided the fix for reading the file, encoded in 'UTF-8'
