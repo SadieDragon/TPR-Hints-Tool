@@ -14,18 +14,23 @@ If you see a blank line between bullets on any given day, it means that I rolled
 - I have a lot of random newlines in the markdowns. It's either that, or super long lines. Make that uniform.
 - prettify the code and repository (later tasks, saving is priority)
 
+- Figure out how to implement an autosave upon resets, and inform the user of the autosave
+- Proper errorhandling instead of ``raise NotImplementedError``
 
-- is ``add_data_tab`` necessary anymore?
-- Reloading save data
+
+# Tasks to Complete for Release
+It is finally time for a release. There are some things I need to get working first, and this is a subset of the to-do list which encompasses the targets for release.
+
+- Update text wrapping in the textboxes to be word based
 - Improve some code in ``gather_tab_data.py`` (maybe even rename it)
     - Update the ``state`` variable name for the checklist processing to instead be something more accurately referring to ``collection status``
     - when collecting data, store also the tab type
         - The val will be a list, index 0 is tab type and index 1 is tab contents
 - Improve some code in ``create_save_dir.py`` (maybe even rename it)
     - Rename the user file / master save file to be ``master`` instead of ``time``, so the user knows what to look for
-- Figure out how to implement an autosave upon resets, and inform the user of the autosave
-- Proper errorhandling instead of ``raise NotImplementedError``
-- Textwrapping in the textboxes to be word
+- Reloading save data
+- Figure out if ``add_data_tab`` necessary anymore
+
 
 # Bugs
 
