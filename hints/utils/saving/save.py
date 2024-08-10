@@ -1,7 +1,7 @@
 
 from hints.gui_management.notebook_frame import NotebookFrame
 from .create_save_dir import CreateSaveDir
-from .gather_tab_data import GatherTabData
+from .collect_notebook_data import CollectNotebookData
 
 
 class SaveNotes:
@@ -12,7 +12,7 @@ class SaveNotes:
            and initialize saving functions.'''
 
         # Grab the data to write to saving
-        collected_data = GatherTabData(notebook_frame).notebook_data
+        collected_data = CollectNotebookData(notebook_frame).notebook_data
 
         # Write the save folder
         dir_writing_instance = CreateSaveDir(collected_data)

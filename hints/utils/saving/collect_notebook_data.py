@@ -10,7 +10,7 @@ from hints.gui_management.notebook_frame import NotebookFrame
 from hints.utils.constants.tab_names import data_tab_names
 
 
-class GatherTabData:
+class CollectNotebookData:
     '''Gather all of the data for actually writing to the file.'''
     # The notebook from the notebook instance
     notebook: CTkTabview
