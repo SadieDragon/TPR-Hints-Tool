@@ -66,6 +66,10 @@ class Reload:
             with open(save_file_path, 'r') as f:
                 file_contents = f.readlines()
 
+            # Remove stray newlines from the lines
+            for index, line in list(enumerate(file_contents)):
+                file_contents[index] = line.strip()
+
             # Grab the first line, and pop off the tab type indicator
             tab_type = file_contents[0]
             tab_type = tab_type.split(': ')[1].strip()
