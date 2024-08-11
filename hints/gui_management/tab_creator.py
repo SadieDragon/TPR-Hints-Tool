@@ -19,7 +19,7 @@ class TabCreator:
         resetter.create_data_tabs()
 
         # Create the options tab
-        OptionsTab(notebook_frame, root)
+        OptionsTab(resetter)
 
         # Create the spoiler log dump tab
         SpoilerLog(notebook_frame, resetter)
