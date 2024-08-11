@@ -6,6 +6,7 @@ from pathlib import Path
 from shutil import make_archive, rmtree
 from time import strftime
 
+from hints.utils.create_archive import create_archive
 from hints.utils.constants.directories import saves_dir
 
 
@@ -40,7 +41,7 @@ class CreateSaveDir:
         self.save_to_files()
 
         # Zip up the folder
-        self.zip_current_dir()
+        create_archive(self.path_to_current_save_dir)
 
     def checklist_to_str(self, contents: list) -> str:
         '''Write the checklist formatting.'''
@@ -165,19 +166,3 @@ class CreateSaveDir:
 
             # Store the path
             self.save_file_paths.append(tab_save_file_path)
-
-    def zip_current_dir(self) -> None:
-        '''Transform the save folder into a zip archive.'''
-        # Define the target path as the current save directory
-        dir_path = self.path_to_current_save_dir
-
-        # Create the zip archive
-        make_archive(
-            base_name=str(dir_path),  # shutil needs that to be a str
-            format='zip',             # Will be a zip folder
-            root_dir=dir_path,        # The directory to zip
-            base_dir='.'              # Do not include the folder itself
-        )
-
-        # Remove the folder
-        rmtree(dir_path)

@@ -22,8 +22,6 @@ If you see a blank line between bullets on any given day, it means that I rolled
 It is finally time for a release. There are some things I need to get working first, and this is a subset of the to-do list which encompasses the targets for release.
 
 - Reloading save data
-- Figure out if ``add_data_tab`` necessary anymore
-
 
 # Bugs
 
@@ -55,6 +53,7 @@ It is finally time for a release. There are some things I need to get working fi
     - For creating the tab: Try to get the frame using ``.tab(tab_name)``
         - If it succeeds, return the frame info
         - If it fails, then do the creation stuffz. (we want the error.)
+    - ``add_data_tab`` is still necessary, as it specifically finds the index at which to place the tabs the user writes to.
 
 - Move ``set_to_notes_tab()`` to ``hints/gui_management/managers/reset_utils.py``, as it is only ever used for resetting purposes.
 
@@ -68,6 +67,9 @@ It is finally time for a release. There are some things I need to get working fi
     - ``reload.py`` is meant for getting the save data and reloading it.
 
 - Create a function to more easily modify and add buttons in the future (also DRY the code) - ``create_buttons`` in ``hints/tabs/options_tab.py``
+
+- Create a util function file ``hints/utils/create_archive.py`` to pull ``zip_current_dir`` out for ``reload.py`` to use as well
+    - This removes ``zip_current_dir``.
 
 - Saving Prototyping (``save.py``):
     - As much as I thought the flexibility was smart, this is still using pretty hardcoded expectances. If I change things in the future, this prototype will still be too hard-coded to take advantage of the flexibility.
@@ -136,5 +138,8 @@ It is finally time for a release. There are some things I need to get working fi
             - There's an edge case, where if you create 2 saves within the same moment, the oldest save is overwritten. Oops.
             - jaq suggested using ``.anything-but-zip`` but i want the end user to be able to access the contents.
             - Once I add the ability for the user to define the file name, ``remove_old_files`` will be very broken, as it is winging it based on A-Z sorting. (or, in this case, 0-9)
+
+- Reloading Prototype:
+    - This, this will be fun. We get to unzip a folder, read all of the stuff, zip it back up, and carry along.
 
 - ...
