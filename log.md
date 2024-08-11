@@ -23,7 +23,6 @@ It is finally time for a release. There are some things I need to get working fi
 
 - Update text wrapping in the textboxes to be word based
 - Improve some code in ``create_save_dir.py`` (maybe even rename it)
-    - Rename the user file / master save file to be ``master`` instead of ``time``, so the user knows what to look for
     - Update the ``state`` variable name for the checklist processing to instead be something more accurately referring to ``collection status``
 - Reloading save data
 - Figure out if ``add_data_tab`` necessary anymore
@@ -118,6 +117,13 @@ It is finally time for a release. There are some things I need to get working fi
             - uses 24hr clock; could use AM/PM but eh
         - Only 5 files will be saved, before old ones are deleted.
 
+        - Moved the path to the current save directory out into a local var, to make breaking things down easier
+            - Also moved the creation of that directory out into a function for future flexibility.
+        - Renamed ``create_archive`` to ``zip_current_dir``, and removed the input to be static
+            - Still assigned ``dir_path`` within the function to preserve my comments...
+        - After some headaches with character lengths, I decided to pull the file paths out into local vars, with a function to set them
+            - This removed the need for ``make_txt_path``
+
         - Formatting notes:
             - In a zip file to organize each save file
             - Contains the different tabs as different formats for the reloading to read easier, but also a master file for the user to read all of their notes at once.
@@ -132,5 +138,6 @@ It is finally time for a release. There are some things I need to get working fi
         - Further notes
             - There's an edge case, where if you create 2 saves within the same moment, the oldest save is overwritten. Oops.
             - jaq suggested using ``.anything-but-zip`` but i want the end user to be able to access the contents.
+            - Once I add the ability for the user to define the file name, ``remove_old_files`` will be very broken, as it is winging it based on A-Z sorting. (or, in this case, 0-9)
 
 - ...
