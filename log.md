@@ -144,4 +144,12 @@ It is finally time for a release. There are some things I need to get working fi
 
     - ``grab_last_save()`` will be broken once user choice is added. it grabs the last save in the folder, which as previously mentioned, 0-9 sorting.
 
+    - ``unpack_data``:
+        - Grab a list of the files within the directory that we just unzipped
+        - Iterate through the files, open each and dump their contents into ``notebook_data``
+            - Open file, dump contents into an array
+            - Use list smartz to grab the first line into ``tab_type`` to parse off the indicator, then everything but the second line into ``tab_contents`` to be converted into information in the notebook
+                - We know the indicator will always be behind a ``: ``, so can use ``split()`` to noms it
+                - the tab name will be the file name without ``.txt``
+
 - ...
