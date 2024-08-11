@@ -10,7 +10,7 @@ from hints.gui_management.managers import ResetUtils
 class AgithaTab(Shopping):
     '''Agitha's special checklist handling.'''
     def __init__(self,
-                 hint_text:str,
+                 hint_text: str,
                  resetter: ResetUtils) -> None:
         '''Initialize the tab.'''
         # Initialize the default vars -----------------------------

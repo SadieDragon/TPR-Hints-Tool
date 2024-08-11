@@ -22,4 +22,4 @@ class TabCreator:
         OptionsTab(resetter)
 
         # Create the spoiler log dump tab
-        SpoilerLog(notebook_frame, resetter)
+        SpoilerLog(resetter)

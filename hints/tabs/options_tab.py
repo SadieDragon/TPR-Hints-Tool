@@ -20,17 +20,15 @@ class OptionsTab:
     resetter: ResetUtils
 
     # The notebook
-    notebook_frame = NotebookFrame
+    notebook_frame: NotebookFrame
 
-    def __init__(self,
-                 notebook_frame: NotebookFrame,
-                 resetter: ResetUtils) -> None:
+    def __init__(self, resetter: ResetUtils) -> None:
         '''Create the tab with the options, flexibly.'''
         # Initialize the resetter
         self.resetter = resetter
 
-        # Store the notebook frame
-        self.notebook_frame = notebook_frame
+        # Store the notebook frame, which the resetter has
+        self.notebook_frame = self.resetter.notebook_frame
 
         # Create the tab itself
         self.options_tab = self.resetter.add_tab(tab_names.options_tab_name)

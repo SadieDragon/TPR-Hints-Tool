@@ -8,7 +8,6 @@ from hints.utils.constants import tab_names
 from hints.utils.parse_log import ParseLog
 
 from hints.gui_management.managers.reset_utils import ResetUtils
-from hints.gui_management.notebook_frame import NotebookFrame
 
 from os import listdir
 from pathlib import Path
@@ -20,7 +19,6 @@ class SpoilerLog:
     # Instances
     parser: ParseLog                  # The parser instance (created locally)
     resetter: ResetUtils              # The resetter instance (passed in)
-    notebook_frame: NotebookFrame     # The notebook instance (passed in)
 
     # Local interface vars
     spoiler_tab: CTkFrame             # The tab that we're working in
@@ -28,16 +26,14 @@ class SpoilerLog:
     interface_frame: CTkFrame | None  # The frame for interface elements
     spoiler_log_var: StringVar        # The var for picking the spoiler log
 
-    def __init__(self,
-                 notebook_frame: NotebookFrame,
-                 resetter: ResetUtils) -> None:
+    def __init__(self, resetter: ResetUtils) -> None:
         '''Create the host frames, and the main button.'''
-        # Init the spoiler log parser
-        self.parser = ParseLog(notebook_frame)
-
-        # Update the other instances with the ones provided
+        # Store the resetter instance
         self.resetter = resetter
-        self.notebook_frame = notebook_frame
+
+        # Init the spoiler log parser, passing it the notebook
+        # frame from the reset utility instance
+        self.parser = ParseLog(self.resetter.notebook_frame)
 
         # Create the spoiler log tab
         self.spoiler_tab = self.resetter.add_tab(tab_names.spoiler_tab_name)

@@ -61,6 +61,11 @@ It is finally time for a release. There are some things I need to get working fi
 
 - Update ``hints/tabs/shopping/shopping.py`` to not have an extra subframe.
 
+- Figured out that you can just pull the ``notebook_frame`` from the reset utility instance, and that reduces a thing to pass around- sooooo, I am going to update things to do that instead
+    - ``hints/tabs/options_tab.py``: use resetter to get notebook
+    - ``hints/tabs/spoiler_log.py``: use resetter to get notebook, which no longer needed to be a local var
+    - ``hints/gui_management/tab_creator.py``: Don't pass notebook to spoiler log
+
 ***Saving***
 
 - It is in its own folder "saving" so I can brute force a prototype and fix it later.
