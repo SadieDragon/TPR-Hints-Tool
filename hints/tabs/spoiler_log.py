@@ -78,7 +78,7 @@ class SpoilerLog:
             return
 
         # Reset the tracker, but do not tab back
-        self.resetter.reset_tracker(False)
+        self.resetter.reset_tracker(tab_back=False)
 
         # Make the stringvar to store which was chosen
         self.spoiler_log_var = StringVar(value=spoilers[0])

@@ -44,14 +44,16 @@ class ResetUtils(CreationUtils):
         # Return the tab
         return self.notebook_frame.notebook.tab(tab_name)
 
-    def reset_tracker(self, tab_back: bool = True) -> None:
+    def reset_tracker(self,
+                      create_notepad: bool = True,
+                      tab_back: bool = True) -> None:
         '''Completely reset the tracker.'''
         # Revert the title to default
         self.notebook_frame.update_title()
 
         # Reset the tracker
         for tab_name in tab_names.data_tab_names:
-            self.reset_tab(tab_name)
+            self.reset_tab(tab_name, create_notepad)
 
         # Tab back if requested
         if tab_back:
