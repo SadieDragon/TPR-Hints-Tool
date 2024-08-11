@@ -54,10 +54,10 @@ class CreationUtils:
         if tab is None:
             tab = self.add_tab(tab_name)
 
-        # Create the notepad -----------------------------------
-        notepad = CTkTextbox(corner_radius=0, master=tab)
+        # Create the notepad -------------------------------------------
+        notepad = CTkTextbox(corner_radius=0, master=tab, wrap='word')
         notepad.pack(padx=5, pady=5, expand=True, fill='both')
-        # ------------------------------------------------------
+        # --------------------------------------------------------------
 
         # Return the notepad
         return notepad

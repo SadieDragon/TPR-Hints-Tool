@@ -21,7 +21,6 @@ If you see a blank line between bullets on any given day, it means that I rolled
 # Tasks to Complete for Release
 It is finally time for a release. There are some things I need to get working first, and this is a subset of the to-do list which encompasses the targets for release.
 
-- Update text wrapping in the textboxes to be word based
 - Reloading save data
 - Figure out if ``add_data_tab`` necessary anymore
 
