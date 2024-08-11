@@ -23,6 +23,8 @@ It is finally time for a release. There are some things I need to get working fi
 
 - Reloading save data
 
+- "wait a minute, can I just ask the utility instances for the notebook frame?"
+
 # Bugs
 
 **xxyy** where x is the version number and y is the bug number  
@@ -152,5 +154,10 @@ It is finally time for a release. There are some things I need to get working fi
             - Use list smartz to grab the first line into ``tab_type`` to parse off the indicator, then everything but the second line into ``tab_contents`` to be converted into information in the notebook
                 - We know the indicator will always be behind a ``: ``, so can use ``split()`` to noms it
                 - the tab name will be the file name without ``.txt``
+
+    - ``load_data``: Ok, we have the data, now to reload it.
+        - Close all of the tabs that are currently open and are data tabs
+            - To do this, I need to modify ``reset_tracker`` in ``hints/gui_management/managers/reset_utils.py`` to allow me to reset the tab without the notepad creation.
+            - Which means, I need ``hints/tabs/options_tab.py`` to be given the resetter instance, so it can pass it off to reloading. Yay, chasing down threads.
 
 - ...

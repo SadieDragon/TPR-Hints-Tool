@@ -2,7 +2,7 @@
 # A class hosting all of the basic options,
 # for more flexible and future-proof code
 
-from customtkinter import CTk, CTkButton, CTkFrame
+from customtkinter import CTkButton, CTkFrame
 from hints.gui_management.managers import ResetUtils
 from hints.gui_management.notebook_frame import NotebookFrame
 from hints.utils.constants import tab_names
@@ -11,18 +11,29 @@ from hints.utils.saving.save_notes import SaveNotes
 from hints.utils.reload import Reload
 
 
-class OptionsTab(ResetUtils):
+class OptionsTab:
     '''Hosts all of the Option Tab setup.'''
     # The tab itself
     options_tab: CTkFrame
 
-    def __init__(self, notebook_frame: NotebookFrame, root: CTk) -> None:
+    # The reset utility instance
+    resetter: ResetUtils
+
+    # The notebook
+    notebook_frame = NotebookFrame
+
+    def __init__(self,
+                 notebook_frame: NotebookFrame,
+                 resetter: ResetUtils) -> None:
         '''Create the tab with the options, flexibly.'''
         # Initialize the resetter
-        super().__init__(notebook_frame, root)
+        self.resetter = resetter
+
+        # Store the notebook frame
+        self.notebook_frame = notebook_frame
 
         # Create the tab itself
-        self.options_tab = self.add_tab(tab_names.options_tab_name)
+        self.options_tab = self.resetter.add_tab(tab_names.options_tab_name)
 
         # Create the buttons
         self.create_buttons()
@@ -61,20 +72,20 @@ class OptionsTab(ResetUtils):
     def race_mode(self) -> None:
         '''The command for race mode.'''
         # Get permission to reset the tracker
-        if not self.show_warning():
+        if not self.resetter.show_warning():
             return
 
         # Go through the data tabs
         for index, tab_name in [*enumerate(tab_names.data_tab_names)]:
             # Reset the notes tab
             if index == 0:
-                self.reset_tab(tab_name)
+                self.resetter.reset_tab(tab_name)
                 continue
 
             # Close everything else
-            self.close_tab(tab_name)
+            self.resetter.close_tab(tab_name)
 
-        self.set_to_notes_tab()
+        self.resetter.set_to_notes_tab()
 
     def reload(self) -> None:
         '''A wrapper for reloading a save.'''
@@ -83,11 +94,11 @@ class OptionsTab(ResetUtils):
     def reset(self) -> None:
         '''A wrapper for the tracker reset.'''
         # Get permission to reset the tracker
-        if not self.show_warning():
+        if not self.resetter.show_warning():
             return
 
         # Reset the tracker
-        self.reset_tracker()
+        self.resetter.reset_tracker()
 
     def save(self) -> None:
         '''A wrapper for saving.'''
