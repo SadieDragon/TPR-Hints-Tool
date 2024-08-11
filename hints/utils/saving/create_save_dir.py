@@ -53,7 +53,7 @@ class CreateSaveDir:
             item, collection_state = item_state
 
             # Write 'item': bool(state)
-            to_return = to_return + f"'{item}': {bool(collection_state)}\n"
+            to_return = to_return + f"{item}: {bool(collection_state)}\n"
 
         return to_return
 
