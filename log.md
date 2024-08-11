@@ -142,4 +142,6 @@ It is finally time for a release. There are some things I need to get working fi
 - Reloading Prototype:
     - This, this will be fun. We get to unzip a folder, read all of the stuff, zip it back up, and carry along.
 
+    - ``grab_last_save()`` will be broken once user choice is added. it grabs the last save in the folder, which as previously mentioned, 0-9 sorting.
+
 - ...
