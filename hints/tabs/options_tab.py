@@ -8,7 +8,7 @@ from hints.gui_management.notebook_frame import NotebookFrame
 from hints.utils.constants import tab_names
 
 from hints.utils.saving.save_notes import SaveNotes
-from hints.utils.reload import reload
+from hints.utils.reload import Reload
 
 
 class OptionsTab(ResetUtils):
@@ -40,7 +40,7 @@ class OptionsTab(ResetUtils):
             'Race Mode':     [self.race_mode, [0, 0]],
             'Reset Tracker': [self.reset, [0, 1]],
             'Save':          [self.save, [1, 0]],
-            'Reload Save':   [reload, [1, 1]]
+            'Reload Save':   [self.reload, [1, 1]]
         }
 
         # Go through those buttons and create them
@@ -75,6 +75,10 @@ class OptionsTab(ResetUtils):
             self.close_tab(tab_name)
 
         self.set_to_notes_tab()
+
+    def reload(self) -> None:
+        '''A wrapper for reloading a save.'''
+        Reload(self.notebook_frame)
 
     def reset(self) -> None:
         '''A wrapper for the tracker reset.'''
