@@ -50,10 +50,10 @@ class CreateSaveDir:
         # Convert each to 'item_name': bool
         for item_state in contents:
             # Unpack the item and state (readability)
-            item, state = item_state
+            item, collection_state = item_state
 
             # Write 'item': bool(state)
-            to_return = to_return + f"'{item}': {bool(state)}\n"
+            to_return = to_return + f"'{item}': {bool(collection_state)}\n"
 
         return to_return
 

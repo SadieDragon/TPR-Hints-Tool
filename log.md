@@ -22,8 +22,6 @@ If you see a blank line between bullets on any given day, it means that I rolled
 It is finally time for a release. There are some things I need to get working first, and this is a subset of the to-do list which encompasses the targets for release.
 
 - Update text wrapping in the textboxes to be word based
-- Improve some code in ``create_save_dir.py`` (maybe even rename it)
-    - Update the ``state`` variable name for the checklist processing to instead be something more accurately referring to ``collection status``
 - Reloading save data
 - Figure out if ``add_data_tab`` necessary anymore
 
