@@ -140,7 +140,7 @@ It is finally time for a release. There are some things I need to get working fi
             - Once I add the ability for the user to define the file name, ``remove_old_files`` will be very broken, as it is winging it based on A-Z sorting. (or, in this case, 0-9)
 
 - Reloading Prototype:
-    - This, this will be fun. We get to unzip a folder, read all of the stuff, zip it back up, and carry along.
+    - This, this will be fun. We get to unzip a folder, read all of the stuff, delete the unpacked folder, and carry along.
 
     - ``grab_last_save()`` will be broken once user choice is added. it grabs the last save in the folder, which as previously mentioned, 0-9 sorting.
 
