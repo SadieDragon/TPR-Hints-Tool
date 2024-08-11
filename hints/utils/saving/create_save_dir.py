@@ -3,7 +3,6 @@
 
 from os import listdir, makedirs, remove
 from pathlib import Path
-from shutil import make_archive, rmtree
 from time import strftime
 
 from hints.utils.create_archive import create_archive

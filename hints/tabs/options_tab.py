@@ -7,7 +7,7 @@ from hints.gui_management.managers import ResetUtils
 from hints.gui_management.notebook_frame import NotebookFrame
 from hints.utils.constants import tab_names
 
-from hints.utils.saving.save import SaveNotes
+from hints.utils.saving.save_notes import SaveNotes
 from hints.utils.reload import reload
 
 
