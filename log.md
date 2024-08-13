@@ -23,8 +23,6 @@ It is finally time for a release. There are some things I need to get working fi
 
 - Reloading save data
 
-- "wait a minute, can I just ask the utility instances for the notebook frame?"
-
 # Bugs
 
 **xxyy** where x is the version number and y is the bug number  

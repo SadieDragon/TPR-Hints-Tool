@@ -12,6 +12,9 @@ class NotebookFrame:
     root: CTk
     notebook: CTkTabview
 
+    # The title of the window
+    title: str
+
     def __init__(self, root: CTk) -> None:
         '''Create the notebook.'''
         # Store root
@@ -28,4 +31,8 @@ class NotebookFrame:
 
     def update_title(self, seed_name: str = '') -> None:
         '''Update the title of the window.'''
+        # Store the seed name
+        self.title = seed_name
+
+        # Update the title
         self.root.title(return_title(seed_name))
