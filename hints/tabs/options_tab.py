@@ -48,8 +48,8 @@ class OptionsTab:
         buttons = {
             'Race Mode':     [self.race_mode, [0, 0]],
             'Reset Tracker': [self.reset, [0, 1]],
-            'Save':          [self.save, [1, 0]],
-            'Reload Save':   [self.reload, [1, 1]]
+            'Save':          [self.save, [1, 0]]
+            # 'Reload Save':   [self.reload, [1, 1]]
         }
 
         # Go through those buttons and create them
