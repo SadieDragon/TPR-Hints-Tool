@@ -1,3 +1,5 @@
+__Please read 'reloading_saves.md' for using the save functions.__
+
 __Contact me if you find bugs:__
 - I would like to keep issues for things I have posted myself, given I have a lot of irons in the fire and have made a mess of them. There's a discussion page for bug reports, though, and this would be the preferred location for them.
     - https://github.com/SadieDragon/TPR-Hints-Tool/discussions/categories/bug-reports
@@ -30,7 +32,7 @@ __(Unorganized) To-Do:__
   COO, maybe etc?)
   - Improve the default pages for them to be a dropdown based checklist
   instead of a notepad
-- Saving
+- Reloading Saves
 - A key tool that helps you figure out what an unrequired key makes barren
 - A tool to help you mark down where the big key is for a dungeon, if your hint signs include it, and any small keys that you get hints for.
 - Package better for end users
@@ -39,4 +41,4 @@ __(Unorganized) To-Do:__
   - Pre-package this into a .exe file - I have done testing, and there are some
   issues that arise with the user input
 
-Next planned release as of writing: [No release date planned] for [Release 0.3]
+Next planned release as of writing: [No release date planned] for [Release 1.0]
