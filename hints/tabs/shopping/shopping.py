@@ -2,43 +2,40 @@
 # The parent class for the shopping lists and their utilities
 
 from customtkinter import (CTkCheckBox,
-                           CTkFrame,
                            CTkLabel,
                            CTkScrollableFrame,
                            IntVar)
-from hints.control.program import Program
-from hints.utils.reset_utils import ResetUtils
+
+from hints.gui_management.managers import ResetUtils
 
 
 class Shopping:
     '''The parent class for all of the shopping list tabs.'''
     # The instances
-    program = Program        # The program we're running in
-    resetter = ResetUtils    # The reset instance, set by the program
+    resetter: ResetUtils   # The resetter instance (passed in)
 
     # The provided hint text
-    hint_text = str
+    hint_text: str
 
     # The tab name
-    tab_name = str
+    tab_name: str
 
     # The label that displays the status
-    default_text = str       # The default text for the label
-    status_label = CTkLabel  # The label itself
+    default_text: str      # The default text for the label
+    status_label:CTkLabel  # The label itself
 
     # The rewards list
-    rewards = list()         # The rewards themselves
-    checkboxes = list()      # Holds the checkboxes
-    checkbox_vars = list()   # Holds the IntVars
+    rewards = []           # The rewards themselves
+    checkboxes = []        # Holds the checkboxes
+    checkbox_vars = []     # Holds the IntVars
 
-    def __init__(self, program: Program, hint_text: str) -> None:
+    def __init__(self,
+                 hint_text:str,
+                 resetter: ResetUtils) -> None:
         '''Initialize the variables provided.'''
         # Store the provided information
-        self.program = program
+        self.resetter = resetter
         self.hint_text = hint_text
-
-        # Update the resetter to be the program's instance
-        self.resetter = program.resetter
 
     def auto_fill(self) -> None:
         '''Populate the tab with the provided info.'''
@@ -74,33 +71,20 @@ class Shopping:
         # Reset, but don't reset to default
         tab = self.resetter.reset_tab(self.tab_name, False)
 
-        # Host frame --------------------------------------------
-        # Create the frame to pass to dict
-        tab_frame = CTkFrame(master=tab)
-        tab_frame.pack(anchor='w',
-                             expand=True,
-                             fill='both',
-                             padx=5,
-                             pady=5)
-
-        # Pass it to the dict
-        self.program.update_data_tabs(self.tab_name, tab_frame)
-        # -------------------------------------------------------
-
         # Create the status label ----------------------------
-        self.status_label = CTkLabel(master=tab_frame,
+        self.status_label = CTkLabel(master=tab,
                                      text=self.default_text)
         self.status_label.pack(anchor='w', padx=5, pady=5)
         # ----------------------------------------------------
 
-        # Create the checklist frame ---------------------------
-        checklist_frame = CTkScrollableFrame(master=tab_frame)
+        # Create the checklist frame ---------------------
+        checklist_frame = CTkScrollableFrame(master=tab)
         checklist_frame.pack(anchor='w',
                              expand=True,
                              fill='both',
                              padx=5,
                              pady=5)
-        # ------------------------------------------------------
+        # ------------------------------------------------
 
         # Go through the rewards
         for reward in self.rewards:

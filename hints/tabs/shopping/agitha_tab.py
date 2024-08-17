@@ -1,20 +1,24 @@
 
 # All of Agitha's special handling and utilities.
 
-from hints.control.program import Program
 from hints.tabs.shopping.shopping import Shopping
+from hints.utils.constants import tab_names
+
+from hints.gui_management.managers import ResetUtils
 
 
 class AgithaTab(Shopping):
     '''Agitha's special checklist handling.'''
-    def __init__(self, program: Program, hint_text: str) -> None:
+    def __init__(self,
+                 hint_text: str,
+                 resetter: ResetUtils) -> None:
         '''Initialize the tab.'''
         # Initialize the default vars -----------------------------
         # The static vars
-        super().__init__(program, hint_text)
+        super().__init__(hint_text, resetter)
 
         # The tab name
-        self.tab_name = 'Bugs'
+        self.tab_name = tab_names.agitha_tab_name
 
         # The default text for the label
         self.default_text = 'Agitha gives you GREAT HAPPINESS:\n'

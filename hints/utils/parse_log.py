@@ -1,8 +1,11 @@
 
 # The complex utility functions for the spoiler log parsing
 
-from hints.control.program import Program
+from hints.gui_management.managers import ResetUtils
+from hints.gui_management.notebook_frame import NotebookFrame
+
 from hints.tabs.shopping.agitha_tab import AgithaTab
+from hints.utils.constants import directories
 from json import load
 from pathlib import Path
 from re import findall, sub
@@ -10,47 +13,44 @@ from re import findall, sub
 
 class ParseLog:
     '''It just, parses the spoiler log data.'''
-    # The root program
-    program = Program
+    # The notebook instance
+    notebook_frame: NotebookFrame
 
-    # Spoiler log info
-    spoiler_log_folder = Path  # The spoiler log folder
-    spoiler_log_file = str     # The provided spoiler log
+    # The provided spoiler log
+    spoiler_log_file: Path
 
-    def __init__(self, program: Program) -> None:
-        '''Set the global var here.'''
-        # Set the local program var
-        self.program = program
+    def __init__(self, notebook_frame: NotebookFrame) -> None:
+        '''Set the notebook instance.'''
+        self.notebook_frame = notebook_frame
 
-        # Set the local var of the spoiler log folder
-        self.spoiler_log_folder = program.root_dir / 'SpoilerLog'
-
-    def dump_and_fill(self, spoiler_log_file: str) -> None:
+    def dump_and_fill(self,
+                      spoiler_log_file: str,
+                      resetter: ResetUtils) -> None:
         '''Take the provided path, and dump the log then fill the tabs.'''
         # Set the local var of the log
-        self.spoiler_log_file = spoiler_log_file
+        self.spoiler_log_file = Path(spoiler_log_file)
 
         # Change the window title to include the seed name
         seed_name = findall(r'\-\-(.*?)\-\-', spoiler_log_file)[0]
-        self.program.change_title(seed_name)
+        self.notebook_frame.update_title(seed_name)
 
         # Parse the provided data
-        self.parse_spoiler_log()
+        self.parse_spoiler_log(resetter)
 
     def dump_log(self) -> dict:
         '''Take the provided file name, and dump the log.'''
         # Re-affix '.json' to the spoiler log's file name
-        self.spoiler_log_file = Path(self.spoiler_log_file).with_suffix('.json')
+        self.spoiler_log_file = self.spoiler_log_file.with_suffix('.json')
 
         # Make the path to the log
-        spoiler_log_path = (self.spoiler_log_folder / self.spoiler_log_file)
+        spoiler_log_path = (directories.spoiler_log_dir / self.spoiler_log_file)
 
         # Dump the spoiler log data
         # Ecconia provided the fix for reading the file, encoded in 'UTF-8'
         with open(spoiler_log_path, 'r', encoding='utf-8') as f:
             return load(f)
 
-    def parse_spoiler_log(self) -> None:
+    def parse_spoiler_log(self, resetter: ResetUtils) -> None:
         '''Parse the spoiler log data.'''
         # NOTE: This does require some arbitrary knowledge of the
         # spoiler log's structure. Sorry in advance.
@@ -76,4 +76,4 @@ class ParseLog:
                 # Special handling for Agitha
                 if sign == 'Agithas_Castle_Sign':
                     # Go to her parsing
-                    AgithaTab(self.program, hint_text)
+                    AgithaTab(hint_text, resetter)

@@ -3,9 +3,12 @@
 # Complex utils are found under hints/utils/parse_log.py
 
 from customtkinter import CTkButton, CTkComboBox, CTkFrame, CTkLabel, StringVar
-from hints.control.program import Program
+from hints.utils.constants import directories
+from hints.utils.constants import tab_names
 from hints.utils.parse_log import ParseLog
-from hints.utils.reset_utils import ResetUtils
+
+from hints.gui_management.managers.reset_utils import ResetUtils
+
 from os import listdir
 from pathlib import Path
 from subprocess import check_call
@@ -14,37 +17,31 @@ from subprocess import check_call
 class SpoilerLog:
     '''The class to handle all spoiler log things.'''
     # Instances
-    program = Program               # Provided program instance
-    parser = ParseLog               # The parser instance
-    resetter = ResetUtils           # The reset instance, set by the program
-
-    # The spoiler log folder
-    spoiler_logs_folder = Path
+    parser: ParseLog                  # The parser instance (created locally)
+    resetter: ResetUtils              # The resetter instance (passed in)
 
     # Local interface vars
-    spoiler_tab = CTkFrame          # The tab that we're working in
-    spoiler_log_button = CTkButton  # The main button
-    interface_frame = None          # The frame hosting the interface elements
-    spoiler_log_var = StringVar     # The var for picking the spoiler log
+    spoiler_tab: CTkFrame             # The tab that we're working in
+    spoiler_log_button: CTkButton     # The main button
+    interface_frame: CTkFrame | None  # The frame for interface elements
+    spoiler_log_var: StringVar        # The var for picking the spoiler log
 
-    def __init__(self, program: Program) -> None:
+    def __init__(self, resetter: ResetUtils) -> None:
         '''Create the host frames, and the main button.'''
-        # Store the program
-        self.program = program
+        # Store the resetter instance
+        self.resetter = resetter
 
-        # Init the spoiler log parser
-        self.parser = ParseLog(self.program)
-
-        # Update the reset instance
-        self.resetter = program.resetter
-
-        # Grab the spoiler log folder
-        self.spoiler_logs_folder = self.parser.spoiler_log_folder
+        # Init the spoiler log parser, passing it the notebook
+        # frame from the reset utility instance
+        self.parser = ParseLog(self.resetter.notebook_frame)
 
         # Create the spoiler log tab
-        self.spoiler_tab = self.program.notebook.add('Spoiler Log')
+        self.spoiler_tab = self.resetter.add_tab(tab_names.spoiler_tab_name)
 
-        # The main button that affects the frame -----------------------
+        # Set the interface frame to None
+        self.interface_frame = None
+
+        # Create the main button that affects the frame ----------------
         self.spoiler_log_button = CTkButton(command=self.present_logs,
                                             master=self.spoiler_tab,
                                             text='Pick Log')
@@ -54,7 +51,7 @@ class SpoilerLog:
     def clipboard_path(self) -> None:
         '''Copies the path to clipboard.'''
         # https://stackoverflow.com/a/41029935
-        command = f'echo {self.spoiler_logs_folder}|clip'
+        command = f'echo {directories.spoiler_log_dir}|clip'
 
         check_call(command, shell=True)
 
@@ -77,7 +74,7 @@ class SpoilerLog:
             return
 
         # Reset the tracker, but do not tab back
-        self.resetter.reset_tracker(False)
+        self.resetter.reset_tracker(tab_back=False)
 
         # Make the stringvar to store which was chosen
         self.spoiler_log_var = StringVar(value=spoilers[0])
@@ -119,7 +116,7 @@ class SpoilerLog:
         # The error text (for PEP8 compliance, and readability)
         error_text = ('There are no available spoiler logs. Please provide one'
                       ' in the following folder:\n\n'
-                      f'{self.spoiler_logs_folder}\n\nClick below to copy'
+                      f'{directories.spoiler_log_dir}\n\nClick below to copy'
                       ' the path to your clipboard.')
         # The error label itself
         error_label = CTkLabel(justify='left',
@@ -149,8 +146,8 @@ class SpoilerLog:
 
     def dump_spoiler_log(self) -> None:
         '''Dumps the spoiler log and passes it on to the parser'''
-        # Tab back to the notes
-        self.program.set_to_notes_tab()
+        # Tab back to the notes tab
+        self.resetter.set_to_notes_tab()
 
         # Get the chosen log
         spoiler_log = self.spoiler_log_var.get()
@@ -159,7 +156,7 @@ class SpoilerLog:
         self.destroy_frame()
 
         # Dump and fill the tabs
-        self.parser.dump_and_fill(spoiler_log)
+        self.parser.dump_and_fill(spoiler_log, self.resetter)
 
     def present_logs(self) -> None:
         '''Presents a list of the spoiler logs available.'''
@@ -167,7 +164,7 @@ class SpoilerLog:
         self.destroy_frame()
 
         # Get the spoiler logs available
-        spoiler_logs = listdir(self.spoiler_logs_folder)
+        spoiler_logs = listdir(directories.spoiler_log_dir)
 
         # Validate which files can actually be used
         valid_spoilers = []

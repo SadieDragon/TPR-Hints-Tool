@@ -1,6 +1,14 @@
+
+# My utility files
+# (notes, testing stuffs, and errors)
+test_utils
+
+# Remnants of file-distribution
+# (I want to keep this in my folder for hidden testing)
 Output
-__pycache__
-test.py
+
+# Ignore the new spoiler logs I dump for testing
 SpoilerLog
 
-error.txt
+# Ignore any new saves created by testing
+Saves
